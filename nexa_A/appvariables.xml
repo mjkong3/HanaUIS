@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppVariables version="2.0">
+  <Datasets>
+    <Dataset id="gdsMenu">
+      <ColumnInfo>
+        <Column id="MENU_ID" type="STRING" size="256"/>
+        <Column id="MENU_NM" type="STRING" size="256"/>
+        <Column id="MENU_LEVEL" type="STRING" size="256"/>
+        <Column id="MENU_PATH" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row>
+          <Col id="MENU_LEVEL">0</Col>
+          <Col id="MENU_ID">00</Col>
+          <Col id="MENU_NM">사용자 조회</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">0000</Col>
+          <Col id="MENU_NM">학생</Col>
+          <Col id="MENU_LEVEL">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">000000</Col>
+          <Col id="MENU_NM">학생 관리</Col>
+          <Col id="MENU_LEVEL">2</Col>
+          <Col id="MENU_PATH">MainBase::student.xfdl</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">0001</Col>
+          <Col id="MENU_NM">교수</Col>
+          <Col id="MENU_LEVEL">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_LEVEL">2</Col>
+          <Col id="MENU_ID">000100</Col>
+          <Col id="MENU_NM">교수 관리</Col>
+          <Col id="MENU_PATH">MainBase::professor.xfdl</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">01</Col>
+          <Col id="MENU_NM">강의</Col>
+          <Col id="MENU_LEVEL">0</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">0100</Col>
+          <Col id="MENU_NM">강의</Col>
+          <Col id="MENU_LEVEL">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">010000</Col>
+          <Col id="MENU_NM">강의 관리</Col>
+          <Col id="MENU_LEVEL">2</Col>
+          <Col id="MENU_PATH">MainBase::course.xfdl</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">0101</Col>
+          <Col id="MENU_NM">성적</Col>
+          <Col id="MENU_LEVEL">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">010100</Col>
+          <Col id="MENU_NM">성적 관리</Col>
+          <Col id="MENU_LEVEL">2</Col>
+          <Col id="MENU_PATH">MainBase::record.xfdl</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">010101</Col>
+          <Col id="MENU_NM">성적 통계</Col>
+          <Col id="MENU_LEVEL">2</Col>
+          <Col id="MENU_PATH">MainBase::record_static.xfdl</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_NM">공지사항</Col>
+          <Col id="MENU_ID">02</Col>
+          <Col id="MENU_LEVEL">0</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">0200</Col>
+          <Col id="MENU_NM">공지사항</Col>
+          <Col id="MENU_LEVEL">1</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">020001</Col>
+          <Col id="MENU_NM">공지사항</Col>
+          <Col id="MENU_LEVEL">2</Col>
+          <Col id="MENU_PATH">MainBase::board.xfdl</Col>
+        </Row>
+      </Rows>
+    </Dataset>
+    <Dataset id="gdsOpenMenu">
+      <ColumnInfo>
+        <Column id="MENU_ID" type="STRING" size="256"/>
+        <Column id="OPEN_YES" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+  </Datasets>
+  <Variables/>
+  <DataObjects/>
+</AppVariables>

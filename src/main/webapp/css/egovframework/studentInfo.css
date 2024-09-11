@@ -1,0 +1,77 @@
+@charset "UTF-8";
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 800px;
+    height: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
+}
+
+
+
+
+.student-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.student-list th, .student-list td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.student-list th {
+    background-color:  #f2f2f2;
+}
+
+.student-list tr:hover {
+    background-color: #f1f1f1;
+}
+
+.student-list td {
+    color: #333;
+}
+
+.student-list input[type="number"] {
+    width: 60px;
+    padding: 5px;
+}
+
+.student-list select {
+    padding: 5px;
+}
+
+.submit-section {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.submit-section button {
+    padding: 10px 20px;
+    background-color: #0056b3;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.submit-section button:hover {
+    background-color:  rgb(15,15,112);
+}

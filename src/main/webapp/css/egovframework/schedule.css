@@ -1,0 +1,83 @@
+/* 전체 페이지 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* 콘텐츠 박스 */
+.container {
+    width: 800px;
+    height: 1050px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* 제목 스타일 */
+h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #007BFF;
+    padding-bottom: 10px;
+}
+
+
+/* 테이블 스타일 */
+.timetable {
+    width: 800px;
+    padding : 20px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.timetable th, .timetable td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.timetable th {
+	width: 100px;
+    background-color:  #f2f2f2;
+}
+
+.timetable td {
+    height: 80px; /* 각 셀의 최소 높이 */
+    vertical-align: top;
+    color: #333;
+}
+
+.timetable .class-info {
+    background-color: #eaeaea;
+    height: 80px;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.timetable .class-info strong {
+    font-weight: bold;
+    color: #007BFF;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .content {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .timetable th, .timetable td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+}

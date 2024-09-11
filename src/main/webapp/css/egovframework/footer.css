@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+footer {
+    background-color: rgb(15,15,112);
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    position: relative;
+    left: 200px;
+    bottom: 0;
+    width: calc(100% - 200px); /* 메뉴 너비만큼 빼기 */
+    position: fixed;
+}
+* p{
+	font-size: small;
+}

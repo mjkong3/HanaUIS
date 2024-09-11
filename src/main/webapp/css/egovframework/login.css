@@ -1,0 +1,132 @@
+@charset "UTF-8";
+/* 기본 스타일 초기화 */
+body, html {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	height: 100%;
+	padding-top: 2vh;
+	padding-bottom: 2vh;
+}
+
+table {
+	width: 100%;
+}
+
+/* 로그인 컨테이너 */
+.login-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	background-color: #ffffff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	width: 90%;
+	max-width: 400px;
+	margin: auto;
+}
+
+/* 로고 스타일 */
+/* .logo-container {
+	margin-bottom: 10px;
+} */
+
+.logo {
+	width: 300px; /* 로고 크기 조정 */
+	height: auto;
+}
+
+/* 로그인 폼 스타일 */
+.login-form {
+	width: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+}
+
+h1 {
+	font-size: 24px;
+	margin-bottom: 20px;
+	text-align: center;
+	color: #333;
+}
+
+h3 {
+	text-align: center;
+	color: #333;
+}
+
+.form-group {
+	margin-bottom: 15px;
+	padding-left: 3%;
+	padding-right: 5%;
+}
+
+/* .form-group label {
+	display: block;
+	font-weight: bold;
+	margin-bottom: 5px;
+} */
+.form-group input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 7px;
+	box-sizing: border-box;
+}
+
+.mail-check-box {
+	margin-bottom: 15px;
+	padding-left: 3%;
+	padding-right: 5%;
+}
+
+.mail-check-box input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 7px;
+	box-sizing: border-box;
+}
+
+.form-group button {
+	width: 100%;
+	padding: 10px;
+	border-radius: 7px;
+	background-color: #919399;
+	color: #ffffff;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	border: 1px solid #dadada;
+}
+
+button {
+	width: 100%;
+	padding: 10px;
+	border: none;
+	/* border-radius: 5px; */
+	background-color: #696C73;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #ACACAE;
+}
+
+.input-group {
+	display: flex;
+}
+
+#form_login {
+	background-color: #EBEAE8;
+}
+
+
+
+

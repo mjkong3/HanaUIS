@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="nexacro.TutorialAlertAction">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.TutorialAlertAction" shorttypename="TutorialAlertAction" csstypename="TutorialAlertAction" csscontrolname="TutorialAlertActionControl" group="Action" subgroup="Action" csspseudo="" container="false" composite="false" tabstop="false" cssstyle="false" contents="true" formats="false" contentseditor="auto" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE9,IE10,IE11,Chrome,Safari,Firefox,Opera,Windows nexacro Browser,macOS nexacro Browser,Android nexacro Browser,iOS nexacro Browser,Android Default Web Browser,iOS Default Web Browser" description="TutorialAlertActionはmessageとmodelに基づいてアラート動作を行うActionです。&#13;&#10;&#13;&#10;message値は入力した値をアラートのメッセージとして出力する値です。&#13;&#10;&#13;&#10;Model基準のFieldの選択値を出力できます。&#13;&#10;message値とModel基準のfieldの選択値を出力し、出力順序はmessage、Model基準のfieldの選択値の順に出力されます。&#13;&#10;message値とModel基準のfieldの選択値のうち1つを選択すると、1つの値のみ出力されます。"/>
+    <PropertyInfo>
+      <Property name="id" group="Information" subgroup="" refreshinfo="" edittype="ID" readonly="true" initonly="true" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="true" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE9,IE10,IE11,Chrome,Safari,Firefox,Opera,Windows nexacro Browser,macOS nexacro Browser,Android nexacro Browser,iOS nexacro Browser,Android Default Web Browser,iOS Default Web Browser" description="TutorialAlertActionの固有識別子を設定するプロパティです。" csspropertyname="" csselementname="" normalpropertyname="id"/>
+      <Property name="targetview" group="" subgroup="" refreshinfo="targetview" edittype="ViewObjList" defaultvalue="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="true" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE9,IE10,IE11,Chrome,Safari,Firefox,Opera,Windows nexacro Browser,macOS nexacro Browser,Android nexacro Browser,iOS nexacro Browser,Android Default Web Browser,iOS Default Web Browser" description="TutorialAlertActionにtargetviewを設定するプロパティです。" csspropertyname="" csselementname="" normalpropertyname="targetview"/>
+      <Property name="message" group="" subgroup="" refreshinfo="" edittype="String" defaultvalue="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE9,IE10,IE11,Chrome,Safari,Firefox,Opera,Windows nexacro Browser,macOS nexacro Browser,Android nexacro Browser,iOS nexacro Browser,Android Default Web Browser,iOS Default Web Browser" description="TutorialAlertActionにmessageを設定するプロパティです。&#13;&#10;message値は入力した値をアラートのメッセージとして出力する値です。" csspropertyname="" csselementname="" normalpropertyname="message"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo/>
+  </Object>
+</MetaInfo>

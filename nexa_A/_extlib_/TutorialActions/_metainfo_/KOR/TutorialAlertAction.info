@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MetaInfo version="2.0">
+  <Object id="nexacro.TutorialAlertAction">
+    <ObjectInfo inheritance="nexacro.Action" classname="nexacro.TutorialAlertAction" shorttypename="TutorialAlertAction" csstypename="TutorialAlertAction" csscontrolname="TutorialAlertActionControl" group="Action" subgroup="Action" csspseudo="" container="false" composite="false" tabstop="false" cssstyle="false" contents="true" formats="false" contentseditor="auto" defaultwidth="" defaultheight="" registration="allow" edittype="action" useinitvalue="false" popup="false" edittypecomponent="" dblclickevent="" requirement="IE9,IE10,IE11,Chrome,Safari,Firefox,Opera,Windows nexacro Browser,macOS nexacro Browser,Android nexacro Browser,iOS nexacro Browser,Android Default Web Browser,iOS Default Web Browser" description="TutorialAlertAction 은 message와 model 을 기반으로 Alert 동작을 수행하는 Action입니다.&#13;&#10;&#13;&#10;message 값은 입력한 값을 Alert 의 message 로 출력하는 값입니다.&#13;&#10;&#13;&#10;Model 기준 field 의 선택 값을 출력할 수 있습니다.&#13;&#10;message 값과 Model 기준 field 의 선택 값을 출력하며 출력 순서는 message, Model 기준 field 의 선택 값의 순으로 출력됩니다.&#13;&#10;message 값과 Model 기준 field 의 선택 값 중 하나만 선택시 하나의 값만 출력됩니다."/>
+    <PropertyInfo>
+      <Property name="id" group="Information" subgroup="" refreshinfo="" edittype="ID" readonly="true" initonly="true" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="true" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE9,IE10,IE11,Chrome,Safari,Firefox,Opera,Windows nexacro Browser,macOS nexacro Browser,Android nexacro Browser,iOS nexacro Browser,Android Default Web Browser,iOS Default Web Browser" description="TutorialAlertAction 의 고유 식별자를 설정하는 속성입니다." csspropertyname="" csselementname="" normalpropertyname="id"/>
+      <Property name="targetview" group="" subgroup="" refreshinfo="targetview" edittype="ViewObjList" defaultvalue="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="true" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE9,IE10,IE11,Chrome,Safari,Firefox,Opera,Windows nexacro Browser,macOS nexacro Browser,Android nexacro Browser,iOS nexacro Browser,Android Default Web Browser,iOS Default Web Browser" description="TutorialAlertAction 에 targetview 를 설정하는 속성입니다." csspropertyname="" csselementname="" normalpropertyname="targetview"/>
+      <Property name="message" group="" subgroup="" refreshinfo="" edittype="String" defaultvalue="" readonly="false" initonly="false" hidden="false" control="false" expr="false" bind="false" deprecated="false" unused="false" mandatory="false" objectinfo="" enuminfo="" enuminfo2="" unitinfo="" delimiter="" requirement="IE9,IE10,IE11,Chrome,Safari,Firefox,Opera,Windows nexacro Browser,macOS nexacro Browser,Android nexacro Browser,iOS nexacro Browser,Android Default Web Browser,iOS Default Web Browser" description="TutorialAlertAction 에 message 를 설정하는 속성입니다.&#13;&#10;message 값은 입력한 값을 Alert 의 message 로 출력하는 값입니다." csspropertyname="" csselementname="" normalpropertyname="message"/>
+    </PropertyInfo>
+    <CSSInfo>
+      <PropertyInfo/>
+    </CSSInfo>
+    <StatusInfo/>
+    <MethodInfo/>
+    <EventHandlerInfo/>
+  </Object>
+</MetaInfo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ateam.mapper.ClassMapper">
+
+<!-- 교수 강의 목록 : header 목록 출력 용 -->
+<select id="selectClassList" parameterType="int" resultType="ateam.dto.ClassDTO">
+		select class_code, class_name from CLASS where professor_id = #{id};
+</select>
+
+<!-- 교수 시간표  -->
+<select id="professorClassTimeList" parameterType ="int" resultType="HashMap">
+		SELECT 
+		    C.CLASS_NAME AS subject,
+		    P.NAME AS professor,
+		    CT.TIME_NUMBER AS classHour,  
+		    CT.CLASS_WEEK AS weekDay,
+		    CR.CLASSROOM_NAME AS location
+		FROM CLASS_TIME CT
+		INNER JOIN CLASS C ON CT.CLASS_CODE = C.CLASS_CODE
+		INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID
+		INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID
+		WHERE P.PROFESSOR_ID = #{id}
+		ORDER BY CT.CLASS_WEEK, CT.TIME_NUMBER;
+</select>
+
+<!-- 학생 시간표 -->
+<select id="studentClassTimeList" parameterType ="int" resultType="HashMap">
+        SELECT 
+            C.CLASS_NAME AS subject,
+            P.PROFESSOR_NAME AS professor,
+            CT.TIME_NUMBER AS classHour,  
+            CT.CLASS_WEEK AS weekDay,
+            CR.CLASSROOM_NAME AS location
+        FROM CLASS_TIME CT
+        INNER JOIN CLASS C ON CT.CLASS_CODE = C.CLASS_CODE
+        INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID
+        INNER JOIN ENROLLMENT E ON C.CLASS_CODE = E.CLASS_CODE
+        INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID
+        WHERE E.STUDENT_ID = #{id}
+        ORDER BY CT.CLASS_WEEK, CT.TIME_NUMBER;
+</select>
+
+<!-- 수업 정보를 반환 -->
+<select id="selectClass" parameterType="int" resultType="HashMap">
+SELECT C.CLASS_CODE AS classCode, C.CLASS_NAME AS className, C.CLASS_START AS classStart, 
+		C.CLASS_END AS classEnd, C.SEMESTER AS semester, C.CLASS_GRADE as classGrade, 
+		C.CLASS_INFO AS classInfo, CR.MAX_PEOPLE AS maxPeople ,C.DEPARTMENT_CODE AS departmentCode, CR.CLASSROOM_NAME AS classRoomName , P.NAME AS name
+	FROM CLASS C
+		INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID =CR.CLASSROOM_ID 
+		INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID 
+	WHERE C.CLASS_CODE = #{classCode};
+</select>
+
+<!-- 수업 시간을 반환 -->
+<select id="selectClassTime" parameterType ="int" resultType="HashMap">
+		SELECT 
+		    C.CLASS_NAME AS subject,
+		    P.NAME AS professor,
+		    CT.TIME_NUMBER AS classHour,  
+		    CT.CLASS_WEEK AS weekDay,
+		    CR.CLASSROOM_NAME AS location
+		FROM CLASS_TIME CT
+		INNER JOIN CLASS C ON CT.CLASS_CODE = C.CLASS_CODE
+		INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID
+		INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID
+		WHERE C.CLASS_CODE = #{classCode}
+		ORDER BY CT.CLASS_WEEK, CT.TIME_NUMBER;
+</select>
+</mapper>

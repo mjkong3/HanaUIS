@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModelInfo version="1.1">
+  <Service id="tutorial_SearchEmployee" url="http://localhost:8080/">
+    <Model id="tutorial_SearchEmployee" description="Data model for searching employee information.">
+      <Field id="company" label="Company" fieldtype="SelectOne" datatype="BLOB" datasize="80" description="company name" editable="true" uselabel="true"/>
+      <Field id="department" label="Department" fieldtype="SelectOne" datatype="BLOB" datasize="80" description="department name" editable="true" uselabel="true"/>
+      <Field id="name" label="Name" fieldtype="FreeText" datatype="STRING" datasize="80" description="employee name" editable="true" uselabel="true"/>
+      <UserFieldAttributeInfo>
+        <Property name="editable" edittype="Boolean" enuminfo="" defaultvalue="true" description="Sets whether the field data can be edited."/>
+        <Property name="uselabel" edittype="Boolean" enuminfo="" defaultvalue="true" description="Sets whether the field data can use label."/>
+      </UserFieldAttributeInfo>
+    </Model>
+  </Service>
+  <Service id="tutorial_AdditionEmployee" url="">
+    <Model id="tutorial_AdditionEmployee" description="Data model for employee details.">
+      <Field id="company" label="Company" fieldtype="SelectOne" datatype="BLOB" datasize="80" description="company name" editable="false" uselabel="true"/>
+      <Field id="department" label="Department" fieldtype="SelectOne" datatype="BLOB" datasize="80" description="department name" editable="true" uselabel="true"/>
+      <Field id="emp_name" label="Name" fieldtype="FreeText" datatype="STRING" datasize="80" description="employee name" editable="true" uselabel="true"/>
+      <Field id="position" label="Position" fieldtype="SelectOne" datatype="STRING" datasize="80" description="name of position" editable="true" uselabel="true"/>
+      <Field id="cellphone" label="Phone" fieldtype="FreeText" datatype="STRING" datasize="80" description="cell phone number" editable="true" uselabel="true"/>
+      <Field id="address" label="Address" fieldtype="FreeText" datatype="STRING" datasize="256" description="home address" editable="true" uselabel="true"/>
+      <UserFieldAttributeInfo>
+        <Property name="editable" edittype="Boolean" enuminfo="" defaultvalue="true" description="Sets whether the field data can be edited."/>
+        <Property name="uselabel" edittype="Boolean" enuminfo="" defaultvalue="true" description="Sets whether the field data can use label."/>
+      </UserFieldAttributeInfo>
+    </Model>
+  </Service>
+  <Service id="tutorial_DetailEmployee" url="">
+    <Model id="tutorial_DetailEmployee" description="Data model for employee details.">
+      <Field id="company" label="Company" fieldtype="SelectOne" datatype="BLOB" datasize="80" description="company name" editable="false" uselabel="true"/>
+      <Field id="department" label="Department" fieldtype="SelectOne" datatype="BLOB" datasize="80" description="department name" editable="true" uselabel="true"/>
+      <Field id="name" label="Name" fieldtype="FreeText" datatype="STRING" datasize="80" description="employee name" editable="true" uselabel="true"/>
+      <Field id="position" label="Position" fieldtype="SelectOne" datatype="STRING" datasize="80" description="name of position" editable="true" uselabel="true"/>
+      <Field id="phone" label="Phone" fieldtype="FreeText" datatype="STRING" datasize="80" description="cell phone number" editable="true" uselabel="true"/>
+      <Field id="address" label="Address" fieldtype="FreeText" datatype="STRING" datasize="256" description="home address" editable="true" uselabel="true"/>
+      <UserFieldAttributeInfo>
+        <Property name="editable" edittype="Boolean" enuminfo="" defaultvalue="true" description="Sets whether the field data can be edited."/>
+        <Property name="uselabel" edittype="Boolean" enuminfo="" defaultvalue="true" description="Sets whether the field data can use label."/>
+      </UserFieldAttributeInfo>
+    </Model>
+  </Service>
+</ModelInfo>

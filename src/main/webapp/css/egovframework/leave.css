@@ -1,0 +1,119 @@
+@charset "UTF-8";
+/* 전체 페이지 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* 콘텐츠 박스 */
+.content {
+    /* width: 800px;
+    margin: 50px auto; */
+    padding: 20px;
+
+}
+
+/* 제목 스타일 */
+h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007BFF;
+}
+
+/* 테이블 스타일 */
+table {
+    width: 800px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+    font-weight: normal;
+}
+
+td {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+th, td {
+    border-bottom: 1px solid #eaeaea;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"], textarea, select {
+    width: 100%;
+    padding: 8px 12px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* 제출 버튼 스타일 */
+input[type="submit"] {
+    width: 100%;
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .content {
+        width: 90%;
+        padding: 10px;
+    }
+
+    th, td {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    th {
+        font-weight: bold;
+        background-color: transparent;
+        color: #333;
+        padding-top: 10px;
+    }
+
+    td {
+        background-color: #fff;
+        padding-top: 0;
+    }
+
+    td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+    }
+
+    input[type="submit"] {
+        font-size: 18px;
+        padding: 14px 20px;
+    }
+}
