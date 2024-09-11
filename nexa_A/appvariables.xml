@@ -37,6 +37,11 @@
           <Col id="MENU_PATH">MainBase::professor.xfdl</Col>
         </Row>
         <Row>
+          <Col id="MENU_ID">000101</Col>
+          <Col id="MENU_NM">강의 배정</Col>
+          <Col id="MENU_LEVEL">2</Col>
+        </Row>
+        <Row>
           <Col id="MENU_ID">01</Col>
           <Col id="MENU_NM">강의</Col>
           <Col id="MENU_LEVEL">0</Col>
