@@ -20,7 +20,6 @@ import ateam.service.AdminService;
 import ateam.service.MailCheckService;
 
 @Controller
-@RequestMapping("/nexa_A")
 public class AdminController {
 	private Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
