@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.nexacro.uiadapter17.spring.core.annotation.ParamDataSet;
 import com.nexacro.uiadapter17.spring.core.data.NexacroResult;
 
+import ateam.dto.StudentDTO;
 import ateam.service.AdminService;
 import ateam.service.MailCheckService;
 
@@ -32,7 +34,7 @@ public class AdminController {
     private MailCheckService mailService;
 	
 	@RequestMapping(value = "/selectLogin.do")
-    public NexacroResult selectLogin(@ParamDataSet(name = "Login_Ds", required = false) Map<String, Object> param) {
+    public NexacroResult selectLogin(@ParamDataSet(name = "Login_Ds", required = false) Map<String, Object> param, HttpServletRequest request, StudentDTO dto) {
     	System.out.println("selectLogin.do");
     	NexacroResult result = new NexacroResult();
     	System.out.println(param);
