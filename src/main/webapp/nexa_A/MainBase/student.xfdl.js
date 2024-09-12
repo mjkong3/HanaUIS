@@ -71,7 +71,7 @@
             obj.set_taborder("2");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_CodeMst","25","88","475","174",null,null,null,null,null,null,this);
+            obj = new Grid("grd_CodeMst","20","88","475","174",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_binddataset("ds_CodeMstList");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"80\"/><Column size=\"120\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"코드\"/><Cell col=\"1\" text=\"코드명\"/></Band><Band id=\"body\"><Cell text=\"bind:CODE\"/><Cell col=\"1\" text=\"bind:CODE_NM\"/></Band></Format></Formats>");
@@ -267,8 +267,8 @@
         	// 	console.log("cmb_Search =" + this.cmb_Search.value);
         	// 	console.log("edt_Search =" + this.edt_Search.value);
 
-        	console.log("cmb_Search =" + this.ds_Search.getColumn(0,"SEARCH_TYPE"));
-        	console.log("edt_Search =" + this.ds_Search.getColumn(0,"SEARCH_WORD"));
+        	console.log("cmb_Search =" + this.search_ds.getColumn(0,"SEARCH_TYPE"));
+        	console.log("edt_Search =" + this.search_ds.getColumn(0,"SEARCH_WORD"));
         	//alert("조회 버튼 클릭");
 
         	var strSvcId    = "selectCodeMst";

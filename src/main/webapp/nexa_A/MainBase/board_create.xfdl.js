@@ -79,7 +79,7 @@
         };
         
         // User Script
-        this.registerScript("board.xfdl", function() {
+        this.registerScript("board_.xfdl", function() {
 
         this.Button00_onclick = function(obj,e)
         {
@@ -202,7 +202,7 @@
             this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);
             this.FileUpTransfer00.addEventHandler("onerror",this.FileUpTransfer00_onerror,this);
         };
-        this.loadIncludeScript("board.xfdl");
+        this.loadIncludeScript("board_.xfdl");
         this.loadPreloadList();
         
         // Remove Reference
