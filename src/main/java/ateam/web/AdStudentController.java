@@ -82,14 +82,13 @@ public class AdStudentController {
     	return result;
     }
 	
-	@RequestMapping(value = "/insertAdStudent.do")
-    public NexacroResult insertAdStudent(@ParamDataSet(name = "insert_ds", required = false) Map<String, Object> param) {
+	@RequestMapping(value = "/saveAdStudent.do")
+    public NexacroResult saveAdStudent(@ParamDataSet(name = "save_ds", required = false) Map<String, Object> param) {
 		NexacroResult result = new NexacroResult();
     	System.out.println(param);
 
     	try {
-    		service.insertAdStudent(param);
-    		
+    		service.saveAdStudent(param);
     	}catch(Exception ee) {
     		System.out.println(ee);
     	}

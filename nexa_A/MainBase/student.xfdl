@@ -270,7 +270,6 @@ this.fn_student_dtl = function()
           <Column id="ADDRESS" type="STRING" size="256"/>
           <Column id="STATUS" type="STRING" size="256"/>
           <Column id="DEPARTMENT_CODE" type="INT" size="256"/>
-          <Column id="DEPARTMENT_NAME" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
     </Objects>
