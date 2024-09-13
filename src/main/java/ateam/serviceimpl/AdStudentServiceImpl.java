@@ -29,8 +29,15 @@ public class AdStudentServiceImpl extends EgovAbstractServiceImpl implements AdS
 	}
 
 	@Override
-	public void insertAdStudent(Map<String, Object> param) {
-		mapper.insertAdStudent(param);
+	public void saveAdStudent(Map<String, Object> param) {
+		int check = 0;
+		check = mapper.checkAdStudent(param);
+		if(check == 0) {
+			mapper.insertAdStudent(param);
+		}
+		else if(check > 0){
+			mapper.updateAdStudent(param);
+		}
 		
 	}
 

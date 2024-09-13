@@ -52,7 +52,7 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 
 	switch(svcID)
 	{
-		case "insertAdStudent":
+		case "saveAdStudent":
 			this.alert("성공적으로 등록을 하였습니다.");
 			this.close();
 			break;
@@ -67,10 +67,10 @@ this.Popup_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
  	this.ds_de.copyData(objParam);
  	console.log("dkkddk" + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
 	
-	this.insert_ds.setColumn(0,"UNIV_YEAR","1");
-	this.insert_ds.setColumn(0,"GENDER","M");
-	this.insert_ds.setColumn(0,"STATUS","재학");
-	this.insert_ds.setColumn(0, "DEPARTMENT_CODE", this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+	this.save_ds.setColumn(0,"UNIV_YEAR","1");
+	this.save_ds.setColumn(0,"GENDER","M");
+	this.save_ds.setColumn(0,"STATUS","재학");
+	this.save_ds.setColumn(0, "DEPARTMENT_CODE", this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
 };
 
 
@@ -82,9 +82,9 @@ this.Stu_Add_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 this.insertstudent = function()
 {
-	var strSvcId    = "insertAdStudent";
-	var strSvcUrl   = "svc::insertAdStudent.do";
-	var inData      = "insert_ds = insert_ds";
+	var strSvcId    = "saveAdStudent";
+	var strSvcUrl   = "svc::saveAdStudent.do";
+	var inData      = "save_ds = save_ds";
 	var outData     = "";
 	var strArg      = "";
 	var callBackFnc = "fnCallback";
@@ -136,7 +136,7 @@ this.insertstudent = function()
           </Row>
         </Rows>
       </Dataset>
-      <Dataset id="insert_ds">
+      <Dataset id="save_ds">
         <ColumnInfo>
           <Column id="STUDENT_ID" type="INT" size="256"/>
           <Column id="PASSWORD" type="STRING" size="256"/>
@@ -180,17 +180,17 @@ this.insertstudent = function()
       </Dataset>
     </Objects>
     <Bind>
-      <BindItem id="item0" compid="STUDENT_ID" propid="value" datasetid="insert_ds" columnid="STUDENT_ID"/>
-      <BindItem id="item1" compid="PASSWORD" propid="value" datasetid="insert_ds" columnid="PASSWORD"/>
-      <BindItem id="item2" compid="NAME" propid="value" datasetid="insert_ds" columnid="NAME"/>
-      <BindItem id="item3" compid="de" propid="value" datasetid="insert_ds" columnid="DEPARTMENT_CODE"/>
-      <BindItem id="item4" compid="UNIV_YEAR" propid="value" datasetid="insert_ds" columnid="UNIV_YEAR"/>
-      <BindItem id="item5" compid="PHONE" propid="value" datasetid="insert_ds" columnid="PHONE"/>
-      <BindItem id="item6" compid="GENDER" propid="value" datasetid="insert_ds" columnid="GENDER"/>
-      <BindItem id="item7" compid="EMAIL" propid="value" datasetid="insert_ds" columnid="EMAIL"/>
-      <BindItem id="item8" compid="STATUS" propid="value" datasetid="insert_ds" columnid="STATUS"/>
-      <BindItem id="item9" compid="BIRTHDAY" propid="value" datasetid="insert_ds" columnid="BIRTHDAY"/>
-      <BindItem id="item10" compid="ADDRESS" propid="value" datasetid="insert_ds" columnid="ADDRESS"/>
+      <BindItem id="item0" compid="STUDENT_ID" propid="value" datasetid="save_ds" columnid="STUDENT_ID"/>
+      <BindItem id="item1" compid="PASSWORD" propid="value" datasetid="save_ds" columnid="PASSWORD"/>
+      <BindItem id="item2" compid="NAME" propid="value" datasetid="save_ds" columnid="NAME"/>
+      <BindItem id="item3" compid="de" propid="value" datasetid="save_ds" columnid="DEPARTMENT_CODE"/>
+      <BindItem id="item4" compid="UNIV_YEAR" propid="value" datasetid="save_ds" columnid="UNIV_YEAR"/>
+      <BindItem id="item5" compid="PHONE" propid="value" datasetid="save_ds" columnid="PHONE"/>
+      <BindItem id="item6" compid="GENDER" propid="value" datasetid="save_ds" columnid="GENDER"/>
+      <BindItem id="item7" compid="EMAIL" propid="value" datasetid="save_ds" columnid="EMAIL"/>
+      <BindItem id="item8" compid="STATUS" propid="value" datasetid="save_ds" columnid="STATUS"/>
+      <BindItem id="item9" compid="BIRTHDAY" propid="value" datasetid="save_ds" columnid="BIRTHDAY"/>
+      <BindItem id="item10" compid="ADDRESS" propid="value" datasetid="save_ds" columnid="ADDRESS"/>
     </Bind>
   </Form>
 </FDL>
