@@ -38,7 +38,7 @@
             obj.set_font("bold 42px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_board","65","150","1150","420",null,null,null,null,null,null,this);
+            obj = new Grid("grd_board","65","150","1150","370",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("boardList_ds");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"208\"/><Column size=\"389\"/><Column size=\"260\"/><Column size=\"286\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"게시판 코드\"/><Cell col=\"1\" text=\"제 목\"/><Cell col=\"2\" text=\"작성자\"/><Cell col=\"3\" text=\"게시 날짜\"/></Band><Band id=\"body\"><Cell text=\"bind:BOARD_CODE\"/><Cell col=\"1\" text=\"bind:TITLE\"/><Cell col=\"2\" text=\"bind:NAME\"/><Cell col=\"3\" text=\"bind:BOARD_DATE\"/></Band></Format></Formats>");
@@ -62,6 +62,11 @@
             obj.set_value("ALL");
             obj.set_index("0");
             this.addChild(obj.name, obj);
+
+            obj = new Button("btn_add","1115","540","100","40",null,null,null,null,null,null,this);
+            obj.set_taborder("5");
+            obj.set_text("공지사항 등록");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",1280,720,this,function(p){});
@@ -83,7 +88,12 @@
         
         // User Script
         this.registerScript("board_main.xfdl", function() {
+        /************************************************************************
+         *
+         ************************************************************************/
+
         //콜백 함수
+
         // this.fnCallback = function(svcID,errorCode,errorMsg)
         // {
         // 	// 에러 시 화면 처리 내역
@@ -114,6 +124,25 @@
         // 	}
         // };
 
+        // 팝업콜백 함수
+        this.fn_popupCallback = function(strPopupID, strReturn)
+        {
+            if(strPopupID == undefined){
+                return;
+            }
+
+            if(strPopupID == "popupWork"){
+        		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_TXT", this.ds_dtl_selected.getColumn(0, "COL_TXT"));
+        		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_CHK", this.ds_dtl_selected.getColumn(0, "COL_CHK"));
+        		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_NUM", this.ds_dtl_selected.getColumn(0, "COL_NUM"));
+        		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_DTE", this.ds_dtl_selected.getColumn(0, "COL_DTE"));
+        		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_CBO", this.ds_dtl_selected.getColumn(0, "COL_CBO"));
+
+                this.alert("Return Value: " + strReturn);
+            }
+        };
+
+
         //화면 로딩 시 기능
         this.board_main_onload = function(obj,e)
         {
@@ -122,8 +151,11 @@
         	this.fnSearch();
         };
 
-        // 기능
+        /************************************************************************
+         * 							기능
+         ************************************************************************/
 
+        // 검색 기능
         this.fnSearch = function() {
 
         	var strSvcId    = "selectBoardList";
@@ -135,13 +167,16 @@
         	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
-        }
+        };
 
         this.boardList_ds_onvaluechanged = function(obj,e)
         {
 
         };
 
+        /************************************************************************
+         *          				특별 이벤트 짜잔
+         ************************************************************************/
 
         // 버튼 이벤트
         this.btn_Search_onclick = function(obj,e)
@@ -149,12 +184,41 @@
         	 this.fnSearch();
         };
 
-
-
-        this.cmb_Search_onitemchanged = function(obj,e)
+        this.grd_board_oncelldblclick = function(obj,e)
         {
 
         };
+
+        this.btn_add_onclick = function(obj,e)
+        {
+        // 	var objParam = {
+        // 				COL_TXT:this.ds_dtl.getColumn(this.ds_dtl.rowposition, "COL_TXT")
+        // 			  , COL_CHK:this.ds_dtl.getColumn(this.ds_dtl.rowposition, "COL_CHK")
+        // 			  , COL_NUM:this.ds_dtl.getColumn(this.ds_dtl.rowposition, "COL_NUM")
+        // 			  , COL_DTE:this.ds_dtl.getColumn(this.ds_dtl.rowposition, "COL_DTE")
+        // 			  , COL_CBO:this.ds_dtl.getColumn(this.ds_dtl.rowposition, "COL_CBO")};
+        	var surl = "MainBase::board_upload.xfdl";
+        	var objParam;
+        	this.showPopup(objParam, surl);
+        };
+
+        	// 팝업호출
+        this.showPopup = function (objParam, surl)
+        {
+        	popup = new nexacro.ChildFrame;
+        	popup.init("popupWork", 0, 0, 800, 700, null, null, surl);
+        	popup.set_dragmovetype("all");
+        	popup.set_layered("true");
+        	popup.set_autosize(true);
+        	popup.set_showtitlebar("Popup Title");
+        	popup.set_showstatusbar(false);
+        	popup.set_resizable(true);
+        	popup.set_openalign("center middle");
+        	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
+         	popup.style.set_overlaycolor("#6666664C");
+         	popup.form.style.set_border("1 solid #4c5a6f");
+        }
+
 
         });
         
@@ -162,8 +226,10 @@
         this.on_initEvent = function()
         {
             this.addEventHandler("onload",this.board_main_onload,this);
+            this.grd_board.addEventHandler("oncelldblclick",this.grd_board_oncelldblclick,this);
             this.btn_Search.addEventHandler("onclick",this.btn_Search_onclick,this);
             this.cmb_Search.addEventHandler("onitemchanged",this.cmb_Search_onitemchanged,this);
+            this.btn_add.addEventHandler("onclick",this.btn_add_onclick,this);
             this.boardList_ds.addEventHandler("onvaluechanged",this.boardList_ds_onvaluechanged,this);
         };
         this.loadIncludeScript("board_main.xfdl");

@@ -4,7 +4,7 @@
     <Layouts>
       <Layout height="720" width="1280">
         <Static id="stt_board" taborder="0" text="공지사항" left="65" top="35" width="172" height="51" font="bold 42px/normal &quot;Gulim&quot;"/>
-        <Grid id="grd_board" taborder="1" left="65" top="150" width="1150" height="420" binddataset="boardList_ds">
+        <Grid id="grd_board" taborder="1" left="65" top="150" width="1150" height="370" binddataset="boardList_ds" oncelldblclick="grd_board_oncelldblclick">
           <Formats>
             <Format id="default">
               <Columns>
@@ -35,6 +35,7 @@
         <Button id="btn_Search" taborder="2" text="검색" left="1100" top="100" width="115" height="35" onclick="btn_Search_onclick"/>
         <Edit id="edt_Search" taborder="3" left="933" top="103" width="150" height="30"/>
         <Combo id="cmb_Search" taborder="4" text="전체" left="780" top="100" width="135" height="35" innerdataset="searchType_ds" datacolumn="DATA" codecolumn="CODE" index="0" value="ALL" onitemchanged="cmb_Search_onitemchanged"/>
+        <Button id="btn_add" taborder="5" text="공지사항 등록" left="1115" top="540" width="100" height="40" onclick="btn_add_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -84,7 +85,12 @@
         </Rows>
       </Dataset>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[//콜백 함수
+    <Script type="xscript5.1"><![CDATA[/************************************************************************
+ * 
+ ************************************************************************/
+
+//콜백 함수
+
 // this.fnCallback = function(svcID,errorCode,errorMsg)
 // {
 // 	// 에러 시 화면 처리 내역
@@ -115,6 +121,25 @@
 // 	}
 // };
 
+// 팝업콜백 함수
+this.fn_popupCallback = function(strPopupID, strReturn)
+{
+    if(strPopupID == undefined){
+        return;
+    }
+	
+    if(strPopupID == "popupWork"){
+		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_TXT", this.ds_dtl_selected.getColumn(0, "COL_TXT"));
+		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_CHK", this.ds_dtl_selected.getColumn(0, "COL_CHK"));
+		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_NUM", this.ds_dtl_selected.getColumn(0, "COL_NUM"));
+		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_DTE", this.ds_dtl_selected.getColumn(0, "COL_DTE"));
+		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_CBO", this.ds_dtl_selected.getColumn(0, "COL_CBO"));
+	
+        this.alert("Return Value: " + strReturn);
+    }
+};
+
+
 //화면 로딩 시 기능
 this.board_main_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
@@ -123,8 +148,11 @@ this.board_main_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	this.fnSearch();
 };
 
-// 기능
+/************************************************************************
+ * 							기능
+ ************************************************************************/
 
+// 검색 기능
 this.fnSearch = function() {
 	
 	var strSvcId    = "selectBoardList";
@@ -136,13 +164,16 @@ this.fnSearch = function() {
 	var isAsync     = true;
 	
 	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
-}
+};
 
 this.boardList_ds_onvaluechanged = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
 {
 	
 };
 
+/************************************************************************
+ *          				특별 이벤트 짜잔
+ ************************************************************************/
 
 // 버튼 이벤트
 this.btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -150,12 +181,41 @@ this.btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	 this.fnSearch();
 };
 
-
-
-this.cmb_Search_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+this.grd_board_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	
 };
+
+this.btn_add_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+// 	var objParam = {
+// 				COL_TXT:this.ds_dtl.getColumn(this.ds_dtl.rowposition, "COL_TXT")
+// 			  , COL_CHK:this.ds_dtl.getColumn(this.ds_dtl.rowposition, "COL_CHK")
+// 			  , COL_NUM:this.ds_dtl.getColumn(this.ds_dtl.rowposition, "COL_NUM")
+// 			  , COL_DTE:this.ds_dtl.getColumn(this.ds_dtl.rowposition, "COL_DTE")
+// 			  , COL_CBO:this.ds_dtl.getColumn(this.ds_dtl.rowposition, "COL_CBO")};
+	var surl = "MainBase::board_upload.xfdl";	
+	var objParam;
+	this.showPopup(objParam, surl);
+};
+
+	// 팝업호출
+this.showPopup = function (objParam, surl) 
+{		  
+	popup = new nexacro.ChildFrame;
+	popup.init("popupWork", 0, 0, 800, 700, null, null, surl);
+	popup.set_dragmovetype("all");
+	popup.set_layered("true");
+	popup.set_autosize(true);
+	popup.set_showtitlebar("Popup Title");
+	popup.set_showstatusbar(false);
+	popup.set_resizable(true);
+	popup.set_openalign("center middle");
+	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
+ 	popup.style.set_overlaycolor("#6666664C");
+ 	popup.form.style.set_border("1 solid #4c5a6f");
+}
+
 ]]></Script>
     <Bind>
       <BindItem id="item0" compid="edt_Search" propid="value" datasetid="search_ds" columnid="SEARCH_WORD"/>

@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="board_upload" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Static id="Static00" taborder="0" text="공지사항 관리" left="495" top="10" width="264" height="74" font="30pt &quot;gulim&quot;,&quot;한컴 고딕&quot;"/>
+        <Static id="Static01" taborder="1" text="제목" left="174" top="134" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <TextArea id="TextArea00" taborder="2" left="410" top="137" width="584" height="46" textAlign="left" font="16px/normal &quot;Gulim&quot;" scrolltype="none"/>
+        <Static id="Static01_00" taborder="3" text="작성자" left="174" top="194" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none" onclick="Static01_00_onclick"/>
+        <Static id="Static01_01" taborder="4" text="내용" left="174" top="257" width="172" height="197" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <TextArea id="TextArea00_01" taborder="5" left="410" top="260" width="584" height="190" textAlign="left" font="16px/normal &quot;Gulim&quot;" scrolltype="vertical"/>
+        <Static id="Static01_00_00" taborder="6" text="첨부파일" left="174" top="460" width="172" height="93" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none" onclick="Static01_00_onclick"/>
+        <Grid id="grd_file" taborder="7" left="410" top="464" width="480" height="94" binddataset="ds_file" onclick="grd_file_onclick" ondrop="grd_file_ondrop">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="378"/>
+                <Column size="100"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="파일명"/>
+                <Cell col="1" text="파일용량"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:파일명"/>
+                <Cell col="1" text="bind:파일용량"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btn_addFile" taborder="8" text="파일 첨부" left="900" top="464" width="94" height="42" onclick="btn_addFile_onclick"/>
+        <Button id="btn_deleteFile" taborder="9" text="파일 삭제" left="900" top="516" width="94" height="40"/>
+        <Button id="btn_addBoard" taborder="10" text="게시" left="630" top="624" width="72" height="33" onclick="btn_addBoard_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+/************************************************************************
+ * 								파일 업로드							*
+ ************************************************************************/
+
+// 파일 추가 처리 함수
+this.addFileList = function(filelist)
+{
+    for (var i = 0, len = filelist.length, vFile; i < len; i++)
+    {
+        vFile = filelist[i];
+        vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
+        vFile.addEventHandler("onerror", this.FileList_onerror , this);
+        
+        vFile.open(null, 1);
+    }
+}
+
+// 파일 첨부 성공/실패 여부 함수
+this.FileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileEventInfo)
+{
+    switch (e.reason)
+    {
+        case 1:
+            obj.getFileSize();
+            break;
+        case 9:
+            var nRowIdx = this.ds_file.addRow();
+            this.ds_file.setColumn(nRowIdx, 0, obj.filename);
+            this.ds_file.setColumn(nRowIdx, 1, this.cutFileSize(e.filesize));
+            this.FileUpTransfer00.addFile(obj.filename, obj);
+            break;
+    }
+}
+
+// 파일 첨부 처리 오류 함수
+
+this.FileUpTransfer00_onprogress = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferProgressEventInfo)
+{
+    this.fn_addlog(e.loaded+"/"+e.total);
+};
+
+this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventinfo)
+{
+    this.fn_addlog(e.code);
+    this.fn_addlog(e.message);
+};
+
+this.FileUpTransfer00_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferErrorEventInfo)
+{
+    this.fn_addlog(e.errormsg);
+    this.fn_addlog(e.statuscode);
+};
+
+// 파일 크기 계산 함수
+this.cutFileSize = function(filesize)
+{
+    var sOutput = filesize + " bytes";
+    for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) 
+    {
+        sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
+    }
+    return sOutput;
+};
+
+this.FileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileErrorEventInfo)
+{
+    trace("errortype: "+e.errortype);
+    trace("errormsg: "+e.errormsg);
+    trace("statuscode: "+e.statuscode);
+}
+
+
+/************************************************************************
+ *  					이벤트											*
+ ************************************************************************/
+
+
+// 파일 첨부 버튼 클릭 시 FileDailog 창 팝업
+this.btn_addFile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);
+};
+
+// FileDialog 창 닫을 시에 파일 처리 기능 작동
+this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{	
+    this.addFileList(e.virtualfiles);
+	this.FileUpTransfer00.upload('svc::AdminFileUpload.do');
+};
+
+// 파일을 그리드에 drop 시 파일 첨부
+this.grd_file_ondrop = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+{
+    this.Grid00.set_opacity(1);
+    if(e.datatype == "file")
+    {
+        this.addFileList(e.filelist); 
+		this.FileUpTransfer00.upload('svc::AdminFileUpload.do');
+    }
+};
+
+
+this.btn_addBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_file">
+        <ColumnInfo>
+          <Column id="파일명" type="STRING" size="256"/>
+          <Column id="파일용량" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileUpTransfer id="FileUpTransfer00"/>
+      <FileDialog id="FileDialog00" onclose="FileDialog00_onclose"/>
+    </Objects>
+  </Form>
+</FDL>
