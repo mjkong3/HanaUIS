@@ -56,7 +56,7 @@
             obj = new Grid("Dtl_Grid","293","96","947","524",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("DEPARTMENT_DTL_List");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"91\"/><Column size=\"92\"/><Column size=\"88\"/><Column size=\"109\"/><Column size=\"232\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"학번\"/><Cell col=\"1\" text=\"이름\"/><Cell col=\"2\" text=\"상태\"/><Cell col=\"3\" text=\"번호\"/><Cell col=\"4\" text=\"이메일\"/></Band><Band id=\"body\"><Cell text=\"bind:Student_id\"/><Cell col=\"1\" text=\"bind:Name\"/><Cell col=\"2\" text=\"bind:Status\"/><Cell col=\"3\" text=\"bind:Phone\"/><Cell col=\"4\" text=\"bind:Email\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"180\"/><Column size=\"170\"/><Column size=\"150\"/><Column size=\"200\"/><Column size=\"247\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"학번\"/><Cell col=\"1\" text=\"이름\"/><Cell col=\"2\" text=\"상태\"/><Cell col=\"3\" text=\"번호\"/><Cell col=\"4\" text=\"이메일\"/></Band><Band id=\"body\"><Cell text=\"bind:Student_id\"/><Cell col=\"1\" text=\"bind:Name\"/><Cell col=\"2\" text=\"bind:Status\"/><Cell col=\"3\" text=\"bind:Phone\"/><Cell col=\"4\" text=\"bind:Email\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Combo("Search_Cmb","33","30","237","46",null,null,null,null,null,null,this);
@@ -64,7 +64,6 @@
             obj.set_innerdataset("Search_Type");
             obj.set_datacolumn("data");
             obj.set_codecolumn("code");
-            obj.set_text("전체");
             obj.set_value("All");
             obj.set_index("0");
             this.addChild(obj.name, obj);

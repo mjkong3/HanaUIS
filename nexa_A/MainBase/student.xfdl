@@ -29,11 +29,11 @@
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="91"/>
-                <Column size="92"/>
-                <Column size="88"/>
-                <Column size="109"/>
-                <Column size="232"/>
+                <Column size="180"/>
+                <Column size="170"/>
+                <Column size="150"/>
+                <Column size="200"/>
+                <Column size="247"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -56,7 +56,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Combo id="Search_Cmb" taborder="2" text="전체" left="33" top="30" width="237" height="46" onitemchanged="Combo00_onitemchanged" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="All"/>
+        <Combo id="Search_Cmb" taborder="2" left="33" top="30" width="237" height="46" onitemchanged="Combo00_onitemchanged" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="All"/>
         <Button id="Select_btn" taborder="3" text="조회" left="1086" top="30" width="68" height="46" onclick="Select_btn_onclick"/>
         <Edit id="Edit00" taborder="4" left="293" top="30" width="770" height="46"/>
         <Button id="plus_btn" taborder="5" text="등록" left="1176" top="30" width="64" height="46" onclick="plus_btn_onclick"/>
