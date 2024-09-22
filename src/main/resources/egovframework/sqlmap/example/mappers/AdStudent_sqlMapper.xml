@@ -11,6 +11,11 @@
 		SELECT Student_id, Name, Status, Phone, Email, DEPARTMENT_CODE
 		FROM STUDENT
 		WHERE 1=1
+		
+		<if test="DEPARTMENT_CODE != 00">
+		AND DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+		</if>
+		
 		<if test="SEARCH_WORD != null">
 			<if test="SEARCH_TYPE == 'All'"> 
 				AND (Student_id LIKE CONCAT('%', #{SEARCH_WORD}, '%')
@@ -35,8 +40,6 @@
 				AND Email LIKE CONCAT('%', #{SEARCH_WORD}, '%')
 			</if>
 		</if>
-		
-		AND DEPARTMENT_CODE = #{DEPARTMENT_CODE}
 		
 	</select>
 	
