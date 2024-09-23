@@ -11,6 +11,11 @@
 		SELECT Student_id, Name, Status, Phone, Email, DEPARTMENT_CODE
 		FROM STUDENT
 		WHERE 1=1
+		
+		<if test="DEPARTMENT_CODE != 00">
+		AND DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+		</if>
+		
 		<if test="SEARCH_WORD != null">
 			<if test="SEARCH_TYPE == 'All'"> 
 				AND (Student_id LIKE CONCAT('%', #{SEARCH_WORD}, '%')
@@ -36,9 +41,14 @@
 			</if>
 		</if>
 		
-		AND DEPARTMENT_CODE = #{DEPARTMENT_CODE}
-		
 	</select>
+	
+	<select id="checkAdStudent" parameterType="java.util.Map" resultType="Integer">
+		SELECT COUNT(1)
+		FROM STUDENT
+		WHERE STUDENT_ID = #{STUDENT_ID}
+	</select>
+	
 	
 	<insert id="insertAdStudent" parameterType="java.util.Map">
 		INSERT INTO STUDENT (STUDENT_ID,
@@ -66,6 +76,22 @@
 	
 	</insert>
 	
+	<update id="updateAdStudent" parameterType="java.util.Map">
+		update STUDENT set
+					PASSWORD = SHA2(#{PASSWORD}, 256),
+					NAME = #{NAME},
+					UNIV_YEAR = #{UNIV_YEAR},
+					PHONE = #{PHONE},
+					EMAIL = #{EMAIL},
+					BIRTHDAY = #{BIRTHDAY},
+					GENDER = #{GENDER},
+					ADDRESS = #{ADDRESS},
+					STATUS = #{STATUS},
+					DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+					where STUDENT_ID = #{STUDENT_ID}
+					
+	</update>
+	
 	<select id="selectAdStudentdtl" parameterType="hashMap" resultType="hashMap">
 		SELECT STUDENT_ID,
 					PASSWORD,
@@ -77,11 +103,8 @@
 					GENDER,
 					ADDRESS,
 					STATUS,
-					b.DEPARTMENT_NAME as DEPARTMENT_NAME,
-					b.DEPARTMENT_CODE as DEPARTMENT_CODE
-		FROM STUDENT a
-		join DEPARTMENT b
-			on a.DEPARTMENT_CODE = b.DEPARTMENT_CODE
+					DEPARTMENT_CODE
+		FROM STUDENT
 		where 1=1
 		and STUDENT_ID = #{Student_id}
 	</select>

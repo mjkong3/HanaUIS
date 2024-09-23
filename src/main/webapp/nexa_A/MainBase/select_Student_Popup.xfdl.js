@@ -17,8 +17,8 @@
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
-            obj = new Dataset("select_student", this);
-            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj = new Dataset("save_ds", this);
+            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -197,15 +197,18 @@
 
             obj = new Edit("STUDENT_ID","448","83","152","30",null,null,null,null,null,null,this);
             obj.set_taborder("24");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Edit("PASSWORD","721","83","195","30",null,null,null,null,null,null,this);
             obj.set_taborder("25");
             obj.set_password("true");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Edit("NAME","448","132","152","30",null,null,null,null,null,null,this);
             obj.set_taborder("26");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Combo("de","723","131","193","31",null,null,null,null,null,null,this);
@@ -213,6 +216,7 @@
             obj.set_innerdataset("ds_de");
             obj.set_codecolumn("DEPARTMENT_CODE");
             obj.set_datacolumn("DEPARTMENT_NAME");
+            obj.set_readonly("true");
             obj.set_text("");
             obj.set_value("");
             obj.set_index("0");
@@ -223,6 +227,7 @@
             obj.set_innerdataset("grade_type");
             obj.set_codecolumn("code");
             obj.set_datacolumn("data");
+            obj.set_readonly("true");
             obj.set_text("1학년");
             obj.set_value("1");
             obj.set_index("0");
@@ -230,6 +235,7 @@
 
             obj = new Edit("PHONE","721","181","195","30",null,null,null,null,null,null,this);
             obj.set_taborder("29");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Radio("GENDER","450","228","150","36",null,null,null,null,null,null,this);
@@ -238,6 +244,7 @@
             obj.set_datacolumn("data");
             obj.set_codecolumn("code");
             obj.set_direction("vertical");
+            obj.set_readonly("true");
             obj.set_text("");
             obj.set_value("M");
             obj.set_index("1");
@@ -245,6 +252,7 @@
 
             obj = new Edit("EMAIL","721","230","195","30",null,null,null,null,null,null,this);
             obj.set_taborder("31");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Combo("STATUS","447","279","153","31",null,null,null,null,null,null,this);
@@ -252,6 +260,7 @@
             obj.set_innerdataset("static_type_ds");
             obj.set_codecolumn("code");
             obj.set_datacolumn("data");
+            obj.set_readonly("true");
             obj.set_text("");
             obj.set_value("");
             obj.set_index("0");
@@ -260,10 +269,24 @@
             obj = new Calendar("BIRTHDAY","720","279","196","31",null,null,null,null,null,null,this);
             obj.set_taborder("33");
             obj.set_dateformat("yyyy-MM-dd");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Edit("ADDRESS","447","328","469","30",null,null,null,null,null,null,this);
             obj.set_taborder("34");
+            obj.set_readonly("true");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("return_btn","640","391","119","39",null,null,null,null,null,null,this);
+            obj.set_taborder("35");
+            obj.set_text("되돌아가기");
+            obj.set_visible("false");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("save_btn","780","392","151","38",null,null,null,null,null,null,this);
+            obj.set_taborder("36");
+            obj.set_text("저장");
+            obj.set_visible("false");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -271,47 +294,47 @@
             this.addLayout(obj.name, obj);
             
             // BindItem Information
-            obj = new BindItem("item0","STUDENT_ID","value","select_student","STUDENT_ID");
+            obj = new BindItem("item0","STUDENT_ID","value","save_ds","STUDENT_ID");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item1","PASSWORD","value","select_student","PASSWORD");
+            obj = new BindItem("item1","PASSWORD","value","save_ds","PASSWORD");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item2","NAME","value","select_student","NAME");
+            obj = new BindItem("item2","NAME","value","save_ds","NAME");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item3","de","value","select_student","DEPARTMENT_CODE");
+            obj = new BindItem("item3","de","value","save_ds","DEPARTMENT_CODE");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item4","UNIV_YEAR","value","select_student","UNIV_YEAR");
+            obj = new BindItem("item4","UNIV_YEAR","value","save_ds","UNIV_YEAR");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item5","PHONE","value","select_student","PHONE");
+            obj = new BindItem("item5","PHONE","value","save_ds","PHONE");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item6","GENDER","value","select_student","GENDER");
+            obj = new BindItem("item6","GENDER","value","save_ds","GENDER");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item7","EMAIL","value","select_student","EMAIL");
+            obj = new BindItem("item7","EMAIL","value","save_ds","EMAIL");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item8","STATUS","value","select_student","STATUS");
+            obj = new BindItem("item8","STATUS","value","save_ds","STATUS");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item9","BIRTHDAY","value","select_student","BIRTHDAY");
+            obj = new BindItem("item9","BIRTHDAY","value","save_ds","BIRTHDAY");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item10","ADDRESS","value","select_student","ADDRESS");
+            obj = new BindItem("item10","ADDRESS","value","save_ds","ADDRESS");
             this.addChild(obj.name, obj);
             obj.bind();
             
@@ -327,12 +350,31 @@
         // User Script
         this.registerScript("select_Student_Popup.xfdl", function() {
 
+        //처리콜백 함수
+        this.fnCallback = function(svcID,errorCode,errorMsg)
+        {
+        	// 에러 시 화면 처리 내역
+        	if(errorCode == -1)
+        	{
+        		this.alert(errorMsg);
+        		return;
+        	}
+
+        	switch(svcID)
+        	{
+        		case "saveAdStudent":
+        			this.alert("성공적으로 수정하였습니다.");
+        			this.close();
+        			break;
+        	}
+        };
+
         this.select_Student_Popup_onload = function(obj,e)
         {
         	var objParam1 = this.parent.param1;
         	var objParam2 = this.parent.param2;
 
-         	this.select_student.copyData(objParam1);
+         	this.save_ds.copyData(objParam1);
         	this.ds_de.copyData(objParam2);
          	/*console.log(this.select_student.getColumn(0,all));*/
 
@@ -356,7 +398,6 @@
 
         this.Stu_Add_btn_onclick = function(obj,e)
         {
-        	this.STUDENT_ID.set_readonly(false);
         	this.PASSWORD.set_readonly(false);
         	this.NAME.set_readonly(false);
         	this.UNIV_YEAR.set_readonly(false);
@@ -368,7 +409,51 @@
         	this.STATUS.set_readonly(false);
         	this.de.set_readonly(false);
 
-        	this.Stu_Add_btn.set_text("수정 완료");
+        	this.return_btn.set_visible(true);
+
+        	this.Stu_Add_btn.set_visible(false);
+        	this.save_btn.set_visible(true);
+
+        };
+
+        this.fn_update_student = function()
+        {
+        	var strSvcId    = "saveAdStudent";
+        	var strSvcUrl   = "svc::saveAdStudent.do";
+        	var inData      = "save_ds = save_ds";
+        	var outData     = "";
+        	var strArg      = "";
+        	var callBackFnc = "fnCallback";
+        	var isAsync     = true;
+
+        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+
+        }
+
+        this.return_btn_onclick = function(obj,e)
+        {
+        	this.STUDENT_ID.set_readonly(true);
+        	this.PASSWORD.set_readonly(true);
+        	this.NAME.set_readonly(true);
+        	this.UNIV_YEAR.set_readonly(true);
+        	this.PHONE.set_readonly(true);
+        	this.EMAIL.set_readonly(true);
+        	this.BIRTHDAY.set_readonly(true);
+        	this.GENDER.set_readonly(true);
+        	this.ADDRESS.set_readonly(true);
+        	this.STATUS.set_readonly(true);
+        	this.de.set_readonly(true);
+
+        	this.return_btn.set_visible(false);
+
+        	this.Stu_Add_btn.set_visible(true);
+        	this.save_btn.set_visible(false);
+        };
+
+
+        this.save_btn_onclick = function(obj,e)
+        {
+        	this.fn_update_student();
         };
 
         });
@@ -379,6 +464,8 @@
             this.addEventHandler("onload",this.select_Student_Popup_onload,this);
             this.Static00_03_01.addEventHandler("onclick",this.Static00_03_01_onclick,this);
             this.Stu_Add_btn.addEventHandler("onclick",this.Stu_Add_btn_onclick,this);
+            this.return_btn.addEventHandler("onclick",this.return_btn_onclick,this);
+            this.save_btn.addEventHandler("onclick",this.save_btn_onclick,this);
         };
         this.loadIncludeScript("select_Student_Popup.xfdl");
         this.loadPreloadList();

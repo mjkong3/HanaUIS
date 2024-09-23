@@ -1,5 +1,6 @@
 package ateam.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +30,16 @@ public class AdStudentController {
     		List<Map<String, Object>> DEPARTMENT_List = service.selectDepartment();
     		//Map<String, Object> welcome = service.welcome(param);
     		System.out.println("dkdkdkddkefewa"+ DEPARTMENT_List);
+    		
+            Map<String, Object> allDept = new HashMap<>();
+            allDept.put("DEPARTMENT_CODE", "00");  // 학과 코드 공백 (전체 의미)
+            allDept.put("DEPARTMENT_NAME", "전체학과");  // 학과 이름 "전체학과"로 설정
+            
+            // "전체학과"를 리스트의 첫 번째 행에 추가
+            DEPARTMENT_List.add(0, allDept);
 
-    		result.addDataSet("DEPARTMENT_List", DEPARTMENT_List);
+            // 조회된 데이터를 넥사크로 데이터셋에 추가
+            result.addDataSet("DEPARTMENT_List", DEPARTMENT_List);
     		
     	}catch(Exception ee) {
     		System.out.println(ee);
@@ -46,14 +55,18 @@ public class AdStudentController {
     	NexacroResult result = new NexacroResult();
 
     	try {
-    		List<Map<String, Object>> DEPARTMENT_DTL_List = service.selectAdStudent(param);
+    		System.out.println("0번");
+    		List<Map<String, Object>>  DEPARTMENT_DTL_List = service.selectAdStudent(param);
     		//Map<String, Object> welcome = service.welcome(param);
+    		System.out.println("1번");
+    		
+   
     		System.out.println("dkdkdkddkefewa"+ DEPARTMENT_DTL_List);
 
     		result.addDataSet("DEPARTMENT_DTL_List", DEPARTMENT_DTL_List);
     		
     	}catch(Exception ee) {
-    		System.out.println(ee);
+    		ee.printStackTrace();
     		result.setErrorCode(-1);
     		result.setErrorMsg("catch 조회 오류");
     	}
@@ -82,19 +95,19 @@ public class AdStudentController {
     	return result;
     }
 	
-	@RequestMapping(value = "/insertAdStudent.do")
-    public NexacroResult insertAdStudent(@ParamDataSet(name = "insert_ds", required = false) Map<String, Object> param) {
+	@RequestMapping(value = "/saveAdStudent.do")
+    public NexacroResult saveAdStudent(@ParamDataSet(name = "save_ds", required = false) Map<String, Object> param) {
 		NexacroResult result = new NexacroResult();
     	System.out.println(param);
 
     	try {
-    		service.insertAdStudent(param);
-    		
+    		service.saveAdStudent(param);
     	}catch(Exception ee) {
     		System.out.println(ee);
     	}
-    	
+    	System.out.println("뭘 리턴하지? " + result);
     	return result;
+    	
     }
 	
 

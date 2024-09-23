@@ -32,7 +32,7 @@
             this.addChild(obj.name, obj);
 
 
-            obj = new Dataset("insert_ds", this);
+            obj = new Dataset("save_ds", this);
             obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
@@ -270,47 +270,47 @@
             this.addLayout(obj.name, obj);
             
             // BindItem Information
-            obj = new BindItem("item0","STUDENT_ID","value","insert_ds","STUDENT_ID");
+            obj = new BindItem("item0","STUDENT_ID","value","save_ds","STUDENT_ID");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item1","PASSWORD","value","insert_ds","PASSWORD");
+            obj = new BindItem("item1","PASSWORD","value","save_ds","PASSWORD");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item2","NAME","value","insert_ds","NAME");
+            obj = new BindItem("item2","NAME","value","save_ds","NAME");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item3","de","value","insert_ds","DEPARTMENT_CODE");
+            obj = new BindItem("item3","de","value","save_ds","DEPARTMENT_CODE");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item4","UNIV_YEAR","value","insert_ds","UNIV_YEAR");
+            obj = new BindItem("item4","UNIV_YEAR","value","save_ds","UNIV_YEAR");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item5","PHONE","value","insert_ds","PHONE");
+            obj = new BindItem("item5","PHONE","value","save_ds","PHONE");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item6","GENDER","value","insert_ds","GENDER");
+            obj = new BindItem("item6","GENDER","value","save_ds","GENDER");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item7","EMAIL","value","insert_ds","EMAIL");
+            obj = new BindItem("item7","EMAIL","value","save_ds","EMAIL");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item8","STATUS","value","insert_ds","STATUS");
+            obj = new BindItem("item8","STATUS","value","save_ds","STATUS");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item9","BIRTHDAY","value","insert_ds","BIRTHDAY");
+            obj = new BindItem("item9","BIRTHDAY","value","save_ds","BIRTHDAY");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item10","ADDRESS","value","insert_ds","ADDRESS");
+            obj = new BindItem("item10","ADDRESS","value","save_ds","ADDRESS");
             this.addChild(obj.name, obj);
             obj.bind();
             
@@ -337,27 +337,76 @@
 
         	switch(svcID)
         	{
-        		case "insertAdStudent":
+        		case "saveAdStudent":
         			this.alert("성공적으로 등록을 하였습니다.");
         			this.close();
         			break;
         	}
         };
-        this.Popup_Work_onload = function(obj,e)
-        {
-        /*	this.insert_ds.setColumn(0,"DEPARTMENT_CODE",this.insert_ds.getColumn(0,1));*/
 
-         	var objParam  = this.parent.param1;
+        // this.Popup_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+        // {
+        // /*	this.insert_ds.setColumn(0,"DEPARTMENT_CODE",this.insert_ds.getColumn(0,1));*/
+        //
+        //  	var objParam  = this.parent.param1;
+        //  	console.log("DEPARTMENT_CODE: " + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+        //  	this.ds_de.copyData(objParam);
+        //  	console.log("selected_DeptCode" + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+        //
+        // 	var departmentCode = this.ds_de.getColumn(0, "DEPARTMENT_CODE");
+        //
+        //     if (departmentCode == "00") {
+        //         // 전체학과가 선택된 경우 콤보박스에서 전체학과를 선택
+        //         this.de.set_index(0);  // 콤보박스의 첫 번째 항목(전체학과)을 선택
+        // 		 console.log("Selected index: 0 (전체학과)");
+        //     } else {
+        //         // 일반 학과가 선택된 경우 해당 학과의 DEPARTMENT_CODE 설정
+        //         this.de.set_value(departmentCode);
+        // 		 console.log("Selected value: " + departmentCode);
+        //     }
+        //
+        // 	this.save_ds.setColumn(0,"UNIV_YEAR","1");
+        // 	this.save_ds.setColumn(0,"GENDER","M");
+        // 	this.save_ds.setColumn(0,"STATUS","재학");
+        // 	this.save_ds.setColumn(0, "DEPARTMENT_CODE", this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+        // };
 
-         	this.ds_de.copyData(objParam);
-         	console.log("dkkddk" + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+        // 자식(팝업) 폼 코드 (팝업 로드 시 호출되는 함수)
+        this.Popup_Work_onload = function(obj, e) {
+            // 부모 폼에서 넘겨받은 param1 (데이터셋)과 선택된 학과 코드
+            var objParam = this.parent.param1;                // 부모 폼에서 넘긴 데이터셋
+            var selectedDeptCode = this.parent.selectedDeptCode; // 부모 폼에서 넘긴 선택된 학과 코드
 
-        	this.insert_ds.setColumn(0,"UNIV_YEAR","1");
-        	this.insert_ds.setColumn(0,"GENDER","M");
-        	this.insert_ds.setColumn(0,"STATUS","재학");
-        	this.insert_ds.setColumn(0, "DEPARTMENT_CODE", this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+            // 데이터셋 복사: 부모 폼에서 넘겨받은 데이터셋을 ds_de에 복사
+            this.ds_de.copyData(objParam);
+
+        //     // 콤보박스에 데이터셋 바인딩 설정
+        //     this.de.set_innerdataset(this.ds_de);
+        //     this.de.set_codecolumn("DEPARTMENT_CODE");  // 콤보박스에서 사용할 코드 컬럼
+        //     this.de.set_datacolumn("DEPARTMENT_NAME");  // 콤보박스에 표시할 데이터 컬럼
+
+            // 선택된 학과 코드를 콤보박스에 설정
+        //     if (selectedDeptCode) {
+        //         if (selectedDeptCode === "00") {
+        //             // 전체학과가 선택된 경우 콤보박스에서 0번째 항목을 선택
+        //             this.de.set_index(0);
+        //             console.log("전체학과 선택됨");
+        //         } else {
+        //             // 일반 학과가 선택된 경우 해당 학과의 DEPARTMENT_CODE 설정
+        //
+        //             console.log("선택된 DEPARTMENT_CODE: " + selectedDeptCode);
+        //         }
+        //     } else {
+        //         console.log("선택된 학과 정보가 없습니다.");
+        //     }
+        	this.de.set_value(selectedDeptCode);
+
+            // 데이터셋에 다른 초기 값 설정 (예시)
+            this.save_ds.setColumn(0, "UNIV_YEAR", "1");
+            this.save_ds.setColumn(0, "GENDER", "M");
+            this.save_ds.setColumn(0, "STATUS", "재학");
+            this.save_ds.setColumn(0, "DEPARTMENT_CODE", selectedDeptCode);  // 선택한 학과 코드 설정
         };
-
 
 
         this.Stu_Add_btn_onclick = function(obj,e)
@@ -367,9 +416,9 @@
 
         this.insertstudent = function()
         {
-        	var strSvcId    = "insertAdStudent";
-        	var strSvcUrl   = "svc::insertAdStudent.do";
-        	var inData      = "insert_ds = insert_ds";
+        	var strSvcId    = "saveAdStudent";
+        	var strSvcUrl   = "svc::saveAdStudent.do";
+        	var inData      = "save_ds = save_ds";
         	var outData     = "";
         	var strArg      = "";
         	var callBackFnc = "fnCallback";

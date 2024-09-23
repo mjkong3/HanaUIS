@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="test11" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Button id="Button00" taborder="0" text="Button00" left="187" top="88" width="120" height="50" onclick="Button00_onclick"/>
+        <Calendar id="Calendar00" taborder="1" left="406" top="92" width="208" height="82"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	trace(this.ds_date.getColumn(0, "regDate"));
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_date">
+        <ColumnInfo>
+          <Column id="regDate" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="regDate">2011-01-01</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="Calendar00" propid="value" datasetid="ds_date" columnid="regDate"/>
+    </Bind>
+  </Form>
+</FDL>

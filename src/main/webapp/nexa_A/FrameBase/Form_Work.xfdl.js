@@ -50,6 +50,33 @@
         
         // User Script
         this.registerScript("Form_Work.xfdl", function() {
+        // this.frmWork_onload = function(obj:nexacro.Form, e:nexacro.LoadEventInfo)
+        // {
+        //     // 화면 초기화 함수 호출
+        //     this.fnInitForm();
+        // };
+        //
+        // this.fnInitForm = function ()
+        // {
+        //   //현재 form이 소속된 부모 frame 반
+        //   var objOwnerFrame = this.getOwnerFrame();
+        //
+        //   //파라미터 정보 중 메뉴명 가져오기
+        //   var sPageNm = objOwnerFrame.param.menunm;
+        //
+        //   //파라미터 정보 중 메뉴경로 가져오기
+        //   var sFormPath= objOwnerFrame.param.menupath;
+        //
+        //   //화면 타이틀 설정
+        //   this.staTitle.set_text(sPageNm);
+        //   this.staTitle.set_fittocontents("width");
+        //
+        // };
+
+        this.ImageViewer00_onclick = function(obj,e)
+        {
+
+        };
 
         });
         
