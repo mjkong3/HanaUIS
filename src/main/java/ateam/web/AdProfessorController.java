@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nexacro.uiadapter17.spring.core.annotation.ParamDataSet;
+import com.nexacro.uiadapter17.spring.core.annotation.ParamVariable;
 import com.nexacro.uiadapter17.spring.core.data.NexacroResult;
 
 import ateam.service.AdProfessorService;
@@ -126,19 +127,20 @@ public class AdProfessorController {
 	
 	// onclickEvent - 수정용 popup에 필요한 정보 넘겨주기
 	@RequestMapping(value = "/selectAdProInfo")
-	public NexacroResult selectAdProInfo(@RequestParam("PROFESSOR_ID") String ProId) {
+	public NexacroResult selectAdProInfo(@ParamVariable(name = "PROFESSOR_ID", required = false) String ProId) {
 		NexacroResult result = new NexacroResult();
-		
+			System.out.println("받아왔는지1? " + ProId);
 		try {
     		Map<String, Object> ds_list = service.selectAdProInfo(ProId);
-    		
+    		System.out.println("받아왔는지2? " + ds_list);
     		result.addDataSet("ds_list", ds_list);
+    		System.out.println("넣어졌는지1? " + ds_list);
     	}catch(Exception ee) {
     		System.out.println(ee);
     		result.setErrorCode(-1);
     		result.setErrorMsg("catch 조회 오류");
     	}
-    	
+    	System.out.println("넣어졌는지2? " + result);
     	return result;
 	}
 }

@@ -347,14 +347,14 @@
             obj.set_text("   퇴직일");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_Birth00","720","377","195","31",null,null,null,null,null,null,this);
+            obj = new Calendar("cal_LastDay","720","377","195","31",null,null,null,null,null,null,this);
             obj.set_taborder("46");
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("false");
             obj.set_visible("true");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_Birth00_00","447","377","153","31",null,null,null,null,null,null,this);
+            obj = new Calendar("cal_FirstDay","447","377","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("47");
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("false");
@@ -444,6 +444,21 @@
          	this.ds_pro.copyData(objParam1);
         	this.ds_dept.copyData(objParam2);
 
+        	// readonly 설정하기
+        	this.edt_ProId.set_readonly(true);
+        	this.edt_ProPw.set_readonly(true);
+        	this.edt_ProName.set_readonly(true);
+        	this.cmb_Dept.set_readonly(true);
+        	this.rdo_Gender.set_readonly(true);
+        	this.cal_Birth.set_readonly(true);
+        	this.cmb_Lab.set_readonly(true);
+        	this.edt_Phone.set_readonly(true);
+        	this.cmb_Status.set_readonly(true);
+        	this.edt_Email.set_readonly(true);
+        	this.edt_Adr.set_readonly(true);
+        	this.cal_FirstDay.set_readonly(true);
+        	this.cal_LastDay.set_readonly(true);
+
         };
 
         });
@@ -451,6 +466,7 @@
         // Regist UI Components Event
         this.on_initEvent = function()
         {
+            this.addEventHandler("onload",this.select_Professor_Popup_onload,this);
             this.Static00_01_00.addEventHandler("onclick",this.Static00_01_00_onclick,this);
             this.Static00_00_02.addEventHandler("onclick",this.Static_onclick,this);
             this.Static00_03_02.addEventHandler("onclick",this.Static_onclick,this);

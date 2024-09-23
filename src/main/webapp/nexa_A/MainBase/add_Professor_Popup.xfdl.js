@@ -347,14 +347,14 @@
             obj.set_text("   퇴직일");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_Birth00","720","377","195","31",null,null,null,null,null,null,this);
+            obj = new Calendar("cal_LastDay","720","377","195","31",null,null,null,null,null,null,this);
             obj.set_taborder("46");
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("false");
             obj.set_visible("true");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_Birth00_00","447","377","153","31",null,null,null,null,null,null,this);
+            obj = new Calendar("cal_FirstDay","447","377","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("47");
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("false");

@@ -23,7 +23,7 @@
 
 
             obj = new Dataset("ds_list", this);
-            obj._setContents("<ColumnInfo><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"10\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -39,6 +39,11 @@
 
             obj = new Dataset("ds_admin", this);
             obj._setContents("<ColumnInfo><Column id=\"regDate\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_pro", this);
+            obj._setContents("");
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
@@ -137,7 +142,7 @@
         	var inData      = "";
         	var outData     = "ds_dept = ds_dept";
         	var strArg      = "";
-        	var callBackFnc = "fnCallback";
+        	var callBackFnc = "fnCallBack";
         	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
@@ -182,7 +187,7 @@
         	var inData      = "ds_search = ds_search";
         	var outData     = "ds_list = ds_list";
         	var strArg      = "";
-        	var callBackFnc = "fnCallback";
+        	var callBackFnc = "fnCallBack";
         	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
@@ -205,7 +210,7 @@
         	this.fn_getAdminInfo();
 
         };
-
+        // 관리자 info 호출 함수
         this.fn_getAdminInfo = function ()
         {
         	var strSvcId    = "getAdminInfo";
@@ -219,7 +224,7 @@
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 
         };
-
+        // 관리자 info 호출 콜백함수 - transaction 완료 후 팝업호출을 위해 콜백에 로직작성
         this.fnCallBack_admin = function (svcID, errCD, errMsg)
         {
             if (svcID == "getAdminInfo" && errCD == 0) {
@@ -248,7 +253,7 @@
                 if (this.ds_admin.rowcount > 0) {
                     this.showPopup(objParam, surl);  // 데이터가 로드되었는지 확인 후 팝업 실행
                 } else {
-                    alert("관리자 정보를 가져오는 데 실패했습니다: 데이터셋이 비어 있습니다.");
+                    alert("데이터셋이 비어있습니다.");
                 }
             }
         };
@@ -279,14 +284,14 @@
         	 * 더블클릭 시 pk인 교번을 기준으로 selet 수행
         	 * 받아온 값
         	 */
-        	 var proId = obj.getCellText(e.row, "PROFESSOR_ID");
 
+            var proId = obj.getBindDataset().getColumn(e.row, "PROFESSOR_ID");
+
+            // 결과값을 콘솔에 출력
+            trace("클릭한 row의 proID 값: " + proId);
         	 this.fn_searchProInfo(proId);
 
-        	  var objParam = {
-              param1: this.ds_list,            // 데이터셋 전체
-              param2: this.ds_dept
-            };
+
 
             // 팝업 창 경로 설정
             var surl = "MainBase::select_Professor_Popup.xfdl";
@@ -296,20 +301,46 @@
 
         };
 
+        // 상세보기 호출 함수
         this.fn_searchProInfo = function(proId)
         {
         	var strSvcId    = "selectAdProInfo";
         	var strSvcUrl   = "svc::selectAdProInfo.do";
         	var inData      = "";
-        	var outData     = "ds_list=ds_list";
-        	var strArg      = "PROFESSOR_ID=" + proId;
-        	var callBackFnc = "fnCallback";
-        	var isAsync     = false;
+        	var outData     = "ds_pro=ds_list";
+        	var strArg      = "PROFESSOR_ID="+proId;
+        	var callBackFnc = "fnCallBack_ProInfo";
+        	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 
         };
 
+        // 상세보기 호출 콜백 함수 - transaction
+        this.fnCallBack_ProInfo = function (svcID, errCD, errMsg)
+        {
+            if (svcID == "selectAdProInfo" && errCD == 0) {
+                trace("서비스 ID: " + svcID + ", 에러 코드: " + errCD + ", 에러 메시지: " + errMsg);
+
+        		var objParam = {
+        		param1: this.ds_pro,
+        		param2: this.ds_dept
+        		};
+
+                trace("데이터들어왔나?1: " + this.ds_pro.getRowCount());
+                trace("데이터들어왔나?2: " + this.ds_dept.saveXML());
+
+                // 팝업 창 경로 설정
+                var surl = "MainBase::select_Professor_Popup.xfdl";
+
+                // 데이터가 존재할 경우 팝업을 호출
+                if (this.ds_pro.rowcount > 0) {
+                    this.showPopup(objParam, surl);  // 데이터가 로드되었는지 확인 후 팝업 실행
+                } else {
+                    alert("데이터셋이 비어있습니다.");
+                }
+            }
+        };
         });
         
         // Regist UI Components Event
