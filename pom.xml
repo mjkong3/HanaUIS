@@ -208,7 +208,7 @@
         </dependency>
         
        
-        <!-- maria db 집에서 사용할 경우!
+        <!-- maria db 집에서 사용할 경우! -->
         <dependency>
             <groupId>com.googlecode.log4jdbc</groupId>
             <artifactId>log4jdbc</artifactId>
@@ -232,7 +232,7 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>2.4.1</version>
         </dependency>
-        -->
+        
              <!-- json -->
       <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
       <!-- https://mvnrepository.com/artifact/org.json/json -->

@@ -25,7 +25,10 @@ public class AdStudentServiceImpl extends EgovAbstractServiceImpl implements AdS
 	@Override
 	public List<Map<String, Object>> selectAdStudent(Map<String, Object> param) {
 		// TODO Auto-generated method stub
+		
 		return mapper.selectAdStudent(param);
+		
+		 
 	}
 
 	@Override
