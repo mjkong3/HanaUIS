@@ -3,7 +3,7 @@
   <Form id="Form_Work" width="1080" height="650" titletext="Form_Work" onload="frmWork_onload">
     <Layouts>
       <Layout width="1080" height="650" screenid="Desktop_screen">
-        <ImageViewer id="ImageViewer00" taborder="0" left="70" top="0" width="930" height="559" image="url('image::KakaoTalk_20240905_092944347.png')" border="10px solid white"/>
+        <ImageViewer id="ImageViewer00" taborder="0" left="70" top="0" width="930" height="559" image="url('image::KakaoTalk_20240905_092944347.png')" border="10px solid white" onclick="ImageViewer00_onclick"/>
         <Static id="M_NM" taborder="1" text="관리자 페이지에 오신것을 환영합니다" left="270" top="409" width="530" height="81" textAlign="center"/>
       </Layout>
     </Layouts>
@@ -28,7 +28,6 @@
 //   this.staTitle.set_text(sPageNm);
 //   this.staTitle.set_fittocontents("width");
 //   
-// };
-]]></Script>
+// };]]></Script>
   </Form>
 </FDL>

@@ -57,6 +57,7 @@
         this.on_initEvent = function()
         {
             this.addEventHandler("onload",this.frmWork_onload,this);
+            this.ImageViewer00.addEventHandler("onclick",this.ImageViewer00_onclick,this);
         };
         this.loadIncludeScript("Form_Work.xfdl");
         this.loadPreloadList();
