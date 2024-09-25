@@ -169,11 +169,6 @@
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
 
-        this.boardList_ds_onvaluechanged = function(obj,e)
-        {
-
-        };
-
         /************************************************************************
          *          				특별 이벤트 짜잔
          ************************************************************************/
@@ -186,7 +181,11 @@
 
         this.grd_board_oncelldblclick = function(obj,e)
         {
+        	var boardCode = this.boardList_ds.getColumn(this.boardList_ds.rowposition, "BOARD_CODE");
+        	var objParam = {BOARD_CODE: boardCode};
 
+        	var surl = "MainBase::board_detail.xfdl";
+        	this.showPopup(objParam, surl);
         };
 
         this.btn_add_onclick = function(obj,e)

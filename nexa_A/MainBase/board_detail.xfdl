@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="board_upload" width="1280" height="720" titletext="New Form" onload="board_upload_onload">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Static id="stt_boardTop" taborder="0" text="공지사항" left="563" top="16" width="155" height="74" font="30pt &quot;gulim&quot;,&quot;한컴 고딕&quot;"/>
+        <Static id="Static01" taborder="1" text="제목" left="174" top="134" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="Static01_00" taborder="2" text="작성자" left="174" top="194" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="Static01_01" taborder="3" text="내용" left="174" top="257" width="172" height="197" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="Static01_00_00" taborder="4" text="첨부파일" left="174" top="460" width="172" height="93" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none" onclick="Static01_00_onclick"/>
+        <Grid id="grd_file" taborder="5" left="410" top="464" width="530" height="94" binddataset="ds_board">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="528"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="파 일"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:FILE"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btn_closeBoard" taborder="6" text="닫기" left="660" top="624" width="72" height="33" onclick="btn_addBoard_onclick"/>
+        <Static id="stt_uploader" taborder="7" text="Static02" left="412" top="197" width="238" height="40"/>
+        <Static id="stt_detail" taborder="8" text="Static02" left="410" top="260" width="583" height="189"/>
+        <Static id="stt_title" taborder="9" left="412" top="140" width="238" height="40" text="제목"/>
+        <Static id="Static01_00_01" taborder="10" text="게시일" left="660" top="137" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="stt_regDate" taborder="11" text="Static02" left="898" top="140" width="218" height="40"/>
+        <Static id="Static01_00_01_00" taborder="12" text="게시번호" left="660" top="197" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="stt_boardCode" taborder="13" text="Static02" left="898" top="200" width="218" height="40"/>
+        <Button id="btn_fixBoard" taborder="14" text="수정" left="580" top="624" width="72" height="33"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.fnOnload();
+};
+
+/************************************************************************
+ * 							기능
+ ************************************************************************/
+
+// 호출
+this.fnOnload = function(obj, e) {
+	
+	var BOARD_CODE = this.parent.BOARD_CODE;  // 부모창에서 넘어온 board_code 값 받기
+    trace("Received board_code: " + BOARD_CODE);  // board_code 값 확인 (콘솔에 출력)
+    
+    // board_code를 전자정부 프레임워크로 넘길 로직 추가
+    this.fnSendBoardCode(BOARD_CODE);
+	
+	trace(this.ds_board.getColumn(0,"TITLE"));
+	
+	// CODE에 들어있는 FILE 명의 파일을 D://UPLOAD(업로드폴더) 폴더에서 들고오기
+	var nRow = this.ds_fileInsert.addRow();
+	console.log(e.virtualfiles.length);
+	this.grd_file.
+	
+};
+	
+// 전자정부 프레임워크로 board_code 전달하는 함수
+this.fnSendBoardCode = function(BOARD_CODE) {
+    var strSvcId    = "selectBoard";
+    var strSvcUrl   = "svc::selectBoard.do";
+    var inData      = "";
+    var outData     = "ds_board=ds_board";  // 결과를 받을 데이터셋
+    var strArg      = "id=" + BOARD_CODE;    // board_code 값을 서버로 전달
+    var callBackFnc = "fnCallback";
+    var isAsync     = false;
+
+    this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+};
+
+/************************************************************************
+ * 							이벤트
+ ************************************************************************/
+
+
+/************************************************************************
+ * 							파일 다운로드
+ ************************************************************************/
+ 
+ //fileDownTrans onerror
+this.fileDownTrans_onerror = function(obj:nexacro.FileDownTransfer,e:nexacro.FileDownTransferErrorEventInfo)
+{
+	trace("error : " + e.errormsg);
+};
+
+//fileDownTrans onsuccess
+this.fileDownTrans_onsuccess = function(obj:nexacro.FileDownTransfer,e:nexacro.FileDownTransferEventInfo)
+{
+	trace(e.targetfullpath);
+};
+
+//파일 다운로드
+this.downloadfile = function(i)
+{
+	this.FileDownTransfer00.clearPostDataList();
+	
+	this.fileDownTrans.setPostData(
+		"filepath",
+		this.dsDownload.getColumn(i, "FILE_URL")
+	);
+	
+	this.FileDownTransfer00.set_downloadfilename(this.ds_board.getColumn(i, "FILENAME"));	
+	
+	this.FileDownTransfer00.setPostData(
+		"filename",
+		this.ds_board.getColumn(i, "FILENAME")
+	);
+	this.FileDownTransfer00.setPostData(
+		"filefolder",
+		"fileSample"
+	);
+	
+	this.FileDownTransfer00.download("http://localhost:8082/HanaUIS/filedownload.jsp");
+}
+
+]]></Script>
+    <Objects>
+      <Dataset id="ds_board">
+        <ColumnInfo>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="ADMIN_CODE" type="INT" size="256"/>
+          <Column id="CONTENT" type="STRING" size="256"/>
+          <Column id="REGDATE" type="DATE" size="256"/>
+          <Column id="BOARD_CODE" type="INT" size="256"/>
+          <Column id="FILENAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileDownTransfer id="FileDownTransfer00"/>
+      <Dataset id="ds_file">
+        <ColumnInfo>
+          <Column id="FILENAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="stt_title" propid="text" datasetid="ds_board" columnid="TITLE"/>
+      <BindItem id="item1" compid="stt_regDate" propid="text" datasetid="ds_board" columnid="REGDATE"/>
+      <BindItem id="item2" compid="stt_uploader" propid="text" datasetid="ds_board" columnid="ADMIN_CODE"/>
+      <BindItem id="item3" compid="stt_boardCode" propid="text" datasetid="ds_board" columnid="BOARD_CODE"/>
+      <BindItem id="item4" compid="stt_detail" propid="text" datasetid="ds_board" columnid="CONTENT"/>
+    </Bind>
+  </Form>
+</FDL>

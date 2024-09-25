@@ -163,7 +163,7 @@
         this.Button01_onclick = function(obj,e)
         {
         	this.TextArea00.set_value("");
-        	this.FileUpTransfer00.upload('http://localhost:8082/hana_A/AdminFileUpload');
+        	this.FileUpTransfer00.upload('http://localhost:8082/hanaUIS/nexa_A/AdminFileUpload');
         };
 
         this.FileUpTransfer00_onprogress = function(obj,e)

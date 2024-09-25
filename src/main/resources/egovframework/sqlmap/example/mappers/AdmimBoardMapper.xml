@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ateam.mapper.AdminBoardMapper">
+
+<!-- 공지사항 상세 -->
+<select id="selectBoard" parameterType="String" resultType="hashMap">
+	SELECT BOARD_CODE, TITLE, CONTENT, REGDATE, ADMIN_CODE
+	FROM BOARD 
+	WHERE BOARD_CODE = #{id} 
+	ORDER BY BOARD_CODE DESC;
+</select>
+
+</mapper>

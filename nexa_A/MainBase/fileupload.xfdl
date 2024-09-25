@@ -124,7 +124,7 @@ this.Grid00_ondrop = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
 this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.TextArea00.set_value("");
-	this.FileUpTransfer00.upload('http://localhost:8082/hana_A/AdminFileUpload');
+	this.FileUpTransfer00.upload('http://localhost:8082/hanaUIS/nexa_A/AdminFileUpload');
 };
 
 this.FileUpTransfer00_onprogress = function(obj:nexacro.FileUploadTransfer,e:nexacro.FileUploadTransferProgressEventInfo)
