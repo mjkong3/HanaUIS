@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="classInfo" width="1280" height="720" titletext="New Form" onload="classInfo_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Grid id="grd_Depart" left="33" top="96" width="237" height="524" taborder="0" autofittype="col" binddataset="ds_dept">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="학과코드"/>
+                <Cell col="1" text="학과명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:DEPARTMENT_CODE" textAlign="center" maskeditformat="00" displaytype="mask" edittype="mask"/>
+                <Cell col="1" text="bind:DEPARTMENT_NAME" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="grd_List" left="293" top="96" width="947" height="524" taborder="1" autofittype="col" binddataset="ds_classinfo">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="48"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" text="No"/>
+                <Cell col="2" text="강의코드"/>
+                <Cell col="3" text="강의명"/>
+                <Cell col="4" text="개강일"/>
+                <Cell col="5" text="종강일"/>
+                <Cell col="6" text="학기"/>
+                <Cell col="7" text="학년"/>
+                <Cell col="8" text="학과코드"/>
+                <Cell col="9" text="강의실"/>
+                <Cell col="10" text="교수코드"/>
+                <Cell col="11" text="이수구분"/>
+                <Cell col="12" text="관리자"/>
+                <Cell col="13" text="등록일"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:CHECK" displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" text="expr:currow + 1" textAlign="center"/>
+                <Cell col="2" text="bind:CLASS_CODE" textAlign="center"/>
+                <Cell col="3" text="bind:CLASS_NAME" textAlign="center"/>
+                <Cell col="4" text="bind:CLASS_START" textAlign="center" displaytype="calendarcontrol"/>
+                <Cell col="5" text="bind:CLASS_END" textAlign="center" displaytype="calendarcontrol"/>
+                <Cell col="6" text="bind:SEMESTER" textAlign="center"/>
+                <Cell col="7" text="bind:CLASS_GRADE" textAlign="center"/>
+                <Cell col="8" text="bind:DEPARTMENT_CODE" textAlign="center"/>
+                <Cell col="9" text="bind:CLASSROOM_ID" textAlign="center"/>
+                <Cell col="10" text="bind:PROFESSOR_ID" textAlign="center"/>
+                <Cell col="11" text="bind:CLASS_TYPE" textAlign="center"/>
+                <Cell col="12" text="bind:ADMIN_CODE" textAlign="center"/>
+                <Cell col="13" text="bind:REGDATE" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Combo id="cmb_Search" left="33" top="30" width="237" height="46" taborder="2" innerdataset="ds_cmb" codecolumn="code" datacolumn="data"/>
+        <Button id="btn_Search" left="986" top="30" width="68" height="46" taborder="3" text="조회"/>
+        <Edit id="edt_Search" left="293" top="30" width="627" height="46" taborder="4"/>
+        <Button id="btn_Add" left="1081" top="30" width="64" height="46" taborder="5" text="등록"/>
+        <Button id="btn_Delete" taborder="6" text="삭제" left="1176" top="30" width="64" height="46"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_cmb">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">ALL</Col>
+            <Col id="data">전체</Col>
+          </Row>
+          <Row>
+            <Col id="code">CLASS_CODE</Col>
+            <Col id="data">강의코드</Col>
+          </Row>
+          <Row>
+            <Col id="code">CLASS_NAME</Col>
+            <Col id="data">강의명</Col>
+          </Row>
+          <Row>
+            <Col id="code">CLASS_START</Col>
+            <Col id="data">개강일</Col>
+          </Row>
+          <Row>
+            <Col id="code">CLASS_END</Col>
+            <Col id="data">종강일</Col>
+          </Row>
+          <Row>
+            <Col id="code">SEMESTER</Col>
+            <Col id="data">학기</Col>
+          </Row>
+          <Row>
+            <Col id="code">CLASS_GRADE</Col>
+            <Col id="data">학년</Col>
+          </Row>
+          <Row>
+            <Col id="code">DEPARTMENT_CODE</Col>
+            <Col id="data">학과코드</Col>
+          </Row>
+          <Row>
+            <Col id="code">CLASSROOM_ID</Col>
+            <Col id="data">강의실</Col>
+          </Row>
+          <Row>
+            <Col id="code">PROFESSOR_ID</Col>
+            <Col id="data">담당교수</Col>
+          </Row>
+          <Row>
+            <Col id="code">CLASS_TYPE</Col>
+            <Col id="data">이수구분</Col>
+          </Row>
+          <Row>
+            <Col id="code">ADMIN_CODE</Col>
+            <Col id="data">관리자</Col>
+          </Row>
+          <Row>
+            <Col id="code">REGDATE</Col>
+            <Col id="data">등록일</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_search">
+        <ColumnInfo>
+          <Column id="SEARCH_TYPE" type="STRING" size="256"/>
+          <Column id="SEARCH_WORD" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_dept">
+        <ColumnInfo>
+          <Column id="DEPARTMENT_CODE" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_classinfo">
+        <ColumnInfo>
+          <Column id="CLASS_CODE" type="STRING" size="256"/>
+          <Column id="CLASS_NAME" type="STRING" size="256"/>
+          <Column id="CLASS_START" type="STRING" size="256"/>
+          <Column id="CLASS_END" type="STRING" size="256"/>
+          <Column id="SEMESTER" type="STRING" size="256"/>
+          <Column id="CLASS_GRADE" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_CODE" type="STRING" size="256"/>
+          <Column id="CLASSROOM_ID" type="STRING" size="256"/>
+          <Column id="PROFESSOR_ID" type="STRING" size="256"/>
+          <Column id="CLASS_TYPE" type="STRING" size="256"/>
+          <Column id="ADMIN_CODE" type="STRING" size="256"/>
+          <Column id="REGDATE" type="STRING" size="256"/>
+          <Column id="CHECK" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_delete"/>
+      <Dataset id="ds_copied"/>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="cmb_Search" propid="value" datasetid="ds_search" columnid="SEARCH_TYPE"/>
+      <BindItem id="item1" compid="edt_Search" propid="value" datasetid="ds_search" columnid="SEARCH_WORD"/>
+    </Bind>
+    <Script type="xscript5.1"><![CDATA[
+this.classInfo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	 this.ds_search.setColumn(0,"SEARCH_TYPE","ALL");
+	 
+	 this.onRowKey = false; // onrow 이벤트 트리거(off)
+   
+	 this.fn_searchDept(); // dept 검색 함수 호출
+};
+
+this.fn_searchDept = function() {
+
+   var strSvcId    = "searchDept";
+   var strSvcUrl   = "svc::selectAdDept.do";
+   var inData      = "";
+   var outData     = "ds_dept = ds_dept";
+   var strArg      = "";
+   var callBackFnc = "fnCallBack_deptInfo";
+   var isAsync     = true;
+   
+   this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+
+}]]></Script>
+  </Form>
+</FDL>

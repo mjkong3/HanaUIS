@@ -359,6 +359,16 @@
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("false");
             this.addChild(obj.name, obj);
+
+            obj = new Button("btn_Update","779","491","151","38",null,null,null,null,null,null,this);
+            obj.set_taborder("48");
+            obj.set_text("수정");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_Retrun","599","491","151","38",null,null,null,null,null,null,this);
+            obj.set_taborder("49");
+            obj.set_text("되돌아가기");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",1280,720,this,function(p){});
@@ -459,6 +469,71 @@
         	this.cal_FirstDay.set_readonly(true);
         	this.cal_LastDay.set_readonly(true);
 
+        	this.btn_Retrun.set_visible(false);
+        };
+
+        // 2. 수정버튼 - readonly 해제(입력필드 제공)
+        this.btn_Update_onclick = function(obj,e)
+        {
+        	this.edt_ProId.set_readonly(false);
+        	this.edt_ProPw.set_readonly(false);
+        	this.edt_ProName.set_readonly(false);
+        	this.cmb_Dept.set_readonly(false);
+        	this.rdo_Gender.set_readonly(false);
+        	this.cal_Birth.set_readonly(false);
+        	this.cmb_Lab.set_readonly(false);
+        	this.edt_Phone.set_readonly(false);
+        	this.cmb_Status.set_readonly(false);
+        	this.edt_Email.set_readonly(false);
+        	this.edt_Adr.set_readonly(false);
+        	this.cal_FirstDay.set_readonly(false);
+        	this.cal_LastDay.set_readonly(false);
+
+        	this.btn_Update.set_visible(false);
+        	this.btn_Retrun.set_visible(true);
+        };
+
+        // 3. 작성완료 - update문 실행
+
+        this.btn_Add_onclick = function(obj,e)
+        {
+        	this.fn_updatePro();
+
+        };
+
+        // update 함수 호출 - insert 컨트롤러와 동일 경로
+        this.fn_updatePro = function ()
+        {
+        	var strSvcId    = "updatePro";
+        	var strSvcUrl   = "svc::saveAdPro.do";
+        	var inData      = "ds_pro = ds_pro";
+        	var outData     = "";
+        	var strArg      = "";
+        	var callBackFnc = "fnCallBack";
+        	var isAsync     = true;
+
+        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        };
+
+        // 되돌아가기 버튼 - 초기 상태로 되돌림
+        this.btn_Retrun_onclick = function(obj,e)
+        {
+        	this.edt_ProId.set_readonly(true);
+        	this.edt_ProPw.set_readonly(true);
+        	this.edt_ProName.set_readonly(true);
+        	this.cmb_Dept.set_readonly(true);
+        	this.rdo_Gender.set_readonly(true);
+        	this.cal_Birth.set_readonly(true);
+        	this.cmb_Lab.set_readonly(true);
+        	this.edt_Phone.set_readonly(true);
+        	this.cmb_Status.set_readonly(true);
+        	this.edt_Email.set_readonly(true);
+        	this.edt_Adr.set_readonly(true);
+        	this.cal_FirstDay.set_readonly(true);
+        	this.cal_LastDay.set_readonly(true);
+
+        	this.btn_Retrun.set_visible(false);
+        	this.btn_Update.set_visible(true);
         };
 
         });
@@ -474,6 +549,8 @@
             this.btn_Add.addEventHandler("onclick",this.btn_Add_onclick,this);
             this.cal_RegDate.addEventHandler("onchanged",this.cal_RegDate_onchanged,this);
             this.Static00_00_01_00_01_00.addEventHandler("onclick",this.Static00_00_01_00_01_00_onclick,this);
+            this.btn_Update.addEventHandler("onclick",this.btn_Update_onclick,this);
+            this.btn_Retrun.addEventHandler("onclick",this.btn_Retrun_onclick,this);
         };
         this.loadIncludeScript("select_Professor_Popup.xfdl");
         this.loadPreloadList();

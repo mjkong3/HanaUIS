@@ -17,12 +17,6 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 	private AdProfessorMapper mapper;
 	
 	@Override
-	public List<Map<String, Object>> selectAdProDept() {
-		// TODO Auto-generated method stub
-		return mapper.selectAdProDept();
-	}
-
-	@Override
 	public List<Map<String, Object>> selectAdProList(Map<String, Object> param) {
 		// TODO Auto-generated method stub
 		return mapper.selectAdProList(param);
@@ -44,6 +38,13 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 	public Map<String, Object> selectAdProInfo(String ProId) {
 		// TODO Auto-generated method stub
 		return mapper.selectAdProInfo(ProId);
+	}
+
+	@Override
+	public void deleteAdPro(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		   mapper.deleteAdPro(param);
+		
 	}
 
 	

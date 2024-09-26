@@ -2,7 +2,7 @@
 <FDL version="2.1">
   <Form id="Popup_Work" width="1080" height="620" titletext="New Form" onload="Popup_Work_onload">
     <Layouts>
-      <Layout height="620" width="1080">
+      <Layout height="620" width="1080" stepcount="0">
         <Static id="Static00_03_01_00_00_00_01" taborder="32" left="436" top="318" width="493" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_03_00_00_00_00" taborder="20" left="710" top="220" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_03_01_00_00_00_00" taborder="24" left="710" top="269" width="219" height="50" background="white" border="1px solid #d3d3d4"/>

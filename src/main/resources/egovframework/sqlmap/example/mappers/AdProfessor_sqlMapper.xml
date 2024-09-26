@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ateam.mapper.AdProfessorMapper">
-	<!-- 폼 로드시 dept grd에 목록생성 -->
-	<select id="selectAdProDept" resultType="java.util.Map">
-		SELECT DEPARTMENT_CODE, DEPARTMENT_NAME
-		FROM DEPARTMENT
-	</select>
 	
 	<!-- list grd에 목록 생성 -->
 	<select id="selectAdProList" parameterType="java.util.Map" resultType="java.util.Map">
 	
-		SELECT PROFESSOR_ID, NAME, PHONE, EMAIL, GENDER, ADDRESS, STATUS, ADMIN_CODE, DEPARTMENT_CODE, REGDATE
+		SELECT PROFESSOR_ID, NAME, PHONE, EMAIL, GENDER, ADDRESS, STATUS, ADMIN_CODE, DEPARTMENT_CODE, REGDATE, 0 AS 'CHECK'
 		FROM PROFESSOR
 		WHERE 1=1
 		
@@ -58,7 +53,7 @@
 				AND REGDATE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
 			</if>
 		</if>
-		<if test="DEPARTMENT_CODE != 00">
+		<if test="DEPARTMENT_CODE != 0">
 			AND DEPARTMENT_CODE = #{DEPARTMENT_CODE}
 		</if>
 	</select>
@@ -122,13 +117,12 @@
 					REGDATE = #{REGDATE},
 					ADMIN_CODE = #{ADMIN_CODE},
 					DEPARTMENT_CODE = #{DEPARTMENT_CODE},
-					PHOTO = #{PHOTO})
-					
+					PHOTO = #{PHOTO}
 					WHERE PROFESSOR_ID = #{PROFESSOR_ID}
 	
 	</update>
 	
-	<!-- 교수정보 select -->
+	<!-- 상세보기용 교수정보 select -->
 	<select id="selectAdProInfo" parameterType="java.util.Map" resultType="java.util.Map">
 		
 		SELECT PROFESSOR_ID, PASSWORD, NAME, PHONE, EMAIL, GENDER, ADDRESS, BIRTHDAY, STATUS, ADMIN_CODE, DEPARTMENT_CODE, REGDATE, PHOTO
@@ -137,4 +131,12 @@
 		AND PROFESSOR_ID = #{ProId}
 	
 	</select>
+	
+	<!-- list grd에 체크된 값들 삭제처리 -->
+	<delete id="deleteAdPro" parameterType="java.util.Map">
+      
+      DELETE FROM PROFESSOR
+      WHERE PROFESSOR_ID = #{PROFESSOR_ID}
+   
+   </delete>
 </mapper>

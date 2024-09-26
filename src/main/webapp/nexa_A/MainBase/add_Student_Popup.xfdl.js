@@ -267,6 +267,7 @@
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",1080,620,this,function(p){});
+            obj.set_stepcount("0");
             this.addLayout(obj.name, obj);
             
             // BindItem Information

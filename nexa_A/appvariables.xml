@@ -98,6 +98,15 @@
         <Column id="OPEN_YES" type="STRING" size="256"/>
       </ColumnInfo>
     </Dataset>
+    <Dataset id="gds_adminInfo">
+      <ColumnInfo>
+        <Column id="ADMIN_CODE" type="STRING" size="256"/>
+        <Column id="REGDATE" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row/>
+      </Rows>
+    </Dataset>
   </Datasets>
   <Variables/>
   <DataObjects/>
