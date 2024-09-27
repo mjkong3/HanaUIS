@@ -53,9 +53,15 @@
         </Row>
         <Row>
           <Col id="MENU_ID">010000</Col>
-          <Col id="MENU_NM">강의 관리</Col>
+          <Col id="MENU_NM">강의 목록</Col>
           <Col id="MENU_LEVEL">2</Col>
           <Col id="MENU_PATH">MainBase::course.xfdl</Col>
+        </Row>
+        <Row>
+          <Col id="MENU_ID">010001</Col>
+          <Col id="MENU_NM">강의실관리</Col>
+          <Col id="MENU_LEVEL">2</Col>
+          <Col id="MENU_PATH">MainBase::classroom.xfdl</Col>
         </Row>
         <Row>
           <Col id="MENU_ID">0101</Col>
@@ -97,6 +103,14 @@
         <Column id="MENU_ID" type="STRING" size="256"/>
         <Column id="OPEN_YES" type="STRING" size="256"/>
       </ColumnInfo>
+    </Dataset>
+    <Dataset id="Login">
+      <ColumnInfo>
+        <Column id="Name" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row/>
+      </Rows>
     </Dataset>
   </Datasets>
   <Variables/>

@@ -110,5 +110,25 @@ public class AdStudentController {
     	
     }
 	
+	@RequestMapping(value = "/deleteAdStudent.do")
+    public NexacroResult deleteAdStudent(@ParamDataSet(name = "dlt_ds", required = false) List<Map<String, Object>> param) {
+		NexacroResult result = new NexacroResult();
+    	System.out.println(param);
+    	
+
+    	try {
+    		
+    		for(int i =0; i < param.size(); i++) {
+        		System.out.println(param.get(i));
+        		service.deletAdStudent(param.get(i));
+        	}
+    	}catch(Exception ee) {
+    		System.out.println(ee);
+    	}
+    	System.out.println("뭘 리턴하지? " + result);
+    	return result;
+    	
+    }
+	
 
 }

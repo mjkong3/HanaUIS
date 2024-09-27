@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nexacro.uiadapter17.spring.core.annotation.ParamDataSet;
+import com.nexacro.uiadapter17.spring.core.annotation.ParamVariable;
 import com.nexacro.uiadapter17.spring.core.data.NexacroResult;
 
 import ateam.service.AdProfessorService;
@@ -126,8 +127,10 @@ public class AdProfessorController {
 	
 	// onclickEvent - 수정용 popup에 필요한 정보 넘겨주기
 	@RequestMapping(value = "/selectAdProInfo")
-	public NexacroResult selectAdProInfo(@RequestParam("PROFESSOR_ID") String ProId) {
+	public NexacroResult selectAdProInfo(@ParamVariable(name = "PROFESSOR_ID", required = false) String ProId) {
 		NexacroResult result = new NexacroResult();
+		
+		System.out.println(ProId);
 		
 		try {
     		Map<String, Object> ds_list = service.selectAdProInfo(ProId);

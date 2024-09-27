@@ -13,4 +13,6 @@ public interface AdStudentService {
 
 	Map<String, Object> selectAdStudentdtl(Map<String, Object> param);
 
+	void deletAdStudent(Map<String, Object> param);
+
 }

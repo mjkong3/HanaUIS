@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="select_Professor_Popup" width="1280" height="720" titletext="New Form">
+  <Form id="select_Professor_Popup" width="1280" height="720" titletext="New Form" onload="select_Professor_Popup_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
         <Static id="Static00_03_01_00_00_00_01" taborder="0" left="436" top="416" width="493" height="50" background="white" border="1px solid #d3d3d4"/>
@@ -156,7 +156,7 @@ this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
 	var objParam2 = this.parent.param2;
  	
  	this.ds_pro.copyData(objParam1);
-	this.ds_dept.copyData(objParam2);	 
+	this.ds_dept.copyData(objParam2);
 	
 };
 ]]></Script>

@@ -17,6 +17,8 @@ public interface AdStudentMapper {
 	void updateAdStudent(Map<String, Object> param);
 	
 	Map<String, Object> selectAdStudentdtl(Map<String, Object> param);
+
+	void deletAdStudent(Map<String, Object> param);
 	
 	
 

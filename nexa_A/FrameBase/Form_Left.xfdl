@@ -3,7 +3,7 @@
   <Form id="Form_Left" width="180" height="600" titletext="Form_Left" onload="Form_Left_onload">
     <Layouts>
       <Layout width="180" height="600" screenid="Desktop_screen">
-        <Grid id="gridLeftMenu" taborder="0" left="0" top="50" width="100%" binddataset="dsLeft" treeinitstatus="collapse,null" treeusecheckbox="false" oncellclick="gridLeftMenu_oncellclick" visible="true" bottom="0" treeusebutton="use" treeuseimage="true">
+        <Grid id="gridLeftMenu" taborder="0" left="0" top="50" width="100%" binddataset="dsLeft" treeinitstatus="collapse,null" treeusecheckbox="false" oncellclick="gridLeftMenu_oncellclick" visible="true" bottom="0" treeusebutton="noclick" treeuseimage="true">
           <Formats>
             <Format id="default">
               <Columns>

@@ -3,41 +3,41 @@
   <Form id="Popup_Work" width="1080" height="620" titletext="New Form" onload="Popup_Work_onload">
     <Layouts>
       <Layout height="620" width="1080">
-        <Static id="Static00_03_01_00_00_00_01" taborder="32" left="436" top="318" width="493" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_00_00_00_00" taborder="20" left="710" top="220" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01_00_00_00_00" taborder="24" left="710" top="269" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01_00_00_00" taborder="23" left="436" top="269" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_00_00_00" taborder="19" left="710" top="171" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_00_00" taborder="18" left="710" top="122" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01_00_00" taborder="17" left="436" top="220" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01_00" taborder="16" left="436" top="171" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01" taborder="15" left="436" top="122" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_00" taborder="14" left="710" top="73" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03" taborder="13" left="436" top="73" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00" taborder="0" left="339" top="73" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학번" font="12px/normal &quot;Gulim&quot;"/>
-        <Edit id="STUDENT_ID" taborder="1" left="448" top="83" width="152" height="30"/>
-        <Edit id="NAME" taborder="2" left="448" top="132" width="152" height="30"/>
-        <Static id="Static00_00" taborder="3" left="339" top="122" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이름"/>
-        <Static id="Static00_01" taborder="4" left="612" top="73" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   비밀번호"/>
-        <Edit id="PASSWORD" taborder="5" left="721" top="83" width="195" height="30"/>
-        <Static id="Static00_00_00" taborder="6" left="612" top="122" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과"/>
-        <Static id="Static00_02" taborder="7" left="339" top="171" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학년"/>
-        <Static id="Static00_01_00" taborder="8" left="612" top="171" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   핸드폰"/>
-        <Edit id="PHONE" taborder="9" left="721" top="181" width="195" height="30"/>
-        <Edit id="EMAIL" taborder="10" left="721" top="230" width="195" height="30"/>
-        <Static id="Static00_00_00_00" taborder="11" left="612" top="220" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이메일"/>
-        <Static id="Static00_00_01" taborder="12" left="339" top="220" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   성별"/>
-        <ImageViewer id="ImageViewer00" taborder="21" left="93" top="73" width="177" height="236"/>
-        <Static id="Static00_00_01_00" taborder="22" left="339" top="269" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   상태"/>
-        <Static id="Static00_00_01_00_00" taborder="25" left="612" top="269" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   생년월일"/>
-        <Button id="Stu_Add_btn" taborder="26" text="등록" left="779" top="391" width="151" height="38" onclick="Stu_Add_btn_onclick"/>
-        <Radio id="GENDER" taborder="27" left="450" top="228" width="150" height="36" innerdataset="ger_type" datacolumn="data" codecolumn="code" index="0" text="남자" value="M" direction="vertical"/>
-        <Combo id="de" taborder="28" text="" left="723" top="131" width="193" height="31" index="0" innerdataset="ds_de" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value=""/>
-        <Combo id="STATUS" taborder="29" text="" left="447" top="279" width="153" height="31" index="0" innerdataset="static_type_ds" codecolumn="code" datacolumn="data" value=""/>
-        <Calendar id="BIRTHDAY" taborder="30" left="720" top="279" width="196" height="31" dateformat="yyyy-MM-dd"/>
-        <Static id="Static00_00_01_00_01" taborder="31" left="339" top="318" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   주소"/>
-        <Combo id="UNIV_YEAR" taborder="33" text="1학년" left="447" top="181" width="153" height="31" index="0" innerdataset="grade_type" codecolumn="code" datacolumn="data" value="1"/>
-        <Edit id="ADDRESS" taborder="34" left="447" top="328" width="469" height="30"/>
+        <Static id="Static00_03_01_00_00_00_01" taborder="0" left="426" top="298" width="493" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00_00_00" taborder="1" left="700" top="200" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00_00" taborder="2" left="700" top="249" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00" taborder="3" left="426" top="249" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00_00" taborder="4" left="700" top="151" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00" taborder="5" left="700" top="102" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00" taborder="6" left="426" top="200" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00" taborder="7" left="426" top="151" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01" taborder="8" left="426" top="102" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00" taborder="9" left="700" top="53" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03" taborder="10" left="426" top="53" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00" taborder="11" left="329" top="53" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학번" font="12px/normal &quot;Gulim&quot;"/>
+        <Edit id="STUDENT_ID" taborder="12" left="438" top="63" width="152" height="30"/>
+        <Edit id="NAME" taborder="13" left="438" top="112" width="152" height="30"/>
+        <Static id="Static00_00" taborder="14" left="329" top="102" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이름"/>
+        <Static id="Static00_01" taborder="15" left="602" top="53" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   비밀번호"/>
+        <Edit id="PASSWORD" taborder="16" left="711" top="63" width="195" height="30"/>
+        <Static id="Static00_00_00" taborder="17" left="602" top="102" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과"/>
+        <Static id="Static00_02" taborder="18" left="329" top="151" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학년"/>
+        <Static id="Static00_01_00" taborder="19" left="602" top="151" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   핸드폰"/>
+        <Edit id="PHONE" taborder="20" left="711" top="161" width="195" height="30"/>
+        <Edit id="EMAIL" taborder="21" left="711" top="210" width="195" height="30"/>
+        <Static id="Static00_00_00_00" taborder="22" left="602" top="200" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이메일"/>
+        <Static id="Static00_00_01" taborder="23" left="329" top="200" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   성별"/>
+        <ImageViewer id="ImageViewer00" taborder="24" left="83" top="53" width="177" height="236"/>
+        <Static id="Static00_00_01_00" taborder="25" left="329" top="249" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   상태"/>
+        <Static id="Static00_00_01_00_00" taborder="26" left="602" top="249" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   생년월일"/>
+        <Button id="Stu_Add_btn" taborder="27" text="등록" left="769" top="371" width="151" height="38" onclick="Stu_Add_btn_onclick"/>
+        <Radio id="GENDER" taborder="28" left="440" top="208" width="150" height="36" innerdataset="ger_type" datacolumn="data" codecolumn="code" index="0" text="남자" value="M" direction="vertical"/>
+        <Combo id="de" taborder="29" text="" left="713" top="111" width="193" height="31" index="0" innerdataset="ds_de" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value=""/>
+        <Combo id="STATUS" taborder="30" text="" left="437" top="259" width="153" height="31" index="0" innerdataset="static_type_ds" codecolumn="code" datacolumn="data" value=""/>
+        <Calendar id="BIRTHDAY" taborder="31" left="710" top="259" width="196" height="31" dateformat="yyyy-MM-dd" accessibilityenable="false"/>
+        <Static id="Static00_00_01_00_01" taborder="32" left="329" top="298" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   주소"/>
+        <Combo id="UNIV_YEAR" taborder="33" text="1학년" left="437" top="161" width="153" height="31" index="0" innerdataset="grade_type" codecolumn="code" datacolumn="data" value="1"/>
+        <Edit id="ADDRESS" taborder="34" left="437" top="308" width="469" height="30"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[//처리콜백 함수
@@ -54,7 +54,7 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 	{
 		case "saveAdStudent":
 			this.alert("성공적으로 등록을 하였습니다.");
-			this.close();
+			this.close("saveAdStudent");
 			break;
 	}
 };
@@ -217,28 +217,20 @@ this.insertstudent = function()
             <Col id="data">2학년</Col>
             <Col id="code">2</Col>
           </Row>
-          <Row>
-            <Col id="data">3학년</Col>
-            <Col id="code">3</Col>
-          </Row>
-          <Row>
-            <Col id="data">4학년</Col>
-            <Col id="code">4</Col>
-          </Row>
         </Rows>
       </Dataset>
     </Objects>
     <Bind>
       <BindItem id="item0" compid="STUDENT_ID" propid="value" datasetid="save_ds" columnid="STUDENT_ID"/>
-      <BindItem id="item1" compid="PASSWORD" propid="value" datasetid="save_ds" columnid="PASSWORD"/>
-      <BindItem id="item2" compid="NAME" propid="value" datasetid="save_ds" columnid="NAME"/>
-      <BindItem id="item3" compid="de" propid="value" datasetid="save_ds" columnid="DEPARTMENT_CODE"/>
-      <BindItem id="item4" compid="UNIV_YEAR" propid="value" datasetid="save_ds" columnid="UNIV_YEAR"/>
-      <BindItem id="item5" compid="PHONE" propid="value" datasetid="save_ds" columnid="PHONE"/>
-      <BindItem id="item6" compid="GENDER" propid="value" datasetid="save_ds" columnid="GENDER"/>
-      <BindItem id="item7" compid="EMAIL" propid="value" datasetid="save_ds" columnid="EMAIL"/>
-      <BindItem id="item8" compid="STATUS" propid="value" datasetid="save_ds" columnid="STATUS"/>
-      <BindItem id="item9" compid="BIRTHDAY" propid="value" datasetid="save_ds" columnid="BIRTHDAY"/>
+      <BindItem id="item1" compid="NAME" propid="value" datasetid="save_ds" columnid="NAME"/>
+      <BindItem id="item2" compid="PASSWORD" propid="value" datasetid="save_ds" columnid="PASSWORD"/>
+      <BindItem id="item3" compid="PHONE" propid="value" datasetid="save_ds" columnid="PHONE"/>
+      <BindItem id="item4" compid="EMAIL" propid="value" datasetid="save_ds" columnid="EMAIL"/>
+      <BindItem id="item5" compid="GENDER" propid="value" datasetid="save_ds" columnid="GENDER"/>
+      <BindItem id="item6" compid="de" propid="value" datasetid="save_ds" columnid="DEPARTMENT_CODE"/>
+      <BindItem id="item7" compid="STATUS" propid="value" datasetid="save_ds" columnid="STATUS"/>
+      <BindItem id="item8" compid="BIRTHDAY" propid="value" datasetid="save_ds" columnid="BIRTHDAY"/>
+      <BindItem id="item9" compid="UNIV_YEAR" propid="value" datasetid="save_ds" columnid="UNIV_YEAR"/>
       <BindItem id="item10" compid="ADDRESS" propid="value" datasetid="save_ds" columnid="ADDRESS"/>
     </Bind>
   </Form>

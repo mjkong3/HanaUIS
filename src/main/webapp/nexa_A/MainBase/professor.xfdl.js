@@ -40,6 +40,11 @@
             obj = new Dataset("ds_admin", this);
             obj._setContents("<ColumnInfo><Column id=\"regDate\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_list_dtl", this);
+            obj._setContents("");
+            this.addChild(obj.name, obj);
             
             // UI Components Initialize
             obj = new Grid("grd_Depart","33","96","237","524",null,null,null,null,null,null,this);
@@ -279,14 +284,16 @@
         	 * 더블클릭 시 pk인 교번을 기준으로 selet 수행
         	 * 받아온 값
         	 */
-        	 var proId = obj.getCellText(e.row, "PROFESSOR_ID");
+        	 var proId = this.grd_List.getBindDataset().getColumn(e.row, "PROFESSOR_ID");
 
+        	 console.log(proId);
         	 this.fn_searchProInfo(proId);
 
         	  var objParam = {
-              param1: this.ds_list,            // 데이터셋 전체
+              param1: this.ds_list_dtl,            // 데이터셋 전체
               param2: this.ds_dept
             };
+        	console.log(this.ds_list.getColumn(0,"PROFESSOR_ID"));
 
             // 팝업 창 경로 설정
             var surl = "MainBase::select_Professor_Popup.xfdl";
@@ -298,11 +305,12 @@
 
         this.fn_searchProInfo = function(proId)
         {
+
         	var strSvcId    = "selectAdProInfo";
         	var strSvcUrl   = "svc::selectAdProInfo.do";
         	var inData      = "";
-        	var outData     = "ds_list=ds_list";
-        	var strArg      = "PROFESSOR_ID=" + proId;
+        	var outData     = "ds_list_dtl=ds_list";
+        	var strArg      = "PROFESSOR_ID="+ proId;
         	var callBackFnc = "fnCallback";
         	var isAsync     = false;
 

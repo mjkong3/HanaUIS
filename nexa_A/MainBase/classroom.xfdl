@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="classroom" width="1280" height="720" titletext="New Form" onload="classroom_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Grid id="class_Grd" taborder="0" left="31" top="50" width="502" height="277" binddataset="classroom_ds" autofittype="col" scrollbartype="none">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="93"/>
+                <Column size="142"/>
+                <Column size="48"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="강의실코드"/>
+                <Cell col="1" text="강의실"/>
+                <Cell col="2" text="정원"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:CLASSROOM_ID" textAlign="center"/>
+                <Cell col="1" text="bind:CLASSROOM_NAME" textAlign="center"/>
+                <Cell col="2" text="bind:MAX_PEOPLE" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="classtime_Grid" taborder="1" left="543" top="50" width="502" height="277" binddataset="classtime_ds" autofittype="col" autosizingtype="col" selecttype="cell" oncellclick="classtime_Grid_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="93"/>
+                <Column size="93"/>
+                <Column size="93"/>
+                <Column size="93"/>
+                <Column size="93"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="50"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="교시"/>
+                <Cell col="1" text="월요일"/>
+                <Cell col="2" text="화요일"/>
+                <Cell col="3" text="수요일"/>
+                <Cell col="4" text="목요일"/>
+                <Cell col="5" text="금요일"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:교시" textAlign="center"/>
+                <Cell col="1" text="bind:월요일" textAlign="center"/>
+                <Cell col="2" text="bind:화요일" textAlign="center"/>
+                <Cell col="3" text="bind:수요일" textAlign="center"/>
+                <Cell col="4" text="bind:목요일" textAlign="center"/>
+                <Cell col="5" text="bind:금요일" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="classcourse_grd" taborder="2" left="31" top="386" width="1019" height="208" binddataset="classcourse_ds" selecttype="row">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="166"/>
+                <Column size="144"/>
+                <Column size="92"/>
+                <Column size="78"/>
+                <Column size="103"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" displaytype="normal" edittype="none" text="강의실"/>
+                <Cell col="2" text="강의이름"/>
+                <Cell col="3" text="강의 요일"/>
+                <Cell col="4" text="강의 교시"/>
+                <Cell col="5" text="교사"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
+                <Cell col="1" displaytype="combocontrol" edittype="combo" combodataset="classroom_ds" combodatacol="CLASSROOM_NAME" combocodecol="CLASSROOM_ID" text="bind:CLASSROOM_ID" combodisplaynulltext="bind:CLASSROOM_ID"/>
+                <Cell col="2" text="bind:CLASS_NAME"/>
+                <Cell col="3" displaytype="combocontrol" edittype="combo" combodataset="classweek_ds" combocodecol="Code" combodatacol="Data" comboautoselect="false" text="bind:CLASS_WEEK"/>
+                <Cell col="4" text="bind:TIME_NUMBER" displaytype="combocontrol" edittype="combo" combodataset="classti_ds" combodatacol="data" combocodecol="code"/>
+                <Cell col="5" text="bind:PROFESSOR_ID"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="reset_btn" taborder="3" text="리셋" left="874" top="344" width="51" height="36" onclick="reset_btn_onclick"/>
+        <Button id="insert_btn" taborder="4" text="등록" left="999" top="344" width="51" height="36" onclick="insert_btn_onclick"/>
+        <Button id="apply_btn" taborder="5" text="저장" left="935" top="344" width="51" height="36" onclick="apply_btn_onclick"/>
+        <Static id="title" taborder="6" text="   미배정 강의" left="32" top="354" width="398" height="34"/>
+        <Button id="btn_copy" taborder="7" text="추가" left="813" top="343" width="47" height="38" onclick="btn_copy_onclick"/>
+        <Button id="btn_delete" taborder="8" text="제거" left="750" top="344" width="46" height="36" onclick="btn_delete_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="classroom_ds" onrowposchanged="classroom_ds_onrowposchanged">
+        <ColumnInfo>
+          <Column id="CLASSROOM_ID" type="STRING" size="256"/>
+          <Column id="CLASSROOM_NAME" type="STRING" size="256"/>
+          <Column id="MAX_PEOPLE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="classtime_ds">
+        <ColumnInfo>
+          <Column id="교시" type="STRING" size="256"/>
+          <Column id="월요일" type="STRING" size="256"/>
+          <Column id="화요일" type="STRING" size="256"/>
+          <Column id="수요일" type="STRING" size="256"/>
+          <Column id="목요일" type="STRING" size="256"/>
+          <Column id="금요일" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="classroomrow_ds">
+        <ColumnInfo>
+          <Column id="CLASSROOM_ID" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="classcourse_ds" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="CLASSROOM_ID" type="STRING" size="256"/>
+          <Column id="CLASS_NAME" type="STRING" size="256"/>
+          <Column id="PROFESSOR_ID" type="STRING" size="256"/>
+          <Column id="CLASSROOM_NAME" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_CODE" type="STRING" size="256"/>
+          <Column id="TIME_NUMBER" type="STRING" size="256"/>
+          <Column id="CLASS_WEEK" type="STRING" size="256"/>
+          <Column id="CLASS_CODE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="classweek_ds">
+        <ColumnInfo>
+          <Column id="Code" type="STRING" size="256"/>
+          <Column id="Data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="Code">1</Col>
+            <Col id="Data">월요일</Col>
+          </Row>
+          <Row>
+            <Col id="Code">2</Col>
+            <Col id="Data">화요일</Col>
+          </Row>
+          <Row>
+            <Col id="Code">3</Col>
+            <Col id="Data">수요일</Col>
+          </Row>
+          <Row>
+            <Col id="Code">4</Col>
+            <Col id="Data">목요일</Col>
+          </Row>
+          <Row>
+            <Col id="Code">5</Col>
+            <Col id="Data">금요일</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="classti_ds">
+        <ColumnInfo>
+          <Column id="data" type="STRING" size="256"/>
+          <Column id="code" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="data">1교시</Col>
+            <Col id="code">1</Col>
+          </Row>
+          <Row>
+            <Col id="data">2교시</Col>
+            <Col id="code">2</Col>
+          </Row>
+          <Row>
+            <Col id="data">3교시</Col>
+            <Col id="code">3</Col>
+          </Row>
+          <Row>
+            <Col id="data">4교시</Col>
+            <Col id="code">4</Col>
+          </Row>
+          <Row>
+            <Col id="data">5교시</Col>
+            <Col id="code">5</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_classtimeid">
+        <ColumnInfo>
+          <Column id="교시" type="STRING" size="256"/>
+          <Column id="월요일" type="STRING" size="256"/>
+          <Column id="화요일" type="STRING" size="256"/>
+          <Column id="수요일" type="STRING" size="256"/>
+          <Column id="목요일" type="STRING" size="256"/>
+          <Column id="금요일" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.classroom_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.fn_classroom();
+	this.fn_classcourse();
+
+};
+
+this.fn_classroom = function(){
+	var strSvcId    = "SelectAdminClassroom";
+	var strSvcUrl   = "svc::SelectAdminClassroom.do";
+	var inData      = "";
+	var outData     = "classroom_ds = classroom_ds";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	var isAsync     = true;
+	
+	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+	
+};
+
+this.fn_classcourse = function(){
+	var strSvcId    = "SelectAdminClasscourse";
+	var strSvcUrl   = "svc::SelectAdminClasscourse.do";
+	var inData      = "";
+	var outData     = "classcourse_ds = classcourse_ds";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	var isAsync     = true;
+	
+	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+};
+
+// this.classtime_id = function(CLASSROOM_ID)
+// {
+// 	var strSvcId    = "SelectAdminClasstimeid";
+// 	var strSvcUrl   = "svc::SelectAdminClasstimeid.do";
+// 	var inData      = "";
+// 	var outData     = "ds_classtimeid = ds_classtimeid";
+// 	var strArg      = "CLASSROOM_ID =" + CLASSROOM_ID;
+// 	var callBackFnc = "fnCallback";
+// 	var isAsync     = true;
+// 	
+// 	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+// };
+
+this.classroom_ds_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	var CLASSROOM_ID = obj.getColumn(obj.rowposition,"CLASSROOM_ID");
+	
+	this.fn_classtime(CLASSROOM_ID);
+	/*this.classtime_id(CLASSROOM_ID);*/
+	
+};
+
+this.fn_classtime = function(CLASSROOM_ID){
+	var strSvcId    = "SelectAdminClasstime";
+	var strSvcUrl   = "svc::SelectAdminClasstime.do";
+	var inData      = "";
+	var outData     = "classtime_ds = classtime_ds";
+	var strArg      = "CLASSROOM_ID =" + CLASSROOM_ID;
+	var callBackFnc = "fnCallback";
+	var isAsync     = true;
+	
+	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+	
+}
+
+
+
+this.reset_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.classcourse_ds.reset();
+};
+
+this.apply_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.classcourse_ds.applyChange();
+};
+
+
+//처리콜백 함수
+this.fnCallback = function(svcID,errorCode,errorMsg)
+{
+	// 에러 시 화면 처리 내역
+	if(errorCode == -1)
+	{
+		this.alert(errorMsg);
+		return;
+	}
+
+	switch(svcID)
+	{
+		case "SelectAdminClasscourse":
+			console.log(this.classcourse_ds.saveXML());
+			break;
+		case "SelectAdminClasstime":
+			/*console.log(this.classtime_ds.saveXML());*/
+			break;
+		case "saveAdminClasscourse":
+			this.fn_classcourse();
+			break;
+		default:
+	}
+};
+
+this.classtime_Grid_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	// 클릭된 셀의 컬럼 ID 가져오기
+    var columnid = obj.getCellProperty("body", e.cell, "text").replace("bind:", "");
+    // 클릭된 셀의 값 가져오기
+    var value = this.classtime_ds.getColumn(e.row, columnid);
+	
+	var classtimetoid = this.classtime_ds.getColumn(e.row, "교시");
+    
+	var classtimeid = this.ds_classtimeid.getColumn(classtimetoid-1, columnid);
+    // 가져온 값 확인
+    trace("클릭한 셀의 컬럼 ID: " + columnid);
+    trace("클릭한 셀의 값: " + value);
+	trace("클릭한 셀의 값: " + classtimetoid);
+	trace("클릭한 셀의 컬럼" + classtimeid);
+};
+
+this.insert_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(confirm("등록하시겠습니까?")){
+		console.log(this.classcourse_ds.getColumn());
+		this.fn_classcoursesave();
+	}
+};
+
+this.fn_classcoursesave = function(){
+	var strSvcId    = "saveAdminClasscourse";
+	var strSvcUrl   = "svc::saveAdminClasscourse.do";
+	var inData      = "classcourse_ds = classcourse_ds";
+	var outData     = "";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	var isAsync     = true;
+	
+	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+
+}
+this.btn_copy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 그리드와 연결된 데이터셋에서 선택된 행 번호 가져오기
+    var selectedRow = this.classcourse_ds.rowposition;
+
+    // 선택된 행이 없을 경우 처리
+    if (selectedRow < 0) {
+        alert("행이 선택되지 않았습니다.");
+        return;
+    }
+
+    // 새로운 행 추가
+    var newRow = this.classcourse_ds.insertRow(selectedRow+1);
+
+    // 선택된 행의 데이터를 새로운 행으로 복사
+    this.classcourse_ds.copyRow(newRow, this.classcourse_ds, selectedRow);
+};
+this.btn_delete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.classcourse_ds.deleteRow(this.classcourse_ds.rowposition);
+};
+]]></Script>
+  </Form>
+</FDL>

@@ -161,7 +161,7 @@
         this.Button01_onclick = function(obj,e)
         {
         	this.TextArea00.set_value("");
-        	this.FileUpTransfer00.upload('http://demo.nexacro.com/developer_guide/17/Service/fileupload.jsp');
+        	this.FileUpTransfer00.upload('svc::file/fileupload.jsp');
         };
 
         this.FileUpTransfer00_onprogress = function(obj,e)

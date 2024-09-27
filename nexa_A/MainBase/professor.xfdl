@@ -174,6 +174,7 @@
           <Column id="regDate" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
+      <Dataset id="ds_list_dtl"/>
     </Objects>
     <Bind>
       <BindItem id="item0" compid="cmb_Search" propid="value" datasetid="ds_search" columnid="SEARCH_TYPE"/>
@@ -357,14 +358,16 @@ this.grd_List_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEven
 	 * 더블클릭 시 pk인 교번을 기준으로 selet 수행
 	 * 받아온 값
 	 */
-	 var proId = obj.getCellText(e.row, "PROFESSOR_ID");
-	 
+	 var proId = this.grd_List.getBindDataset().getColumn(e.row, "PROFESSOR_ID");
+
+	 console.log(proId);
 	 this.fn_searchProInfo(proId);
 	 
 	  var objParam = { 
-      param1: this.ds_list,            // 데이터셋 전체
+      param1: this.ds_list_dtl,            // 데이터셋 전체
       param2: this.ds_dept
     };
+	console.log(this.ds_list.getColumn(0,"PROFESSOR_ID"));
     
     // 팝업 창 경로 설정
     var surl = "MainBase::select_Professor_Popup.xfdl";
@@ -376,11 +379,12 @@ this.grd_List_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEven
 
 this.fn_searchProInfo = function(proId)
 {
+
 	var strSvcId    = "selectAdProInfo";
 	var strSvcUrl   = "svc::selectAdProInfo.do";
 	var inData      = "";
-	var outData     = "ds_list=ds_list";
-	var strArg      = "PROFESSOR_ID=" + proId;
+	var outData     = "ds_list_dtl=ds_list";
+	var strArg      = "PROFESSOR_ID="+ proId;
 	var callBackFnc = "fnCallback";
 	var isAsync     = false;
 	

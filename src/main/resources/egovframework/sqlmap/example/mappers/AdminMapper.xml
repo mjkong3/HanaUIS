@@ -25,8 +25,8 @@
 		ELSE 'N'
 		END as LoginCheck, email
 		FROM ADMIN
-		WHERE ADMIN_ID = #{Id}
-		and password = #{Password}
+		WHERE ADMIN_CODE = #{Id}
+		and password = SHA2(#{Password}, 256)
 		
 	</select>
 </mapper>

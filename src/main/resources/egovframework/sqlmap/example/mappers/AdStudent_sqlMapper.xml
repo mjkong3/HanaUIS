@@ -8,7 +8,7 @@
 	</select>
 	
 	<select id="selectAdStudent" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT Student_id, Name, Status, Phone, Email, DEPARTMENT_CODE
+		SELECT Student_id, Name, Status, Phone, Email, DEPARTMENT_CODE, 0 AS 'Check'
 		FROM STUDENT
 		WHERE 1=1
 		
@@ -108,4 +108,9 @@
 		where 1=1
 		and STUDENT_ID = #{Student_id}
 	</select>
+	
+	<delete id="deletAdStudent" parameterType="java.util.Map">
+		DELETE FROM STUDENT
+		WHERE STUDENT_ID = #{Student_id}
+	</delete>
 </mapper>

@@ -451,6 +451,7 @@
         // Regist UI Components Event
         this.on_initEvent = function()
         {
+            this.addEventHandler("onload",this.select_Professor_Popup_onload,this);
             this.Static00_01_00.addEventHandler("onclick",this.Static00_01_00_onclick,this);
             this.Static00_00_02.addEventHandler("onclick",this.Static_onclick,this);
             this.Static00_03_02.addEventHandler("onclick",this.Static_onclick,this);
