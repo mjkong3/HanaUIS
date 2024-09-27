@@ -59,107 +59,107 @@
 //처리콜백 함수
 this.fnCallback = function(svcID,errorCode,errorMsg)
 {
-	// 에러 시 화면 처리 내역
-	if(errorCode == -1)
-	{
-		this.alert(errorMsg);
-		return;
-	}
+   // 에러 시 화면 처리 내역
+   if(errorCode == -1)
+   {
+      this.alert(errorMsg);
+      return;
+   }
 
-	switch(svcID)
-	{
-		case "saveAdStudent":
-			this.alert("성공적으로 수정하였습니다.");
-			this.close();
-			break;
-	}
+   switch(svcID)
+   {
+      case "saveAdStudent":
+         this.alert("성공적으로 수정하였습니다.");
+         this.close();
+         break;
+   }
 };
 
 this.select_Student_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-	var objParam1 = this.parent.param1;
-	var objParam2 = this.parent.param2;
- 	
- 	this.save_ds.copyData(objParam1);
-	this.ds_de.copyData(objParam2);
- 	/*console.log(this.select_student.getColumn(0,all));*/
-	
-	console.log(this.select_student.getColumn(0,"GENDER"));
-	console.log(this.select_student.getColumn(0,"DEPARTMENT_NAME"));
-	
-	this.STUDENT_ID.set_readonly(true);
-	this.PASSWORD.set_readonly(true);
-	this.NAME.set_readonly(true);
-	this.UNIV_YEAR.set_readonly(true);
-	this.PHONE.set_readonly(true);
-	this.EMAIL.set_readonly(true);
-	this.BIRTHDAY.set_readonly(true);
-	this.GENDER.set_readonly(true);
-	this.ADDRESS.set_readonly(true);
-	this.STATUS.set_readonly(true);
-	this.de.set_readonly(true);
-	
+   var objParam1 = this.parent.param1;
+   var objParam2 = this.parent.param2;
+    
+    this.save_ds.copyData(objParam1);
+   this.ds_de.copyData(objParam2);
+    /*console.log(this.select_student.getColumn(0,all));*/
+   
+   console.log(this.select_student.getColumn(0,"GENDER"));
+   console.log(this.select_student.getColumn(0,"DEPARTMENT_NAME"));
+   
+   this.STUDENT_ID.set_readonly(true);
+   this.PASSWORD.set_readonly(true);
+   this.NAME.set_readonly(true);
+   this.UNIV_YEAR.set_readonly(true);
+   this.PHONE.set_readonly(true);
+   this.EMAIL.set_readonly(true);
+   this.BIRTHDAY.set_readonly(true);
+   this.GENDER.set_readonly(true);
+   this.ADDRESS.set_readonly(true);
+   this.STATUS.set_readonly(true);
+   this.de.set_readonly(true);
+   
 };
 
 
 this.Stu_Add_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.PASSWORD.set_readonly(false);
-	this.NAME.set_readonly(false);
-	this.UNIV_YEAR.set_readonly(false);
-	this.PHONE.set_readonly(false);
-	this.EMAIL.set_readonly(false);
-	this.BIRTHDAY.set_readonly(false);
-	this.GENDER.set_readonly(false);
-	this.ADDRESS.set_readonly(false);
-	this.STATUS.set_readonly(false);
-	this.de.set_readonly(false);
-	
-	this.return_btn.set_visible(true);
-	
-	this.Stu_Add_btn.set_visible(false);
-	this.save_btn.set_visible(true);
-	
+   this.PASSWORD.set_readonly(false);
+   this.NAME.set_readonly(false);
+   this.UNIV_YEAR.set_readonly(false);
+   this.PHONE.set_readonly(false);
+   this.EMAIL.set_readonly(false);
+   this.BIRTHDAY.set_readonly(false);
+   this.GENDER.set_readonly(false);
+   this.ADDRESS.set_readonly(false);
+   this.STATUS.set_readonly(false);
+   this.de.set_readonly(false);
+   
+   this.return_btn.set_visible(true);
+   
+   this.Stu_Add_btn.set_visible(false);
+   this.save_btn.set_visible(true);
+   
 };
 
 this.fn_update_student = function()
 {
-	var strSvcId    = "saveAdStudent";
-	var strSvcUrl   = "svc::saveAdStudent.do";
-	var inData      = "save_ds = save_ds";
-	var outData     = "";
-	var strArg      = "";
-	var callBackFnc = "fnCallback";
-	var isAsync     = true;
-	
-	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+   var strSvcId    = "saveAdStudent";
+   var strSvcUrl   = "svc::saveAdStudent.do";
+   var inData      = "save_ds = save_ds";
+   var outData     = "";
+   var strArg      = "";
+   var callBackFnc = "fnCallback";
+   var isAsync     = true;
+   
+   this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
 
 }
 
 this.return_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.STUDENT_ID.set_readonly(true);
-	this.PASSWORD.set_readonly(true);
-	this.NAME.set_readonly(true);
-	this.UNIV_YEAR.set_readonly(true);
-	this.PHONE.set_readonly(true);
-	this.EMAIL.set_readonly(true);
-	this.BIRTHDAY.set_readonly(true);
-	this.GENDER.set_readonly(true);
-	this.ADDRESS.set_readonly(true);
-	this.STATUS.set_readonly(true);
-	this.de.set_readonly(true);
-	
-	this.return_btn.set_visible(false);
-	
-	this.Stu_Add_btn.set_visible(true);
-	this.save_btn.set_visible(false);
+   this.STUDENT_ID.set_readonly(true);
+   this.PASSWORD.set_readonly(true);
+   this.NAME.set_readonly(true);
+   this.UNIV_YEAR.set_readonly(true);
+   this.PHONE.set_readonly(true);
+   this.EMAIL.set_readonly(true);
+   this.BIRTHDAY.set_readonly(true);
+   this.GENDER.set_readonly(true);
+   this.ADDRESS.set_readonly(true);
+   this.STATUS.set_readonly(true);
+   this.de.set_readonly(true);
+   
+   this.return_btn.set_visible(false);
+   
+   this.Stu_Add_btn.set_visible(true);
+   this.save_btn.set_visible(false);
 };
 
 
 this.save_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	this.fn_update_student();
+   this.fn_update_student();
 };
 ]]></Script>
     <Objects>

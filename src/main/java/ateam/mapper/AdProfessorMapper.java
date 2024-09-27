@@ -7,8 +7,6 @@ import egovframework.rte.psl.dataaccess.mapper.Mapper;
 
 @Mapper
 public interface AdProfessorMapper {
-
-	List<Map<String, Object>> selectAdProDept();
 	
 	List<Map<String, Object>> selectAdProList(Map<String, Object> param);
 	
@@ -19,6 +17,8 @@ public interface AdProfessorMapper {
 	void updateAdPro(Map<String, Object> param);
 	
 	Map<String, Object> selectAdProInfo(String ProId);
+	
+	void deleteAdPro(Map<String, Object> param);
 
 	
 }

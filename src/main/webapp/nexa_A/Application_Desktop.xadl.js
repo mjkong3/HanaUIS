@@ -18,8 +18,8 @@
             this._addDataset(obj.name, obj);
 
 
-            obj = new Dataset("Login", this);
-            obj._setContents("<ColumnInfo><Column id=\"Name\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj = new Dataset("gds_adminInfo", this);
+            obj._setContents("<ColumnInfo><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this._addDataset(obj.name, obj);
             
             // global variable

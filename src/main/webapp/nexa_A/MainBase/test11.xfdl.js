@@ -22,13 +22,17 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Button("Button00","187","88","120","50",null,null,null,null,null,null,this);
+            obj = new Button("Button00","390","43","120","50",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_text("Button00");
             this.addChild(obj.name, obj);
 
             obj = new Calendar("Calendar00","406","92","208","82",null,null,null,null,null,null,this);
             obj.set_taborder("1");
+            this.addChild(obj.name, obj);
+
+            obj = new TextArea("TextArea00","56","68","294","152",null,null,null,null,null,null,this);
+            obj.set_taborder("2");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -55,7 +59,13 @@
 
         this.Button00_onclick = function(obj,e)
         {
-        	trace(this.ds_date.getColumn(0, "regDate"));
+        	Application.gdsSession.set_item("regDate", this.ds_date.getColumn(0, "regDate"));
+        	trace(gdsSession.get_id(0));
+        };
+
+        this.TextArea00_onchanged = function(obj,e)
+        {
+
         };
 
         });
@@ -64,6 +74,7 @@
         this.on_initEvent = function()
         {
             this.Button00.addEventHandler("onclick",this.Button00_onclick,this);
+            this.TextArea00.addEventHandler("onchanged",this.TextArea00_onchanged,this);
         };
         this.loadIncludeScript("test11.xfdl");
         this.loadPreloadList();

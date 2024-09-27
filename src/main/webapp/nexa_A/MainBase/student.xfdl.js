@@ -122,82 +122,82 @@
         // 시작 시
         this.Form_Code_onload = function(obj,e)
         {
-        	this.Search.setColumn(0,"SEARCH_TYPE","All");
+           this.Search.setColumn(0,"SEARCH_TYPE","All");
 
-        	// 학과 호출
-        	this.select_Depart();
+           // 학과 호출
+           this.select_Depart();
 
         };
 
         // 엔터키 검색
         this.Form_Code_onkeyup = function(obj,e)
         {
-        	if(e.keycode==13){
-        		this.Select_btn.click();
-        	}
+           if(e.keycode==13){
+              this.Select_btn.click();
+           }
         };
 
         //처리콜백 함수
         this.fnCallback = function(svcID,errorCode,errorMsg)
         {
-        	// 에러 시 화면 처리 내역
-        	if(errorCode == -1)
-        	{
-        		this.alert(errorMsg);
-        		return;
-        	}
+           // 에러 시 화면 처리 내역
+           if(errorCode == -1)
+           {
+              this.alert(errorMsg);
+              return;
+           }
 
-        	console.log("svcID = " + svcID);
+           console.log("svcID = " + svcID);
 
-        	switch(svcID) {
-        	case "deleteAdStudent":
-        		this.alert("삭제되었습니다.");
-        		this.fnSearch();
-        		break;
-        	case "saveAdStudent":
-        		this.fnSearch();
-        		break;
-        	default:
-        	}
+           switch(svcID) {
+           case "deleteAdStudent":
+              this.alert("삭제되었습니다.");
+              this.fnSearch();
+              break;
+           case "saveAdStudent":
+              this.fnSearch();
+              break;
+           default:
+           }
         };
         // 시작 학과 호출
         this.select_Depart = function(){
 
-        	var strSvcId    = "selectDepartment";
-        	var strSvcUrl   = "svc::selectDepartment.do";
-        	var inData      = "";
-        	var outData     = "DEPARTMENT_List = DEPARTMENT_List";
-        	var strArg      = "";
-        	var callBackFnc = "fnCallback";
-        	var isAsync     = true;
+           var strSvcId    = "selectDepartment";
+           var strSvcUrl   = "svc::selectDepartment.do";
+           var inData      = "";
+           var outData     = "DEPARTMENT_List = DEPARTMENT_List";
+           var strArg      = "";
+           var callBackFnc = "fnCallback";
+           var isAsync     = true;
 
-        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+           this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         }
 
         // 팝업호출
         this.showPopup = function (objParam, surl)
         {
-        	popup = new nexacro.ChildFrame;
-        	popup.init("popupWork", 0, 0, 800, 700, null, null, surl);
-        	popup.set_dragmovetype("all");
-        	popup.set_layered("true");
-        	popup.set_autosize(true);
-        	popup.set_showtitlebar("Popup Title");
-        	popup.set_showstatusbar(false);
-        	popup.set_resizable(true);
-        	popup.set_openalign("center middle");
-        	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
-        	popup.style.set_overlaycolor("#6666664C");
-        	popup.form.style.set_border("1 solid #4c5a6f");
+           popup = new nexacro.ChildFrame;
+           popup.init("popupWork", 0, 0, 800, 700, null, null, surl);
+           popup.set_dragmovetype("all");
+           popup.set_layered("true");
+           popup.set_autosize(true);
+           popup.set_showtitlebar("Popup Title");
+           popup.set_showstatusbar(false);
+           popup.set_resizable(true);
+           popup.set_openalign("center middle");
+           popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
+           popup.style.set_overlaycolor("#6666664C");
+           popup.form.style.set_border("1 solid #4c5a6f");
         }
 
         // 팝업콜백 함수
         this.fn_popupCallback = function(strPopupID, strReturn)
         {
-        	trace(strPopupID); // popwork
-        	trace(strReturn); // saveAdStudent
+           trace(strPopupID); // popwork
+           trace(strReturn); // saveAdStudent
             if(strPopupID == "popupWork"){
-        		this.fnSearch();
+              this.fnSearch();
                 return;
             }
         };
@@ -226,67 +226,67 @@
         // 검색 시
         this.Select_btn_onclick = function(obj,e)
         {
-        	this.fnSearch();
+           this.fnSearch();
         };
 
         // 그리드 선택 -- 데이터 셋 레벨에 따라서
         this.DEPARTMENT_List_onrowposchanged = function(obj,e)
         {
-        	this.Search.setColumn(0,"DEPARTMENT_CODE",obj.getColumn(obj.rowposition,"DEPARTMENT_CODE"));
+           this.Search.setColumn(0,"DEPARTMENT_CODE",obj.getColumn(obj.rowposition,"DEPARTMENT_CODE"));
 
-        	this.fnSearch();
+           this.fnSearch();
         };
 
         // 조회 검색
         this.fnSearch = function()
         {
-        	if(this.Search.getColumn(0,"DEPARTMENT_CODE") == ''
-        	 || this.Search.getColumn(0,"DEPARTMENT_CODE") == 'undefined'
-        	 || this.Search.getColumn(0,"DEPARTMENT_CODE") == null) {
-        		alert("학과를 선택해주세요.");
-        		return;
-        	}
-        	var strSvcId    = "selectAdStudent";
-        	var strSvcUrl   = "svc::selectAdStudent.do";
-        	var inData      = "Search = Search";
-        	var outData     = "DEPARTMENT_DTL_List=DEPARTMENT_DTL_List";
-        	var strArg      = "";
-        	var callBackFnc = "fnCallback";
-        	var isAsync     = true;
+           if(this.Search.getColumn(0,"DEPARTMENT_CODE") == ''
+            || this.Search.getColumn(0,"DEPARTMENT_CODE") == 'undefined'
+            || this.Search.getColumn(0,"DEPARTMENT_CODE") == null) {
+              alert("학과를 선택해주세요.");
+              return;
+           }
+           var strSvcId    = "selectAdStudent";
+           var strSvcUrl   = "svc::selectAdStudent.do";
+           var inData      = "Search = Search";
+           var outData     = "DEPARTMENT_DTL_List=DEPARTMENT_DTL_List";
+           var strArg      = "";
+           var callBackFnc = "fnCallback";
+           var isAsync     = true;
 
-        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+           this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 
         };
 
         this.Dtl_Grid_oncelldblclick = function(obj,e)
         {
-        	this.fn_student_dtl();
+           this.fn_student_dtl();
 
-        	var objParam = {param1:this.student_dtl_list,
-        					param2:this.DEPARTMENT_List};
-        	console.log(this.student_dtl_list.getColumn(0,"GENDER"));
-        	var surl = "MainBase::select_Student_Popup.xfdl"
-        	this.showPopup(objParam, surl);
+           var objParam = {param1:this.student_dtl_list,
+                       param2:this.DEPARTMENT_List};
+           console.log(this.student_dtl_list.getColumn(0,"GENDER"));
+           var surl = "MainBase::select_Student_Popup.xfdl"
+           this.showPopup(objParam, surl);
         };
 
         this.DEPARTMENT_DTL_List_onrowposchanged = function(obj,e)
         {
-        	this.DTL_onrow_ds.setColumn(0,"Student_id",obj.getColumn(obj.rowposition, "Student_id"));
+           this.DTL_onrow_ds.setColumn(0,"Student_id",obj.getColumn(obj.rowposition, "Student_id"));
 
-        	/*console.log(this.DTL_onrow_ds.getColumn(0,"Student_id"));*/
+           /*console.log(this.DTL_onrow_ds.getColumn(0,"Student_id"));*/
         };
 
         this.fn_student_dtl = function()
         {
-        	var strSvcId    = "selectAdStudentdtl";
-        	var strSvcUrl   = "svc::selectAdStudentdtl.do";
-        	var inData      = "DTL_onrow_ds = DTL_onrow_ds";
-        	var outData     = "student_dtl_list=student_dtl_list";
-        	var strArg      = "";
-        	var callBackFnc = "fnCallback";
-        	var isAsync     = false;
+           var strSvcId    = "selectAdStudentdtl";
+           var strSvcUrl   = "svc::selectAdStudentdtl.do";
+           var inData      = "DTL_onrow_ds = DTL_onrow_ds";
+           var outData     = "student_dtl_list=student_dtl_list";
+           var strArg      = "";
+           var callBackFnc = "fnCallback";
+           var isAsync     = false;
 
-        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+           this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 
         };
 
@@ -296,24 +296,24 @@
             // 체크박스 컬럼 헤더 셀 클릭 시 전체 선택/해제
             if (obj.getCellProperty("head", e.cell, "displaytype") == "checkboxcontrol") {
 
-        		// 아래 속성에서 0은 그리드에서 0번쨰 column을 의미하며 text 값을 가져오라는 의미입니다.
-        		var chkVal = obj.getCellProperty("head", 0, "text");
+              // 아래 속성에서 0은 그리드에서 0번쨰 column을 의미하며 text 값을 가져오라는 의미입니다.
+              var chkVal = obj.getCellProperty("head", 0, "text");
 
-        		// 0이면 체크 안된 상태이고 1이면 체크된 상태임을 의미합니다.
-        		if (chkVal == "1") { // 이미 체크된 상태라면 체크 해지로 변환
-        			chkVal	= "0";
-        			obj.setCellProperty("head", 0, "text", chkVal); //프론트에 적용 HEAD 부분
-        			for (var i=0; i<this.DEPARTMENT_DTL_List.rowcount; i++) { //프론트에 적용 ROW 부분
-        				this.DEPARTMENT_DTL_List.setColumn(i,"Check","0");
-        			}
-        		} else {
-        			chkVal	= "1"; //체크 안 된 상태라면 체크 표시
-        			obj.setCellProperty("head", 0, "text", chkVal); //프론트에 HEAD 적용
-        			for (var i=0; i<this.DEPARTMENT_DTL_List.rowcount; i++) { //프론트에 적용 ROW 부분
-        				this.DEPARTMENT_DTL_List.setColumn(i,"Check","1");
-        			}
+              // 0이면 체크 안된 상태이고 1이면 체크된 상태임을 의미합니다.
+              if (chkVal == "1") { // 이미 체크된 상태라면 체크 해지로 변환
+                 chkVal   = "0";
+                 obj.setCellProperty("head", 0, "text", chkVal); //프론트에 적용 HEAD 부분
+                 for (var i=0; i<this.DEPARTMENT_DTL_List.rowcount; i++) { //프론트에 적용 ROW 부분
+                    this.DEPARTMENT_DTL_List.setColumn(i,"Check","0");
+                 }
+              } else {
+                 chkVal   = "1"; //체크 안 된 상태라면 체크 표시
+                 obj.setCellProperty("head", 0, "text", chkVal); //프론트에 HEAD 적용
+                 for (var i=0; i<this.DEPARTMENT_DTL_List.rowcount; i++) { //프론트에 적용 ROW 부분
+                    this.DEPARTMENT_DTL_List.setColumn(i,"Check","1");
+                 }
 
-        		}
+              }
             } else {
                 // 정렬 기능 실행
                 this.fn_sort(obj, e);
@@ -352,18 +352,18 @@
             }
 
             // 이전 셀의 정렬 마크 제거
-        	if (this.nPrevCell > -1 && this.nPrevCell != e.cell) {
-        		var sPrevText = obj.getCellText(-1, this.nPrevCell);
+           if (this.nPrevCell > -1 && this.nPrevCell != e.cell) {
+              var sPrevText = obj.getCellText(-1, this.nPrevCell);
 
-        		// 이전 셀의 텍스트에 정렬 마크가 포함되어 있는지 확인
-        		if (sPrevText.includes(this.CONST_DESC_MARK) || sPrevText.includes(this.CONST_ASC_MARK)) {
-        			// 마지막 문자(정렬 마크)를 제거
-        			obj.setCellProperty("head", this.nPrevCell, "text", sPrevText.slice(0, -1));
-        		}
-        	}
+              // 이전 셀의 텍스트에 정렬 마크가 포함되어 있는지 확인
+              if (sPrevText.includes(this.CONST_DESC_MARK) || sPrevText.includes(this.CONST_ASC_MARK)) {
+                 // 마지막 문자(정렬 마크)를 제거
+                 obj.setCellProperty("head", this.nPrevCell, "text", sPrevText.slice(0, -1));
+              }
+           }
 
-        	// 현재 셀을 이전 셀로 설정
-        	this.nPrevCell = e.cell;
+           // 현재 셀을 이전 셀로 설정
+           this.nPrevCell = e.cell;
 
         };
 
@@ -371,38 +371,38 @@
         {
             // DEPARTMENT_DTL_List 데이터셋의 전체 행 개수 가져오기
         //     var rowCount = this.DEPARTMENT_DTL_List.getRowCount();
-        // 	this.dlt_ds.deleteAll();
-        // 	var count = 0;
+        //    this.dlt_ds.deleteAll();
+        //    var count = 0;
         //     // 각 행을 순회하면서 체크박스 값 확인
         //     for (var i = 0; i < rowCount; i++) {
         //         var checkboxValue = this.DEPARTMENT_DTL_List.getColumn(i, "Check");
         //
-        // 		// 체크박스 값이 1인 행만 출력
+        //       // 체크박스 값이 1인 행만 출력
         //         if (checkboxValue == 1) {
         //             console.log(this.DEPARTMENT_DTL_List.getColumn(i, "Student_id")); // 첫 번째 컬럼 값 출력
-        // 			this.dlt_ds.addRow();
-        // 			this.dlt_ds.setColumn(count, "Student_id", this.DEPARTMENT_DTL_List.getColumn(i, "Student_id"));
-        // 			count++;
+        //          this.dlt_ds.addRow();
+        //          this.dlt_ds.setColumn(count, "Student_id", this.DEPARTMENT_DTL_List.getColumn(i, "Student_id"));
+        //          count++;
         //         }
         //     }
-        	this.dlt_ds.clearData();
-        	this.DEPARTMENT_DTL_List.filter("Check==1");
-        	this.dlt_ds.copyData(this.DEPARTMENT_DTL_List, true);
-        	this.DEPARTMENT_DTL_List.filter("");
+           this.dlt_ds.clearData();
+           this.DEPARTMENT_DTL_List.filter("Check==1");
+           this.dlt_ds.copyData(this.DEPARTMENT_DTL_List, true);
+           this.DEPARTMENT_DTL_List.filter("");
 
         };
 
         this.fn_delete = function()
         {
-        	var strSvcId    = "deleteAdStudent";
-        	var strSvcUrl   = "svc::deleteAdStudent.do";
-        	var inData      = "dlt_ds = dlt_ds";
-        	var outData     = "";
-        	var strArg      = "";
-        	var callBackFnc = "fnCallback";
-        	var isAsync     = false;
+           var strSvcId    = "deleteAdStudent";
+           var strSvcUrl   = "svc::deleteAdStudent.do";
+           var inData      = "dlt_ds = dlt_ds";
+           var outData     = "";
+           var strArg      = "";
+           var callBackFnc = "fnCallback";
+           var isAsync     = false;
 
-        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+           this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 
         };
 
@@ -410,13 +410,13 @@
         {
             this.fn_deletecheck();
 
-        	var checkedCount = this.dlt_ds.rowcount;
-        	if(checkedCount > 0){
-        		if(confirm("선택한 항목을 삭제하시겠습니까?")){
-        			this.fn_delete();
-        		}
-        	}
-        	else {
+           var checkedCount = this.dlt_ds.rowcount;
+           if(checkedCount > 0){
+              if(confirm("선택한 항목을 삭제하시겠습니까?")){
+                 this.fn_delete();
+              }
+           }
+           else {
                 alert("삭제할 항목을 선택하세요.");
             }
         };

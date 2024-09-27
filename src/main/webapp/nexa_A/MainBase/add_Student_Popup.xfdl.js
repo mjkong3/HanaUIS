@@ -329,47 +329,47 @@
         //처리콜백 함수
         this.fnCallback = function(svcID,errorCode,errorMsg)
         {
-        	// 에러 시 화면 처리 내역
-        	if(errorCode == -1)
-        	{
-        		this.alert(errorMsg);
-        		return;
-        	}
+           // 에러 시 화면 처리 내역
+           if(errorCode == -1)
+           {
+              this.alert(errorMsg);
+              return;
+           }
 
-        	switch(svcID)
-        	{
-        		case "saveAdStudent":
-        			this.alert("성공적으로 등록을 하였습니다.");
-        			this.close("saveAdStudent");
-        			break;
-        	}
+           switch(svcID)
+           {
+              case "saveAdStudent":
+                 this.alert("성공적으로 등록을 하였습니다.");
+                 this.close("saveAdStudent");
+                 break;
+           }
         };
 
         // this.Popup_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
         // {
-        // /*	this.insert_ds.setColumn(0,"DEPARTMENT_CODE",this.insert_ds.getColumn(0,1));*/
+        // /*   this.insert_ds.setColumn(0,"DEPARTMENT_CODE",this.insert_ds.getColumn(0,1));*/
         //
-        //  	var objParam  = this.parent.param1;
-        //  	console.log("DEPARTMENT_CODE: " + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
-        //  	this.ds_de.copyData(objParam);
-        //  	console.log("selected_DeptCode" + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+        //     var objParam  = this.parent.param1;
+        //     console.log("DEPARTMENT_CODE: " + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+        //     this.ds_de.copyData(objParam);
+        //     console.log("selected_DeptCode" + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
         //
-        // 	var departmentCode = this.ds_de.getColumn(0, "DEPARTMENT_CODE");
+        //    var departmentCode = this.ds_de.getColumn(0, "DEPARTMENT_CODE");
         //
         //     if (departmentCode == "00") {
         //         // 전체학과가 선택된 경우 콤보박스에서 전체학과를 선택
         //         this.de.set_index(0);  // 콤보박스의 첫 번째 항목(전체학과)을 선택
-        // 		 console.log("Selected index: 0 (전체학과)");
+        //        console.log("Selected index: 0 (전체학과)");
         //     } else {
         //         // 일반 학과가 선택된 경우 해당 학과의 DEPARTMENT_CODE 설정
         //         this.de.set_value(departmentCode);
-        // 		 console.log("Selected value: " + departmentCode);
+        //        console.log("Selected value: " + departmentCode);
         //     }
         //
-        // 	this.save_ds.setColumn(0,"UNIV_YEAR","1");
-        // 	this.save_ds.setColumn(0,"GENDER","M");
-        // 	this.save_ds.setColumn(0,"STATUS","재학");
-        // 	this.save_ds.setColumn(0, "DEPARTMENT_CODE", this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+        //    this.save_ds.setColumn(0,"UNIV_YEAR","1");
+        //    this.save_ds.setColumn(0,"GENDER","M");
+        //    this.save_ds.setColumn(0,"STATUS","재학");
+        //    this.save_ds.setColumn(0, "DEPARTMENT_CODE", this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
         // };
 
         // 자식(팝업) 폼 코드 (팝업 로드 시 호출되는 함수)
@@ -400,7 +400,7 @@
         //     } else {
         //         console.log("선택된 학과 정보가 없습니다.");
         //     }
-        	this.de.set_value(selectedDeptCode);
+           this.de.set_value(selectedDeptCode);
 
             // 데이터셋에 다른 초기 값 설정 (예시)
             this.save_ds.setColumn(0, "UNIV_YEAR", "1");
@@ -412,20 +412,20 @@
 
         this.Stu_Add_btn_onclick = function(obj,e)
         {
-        	this.insertstudent();
+           this.insertstudent();
         };
 
         this.insertstudent = function()
         {
-        	var strSvcId    = "saveAdStudent";
-        	var strSvcUrl   = "svc::saveAdStudent.do";
-        	var inData      = "save_ds = save_ds";
-        	var outData     = "";
-        	var strArg      = "";
-        	var callBackFnc = "fnCallback";
-        	var isAsync     = true;
+           var strSvcId    = "saveAdStudent";
+           var strSvcUrl   = "svc::saveAdStudent.do";
+           var inData      = "save_ds = save_ds";
+           var outData     = "";
+           var strArg      = "";
+           var callBackFnc = "fnCallback";
+           var isAsync     = true;
 
-        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+           this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 
         };
 
