@@ -28,7 +28,7 @@
 
 
             obj = new Dataset("ds_cmb", this);
-            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">ALL</Col><Col id=\"data\">전체</Col></Row><Row><Col id=\"code\">PROFESSOR_ID</Col><Col id=\"data\">교번</Col></Row><Row><Col id=\"code\">NAME</Col><Col id=\"data\">성명</Col></Row><Row><Col id=\"code\">PHONE</Col><Col id=\"data\">연락처</Col></Row><Row><Col id=\"code\">EMAIL</Col><Col id=\"data\">EMAL</Col></Row><Row><Col id=\"code\">GENDER</Col><Col id=\"data\">성별</Col></Row><Row><Col id=\"code\">ADDRESS</Col><Col id=\"data\">주소</Col></Row><Row><Col id=\"code\">STATUS</Col><Col id=\"data\">재직/휴직</Col></Row><Row><Col id=\"code\">DEPARTMENT_CODE</Col><Col id=\"data\">학과코드</Col></Row><Row><Col id=\"code\">ADMIN_CODE</Col><Col id=\"data\">관리자</Col></Row><Row><Col id=\"code\">REGDATE</Col><Col id=\"data\">등록일</Col></Row></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">ALL</Col><Col id=\"data\">전체</Col></Row><Row><Col id=\"code\">PROFESSOR_ID</Col><Col id=\"data\">교번</Col></Row><Row><Col id=\"code\">NAME</Col><Col id=\"data\">성명</Col></Row><Row><Col id=\"code\">PHONE</Col><Col id=\"data\">연락처</Col></Row><Row><Col id=\"code\">EMAIL</Col><Col id=\"data\">EMAL</Col></Row><Row><Col id=\"code\">GENDER</Col><Col id=\"data\">성별</Col></Row><Row><Col id=\"code\">ADDRESS</Col><Col id=\"data\">주소</Col></Row><Row><Col id=\"code\">STATUS</Col><Col id=\"data\">재직/휴직</Col></Row><Row><Col id=\"code\">ADMIN_CODE</Col><Col id=\"data\">관리자</Col></Row><Row><Col id=\"code\">REGDATE</Col><Col id=\"data\">등록일</Col></Row></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -51,7 +51,7 @@
             obj.set_taborder("0");
             obj.set_autofittype("col");
             obj.set_binddataset("ds_dept");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"80\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"학과코드\"/><Cell col=\"1\" text=\"학과명\"/></Band><Band id=\"body\"><Cell text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\" displaytype=\"mask\" edittype=\"mask\" maskeditformat=\"00\"/><Cell col=\"1\" text=\"bind:DEPARTMENT_NAME\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"80\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"학과코드\"/><Cell col=\"1\" text=\"학과명\"/></Band><Band id=\"body\"><Cell text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\" displaytype=\"mask\" edittype=\"none\" maskeditformat=\"00\"/><Cell col=\"1\" text=\"bind:DEPARTMENT_NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Grid("grd_List","293","96","947","524",null,null,null,null,null,null,this);
@@ -188,14 +188,15 @@
         // 2. 조회 - 학과클릭 + 조회버튼
         // 2-1) 조회 - 학과클릭
         this.ds_dept_onrowposchanged = function(obj,e)
-        {
+        {	trace("이벤트 발동 되는지?");
+        	trace("트리거 값은? : " + this.onRowKey);
            if (this.onRowKey == true){
 
            // obj = 이벤트의 해당 데이터셋
            // obj.rowposition vs e.row => 이벤트 자체가 행변경 이벤트이기 때문에 특정 행 정보 제공X
            // 조회시 dept_code를 넘겨주기 위해 row변경시마다 조회용 ds에 현재 dept_code 넣기
            this.ds_search.setColumn(0,"DEPARTMENT_CODE", obj.getColumn(obj.rowposition,"DEPARTMENT_CODE"));
-
+           trace(" 트리거 발동시 search에 넣나? : " + this.ds_search.getColumn(0,"DEPARTMENT_CODE"));
            // 조회함수 호출
            this.fn_searchList();
            }
@@ -300,9 +301,9 @@
         };
 
         // 삭제버튼 트랜잭션 함수 - 앞서 check된 항목만 ds에 넣어서 보낸다
-        this.fn_deletePro = function()
+        this.fn_deleteList = function()
         {
-           var strSvcId    = "deletePro";
+           var strSvcId    = "deleteList";
            var strSvcUrl   = "svc::deleteAdPro.do";
            var inData      = "ds_delete = ds_delete";
            var outData     = "";
@@ -317,7 +318,7 @@
         this.fnCallBack = function (svcID, errCD, errMsg)
         {
         	// 삭제후 검색
-        	if(svcID == "deletePro" && errCD == 0){
+        	if(svcID == "deleteList" && errCD == 0){
 
         	alert("삭제되었습니다");
 
