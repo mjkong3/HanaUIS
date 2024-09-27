@@ -16,7 +16,7 @@ public class AdminBoardServiceImpl implements AdminBoardService{
 	
 	@Override
 	public Map<String, Object> selectBoard(String param) {
-		// TODO Auto-generated method stub
+		
 		return mapper.selectBoard(param);
 	}
 	

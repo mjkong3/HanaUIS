@@ -28,7 +28,7 @@
 
 
             obj = new Dataset("ds_fileInsert", this);
-            obj._setContents("<ColumnInfo><Column id=\"FILENAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"FILE_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -118,10 +118,6 @@
             obj.set_taborder("11");
             obj.set_text("Static02");
             this.addChild(obj.name, obj);
-
-            obj = new TextArea("TextArea00","10","450","180","120",null,null,null,null,null,null,this);
-            obj.set_taborder("12");
-            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",1280,720,this,function(p){});
@@ -152,15 +148,14 @@
         {
         	// 작성자 이름 가져오기
 
-
+        	if(this.ds_board.getRowCount() < 1) {
+        		this.ds_board.addRow();
+        	}
         };
 
         /************************************************************************
          * 							공지사항 ds 추가
          ************************************************************************/
-
-
-
 
 
         /************************************************************************
@@ -179,16 +174,17 @@
         {
             this.addFileList(e.virtualfiles);
         	console.log(e.virtualfiles.length);
+
         	for(var i=0;i<e.virtualfiles.length;i++){
         		var nRow = this.ds_fileInsert.addRow();
-        		this.ds_fileInsert.setColumn(nRow, "FILENAME", e.virtualfiles[i].filename);
+        		this.ds_fileInsert.setColumn(nRow, "FILE_NAME", e.virtualfiles[i].filename);
         	}
+
         	console.log(this.ds_fileInsert.saveXML());
         };
 
         // 파일 추가 처리 함수 (드래그)
-        this.addFileList = function(filelist)
-        {
+        this.addFileList = function(filelist) {
             for (var i = 0, len = filelist.length, vFile; i < len; i++)
             {
                 vFile = filelist[i];
@@ -205,7 +201,7 @@
             if(e.datatype == "file")
             {
                 this.addFileList(e.filelist);
-        		this.ds_fileInsert.setColumn(0, "FILENAME", e.virtualfiles[0].filename);
+        		this.ds_fileInsert.setColumn(0, "FILE_NAME", e.virtualfiles[0].filename);
             }
         };
 
@@ -286,7 +282,7 @@
         /************************************************************************
          * 								데이터 전송
          ************************************************************************/
-
+         /*
          this.fnInsertBoardData = function() {
 
             var strSvcId    = "insertBoard";
@@ -324,7 +320,7 @@
         };
 
         // 게시 버튼 누를 시 // 파일 업로드 (복사)
-        this.btn_addBoard_onclick = function(obj,e)
+        this.btn_addBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
         {
         	//this.ds_board.setColumn(0, "TITLE", this.txt_title.value);
         	//this.ds_board.setColumn(0, "CONTENT", this.txt_content.value);
@@ -335,7 +331,68 @@
         	// board에 넣고 callback함수로 file에 2차로 넣기
         	this.fnInsertBoardData();
         };
+        */
 
+         this.fnSetDataset = function() {
+        	 for(var i=0;i<this.ds_board.getRowCount();i++){
+        		this.ds_board.setColumn(i, "TITLE", this.txt_title.value);
+        		this.ds_board.setColumn(i, "CONTENT", this.txt_content.value);
+        		this.ds_fnInsert.setColumn(i, "TITLE", this.txt_content.value);
+        	}
+        }
+
+         this.fnInsertBoardData = function() {
+
+            var strSvcId    = "insertBoard";
+            var strSvcUrl   = "svc::insertBoard.do";
+            var inData      = "ds_board=ds_board";
+            var outData     = "";  // 결과를 받을 데이터셋
+            var strArg      = ""
+            var callBackFnc = "fnCallbackInsertFile";
+            var isAsync     = false;
+
+            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        };
+
+        // 파일 저장 후 게시물 저장 호출될 콜백 함수
+        this.fnCallbackInsertFile = function(svcID, errorCode, errorMsg) {
+            if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
+        		console.log("BOARD 테이블 작성 완료");
+        		this.alert("공지사항이 게시되었습니다");
+        		this.fnInsertFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
+            } else {
+                alert("게시글 저장 중 오류 발생: " + errorMsg);
+            }
+        };
+
+
+
+         this.fnInsertFileData = function() {
+            var strSvcId    = "insertFile";
+            var strSvcUrl   = "svc::insertFile.do";
+            var inData      = "ds_fileInsert=ds_fileInsert";
+            var outData     = "";  // 결과를 받을 데이터셋
+            var strArg      = ""
+            var callBackFnc = "fnCallback";
+            var isAsync     = false;
+
+            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        };
+
+        this.btn_addBoard_onclick = function(obj,e)
+        {
+        	for (i=0; i < this.ds_fileInsert.rowcount; i++) {
+        		this.ds_fileInsert.setColumn(i, "TITLE", this.txt_title.value);
+        	}
+
+        	//this.TextArea00.set_value("");
+            this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
+
+        	// board에 넣고 callback함수로 file에 2차로 넣기
+        	this.fnInsertBoardData();
+        	this.ds_fileInsert.saveXML();
+
+        };
 
 
         });

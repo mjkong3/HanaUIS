@@ -1,49 +1,53 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.io.*" %>
-
+<%@ page contentType="application/octet-stream;charset=utf-8" errorPage="/errorpage.jsp"%>
+<%@ page import="java.io.*, java.net.URLConnection, java.net.URLEncoder" %>
 <%
-    // 다운로드할 파일명과 폴더 경로를 파라미터로 받기
-    String fileName = request.getParameter("filename");
-    String uploadDir = "D:\\upload\\";
-    String downloadDir = "D:\\download\\";
+    // 파일 이름과 경로 설정
+    String fileName = request.getParameter("fileName");
+    String filePath = "D:\\upload\\" + fileName;
     
-    File file = new File(uploadDir + fileName);
+    File file = new File(filePath);
     
-    if (!file.exists()) {
-        out.println("파일이 존재하지 않습니다.");
-    } else {
-        // 파일을 다운로드 폴더로 복사
-        File downloadFile = new File(downloadDir + fileName);
-        FileInputStream inStream = null;
-        FileOutputStream outStream = null;
+    if (file.exists()) {
+        // 파일의 MIME 타입 추측
+        String mimeType = URLConnection.guessContentTypeFromName(file.getName());
         
-        try {
-            inStream = new FileInputStream(file);
-            outStream = new FileOutputStream(downloadFile);
+        // MIME 타입을 찾지 못할 경우 기본값 설정
+        if (mimeType == null) {
+            mimeType = "application/octet-stream";
+        }
+        
+        // 응답 헤더 초기화 및 설정
+        response.reset();  // 응답을 리셋하여 기존 헤더 제거
+        response.setContentType(mimeType);
+        
+        // 파일 이름 인코딩
+        String encodedFileName = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedFileName + "\"; filename*=UTF-8''" + encodedFileName);
+        
+        response.setContentLength((int) file.length());
+
+        // 파일 스트림을 통해 파일 데이터를 읽고 출력
+        try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+             BufferedOutputStream outputStream = new BufferedOutputStream(response.getOutputStream())) {
             
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inStream.read(buffer)) > 0) {
-                outStream.write(buffer, 0, length);
-            }
-            
-            // 파일 다운로드 완료 후 HTTP 응답으로 파일 전송
-            response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-            response.setContentLength((int) file.length());
-            
-            FileInputStream fileInputStream = new FileInputStream(downloadFile);
-            byte[] fileBuffer = new byte[1024];
+            byte[] buffer = new byte[4096];
             int bytesRead;
-            while ((bytesRead = fileInputStream.read(fileBuffer)) != -1) {
-                response.getOutputStream().write(fileBuffer, 0, bytesRead);
+
+            // 파일을 읽어 응답으로 전송
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
             }
-            fileInputStream.close();
+
+            // 출력 스트림을 flush
+            outputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            if (inStream != null) inStream.close();
-            if (outStream != null) outStream.close();
         }
+    } else {
+        // 파일이 없을 때 처리
+        response.setContentType("text/html");
+        PrintWriter writer = response.getWriter();
+        writer.println("<h3>파일을 찾을 수 없습니다: " + fileName + "</h3>");
+        writer.close();
     }
 %>

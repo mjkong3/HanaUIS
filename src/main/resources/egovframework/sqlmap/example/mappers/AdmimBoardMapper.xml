@@ -2,12 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="ateam.mapper.AdminBoardMapper">
 
-<!-- 공지사항 상세 -->
-<select id="selectBoard" parameterType="String" resultType="hashMap">
-	SELECT BOARD_CODE, TITLE, CONTENT, REGDATE, ADMIN_CODE
-	FROM BOARD 
-	WHERE BOARD_CODE = #{id} 
-	ORDER BY BOARD_CODE DESC;
+<resultMap id="BoardWithFiles" type="hashMap">
+    <!-- BOARD 테이블의 결과 매핑 -->
+    <id property="BOARD_CODE" column="BOARD_CODE"/>
+    <result property="TITLE" column="TITLE"/>
+    <result property="CONTENT" column="CONTENT"/>
+    <result property="REGDATE" column="REGDATE"/>
+    <result property="ADMIN_NAME" column="ADMIN_NAME"/>
+    
+    <!-- FILE 테이블의 결과 매핑 -->
+    <collection property="FILES" ofType="hashMap" javaType="ArrayList">
+        <result property="FILE_NAME" column="FILE_NAME"/>
+    </collection>
+</resultMap>
+
+<select id="selectBoard" parameterType="String" resultMap="BoardWithFiles">
+    SELECT B.BOARD_CODE, B.TITLE, B.CONTENT, B.REGDATE, 
+           A.NAME AS ADMIN_NAME, 
+           F.FILE_NAME
+    FROM BOARD B
+    LEFT JOIN ADMIN A ON B.ADMIN_CODE = A.ADMIN_CODE
+    LEFT JOIN FILE F ON B.FILE_CODE = F.FILE_CODE
+    WHERE B.BOARD_CODE = #{id}
+    
 </select>
+
+<!-- 공지사항 상세
+<select id="selectBoard" parameterType="String" resultType="hashMap">
+	SELECT B.BOARD_CODE, B.TITLE, B.CONTENT, B.REGDATE, 
+       A.NAME AS ADMIN_NAME, 
+       F.FILE_NAME
+		FROM BOARD B
+		LEFT JOIN ADMIN A ON B.ADMIN_CODE = A.ADMIN_CODE
+		LEFT JOIN FILE F ON B.FILE_CODE = F.FILE_CODE
+		WHERE B.BOARD_CODE = #{id}
+		ORDER BY B.BOARD_CODE DESC
+</select> -->
 
 </mapper>

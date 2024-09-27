@@ -8,10 +8,10 @@
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="208"/>
-                <Column size="389"/>
-                <Column size="260"/>
-                <Column size="286"/>
+                <Column size="238"/>
+                <Column size="478"/>
+                <Column size="196"/>
+                <Column size="203"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -24,10 +24,10 @@
                 <Cell col="3" text="게시 날짜"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:BOARD_CODE"/>
+                <Cell text="bind:BOARD_CODE" textAlign="center"/>
                 <Cell col="1" text="bind:TITLE"/>
-                <Cell col="2" text="bind:NAME"/>
-                <Cell col="3" text="bind:BOARD_DATE"/>
+                <Cell col="2" text="bind:NAME" textAlign="center"/>
+                <Cell col="3" text="bind:BOARD_DATE" textAlign="center"/>
               </Band>
             </Format>
           </Formats>

@@ -2,6 +2,8 @@ package ateam.serviceimpl;
 
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.annotation.Resource;
 
@@ -18,24 +20,38 @@ public class AdminUploadServiceImpl implements AdminUploadService {
 	
 	@Override
 	public int insertBoard(Map<String, Object> param) {
+				
+		// FILE_CODE 지정하기 위해 제목 지정
+		String Title = (String) param.get("TITLE");
+		
+		// FILE_CODE 지정하기 위해 yyMMdd 지정
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+
+		// FILE_CODE param에 넣기
+		String dateCode = now.format(formatter); //
+		String fileCode = (dateCode + Title);
+		param.put("FILE_CODE", fileCode);
+		param.put("REGDATE", dateCode);
+		
+		System.out.println(param);
+		
 		return mapper.insertBoard(param);
 	}
 	
 	@Override
 	public int insertFile(Map<String, Object> param) {
-		int boardcode= mapper.newBoardCode();
-		param.put("BOARD_CODE", boardcode);
+		String Title = (String) param.get("TITLE");
 		
-		while (true) {
-			
-			Object Fn = param.get("FILENAME");
-			
-			String Fn1 = Fn.toString();
-			
-			
-			
-			break;
-		}
+		// FILE_CODE 지정하기 위해 yyMMdd 지정
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+
+		// FILE_CODE param에 넣기
+		String dateCode = now.format(formatter); //
+		String fileCode = (dateCode + Title);
+		param.put("FILE_CODE", fileCode);
+		param.put("REGDATE", dateCode);
 		
 		return mapper.insertFile(param);
 	}

@@ -25,12 +25,15 @@ public class AdminBoardController {
 	public NexacroResult selectBoard(@ParamVariable(name = "id", required = false) String param) {
 		NexacroResult result = new NexacroResult();
 
-		System.out.println(param);		
+		System.out.println("@@@@@@@@@@@@@@@@@222" + param);		
 		
 		Map<String, Object> ds_board = service.selectBoard(param);
+		
+		Object File_Name = ds_board.get("FILES");
+		
 		result.addDataSet("ds_board", ds_board);
-		System.out.println(ds_board);
-
+		result.addDataSet("ds_file", File_Name);
+		
 		return result;
 	}
 }

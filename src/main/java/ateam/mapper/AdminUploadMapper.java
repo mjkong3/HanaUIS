@@ -14,5 +14,5 @@ public interface AdminUploadMapper {
 
 	int insertFile(Map<String, Object> param);
 
-	int newBoardCode();
+	String newFileCode();
 }
