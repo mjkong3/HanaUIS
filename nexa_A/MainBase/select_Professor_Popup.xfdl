@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="select_Professor_Popup" width="1280" height="720" titletext="New Form">
+  <Form id="select_Professor_Popup" width="1280" height="720" titletext="New Form" onload="select_Professor_Popup_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
         <Static id="Static00_03_01_00_00_00_01" taborder="0" left="436" top="416" width="493" height="50" background="white" border="1px solid #d3d3d4"/>
@@ -49,8 +49,10 @@
         <Static id="Static00_03_01_00_00_00_02_00" taborder="43" left="436" top="367" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_03_01_00_00_00_00_00_00" taborder="44" left="710" top="367" width="219" height="50" background="white" border="1px solid #d3d3d4" text=""/>
         <Static id="Static00_01_00_00_00" taborder="45" left="612" top="367" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   퇴직일"/>
-        <Calendar id="cal_Birth00" taborder="46" left="720" top="377" width="195" height="31" dateformat="yyyy-MM-dd" readonly="false" visible="true"/>
-        <Calendar id="cal_Birth00_00" taborder="47" left="447" top="377" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
+        <Calendar id="cal_LastDay" taborder="46" left="720" top="377" width="195" height="31" dateformat="yyyy-MM-dd" readonly="false" visible="true"/>
+        <Calendar id="cal_FirstDay" taborder="47" left="447" top="377" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
+        <Button id="btn_Update" taborder="48" text="수정" left="779" top="491" width="151" height="38" onclick="btn_Update_onclick"/>
+        <Button id="btn_Retrun" taborder="49" text="되돌아가기" left="599" top="491" width="151" height="38" onclick="btn_Retrun_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -158,6 +160,86 @@ this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
  	this.ds_pro.copyData(objParam1);
 	this.ds_dept.copyData(objParam2);	 
 	
+	// readonly 설정하기
+	this.edt_ProId.set_readonly(true);
+	this.edt_ProPw.set_readonly(true);
+	this.edt_ProName.set_readonly(true);
+	this.cmb_Dept.set_readonly(true);
+	this.rdo_Gender.set_readonly(true);
+	this.cal_Birth.set_readonly(true);
+	this.cmb_Lab.set_readonly(true);
+	this.edt_Phone.set_readonly(true);
+	this.cmb_Status.set_readonly(true);
+	this.edt_Email.set_readonly(true);
+	this.edt_Adr.set_readonly(true);
+	this.cal_FirstDay.set_readonly(true);
+	this.cal_LastDay.set_readonly(true);
+	
+	this.btn_Retrun.set_visible(false);
+};
+
+// 2. 수정버튼 - readonly 해제(입력필드 제공)
+this.btn_Update_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.edt_ProId.set_readonly(false);
+	this.edt_ProPw.set_readonly(false);
+	this.edt_ProName.set_readonly(false);
+	this.cmb_Dept.set_readonly(false);
+	this.rdo_Gender.set_readonly(false);
+	this.cal_Birth.set_readonly(false);
+	this.cmb_Lab.set_readonly(false);
+	this.edt_Phone.set_readonly(false);
+	this.cmb_Status.set_readonly(false);
+	this.edt_Email.set_readonly(false);
+	this.edt_Adr.set_readonly(false);
+	this.cal_FirstDay.set_readonly(false);
+	this.cal_LastDay.set_readonly(false);
+	
+	this.btn_Update.set_visible(false);
+	this.btn_Retrun.set_visible(true);
+};
+
+// 3. 작성완료 - update문 실행
+
+this.btn_Add_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_updatePro();
+	
+};
+
+// update 함수 호출 - insert 컨트롤러와 동일 경로
+this.fn_updatePro = function ()
+{
+	var strSvcId    = "updatePro";
+	var strSvcUrl   = "svc::saveAdPro.do";
+	var inData      = "ds_pro = ds_pro";
+	var outData     = "";
+	var strArg      = "";
+	var callBackFnc = "fnCallBack";
+	var isAsync     = true;
+	
+	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);	
+};
+
+// 되돌아가기 버튼 - 초기 상태로 되돌림
+this.btn_Retrun_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.edt_ProId.set_readonly(true);
+	this.edt_ProPw.set_readonly(true);
+	this.edt_ProName.set_readonly(true);
+	this.cmb_Dept.set_readonly(true);
+	this.rdo_Gender.set_readonly(true);
+	this.cal_Birth.set_readonly(true);
+	this.cmb_Lab.set_readonly(true);
+	this.edt_Phone.set_readonly(true);
+	this.cmb_Status.set_readonly(true);
+	this.edt_Email.set_readonly(true);
+	this.edt_Adr.set_readonly(true);
+	this.cal_FirstDay.set_readonly(true);
+	this.cal_LastDay.set_readonly(true);
+	
+	this.btn_Retrun.set_visible(false);
+	this.btn_Update.set_visible(true);
 };
 ]]></Script>
   </Form>

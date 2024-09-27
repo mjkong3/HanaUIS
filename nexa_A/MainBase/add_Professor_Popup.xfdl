@@ -49,8 +49,8 @@
         <Static id="Static00_03_01_00_00_00_02_00" taborder="43" left="436" top="367" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_03_01_00_00_00_00_00_00" taborder="44" left="710" top="367" width="219" height="50" background="white" border="1px solid #d3d3d4" text=""/>
         <Static id="Static00_01_00_00_00" taborder="45" left="612" top="367" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   퇴직일"/>
-        <Calendar id="cal_Birth00" taborder="46" left="720" top="377" width="195" height="31" dateformat="yyyy-MM-dd" readonly="false" visible="true"/>
-        <Calendar id="cal_Birth00_00" taborder="47" left="447" top="377" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
+        <Calendar id="cal_LastDay" taborder="46" left="720" top="377" width="195" height="31" dateformat="yyyy-MM-dd" readonly="false" visible="true"/>
+        <Calendar id="cal_FirstDay" taborder="47" left="447" top="377" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[// 필요한 기능
@@ -67,9 +67,9 @@ this.add_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventI
 	// dept ds 받아오기
 	var objParam1 = this.parent.param1;
 	// admin ds 받아오기
-	var objParam2 = this.parent.param2
+/*	var objParam2 = this.parent.param2*/
 	// admin ds가 XML파일로 넘어갔을 때의 값을 String으로 반환받아 확인
-	trace(this.ds_admin.saveXML());
+/*	trace(this.ds_admin.saveXML());*/
 	// 부모폼에서 현재 선택한 dept grd의 rowposition을 기반으로 dept값 받아오기
     var deptCode = this.parent.deptCode;
 	// 전역변수 받아와서 사용해보기 - 실패
@@ -79,11 +79,19 @@ this.add_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventI
 	// dept 정보를 해당폼 dept ds에 복사 - ds가 서로 동일해야 가능!
 	this.ds_dept.copyData(objParam1);
 	// admin 정보를 해당폼 admin ds에 복사
-	this.ds_admin.copyData(objParam2);
+/*	this.ds_admin.copyData(objParam2); */
 	
 	// 콤보박스에 받아온 부모폼의 사용자 선택 dept code 넣기
 	// ds의 setColum으로는 rowposition 문제로 전체학과는 출력이 안됨
 	this.cmb_Dept.set_value(deptCode);
+	
+	
+	// gds 호출로 등록일, 등록자 넣기
+	var gdsApp = nexacro.getApplication();
+	this.ds_admin.copyData(gdsApp.gds_adminInfo);
+	console.log("@@@@@@@@");
+	console.log(this.ds_admin.saveXML());
+	console.log("#####");
 	
 	// cmb box 기본값 설정
 	this.ds_pro.setColumn(0, "GENDER", "M");
@@ -178,7 +186,8 @@ this.fnCallBack = function (SvcId)
       </Dataset>
       <Dataset id="ds_admin">
         <ColumnInfo>
-          <Column id="regDate" type="STRING" size="256"/>
+          <Column id="ADMIN_CODE" type="STRING" size="256"/>
+          <Column id="REGDATE" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="ds_pro">
@@ -212,9 +221,10 @@ this.fnCallBack = function (SvcId)
       <BindItem id="item6" compid="cal_Birth" propid="value" datasetid="ds_pro" columnid="BIRTHDAY"/>
       <BindItem id="item7" compid="edt_Phone" propid="value" datasetid="ds_pro" columnid="PHONE"/>
       <BindItem id="item8" compid="edt_Email" propid="value" datasetid="ds_pro" columnid="EMAIL"/>
-      <BindItem id="item9" compid="cal_RegDate" propid="value" datasetid="ds_admin" columnid="regDate"/>
       <BindItem id="item10" compid="edt_Adr" propid="value" datasetid="ds_pro" columnid="ADDRESS"/>
       <BindItem id="item11" compid="cmb_Status" propid="value" datasetid="ds_pro" columnid="STATUS"/>
+      <BindItem id="item12" compid="edt_Admin" propid="value" datasetid="ds_admin" columnid="ADMIN_CODE"/>
+      <BindItem id="item13" compid="cal_RegDate" propid="value" datasetid="ds_admin" columnid="REGDATE"/>
     </Bind>
   </Form>
 </FDL>
