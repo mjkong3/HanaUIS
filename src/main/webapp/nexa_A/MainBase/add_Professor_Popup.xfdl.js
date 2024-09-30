@@ -474,7 +474,7 @@
         	this.ds_pro.setColumn(0, "STATUS", "재직");
         };
 
-        // 작성완료 btn 누를 시 insert문 실행 - 트랜잭션 함수 호출
+        // 작성완료 btn 누를 시 insert문 실행
         this.btn_Add_onclick = function(obj,e)
         {
         	this.fn_insertPro();
@@ -496,23 +496,18 @@
         };
 
         // insert 함수 콜백처리
-        this.fnCallBack = function (SvcId)
+        this.fnCallBack = function (svcID, errCD, errMsg)
         {
-        	// 에러 시 화면 처리 내역
-        	if(errorCode == -1)
-        	{
-        		this.alert(errorMsg);
-        		return;
+        	// 콜백이 호출 되는가?
+        	trace("콜백 실행됨");
+        	// 삭제후 검색
+        	if(svcID == "insertPro" && errCD == 0){
+        	trace("등록완료")
+        	alert("등록에 성공하였습니다!");
+        	this.close();
+        	} else {
+        	trace(errMsg);
         	}
-
-        	switch(svcID)
-        	{
-        		case "insertPro":
-        			this.alert("성공적으로 등록을 하였습니다.");
-        			this.close();
-        			break;
-        	}
-
         };
         });
         

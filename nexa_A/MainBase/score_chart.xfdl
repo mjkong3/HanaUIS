@@ -3,82 +3,62 @@
   <Form id="score_chart" width="1280" height="720" titletext="New Form">
     <Layouts>
       <Layout height="720" width="1280">
-        <BasicChart id="BasicChart00" taborder="0" left="196" top="234" width="864" height="358">
+        <Div id="Div00" taborder="2" left="230" top="109" width="870" height="41" background="#004AAD" border="0px none darkcyan">
+          <Layouts>
+            <Layout>
+              <Combo id="cmb_Dept" taborder="0" text="Combo00" left="50" top="10" width="110" height="20" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME"/>
+              <Combo id="cmb_Class" taborder="1" text="" left="220" top="10" width="110" height="20" innerdataset="ds_class" codecolumn="CLASS_CODE" datacolumn="CLASS_NAME"/>
+              <Static id="Static00" taborder="2" text="학과" left="18" top="10" width="32" height="20" color="WHITE"/>
+              <Static id="Static00_00" taborder="3" text="강의" left="178" top="10" width="32" height="20" color="WHITE"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <BasicChart id="BasicChart00" taborder="0" left="190" top="170" width="910" height="440" binddataset="ds_chart" categorycolumn="bind:등급" visible="true">
           <Contents><![CDATA[{
 	"title": {
 		"id": "title",
-		"text": "Bar Chart",
-		"textfont": "20pt/normal \"맑은 고딕\"",
-		"padding": "0px 0px 5px"
+		"text": "등급별 인원분포",
+		"textfont": "15pt/normal \"HY헤드라인M\"",
+		"padding": "0px 0px 5px",
+		"align": "bottomcenter"
 	},
 	"legend": {
 		"id": "legend",
 		"padding": "3px 10px 3px 10px",
-		"itemtextfont": "9pt \"맑은 고딕\"",
-		"itemtextcolor": "#4c4c4c"
-	},
-	"hrangebar": {
-		"id": "hrangebar",
-		"trackbarpadding": "1px",
-		"background": "#eaeaea",
-		"linestyle": "1px solid #d5d5d5",
-		"trackbarlinestyle": "0px none",
-		"trackbarfillstyle": "#c9c9c9",
-		"size": "12"
-	},
-	"vrangebar": {
-		"id": "vrangebar",
-		"trackbarpadding": "1px",
-		"background": "#eaeaea",
-		"linestyle": "1px solid #d5d5d5",
-		"trackbarlinestyle": "0px none",
-		"trackbarfillstyle": "#c9c9c9",
-		"size": "12"
+		"itemtextfont": "9pt '맑은 고딕'",
+		"itemtextcolor": "#4c4c4c",
+		"markertype": "circle",
+		"align": "bottomcenter"
 	},
 	"tooltip": {
 		"id": "tooltip",
 		"background": "#4b4b4b",
 		"linestyle": "0px none",
-		"textcolor": "#ffffff",
-		"textfont": "10pt/normal \"맑은 고딕\"",
+		"textcolor": "white",
+		"textfont": "10pt/normal '맑은 고딕'",
 		"padding": "5px"
 	},
 	"board": {
 		"id": "board"
 	},
-	"crosshair": {
-		"id": "crosshair",
-		"type": "xy",
-		"xlinestyle": "1px solid #525252",
-		"ylinestyle": "1px solid #525252",
-		"tooltiptype": "xy"
-	},
-	"selection": {
-		"id": "selection",
-		"type": "xy",
-		"linestyle": "1px solid #525252",
-		"background": "#525252",
-		"opacity": "0.5"
-	},
 	"categoryaxis": {
 		"id": "categoryaxis",
-		"titletext": "categoryaxis",
 		"titletextcolor": "#4c4c4c",
-		"titletextfont": "bold 12pt \"맑은 고딕\"",
+		"titletextfont": "bold 12pt '맑은 고딕'",
 		"labeltextcolor": "#6f6f6f",
-		"labeltextfont": "11pt \"맑은 고딕\"",
+		"labeltextfont": "bold 11pt/normal \"맑은 고딕\"",
 		"axislinestyle": "1px solid #525252",
 		"ticklinestyle": "1px solid #525252",
-		"boardlinestyle": "1px solid #d0d0d0"
+		"boardlinestyle": "1px solid #d0d0d0",
+		"visible": true
 	},
 	"valueaxes": [
 		{
 			"id": "valueaxis0",
-			"titletext": "valueaxis",
 			"boardlinevisible": true,
 			"boardlinestyle": "1px solid #d0d0d0",
 			"labeltextcolor": "#6f6f6f",
-			"labeltextfont": "10pt/normal \"맑은 고딕\"",
+			"labeltextfont": "bold 10pt/normal \"맑은 고딕\"",
 			"titletextcolor": "#4c4c4c",
 			"titletextfont": "bold 12pt \"맑은 고딕\"",
 			"ticklinestyle": "1px solid #525252",
@@ -88,30 +68,131 @@
 	"seriesset": [
 		{
 			"id": "series0",
-			"titletext": "series",
+			"titletext": "중간",
 			"barvisible": true,
 			"barsize": "65",
-			"barlinestyle": "0px none",
-			"barfillstyle": "#5bbbff",
-			"linevisible": true,
-			"linestyle": "1px solid #0172c3",
-			"linefillstyle": "#1a22bf",
-			"pointvisible": true,
-			"pointsize": "15",
-			"pointlinestyle": "1px solid #0172c3",
-			"pointfillstyle": "#0172c3",
-			"lineareavisible": true,
-			"lineareafillstyle": "rgba(0,148,253,0.3)",
 			"itemtextvisible": true,
 			"itemtextcolor": "#003860",
-			"itemtextfont": "bold 12pt \"맑은 고딕\"",
-			"autogradation": "none",
-			"barradius": "0"
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:중간",
+			"highlightbarvisible": "true",
+			"barlinestyle": "1px solid #3182bd",
+			"barfillstyle": "#3182bd",
+			"highlightbarlinestyle": "1px solid #3182bd",
+			"highlightbarfillstyle": "#3182bd"
+		},
+		{
+			"id": "series1",
+			"titletext": "기말",
+			"barvisible": true,
+			"barsize": "65",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:기말",
+			"highlightbarvisible": "true",
+			"barlinestyle": "1px solid #6baed6",
+			"barfillstyle": "#6baed6",
+			"highlightbarlinestyle": "1px solid #6baed6",
+			"highlightbarfillstyle": "#6baed6"
+		},
+		{
+			"id": "series2",
+			"titletext": "과제",
+			"barvisible": true,
+			"barsize": "65",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:과제",
+			"highlightbarvisible": "true",
+			"barlinestyle": "1px solid #9ecae1",
+			"barfillstyle": "#9ecae1",
+			"highlightbarlinestyle": "1px solid #9ecae1",
+			"highlightbarfillstyle": "#9ecae1"
+		},
+		{
+			"id": "series3",
+			"titletext": "합산",
+			"barvisible": true,
+			"barsize": "65",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:합산",
+			"highlightbarvisible": "true",
+			"barlinestyle": "1px solid #c6dbef",
+			"barfillstyle": "#c6dbef",
+			"highlightbarlinestyle": "1px solid #c6dbef",
+			"highlightbarfillstyle": "#c6dbef",
+			"linevisible": "true",
+			"pointvisible": "true"
 		}
 	]
 }]]></Contents>
         </BasicChart>
+        <Static id="Static00" taborder="1" text="성 적 통 계" left="445" top="-5" width="344" height="104" textAlign="center" font="30px/normal &quot;HY헤드라인M&quot;"/>
       </Layout>
     </Layouts>
+    <Objects>
+      <Dataset id="ds_chart">
+        <ColumnInfo>
+          <Column id="등급" type="STRING" size="256"/>
+          <Column id="중간" type="STRING" size="256"/>
+          <Column id="기말" type="STRING" size="256"/>
+          <Column id="과제" type="STRING" size="256"/>
+          <Column id="합산" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="등급">F</Col>
+            <Col id="중간">5</Col>
+            <Col id="기말">4</Col>
+            <Col id="과제">7</Col>
+            <Col id="합산">5</Col>
+          </Row>
+          <Row>
+            <Col id="등급">D</Col>
+            <Col id="중간">5</Col>
+            <Col id="기말">1</Col>
+            <Col id="과제">7</Col>
+            <Col id="합산">10</Col>
+          </Row>
+          <Row>
+            <Col id="등급">C</Col>
+            <Col id="중간">5</Col>
+            <Col id="기말">4</Col>
+            <Col id="과제">5</Col>
+            <Col id="합산">12</Col>
+          </Row>
+          <Row>
+            <Col id="등급">B</Col>
+            <Col id="중간">4</Col>
+            <Col id="기말">5</Col>
+            <Col id="과제">2</Col>
+            <Col id="합산">4</Col>
+          </Row>
+          <Row>
+            <Col id="등급">A</Col>
+            <Col id="중간">5</Col>
+            <Col id="기말">7</Col>
+            <Col id="과제">6</Col>
+            <Col id="합산">7</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_dept">
+        <ColumnInfo>
+          <Column id="DEPARTMENT_CODE" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_class">
+        <ColumnInfo>
+          <Column id="CLASS_CODE" type="STRING" size="256"/>
+          <Column id="CLASS_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
   </Form>
 </FDL>

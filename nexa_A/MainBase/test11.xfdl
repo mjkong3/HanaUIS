@@ -3,9 +3,133 @@
   <Form id="test11" width="1280" height="720" titletext="New Form">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Button id="Button00" taborder="0" text="Button00" left="390" top="43" width="120" height="50" onclick="Button00_onclick"/>
-        <Calendar id="Calendar00" taborder="1" left="406" top="92" width="208" height="82"/>
-        <TextArea id="TextArea00" taborder="2" left="56" top="68" width="294" height="152" onchanged="TextArea00_onchanged"/>
+        <BasicChart id="BasicChart00" taborder="0" left="515" top="60" width="585" height="430" binddataset="Dataset00" categorycolumn="bind:등급">
+          <Contents><![CDATA[{
+	"title": {
+		"id": "title",
+		"textfont": "20pt/normal '맑은 고딕'",
+		"padding": "0px 0px 5px"
+	},
+	"legend": {
+		"id": "legend",
+		"padding": "3px 10px 3px 10px",
+		"itemtextfont": "9pt '맑은 고딕'",
+		"itemtextcolor": "#4c4c4c",
+		"useiteminvisible": "true"
+	},
+	"hrangebar": {
+		"id": "hrangebar",
+		"trackbarpadding": "1px",
+		"background": "#eaeaea",
+		"linestyle": "1px solid #d5d5d5",
+		"trackbarlinestyle": "0px none",
+		"trackbarfillstyle": "#c9c9c9",
+		"size": "12",
+		"visible": "false"
+	},
+	"vrangebar": {
+		"id": "vrangebar",
+		"trackbarpadding": "1px",
+		"background": "#eaeaea",
+		"linestyle": "1px solid #d5d5d5",
+		"trackbarlinestyle": "0px none",
+		"trackbarfillstyle": "#c9c9c9",
+		"size": "12",
+		"visible": "false"
+	},
+	"tooltip": {
+		"id": "tooltip",
+		"background": "#4b4b4b",
+		"linestyle": "0px none",
+		"textcolor": "white",
+		"textfont": "10pt/normal '맑은 고딕'",
+		"padding": "5px"
+	},
+	"board": {
+		"id": "board"
+	},
+	"categoryaxis": {
+		"id": "categoryaxis",
+		"titletext": "등급",
+		"titletextcolor": "#4c4c4c",
+		"titletextfont": "bold 12pt '맑은 고딕'",
+		"labeltextcolor": "#6f6f6f",
+		"labeltextfont": "11pt '맑은 고딕'",
+		"axislinestyle": "1px solid #525252",
+		"ticklinestyle": "1px solid #525252",
+		"boardlinestyle": "1px solid #d0d0d0"
+	},
+	"seriesset": [
+		{
+			"id": "series0",
+			"titletext": "series",
+			"barvisible": true,
+			"barsize": "65",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:중간"
+		},
+		{
+			"id": "series1",
+			"titletext": "series",
+			"barvisible": true,
+			"barsize": "65",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:기말"
+		},
+		{
+			"id": "series2",
+			"titletext": "series",
+			"barvisible": true,
+			"barsize": "65",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:레포트"
+		},
+		{
+			"id": "series3",
+			"titletext": "series",
+			"barvisible": true,
+			"barsize": "65",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:합산",
+			"linevisible": "false"
+		}
+	],
+	"valueaxes": [
+		{
+			"id": "valueaxis0",
+			"titletext": "인원",
+			"boardlinevisible": true,
+			"boardlinestyle": "1px solid #d0d0d0",
+			"labeltextcolor": "#6f6f6f",
+			"labeltextfont": "10pt/normal '맑은 고딕'",
+			"titletextcolor": "#4c4c4c",
+			"titletextfont": "bold 12pt '맑은 고딕'",
+			"ticklinestyle": "1px solid #525252",
+			"axislinestyle": "1px solid #525252",
+			"visible": "true"
+		}
+	]
+}]]></Contents>
+        </BasicChart>
+        <Div id="Div00" taborder="1" text="Div00" left="173" top="108" width="297" height="72" background="BLUE">
+          <Layouts>
+            <Layout>
+              <Combo id="Combo00" taborder="0" text="Combo00" left="12" top="4" width="95" height="20"/>
+              <Combo id="Combo00_00" taborder="1" text="Combo00" left="122" top="4" width="95" height="20"/>
+              <Radio id="Radio00" taborder="2" left="11" top="45" width="222" height="17" background="WHITE" innerdataset="Dataset01" codecolumn="CODE" datacolumn="DATA" columncount="4"/>
+              <Static id="Static00" taborder="3" text="Static00" left="7" top="37" width="288" height="26" border="2px solid crimson, 0px none, 0px none"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="Grid00" taborder="2" left="177" top="183" width="289" height="257"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -21,19 +145,69 @@ this.TextArea00_onchanged = function(obj:nexacro.TextArea,e:nexacro.ChangeEventI
 };
 ]]></Script>
     <Objects>
-      <Dataset id="ds_date">
+      <Dataset id="Dataset00">
         <ColumnInfo>
-          <Column id="regDate" type="STRING" size="256"/>
+          <Column id="등급" type="STRING" size="256"/>
+          <Column id="중간" type="STRING" size="256"/>
+          <Column id="기말" type="STRING" size="256"/>
+          <Column id="레포트" type="STRING" size="256"/>
+          <Column id="합산" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="regDate">2011-01-01</Col>
+            <Col id="등급">A</Col>
+            <Col id="중간">10</Col>
+            <Col id="기말">11</Col>
+            <Col id="레포트">4</Col>
+            <Col id="합산">7</Col>
+          </Row>
+          <Row>
+            <Col id="등급">B</Col>
+            <Col id="중간">10</Col>
+            <Col id="기말">5</Col>
+            <Col id="레포트">4</Col>
+            <Col id="합산">6</Col>
+          </Row>
+          <Row>
+            <Col id="등급">C</Col>
+            <Col id="중간">5</Col>
+            <Col id="기말">6</Col>
+            <Col id="레포트">5</Col>
+            <Col id="합산">8</Col>
+          </Row>
+          <Row>
+            <Col id="등급">D</Col>
+            <Col id="중간">5</Col>
+            <Col id="기말">1</Col>
+            <Col id="레포트">6</Col>
+            <Col id="합산">9</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="Dataset01">
+        <ColumnInfo>
+          <Column id="CODE" type="STRING" size="256"/>
+          <Column id="DATA" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="CODE">중간</Col>
+            <Col id="DATA">중간</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">기말</Col>
+            <Col id="DATA">기말</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">과제</Col>
+            <Col id="DATA">과제</Col>
+          </Row>
+          <Row>
+            <Col id="CODE">최종</Col>
+            <Col id="DATA">최종</Col>
           </Row>
         </Rows>
       </Dataset>
     </Objects>
-    <Bind>
-      <BindItem id="item0" compid="Calendar00" propid="value" datasetid="ds_date" columnid="regDate"/>
-    </Bind>
   </Form>
 </FDL>

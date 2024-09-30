@@ -197,8 +197,6 @@ this.professor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
    
    // cmb 기본값 all로 설정
    // value로 binding된 ds 사용
-   trace("rowcount = " + this.ds_search.getRowCount());
-   trace("rowindex = " + this.ds_search.getColIndex("SEARCH_TYPE"))
    this.ds_search.setColumn(0,"SEARCH_TYPE","ALL");
    trace("rowcount1 = " + this.ds_search.getRowCount());
    trace("rowindex1 = " + this.ds_search.getColIndex("SEARCH_TYPE"))
@@ -346,7 +344,7 @@ this.btn_Delete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
    var checkedCount = this.ds_delete.rowcount;
    if(checkedCount>0){
       if(confirm("선택한 항목을 삭제하시겠습니까?")){
-         this.fn_deletePro();
+         this.fn_deleteList();
       }
    }
    else {
