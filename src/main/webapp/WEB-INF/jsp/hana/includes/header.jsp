@@ -46,14 +46,17 @@
         <li><a onclick="toggleSubmenu(event)">학적관리</a>
             <ul class="submenu">
                 <li><a href="javascript:fn_myPage()">마이페이지</a></li>
-                
-                <li><a href="javascript:fn_leave()">휴학신청</a></li>
-                <li><a href="javascript:fn_back()">복학신청</a></li>
+                <li><a href="javascript:fn_leave()">휴/복학신청</a></li>
             </ul>
         </li>
         
-        <li> <a href="javascript:fn_myGrade()" >성적조회</a></li>
-        <li> <a href="javascript:fn_classList()" >강의조회</a></li>
+        <li><a onclick="toggleSubmenu(event)">강의</a>
+            <ul class="submenu">
+			     <li> <a href="javascript:fn_classList()" >강의조회</a></li>
+			     <li> <a href="javascript:fn_myGrade()" >성적조회</a></li>
+            </ul>
+        </li>
+        
         <li> <a href="javascript:fn_signForClass()">수강신청</a></li>
         <li> <a href="javascript:fn_schedule()">시간표</a></li>
     </ul>

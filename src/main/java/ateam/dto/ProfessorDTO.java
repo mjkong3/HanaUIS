@@ -7,7 +7,7 @@ public class ProfessorDTO {
 
 	private int professorId;
 	private String name;
-	private int departmentCode;
+	private String departmentName;
 	private String email;
 	private String password;
 	private String phone;
@@ -59,12 +59,6 @@ public class ProfessorDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getDepartmentCode() {
-		return departmentCode;
-	}
-	public void setDepartmentCode(int departmentCode) {
-		this.departmentCode = departmentCode;
-	}
 	public String getPassword() {
 		return password;
 	}
@@ -76,6 +70,12 @@ public class ProfessorDTO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getDepartmentName() {
+		return departmentName;
+	}
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 
 }

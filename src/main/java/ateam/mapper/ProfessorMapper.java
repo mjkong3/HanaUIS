@@ -1,5 +1,7 @@
 package ateam.mapper;
 
+import java.util.Map;
+
 import ateam.dto.ProfessorDTO;
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 
@@ -9,4 +11,10 @@ public interface ProfessorMapper {
 	public ProfessorDTO login_check(ProfessorDTO professorDTO);
 
 	public ProfessorDTO selectProfessor(int id);
+
+	public int updatePhone(Map<String, Object> paramMap);
+
+	public int updateEmail(Map<String, Object> paramMap);
+	
+	
 }
