@@ -29,7 +29,6 @@ public class AdminServiceImpl extends EgovAbstractServiceImpl implements AdminSe
 
 	@Override
 	public Map<String, Object> selectLogin(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return mapper.selectLogin(param);
 	}
 

@@ -1,57 +1,158 @@
 @charset "UTF-8";
- body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin-bottom: 10px;
-    padding: 0;
+
+/* content {
+	height: 100%;
+} */
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	margin-bottom: 10px;
+	padding: 0;
 }
+
 .container {
-    width: 800px;
-    height: 600px;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 800px;
+	/* height: 100%; */
+	background: white;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 h3 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-    border-bottom: 2px solid #007BFF;
-    padding-bottom: 10px;
+	font-size: 24px;
+	margin-bottom: 20px;
+	color: #333;
+	border-bottom: 2px solid #007BFF;
+	padding-bottom: 10px;
 }
 
-
-
-form{
+/* form {
 	height: 500px;
-}
+} */
 table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 3rem;
 }
-table, th, td {
-    border: 1px solid #ddd;
+
+tr {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
+
 th, td {
-    padding: 12px;
-    text-align: center;
+	padding: 12px;
+	text-align: center;
+	font-size: 11px;
 }
+
 th {
-    background-color: #f2f2f2;
+	background-color: #f2f2f2;
 }
-.submit-btn {
-    width: 100px;
-    padding: 10px;
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    bottom: 10px;
+
+tbody tr:hover {
+	background-color: #f2f2f2;
 }
-.submit-btn:hover {
-    background-color: rgb(15,15,112);
+
+#enroll-button {
+	width: 100px;
+	padding: 10px;
+	background-color: #0056b3;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	bottom: 10px;
+}
+
+#enroll-button:hover {
+	background-color: rgb(15, 15, 112);
+}
+
+.total, .totalClass {
+	text-align: left;
+	font-weight: normal;
+}
+
+.message {
+	text-align: right;
+}
+
+tfoot {
+	background-color: #f2f2f2;
+}
+
+#totalCnt, #totalGrade, #totalClassCnt, #totalGrades {
+	font-weight: bold;
+}
+
+#gradeCheck {
+	color: red;
+	display: none;
+}
+
+caption {
+	text-align: left;
+	font-weight: bold;
+	padding-bottom: 10px;
+	padding-left: 10px;
+}
+
+.emptyClass {
+	text-align: center;
+	font-weight: bold;
+}
+
+select {
+	width: 180px;
+	padding: 10px;
+	border: 2px solid #EBEAE8;
+	border-radius: 4px;
+	cursor: pointer;
+	bottom: 10px;
+	margin-bottom: 1rem;
+}
+
+/* 스크롤바 */
+.scroll-table::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.2);
+	background-color: transparent;
+}
+
+.scroll-table::-webkit-scrollbar {
+	width: 8px;
+}
+
+.scroll-table::-webkit-scrollbar-thumb {
+	outline: none;
+	border-radius: 8px;
+	background-color: #5A616B;
+	cursor: pointer;
+}
+
+.scroll-table {
+	width: 100%;
+	height: 400px; /* 스크롤 넣은 공간 높이 */
+	overflow: auto;
+}
+
+#allClass {
+	width: 100%;
+	border: 0;
+}
+
+#allClass thead {
+	position: sticky;
+	top: 0px;
+}
+
+#allClass > thead > tr > th {
+	border-top: 1px solid #dddddd;
+}
+
+.search {
+	padding-left: 10px;
+	font-weight: bold;
 }
