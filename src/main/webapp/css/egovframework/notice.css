@@ -5,7 +5,7 @@ body {
 }
 .container {
     width: 800px;
-    height: 600px;
+    height: 800px;
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -35,6 +35,18 @@ th, td {
 th {
     background-color: #f2f2f2;
 }
+tr{
+	heigth: 20px;
+}
 tr:hover {
     background-color: #f9f9f9;
+}
+
+a {
+    color:   #0056b3;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
