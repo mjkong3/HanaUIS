@@ -37,6 +37,11 @@
           <Col id="MENU_PATH">MainBase::professor.xfdl</Col>
         </Row>
         <Row>
+          <Col id="MENU_ID">000101</Col>
+          <Col id="MENU_NM">강의 배정</Col>
+          <Col id="MENU_LEVEL">2</Col>
+        </Row>
+        <Row>
           <Col id="MENU_ID">01</Col>
           <Col id="MENU_NM">강의</Col>
           <Col id="MENU_LEVEL">0</Col>
@@ -92,6 +97,15 @@
         <Column id="MENU_ID" type="STRING" size="256"/>
         <Column id="OPEN_YES" type="STRING" size="256"/>
       </ColumnInfo>
+    </Dataset>
+    <Dataset id="gds_adminInfo">
+      <ColumnInfo>
+        <Column id="ADMIN_CODE" type="STRING" size="256"/>
+        <Column id="REGDATE" type="STRING" size="256"/>
+      </ColumnInfo>
+      <Rows>
+        <Row/>
+      </Rows>
     </Dataset>
   </Datasets>
   <Variables/>

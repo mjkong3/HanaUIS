@@ -25,7 +25,7 @@
 
 
             obj = new Dataset("Certificate_Ds", this);
-            obj._setContents("<ColumnInfo><Column id=\"LoginCheck\" type=\"STRING\" size=\"256\"/><Column id=\"Check\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"LoginCheck\" type=\"STRING\" size=\"256\"/><Column id=\"Check\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -223,6 +223,17 @@
         	}
         	else if(this.email_Ds.getColumn(0, "Check") == this.Certificate_Ds.getColumn(0,"Check")){
         		alert("인증번호 확인되었습니다.");
+        		// 글로벌ds에 값 넣기
+        		var gdsAd = nexacro.getApplication();
+        		gdsAd.gds_adminInfo.setColumn(0, "ADMIN_CODE", this.Certificate_Ds.getColumn(0,"ADMIN_CODE"));
+        		gdsAd.gds_adminInfo.setColumn(0, "REGDATE", this.Certificate_Ds.getColumn(0,"REGDATE"));
+
+        		console.log("세션 설정되나1 " + gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE"));
+        		console.log("세션 설정되나2 " + gdsAd.gds_adminInfo.getColumn(0, "REGDATE"));
+
+        		// 세션 설정하기
+        		var adminCode = gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        		this.fn_addSession(adminCode);
         		let objApp = nexacro.getApplication();
         		objApp.mainframe.VFrameSet00.TopFrame.set_visible(true);
         		this.go("FrameBase::Form_Work.xfdl");
@@ -233,6 +244,18 @@
 
         };
 
+        this.fn_addSession = function (adminCode)
+        {
+        	var strSvcId    = "addSession";
+        	var strSvcUrl   = "svc::addSession.do";
+        	var inData      = "";
+        	var outData     = "";
+        	var strArg      = "ADMIN_CODE="+adminCode;
+        	var callBackFnc = "fnCallBack_add";
+        	var isAsync     = true;
+
+        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        };
         });
         
         // Regist UI Components Event

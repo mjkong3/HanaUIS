@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Popup_Work" width="1080" height="620" titletext="New Form" onload="Popup_Work_onload">
+    <Layouts>
+      <Layout height="620" width="1080">
+        <Static id="Static00_03_01_00_00_00_01" taborder="0" left="426" top="298" width="493" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00_00_00" taborder="1" left="700" top="200" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00_00" taborder="2" left="700" top="249" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00" taborder="3" left="426" top="249" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00_00" taborder="4" left="700" top="151" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00" taborder="5" left="700" top="102" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00" taborder="6" left="426" top="200" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00" taborder="7" left="426" top="151" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01" taborder="8" left="426" top="102" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00" taborder="9" left="700" top="53" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03" taborder="10" left="426" top="53" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00" taborder="11" left="329" top="53" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학번" font="12px/normal &quot;Gulim&quot;"/>
+        <Edit id="STUDENT_ID" taborder="12" left="438" top="63" width="152" height="30"/>
+        <Edit id="NAME" taborder="13" left="438" top="112" width="152" height="30"/>
+        <Static id="Static00_00" taborder="14" left="329" top="102" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이름"/>
+        <Static id="Static00_01" taborder="15" left="602" top="53" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   비밀번호"/>
+        <Edit id="PASSWORD" taborder="16" left="711" top="63" width="195" height="30"/>
+        <Static id="Static00_00_00" taborder="17" left="602" top="102" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과"/>
+        <Static id="Static00_02" taborder="18" left="329" top="151" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학년"/>
+        <Static id="Static00_01_00" taborder="19" left="602" top="151" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   핸드폰"/>
+        <Edit id="PHONE" taborder="20" left="711" top="161" width="195" height="30"/>
+        <Edit id="EMAIL" taborder="21" left="711" top="210" width="195" height="30"/>
+        <Static id="Static00_00_00_00" taborder="22" left="602" top="200" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이메일"/>
+        <Static id="Static00_00_01" taborder="23" left="329" top="200" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   성별"/>
+        <ImageViewer id="ImageViewer00" taborder="24" left="83" top="53" width="177" height="236"/>
+        <Static id="Static00_00_01_00" taborder="25" left="329" top="249" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   상태"/>
+        <Static id="Static00_00_01_00_00" taborder="26" left="602" top="249" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   생년월일"/>
+        <Button id="Stu_Add_btn" taborder="27" text="등록" left="769" top="371" width="151" height="38" onclick="Stu_Add_btn_onclick"/>
+        <Radio id="GENDER" taborder="28" left="440" top="208" width="150" height="36" innerdataset="ger_type" datacolumn="data" codecolumn="code" index="0" text="남자" value="M" direction="vertical"/>
+        <Combo id="de" taborder="29" text="" left="713" top="111" width="193" height="31" index="0" innerdataset="ds_de" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value=""/>
+        <Combo id="STATUS" taborder="30" text="" left="437" top="259" width="153" height="31" index="0" innerdataset="static_type_ds" codecolumn="code" datacolumn="data" value=""/>
+        <Calendar id="BIRTHDAY" taborder="31" left="710" top="259" width="196" height="31" dateformat="yyyy-MM-dd" accessibilityenable="false"/>
+        <Static id="Static00_00_01_00_01" taborder="32" left="329" top="298" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   주소"/>
+        <Combo id="UNIV_YEAR" taborder="33" text="1학년" left="437" top="161" width="153" height="31" index="0" innerdataset="grade_type" codecolumn="code" datacolumn="data" value="1"/>
+        <Edit id="ADDRESS" taborder="34" left="437" top="308" width="469" height="30"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[//처리콜백 함수
+this.fnCallback = function(svcID,errorCode,errorMsg)
+{
+   // 에러 시 화면 처리 내역
+   if(errorCode == -1)
+   {
+      this.alert(errorMsg);
+      return;
+   }
+
+   switch(svcID)
+   {
+      case "saveAdStudent":
+         this.alert("성공적으로 등록을 하였습니다.");
+         this.close("saveAdStudent");
+         break;
+   }
+};
+
+// this.Popup_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+// {
+// /*   this.insert_ds.setColumn(0,"DEPARTMENT_CODE",this.insert_ds.getColumn(0,1));*/
+//    
+//     var objParam  = this.parent.param1;
+//     console.log("DEPARTMENT_CODE: " + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+//     this.ds_de.copyData(objParam);
+//     console.log("selected_DeptCode" + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+//    
+//    var departmentCode = this.ds_de.getColumn(0, "DEPARTMENT_CODE");
+//     
+//     if (departmentCode == "00") {
+//         // 전체학과가 선택된 경우 콤보박스에서 전체학과를 선택
+//         this.de.set_index(0);  // 콤보박스의 첫 번째 항목(전체학과)을 선택
+//        console.log("Selected index: 0 (전체학과)");
+//     } else {
+//         // 일반 학과가 선택된 경우 해당 학과의 DEPARTMENT_CODE 설정
+//         this.de.set_value(departmentCode);
+//        console.log("Selected value: " + departmentCode);
+//     }
+//    
+//    this.save_ds.setColumn(0,"UNIV_YEAR","1");
+//    this.save_ds.setColumn(0,"GENDER","M");
+//    this.save_ds.setColumn(0,"STATUS","재학");
+//    this.save_ds.setColumn(0, "DEPARTMENT_CODE", this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
+// };
+
+// 자식(팝업) 폼 코드 (팝업 로드 시 호출되는 함수)
+this.Popup_Work_onload = function(obj, e) {
+    // 부모 폼에서 넘겨받은 param1 (데이터셋)과 선택된 학과 코드
+    var objParam = this.parent.param1;                // 부모 폼에서 넘긴 데이터셋
+    var selectedDeptCode = this.parent.selectedDeptCode; // 부모 폼에서 넘긴 선택된 학과 코드
+
+    // 데이터셋 복사: 부모 폼에서 넘겨받은 데이터셋을 ds_de에 복사
+    this.ds_de.copyData(objParam);
+
+//     // 콤보박스에 데이터셋 바인딩 설정
+//     this.de.set_innerdataset(this.ds_de);
+//     this.de.set_codecolumn("DEPARTMENT_CODE");  // 콤보박스에서 사용할 코드 컬럼
+//     this.de.set_datacolumn("DEPARTMENT_NAME");  // 콤보박스에 표시할 데이터 컬럼
+
+    // 선택된 학과 코드를 콤보박스에 설정
+//     if (selectedDeptCode) {
+//         if (selectedDeptCode === "00") {
+//             // 전체학과가 선택된 경우 콤보박스에서 0번째 항목을 선택
+//             this.de.set_index(0); 
+//             console.log("전체학과 선택됨");
+//         } else {
+//             // 일반 학과가 선택된 경우 해당 학과의 DEPARTMENT_CODE 설정
+//             
+//             console.log("선택된 DEPARTMENT_CODE: " + selectedDeptCode);
+//         }
+//     } else {
+//         console.log("선택된 학과 정보가 없습니다.");
+//     }
+   this.de.set_value(selectedDeptCode);  
+
+    // 데이터셋에 다른 초기 값 설정 (예시)
+    this.save_ds.setColumn(0, "UNIV_YEAR", "1");
+    this.save_ds.setColumn(0, "GENDER", "M");
+    this.save_ds.setColumn(0, "STATUS", "재학");
+    this.save_ds.setColumn(0, "DEPARTMENT_CODE", selectedDeptCode);  // 선택한 학과 코드 설정
+};
+
+
+this.Stu_Add_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+   this.insertstudent();
+};
+
+this.insertstudent = function()
+{
+   var strSvcId    = "saveAdStudent";
+   var strSvcUrl   = "svc::saveAdStudent.do";
+   var inData      = "save_ds = save_ds";
+   var outData     = "";
+   var strArg      = "";
+   var callBackFnc = "fnCallback";
+   var isAsync     = true;
+   
+   this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ger_type">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">M</Col>
+            <Col id="data">남자</Col>
+          </Row>
+          <Row>
+            <Col id="code">F</Col>
+            <Col id="data">여자</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_de">
+        <ColumnInfo>
+          <Column id="DEPARTMENT_CODE" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="static_type_ds">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">재학</Col>
+            <Col id="data">재학</Col>
+          </Row>
+          <Row>
+            <Col id="code">휴학</Col>
+            <Col id="data">휴학</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="save_ds">
+        <ColumnInfo>
+          <Column id="STUDENT_ID" type="INT" size="256"/>
+          <Column id="PASSWORD" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
+          <Column id="UNIV_YEAR" type="STRING" size="256"/>
+          <Column id="PHONE" type="STRING" size="256"/>
+          <Column id="EMAIL" type="STRING" size="256"/>
+          <Column id="BIRTHDAY" type="STRING" size="256"/>
+          <Column id="GENDER" type="STRING" size="256"/>
+          <Column id="ADDRESS" type="STRING" size="256"/>
+          <Column id="STATUS" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_CODE" type="INT" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="grade_type">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">1</Col>
+            <Col id="data">1학년</Col>
+          </Row>
+          <Row>
+            <Col id="data">2학년</Col>
+            <Col id="code">2</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="STUDENT_ID" propid="value" datasetid="save_ds" columnid="STUDENT_ID"/>
+      <BindItem id="item1" compid="NAME" propid="value" datasetid="save_ds" columnid="NAME"/>
+      <BindItem id="item2" compid="PASSWORD" propid="value" datasetid="save_ds" columnid="PASSWORD"/>
+      <BindItem id="item3" compid="PHONE" propid="value" datasetid="save_ds" columnid="PHONE"/>
+      <BindItem id="item4" compid="EMAIL" propid="value" datasetid="save_ds" columnid="EMAIL"/>
+      <BindItem id="item5" compid="GENDER" propid="value" datasetid="save_ds" columnid="GENDER"/>
+      <BindItem id="item6" compid="de" propid="value" datasetid="save_ds" columnid="DEPARTMENT_CODE"/>
+      <BindItem id="item7" compid="STATUS" propid="value" datasetid="save_ds" columnid="STATUS"/>
+      <BindItem id="item8" compid="BIRTHDAY" propid="value" datasetid="save_ds" columnid="BIRTHDAY"/>
+      <BindItem id="item9" compid="UNIV_YEAR" propid="value" datasetid="save_ds" columnid="UNIV_YEAR"/>
+      <BindItem id="item10" compid="ADDRESS" propid="value" datasetid="save_ds" columnid="ADDRESS"/>
+    </Bind>
+  </Form>
+</FDL>

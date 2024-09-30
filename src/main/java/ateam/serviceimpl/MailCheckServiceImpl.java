@@ -46,6 +46,7 @@ public class MailCheckServiceImpl extends EgovAbstractServiceImpl implements Mai
        
         mailSend(setFrom, toMail, title, content);
         
+        //난수를 리턴(인증번호)
         return Integer.toString(authNumber);
     }
 
