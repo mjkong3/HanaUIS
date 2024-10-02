@@ -77,7 +77,7 @@
 									</c:when>
 								</c:choose> 
 							</td>
-							<td name="date"><fmt:formatDate value="${notice.regdate}" pattern="yyyy년  MM월  dd일"/></td>
+							<td name="date"><fmt:formatDate value="${notice.regDtm}" pattern="yyyy년  MM월  dd일"/></td>
                       </tr>
                   </c:forEach>
                </form>

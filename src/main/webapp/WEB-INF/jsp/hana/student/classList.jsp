@@ -49,16 +49,19 @@
     <div class="content">
 	    <div class="container">
   	        <h3>강의 목록</h3>
-	        <form id="searchForm" name="searchForm" method="GET" class="form-inline justify-content-center">
-		        <input type="hidden" name="departmentCode"/>
-	 	            <select class="form-control" name="department" id="department">
-		            		<option value="ALL">전체 학과</option>
-	        				<c:forEach var="department" items="${department}">
-				                <option value="${department.departmentCode}">${department.departmentName}</option>
-				            </c:forEach>
-		            </select> 
-	    		<button type="button" class="btn" onclick="fn_searchClass()">조회</button>
-	        </form>
+			<form id="searchForm" name="searchForm" method="GET" class="form-inline justify-content-center">
+	            <input type="hidden" name="departmentCode"/>
+	             <select class="form-control" name="department" id="department">
+	                 <option value="" <c:if test="${param.department == 'ALL'}">selected</c:if>>전체 학과</option>
+	                 <c:forEach var="department" items="${department}">
+	                     <option value="${department.departmentCode}" 
+	                         <c:if test="${param.departmentCode == department.departmentCode}">selected</c:if>>
+	                         ${department.departmentName}
+	                     </option>
+	                 </c:forEach>
+	             </select>
+	             <button type="button" class="btn" onclick="fn_searchClass()">조회</button>
+	         </form>
 	
 	    <!-- 수업 목록 테이블 -->
 	    <form name="classForm" method="get">
@@ -91,31 +94,29 @@
 	            </tbody>
 	        </table>
 	        
-	        <div class="pagination">
-               <!-- 첫 페이지로 이동 -->
-               <a href="?page=1"
-                  class="${pageHandler.page == 1 ? 'disabled' : ''}">처음</a>
-
-               <!-- 이전 페이지로 이동 -->
-               <a href="?page=${pageHandler.page > 1 ? pageHandler.page - 1 : 1}"
-                  class="${pageHandler.page == 1 ? 'disabled' : ''}">이전</a>
-
-               <!-- 중간 페이지 목록 (1~5 or 6~10) -->
-               <c:forEach begin="${pageHandler.beginPage}"
-                  end="${pageHandler.endPage}" var="i">
-                  <a href="?page=${i}"
-                     class="${i == pageHandler.page ? 'active' : ''}">${i}</a>
-               </c:forEach>
-
-               <!-- 다음 페이지로 이동 -->
-               <a
-                  href="?page=${pageHandler.page < pageHandler.totalPage ? pageHandler.page + 1 : pageHandler.totalPage}"
-                  class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">다음</a>
-
-               <!-- 마지막 페이지로 이동 -->
-               <a href="?page=${pageHandler.totalPage}"
-                  class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">끝</a>
-            </div>
+	                    <div class="pagination">
+			   <!-- 첫 페이지로 이동 -->
+			   <a href="?page=1&departmentCode=${departmentCode}"
+			      class="${pageHandler.page == 1 ? 'disabled' : ''}">처음</a>
+			
+			   <!-- 이전 페이지로 이동 -->
+			   <a href="?page=${pageHandler.page > 1 ? pageHandler.page - 1 : 1}&departmentCode=${departmentCode}"
+			      class="${pageHandler.page == 1 ? 'disabled' : ''}">이전</a>
+			
+			   <!-- 중간 페이지 목록 (1~5 or 6~10) -->
+			   <c:forEach begin="${pageHandler.beginPage}" end="${pageHandler.endPage}" var="i">
+			      <a href="?page=${i}&departmentCode=${departmentCode}"
+			         class="${i == pageHandler.page ? 'active' : ''}">${i}</a>
+			   </c:forEach>
+			
+			   <!-- 다음 페이지로 이동 -->
+			   <a href="?page=${pageHandler.page < pageHandler.totalPage ? pageHandler.page + 1 : pageHandler.totalPage}&departmentCode=${departmentCode}"
+			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">다음</a>
+			
+			   <!-- 마지막 페이지로 이동 -->
+			   <a href="?page=${pageHandler.totalPage}&departmentCode=${departmentCode}"
+			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">끝</a>
+			</div>
         
         </form>
 	</div>

@@ -63,7 +63,7 @@
 	               <div class="filters">
 	                  <label for="yearSemesterSelect"></label>
 	                  <select id="yearSemesterSelect" name="yearSemester">
-  		                     <option value="0" <c:if test="${selectedYear == 1 && selectedSemester == 1}">selected</c:if>>전체학기</option>
+	                     <option value="0" <c:if test="${selectedYear == 1 && selectedSemester == 1}">selected</c:if>>전체학기</option>
 	                     <option value="1-1" <c:if test="${selectedYear == 1 && selectedSemester == 1}">selected</c:if>>1학년 1학기</option>
 	                     <option value="1-2" <c:if test="${selectedYear == 1 && selectedSemester == 2}">selected</c:if>>1학년 2학기</option>
 	                     <option value="2-1" <c:if test="${selectedYear == 2 && selectedSemester == 1}">selected</c:if>>2학년 1학기</option>
@@ -111,30 +111,28 @@
                 </tbody>
             </table>
             <div class="pagination">
-               <!-- 첫 페이지로 이동 -->
-               <a href="?page=1"
-                  class="${pageHandler.page == 1 ? 'disabled' : ''}">처음</a>
-
-               <!-- 이전 페이지로 이동 -->
-               <a href="?page=${pageHandler.page > 1 ? pageHandler.page - 1 : 1}"
-                  class="${pageHandler.page == 1 ? 'disabled' : ''}">이전</a>
-
-               <!-- 중간 페이지 목록 (1~5 or 6~10) -->
-               <c:forEach begin="${pageHandler.beginPage}"
-                  end="${pageHandler.endPage}" var="i">
-                  <a href="?page=${i}"
-                     class="${i == pageHandler.page ? 'active' : ''}">${i}</a>
-               </c:forEach>
-
-               <!-- 다음 페이지로 이동 -->
-               <a
-                  href="?page=${pageHandler.page < pageHandler.totalPage ? pageHandler.page + 1 : pageHandler.totalPage}"
-                  class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">다음</a>
-
-               <!-- 마지막 페이지로 이동 -->
-               <a href="?page=${pageHandler.totalPage}"
-                  class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">끝</a>
-            </div>
+			   <!-- 첫 페이지로 이동 -->
+			   <a href="?page=1&yearSemester=${yearSemester}"
+			      class="${pageHandler.page == 1 ? 'disabled' : ''}">처음</a>
+			
+			   <!-- 이전 페이지로 이동 -->
+			   <a href="?page=${pageHandler.page > 1 ? pageHandler.page - 1 : 1}&yearSemester=${yearSemester}"
+			      class="${pageHandler.page == 1 ? 'disabled' : ''}">이전</a>
+			
+			   <!-- 중간 페이지 목록 (1~5 or 6~10) -->
+			   <c:forEach begin="${pageHandler.beginPage}" end="${pageHandler.endPage}" var="i">
+			      <a href="?page=${i}&yearSemester=${yearSemester}"
+			         class="${i == pageHandler.page ? 'active' : ''}">${i}</a>
+			   </c:forEach>
+			
+			   <!-- 다음 페이지로 이동 -->
+			   <a href="?page=${pageHandler.page < pageHandler.totalPage ? pageHandler.page + 1 : pageHandler.totalPage}&yearSemester=${yearSemester}"
+			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">다음</a>
+			
+			   <!-- 마지막 페이지로 이동 -->
+			   <a href="?page=${pageHandler.totalPage}&yearSemester=${yearSemester}"
+			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">끝</a>
+			</div>
             
             
             </form>
