@@ -51,7 +51,7 @@
 		        </tr>
 		        <tr>
 		        	<th>작성일</th>
-		        	<td name="date"><fmt:formatDate value="${board.regdate}" pattern="yyyy년  MM월  dd일"/></td>
+		        	<td name="date"><fmt:formatDate value="${board.regDtm}" pattern="yyyy년  MM월  dd일"/></td>
 		        </tr>
 		        <tr>
 		        	 <th>첨부 파일</th>

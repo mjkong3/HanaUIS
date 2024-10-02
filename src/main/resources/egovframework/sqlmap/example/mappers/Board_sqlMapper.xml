@@ -7,7 +7,7 @@
     SELECT COUNT(*) FROM BOARD;
 </select>
 <select id="boardList" parameterType="map" resultType="ateam.dto.BoardDTO">
-   SELECT BOARD_CODE, TITLE, CONTENT, REGDATE 
+   SELECT BOARD_CODE, TITLE, CONTENT, REG_DTM 
    FROM BOARD 
    ORDER BY BOARD_CODE DESC
    LIMIT #{pageSize} OFFSET #{offset};
@@ -18,7 +18,7 @@
    SELECT  BOARD_CODE,  
          TITLE, 
          CONTENT, 
-         REGDATE, 
+         REG_DTM, 
          FILE_CODE 
    FROM BOARD
    WHERE BOARD_CODE = #{id}

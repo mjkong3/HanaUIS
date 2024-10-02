@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <title>성적 통계</title>
     <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/content.css'/>" />
-    <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/studentInfo.css'/>" />
+    <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/chart.css'/>" />
 
     <!-- Chart.js 라이브러리 추가 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -32,6 +32,20 @@
 	</script>
 	
 </head>
+<style>
+  /* 캔버스 크기를 CSS로 조정할 수 있습니다. */
+  #middleTestPieChart, #finalTestPieChart, #reportPieChart, #totalPieChart {
+      max-width: 300px;
+      max-height: 300px;
+      margin: 20px auto; /* 중앙 정렬 및 여백 추가 */
+  }
+  .chart-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around; /* 각 그래프 사이에 일정한 간격 */
+      margin: 20px; /* 상하좌우 여백 */
+  }
+</style>
 <body>
 
 <%@ include file="/WEB-INF/jsp/hana/includes/headerPro.jsp" %>
@@ -41,7 +55,14 @@
         <h3>성적 통계 : ${className} (총 ${totalStudents} 명)</h3>
         
         <canvas id="gradeChart" width="400" height="250"></canvas>
-
+        
+		<!-- 각각의 그래프를 표시할 캔버스 -->
+		<div class="chart-container">
+			<canvas id="middleTestPieChart" width="200" height="200"></canvas>
+			<canvas id="finalTestPieChart" width="200" height="200"></canvas>
+			<canvas id="reportPieChart" width="200" height="200"></canvas>
+			<canvas id="totalPieChart" width="200" height="200"></canvas>
+		</div>
         <script>
             var gradeLabels = ['A', 'B', 'C', 'D', 'F']; // X축 레이블 (등급)
             
@@ -110,19 +131,11 @@
                         {
                             label: '총점',
                             data: totalGrade,
-                            type: 'line', // 총점은 선 그래프로 표현
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)', // 총점은 다른 색상으로 강조
                             borderColor: 'rgba(255, 99, 132, 1)',
-                            fill: false,
-                            borderWidth: 2,
-                            pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                            pointRadius: 5,
-                            pointHoverRadius: 7, // 마우스 오버 시 포인트 크기 증가
-                            font: {
-                                size: 30, // 총점 레이블의 폰트 크기
-                                family: 'Arial', // 총점 레이블의 폰트 패밀리
-                                weight: 'bold', // 총점 레이블의 폰트 두께
-                                color: '#333' // 총점 레이블의 색상
-                            }
+                            borderWidth: 1,
+                            hoverBackgroundColor: 'rgba(255, 99, 132, 0.8)',
+                            hoverBorderColor: 'rgba(255, 99, 132, 1)',
                         }
                     ]
                 },
@@ -137,6 +150,13 @@
                     },
                     scales: {
                         y: {
+                            title: {
+                                display: true,
+                                text: '명',
+                                font: {
+                                    size: 14
+                                }
+                            },
                             beginAtZero: true,
                             ticks: {
                                 stepSize: 1,
@@ -181,6 +201,243 @@
                 },
                 plugins: [ChartDataLabels]
             });
+            
+         // 중간고사 원그래프
+            var ctxMiddle = document.getElementById('middleTestPieChart').getContext('2d');
+            var middleTestPieChart = new Chart(ctxMiddle, {
+                type: 'pie',
+                data: {
+                    labels: gradeLabels,
+                    datasets: [{
+                        label: '중간',
+                        data: middleTestGrade,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.6)',  // 첫 번째 데이터 색상
+                            'rgba(255, 99, 132, 0.6)',  // 두 번째 데이터 색상
+                            'rgba(54, 162, 235, 0.6)',  // 세 번째 데이터 색상
+                            'rgba(255, 206, 86, 0.6)',   // 네 번째 데이터 색상
+                            'rgba(153, 102, 255, 0.6)'   // 다섯 번째 데이터 색상
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '중간고사 성적 분포', // 제목 텍스트
+                            font: {
+                                size: 18 // 제목 글꼴 크기
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 30
+                            }
+                        },
+                        legend: {
+                            display: false // 레전드 비활성화
+                        },
+                        datalabels: {
+                            color: 'white', // 데이터 레이블 색상
+                            formatter: (value, context) => {
+                                const total = context.chart.data.datasets[0].data.reduce((acc, val) => acc + val, 0);
+                                const percentage = ((value / total) * 100).toFixed(2) + '%';
+                                return percentage; // 퍼센트로 반환
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 14 // 레이블 글꼴 크기
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // 플러그인 추가
+            });
+
+            // 기말고사 원그래프
+            var ctxFinal = document.getElementById('finalTestPieChart').getContext('2d');
+            var finalTestPieChart = new Chart(ctxFinal, {
+                type: 'pie',
+                data: {
+                    labels: gradeLabels,
+                    datasets: [{
+                        label: '기말',
+                        data: finalTestGrade,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.6)',  // 첫 번째 데이터 색상
+                            'rgba(255, 99, 132, 0.6)',  // 두 번째 데이터 색상
+                            'rgba(54, 162, 235, 0.6)',  // 세 번째 데이터 색상
+                            'rgba(255, 206, 86, 0.6)',   // 네 번째 데이터 색상
+                            'rgba(153, 102, 255, 0.6)'   // 다섯 번째 데이터 색상
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '기말고사 성적 분포', // 제목 텍스트
+                            font: {
+                                size: 18 // 제목 글꼴 크기
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 30
+                            }
+                        },
+                        legend: {
+                            display: false // 레전드 비활성화
+                        },
+                        datalabels: {
+                            color: 'white', // 데이터 레이블 색상
+                            formatter: (value, context) => {
+                                const total = context.chart.data.datasets[0].data.reduce((acc, val) => acc + val, 0);
+                                const percentage = ((value / total) * 100).toFixed(2) + '%';
+                                return percentage; // 퍼센트로 반환
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 14 // 레이블 글꼴 크기
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // 플러그인 추가
+            });
+
+            // 레포트 원그래프
+            var ctxReport = document.getElementById('reportPieChart').getContext('2d');
+            var reportPieChart = new Chart(ctxReport, {
+                type: 'pie',
+                data: {
+                    labels: gradeLabels,
+                    datasets: [{
+                        label: '레포트',
+                        data: reportGrade,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.6)',  // 첫 번째 데이터 색상
+                            'rgba(255, 99, 132, 0.6)',  // 두 번째 데이터 색상
+                            'rgba(54, 162, 235, 0.6)',  // 세 번째 데이터 색상
+                            'rgba(255, 206, 86, 0.6)',   // 네 번째 데이터 색상
+                            'rgba(153, 102, 255, 0.6)'   // 다섯 번째 데이터 색상
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '레포트 성적 분포', // 제목 텍스트
+                            font: {
+                                size: 18 // 제목 글꼴 크기
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 30
+                            }
+                        },
+                        legend: {
+                            display: false // 레전드 비활성화
+                        },
+                        datalabels: {
+                            color: 'white', // 데이터 레이블 색상
+                            formatter: (value, context) => {
+                                const total = context.chart.data.datasets[0].data.reduce((acc, val) => acc + val, 0);
+                                const percentage = ((value / total) * 100).toFixed(2) + '%';
+                                return percentage; // 퍼센트로 반환
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 14 // 레이블 글꼴 크기
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // 플러그인 추가
+            });
+
+         // 총점 원그래프
+            var ctxTotal = document.getElementById('totalPieChart').getContext('2d');
+            var totalPieChart = new Chart(ctxTotal, {
+                type: 'pie',
+                data: {
+                    labels: gradeLabels,
+                    datasets: [{
+                        label: '총점',
+                        data: totalGrade,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.6)',  // A
+                            'rgba(255, 99, 132, 0.6)',  // B
+                            'rgba(54, 162, 235, 0.6)',  // C
+                            'rgba(255, 206, 86, 0.6)',   // D
+                            'rgba(153, 102, 255, 0.6)'   // F
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '총점 성적 분포', // 제목 텍스트
+                            font: {
+                                size: 18 // 제목 글꼴 크기
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 30
+                            }
+                        },
+                        legend: {
+                            display: false // 레전드 비활성화
+                        },
+                        datalabels: {
+                            color: 'white', // 데이터 레이블 색상
+                            formatter: (value, context) => {
+                                const total = context.chart.data.datasets[0].data.reduce((acc, val) => acc + val, 0);
+                                const percentage = ((value / total) * 100).toFixed(2) + '%';
+                                return percentage; // 퍼센트로 반환
+                            },
+                            font: {
+                                weight: 'bold',
+                                size: 14 // 레이블 글꼴 크기
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels] // 플러그인 추가
+            });
+
         </script>
 
     </div>
