@@ -2,7 +2,7 @@ package ateam.dto;
 
 public class FileDTO {
 	private int fileId;
-	private String fileCode;
+	private String boardCode;
 	private String fileName;
 
 	public int getFileId() {
@@ -11,11 +11,11 @@ public class FileDTO {
 	public void setFileId(int fileId) {
 		this.fileId = fileId;
 	}
-	public String getFileCode() {
-		return fileCode;
+	public String getBoardCode() {
+		return boardCode;
 	}
-	public void setFileCode(String fileCode) {
-		this.fileCode = fileCode;
+	public void setBoardCode(String boardCode) {
+		this.boardCode = boardCode;
 	}
 	public String getFileName() {
 		return fileName;
