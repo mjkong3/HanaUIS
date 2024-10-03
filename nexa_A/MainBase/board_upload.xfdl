@@ -3,7 +3,7 @@
   <Form id="board_upload" width="1280" height="720" titletext="New Form" onload="board_upload_onload">
     <Layouts>
       <Layout height="720" width="1280">
-        <Static id="stt_top" taborder="0" text="공지사항 관리" left="495" top="10" width="264" height="74" font="30pt &quot;gulim&quot;,&quot;한컴 고딕&quot;"/>
+        <Static id="stt_top" taborder="0" text="공지사항 등록" left="495" top="10" width="264" height="74" font="30pt &quot;gulim&quot;,&quot;한컴 고딕&quot;"/>
         <Static id="Static01" taborder="1" text="제목" left="174" top="134" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
         <TextArea id="txt_title" taborder="2" left="410" top="137" width="584" height="46" textAlign="left" font="16px/normal &quot;Gulim&quot;" scrolltype="none"/>
         <Static id="Static01_00" taborder="3" text="작성자" left="174" top="194" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none" onclick="Static01_00_onclick"/>
@@ -46,6 +46,8 @@ this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	if(this.ds_board.getRowCount() < 1) {
 		this.ds_board.addRow();
 	}
+	
+	trace(this.ds_board.saveXML);
 };
 
 /************************************************************************
@@ -78,7 +80,7 @@ this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialog
 	console.log(this.ds_fileInsert.saveXML());
 };
 
-// 파일 추가 처리 함수 (드래그)
+// 파일 추가 처리 함수
 this.addFileList = function(filelist) {
     for (var i = 0, len = filelist.length, vFile; i < len; i++)
     {
@@ -170,7 +172,7 @@ this.FileUpTransfer00_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.Fi
 // textarea에 추가
 this.fn_addlog = function(strMessage)
 {
-    this.TextArea00.insertText(strMessage + '\n');
+    trace(strMessage + '\n');
 }
 
 
@@ -220,7 +222,6 @@ this.btn_addBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
 	//this.ds_board.setColumn(0, "TITLE", this.txt_title.value);
 	//this.ds_board.setColumn(0, "CONTENT", this.txt_content.value);
 
-    this.TextArea00.set_value("");
     this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
 	
 	// board에 넣고 callback함수로 file에 2차로 넣기
@@ -228,20 +229,34 @@ this.btn_addBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
 };
 */
 
- this.fnSetDataset = function() {
-	 for(var i=0;i<this.ds_board.getRowCount();i++){
-		this.ds_board.setColumn(i, "TITLE", this.txt_title.value);
-		this.ds_board.setColumn(i, "CONTENT", this.txt_content.value);
-		this.ds_fnInsert.setColumn(i, "TITLE", this.txt_content.value);
-	}
-}
+//  this.fnSetDataset = function() {
+// 	 for(var i=0;i<this.ds_board.getRowCount();i++){
+// 		this.ds_board.setColumn(i, "TITLE", this.txt_title.value);
+// 		this.ds_board.setColumn(i, "CONTENT", this.txt_content.value);
+// 		this.ds_fnInsert.setColumn(i, "TITLE", this.txt_content.value);
+// 	}
+// }
 
  this.fnInsertBoardData = function() {
+ 
+	// 제목 및 공지사항이 비었을 때 처리
+	if(this.txt_title.value == ''
+		 || this.txt_title.value == 'undefined'
+		 || this.txt_title.value == null) {
+			alert("제목을 입력해주세요.");
+			return;
+	}
+		if(this.txt_content.value == ''
+		 || this.txt_content.value == 'undefined'
+		 || this.txt_content.value == null) {
+			alert("내용을 입력해주세요.");
+			return;
+	}
 
     var strSvcId    = "insertBoard";
     var strSvcUrl   = "svc::insertBoard.do";
     var inData      = "ds_board=ds_board";
-    var outData     = "";  // 결과를 받을 데이터셋
+    var outData     = "ds_board=ds_board";  // 결과를 받을 데이터셋
     var strArg      = ""
     var callBackFnc = "fnCallbackInsertFile";
     var isAsync     = false;
@@ -253,7 +268,6 @@ this.btn_addBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
 this.fnCallbackInsertFile = function(svcID, errorCode, errorMsg) {
     if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
 		console.log("BOARD 테이블 작성 완료");
-		this.alert("공지사항이 게시되었습니다");
 		this.fnInsertFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
     } else {
         alert("게시글 저장 중 오류 발생: " + errorMsg);
@@ -265,22 +279,33 @@ this.fnCallbackInsertFile = function(svcID, errorCode, errorMsg) {
  this.fnInsertFileData = function() {
     var strSvcId    = "insertFile";
     var strSvcUrl   = "svc::insertFile.do";
-    var inData      = "ds_fileInsert=ds_fileInsert";
+    var inData      = "ds_fileInsert=ds_fileInsert ds_board=ds_board";
     var outData     = "";  // 결과를 받을 데이터셋
     var strArg      = ""
-    var callBackFnc = "fnCallback";
+    var callBackFnc = "fnCallbackClosePopup";
     var isAsync     = false;
 
     this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 };
 
+// 마지막 파일 첨부 이후 팝업 닫기
+this.fnCallbackClosePopup = function(svcID, errorCode, errorMsg) {
+    if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
+		console.log("FILE 테이블 작성 완료");
+		this.alert("공지사항이 게시되었습니다");
+		this.close;
+    } else {
+        alert("게시글 저장 중 오류 발생: " + errorMsg);
+    }
+};
+
+// 등록 버튼 온클릭 이벤트
 this.btn_addBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
 	for (i=0; i < this.ds_fileInsert.rowcount; i++) {
 		this.ds_fileInsert.setColumn(i, "TITLE", this.txt_title.value);
 	}
 
-	//this.TextArea00.set_value("");
     this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
 	
 	// board에 넣고 callback함수로 file에 2차로 넣기

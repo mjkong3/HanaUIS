@@ -15,4 +15,16 @@ public interface AdminUploadMapper {
 	int insertFile(Map<String, Object> param);
 
 	String newFileCode();
+	
+	void updateBoard(Map<String, Object> param);
+	
+	void deleteFile(Map<String, Object> param);
+	
+	void updateFile(Map<String, Object> param);
+
+	String selectCreDtm(int boardCode);
+
+	void deleteBoard(Map<String, Object> param);
+
+
 }

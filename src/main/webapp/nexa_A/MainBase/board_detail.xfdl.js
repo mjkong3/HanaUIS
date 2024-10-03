@@ -18,12 +18,18 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("ds_board", this);
-            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"DATE\" size=\"256\"/><Column id=\"BOARD_CODE\" type=\"INT\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"BOARD_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
             obj = new Dataset("ds_file", this);
+            obj.set_useclientlayout("true");
             obj._setContents("<ColumnInfo><Column id=\"FILE_NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_copyCat", this);
+            obj._setContents("");
             this.addChild(obj.name, obj);
 
 
@@ -32,6 +38,10 @@
 
 
             obj = new FileUpTransfer("FileUpTransfer00", this);
+            this.addChild(obj.name, obj);
+
+
+            obj = new FileDialog("FileDialog00", this);
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
@@ -84,7 +94,7 @@
             obj.set_text("닫기");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_uploader","377","200","273","40",null,null,null,null,null,null,this);
+            obj = new Static("stt_uploader","400","200","250","40",null,null,null,null,null,null,this);
             obj.set_taborder("7");
             this.addChild(obj.name, obj);
 
@@ -96,9 +106,10 @@
             obj.set_border("0px none, 1px solid, 0px none, 0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_regDate","898","143","145","40",null,null,null,null,null,null,this);
+            obj = new Static("stt_regDate","1305","153","145","40",null,null,null,null,null,null,this);
             obj.set_taborder("9");
             obj.set_text("");
+            obj.set_textAlign("center");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static01_00_01_00","660","197","172","53",null,null,null,null,null,null,this);
@@ -113,7 +124,7 @@
             obj.set_taborder("11");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_fixBoard","634","617","72","33",null,null,null,null,null,null,this);
+            obj = new Button("btn_updateBoard","634","617","72","33",null,null,null,null,null,null,this);
             obj.set_taborder("12");
             obj.set_text("수정");
             this.addChild(obj.name, obj);
@@ -147,13 +158,17 @@
             obj.set_color("white");
             obj.set_background("#ff0505");
             this.addChild(obj.name, obj);
+
+            obj = new Calendar("cal_Dtm","890","140","153","47",null,null,null,null,null,null,this);
+            obj.set_taborder("19");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",1280,720,this,function(p){});
             this.addLayout(obj.name, obj);
             
             // BindItem Information
-            obj = new BindItem("item1","stt_regDate","text","ds_board","REGDATE");
+            obj = new BindItem("item1","stt_regDate","text","ds_board","CRE_DTM");
             this.addChild(obj.name, obj);
             obj.bind();
 
@@ -172,6 +187,10 @@
             obj = new BindItem("item6","txt_Content","value","ds_board","CONTENT");
             this.addChild(obj.name, obj);
             obj.bind();
+
+            obj = new BindItem("item0","cal_Dtm","value","ds_board","CRE_DTM");
+            this.addChild(obj.name, obj);
+            obj.bind();
             
             // TriggerItem Information
 
@@ -184,11 +203,18 @@
         
         // User Script
         this.registerScript("board_detail.xfdl", function() {
+        /*
+        	파일 데이터셋 ds_file 추가가 어떤 부분에 들어가야 할지 바꿔줘야 함
+        	//var nRowIdx = this.ds_file.addRow();
+            //this.ds_file.setColumn(nRowIdx, 0, obj.filename);
+        */
+
 
         this.board_upload_onload = function(obj,e)
         {
-
         	this.fnOnload();
+
+        	this.ds_copyCat.copyData(this.ds_board, true);
         };
 
         /************************************************************************
@@ -199,20 +225,18 @@
         this.fnOnload = function(obj, e) {
 
         	var BOARD_CODE = this.parent.BOARD_CODE;  // 부모창에서 넘어온 board_code 값 받기
+        	var CRE_USR = this.parent.NAME;
             trace("Received board_code: " + BOARD_CODE);  // board_code 값 확인 (콘솔에 출력)
+        	trace("Received CRE_USR: " + CRE_USR);  // CRE_USR 값 확인 (콘솔에 출력)
 
             // board_code를 전자정부 프레임워크로 넘길 로직 추가
             this.fnSendBoardCode(BOARD_CODE);
-        //
-        // 	this.fnSetRegDate();
-        // 	trace(this.ds_board.saveXML());
+        	trace(this.ds_board.getColumn(0, "CRE_DTM"));
 
         	console.log(this.ds_board.saveXML());
         	console.log(this.ds_file.saveXML());
 
         	trace(this.ds_board.getColumn(0,"TITLE"));
-
-
         };
 
         // 전자정부 프레임워크로 board_code 전달하는 함수
@@ -228,29 +252,14 @@
             this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
 
-        //REGDATE 계산
-
-        this.fnSetRegDate = function(){
-        	var RegDate = this.ds_board.getColumn(1, "REGDATE")
-
-        	var year = parseInt(RegDate.substring(2, 4));  // 2024
-        	var month = parseInt(RegDate.substring(4, 6)); // 09
-        	var day = parseInt(RegDate.substring(6, 8));   // 27
-
-        	this.ds_board.getColumn(0, "REGDATE", year * 10000 + month * 100 + day)
-        }
-
-        /************************************************************************
-         * 							이벤트
-         ************************************************************************/
-
-
         /************************************************************************
          * 							파일 다운로드
          ************************************************************************/
 
         this.Form_onload = function(obj, e)
         {
+        	//var deletedate = this.ds_file.getColumn(0, "REGDATE");
+
             this.FileDownTransfer00 = new FileDownTransfer();
             this.addChild("FileDownTransfer00", this.FileDownTransfer00);
 
@@ -264,7 +273,17 @@
             // 데이터셋에서 파일 URL 가져오기
             var fileUrl = "http://localhost:8082/HanaUIS/filedownload.jsp?fileName=" + encodeURIComponent(this.ds_file.getColumn(this.ds_file.rowposition, "FILE_NAME"));
 
-            // 파일 URL 확인
+        	console.log(this.ds_file.getColumn(this.ds_file.rowposition, "FILE_NAME"));
+
+            // 파일이 없을 경우
+        	if (this.ds_file.getColumn(0, "FILE_NAME") == 0
+        	|| this.ds_file.getColumn(0, "FILE_NAME") == 'undefined'
+        	|| this.ds_file.getColumn(0, "FILE_NAME") == null) {
+        		alert("파일이 존재하지 않습니다");
+        		return;
+        	}
+
+        	// 파일 URL 확인
             if (!fileUrl) {
                 alert("파일 URL이 존재하지 않습니다.");
                 return;
@@ -291,10 +310,7 @@
 
 
 
-        this.btn_addBoard_onclick = function(obj,e)
-        {
-        	this.close();
-        };
+
 
         /************************************************************************
          *							파일 업로드
@@ -306,31 +322,62 @@
             this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);
         };
 
-        // 파일 팝업 창 닫을 때 파일 추가
-        this.FileDialog00_onclose = function(obj,e)
-        {
-            this.addFileList(e.virtualfiles);
-        	console.log(e.virtualfiles.length);
+        this.FileDialog00_onclose = function(obj, e) {
+            // e.virtualfiles가 정상적으로 들어오는지 확인
+            if (e.virtualfiles && e.virtualfiles.length > 0) {
+                this.addFileList(e.virtualfiles);  // 파일 추가 처리 함수 호출
 
-        	for(var i=0;i<e.virtualfiles.length;i++){
-        		var nRow = this.ds_fileInsert.addRow();
-        		this.ds_fileInsert.setColumn(nRow, "FILE_NAME", e.virtualfiles[i].filename);
-        	}
+                // 파일 목록을 확인하기 위해 로그 출력
+                console.log("파일 개수: " + e.virtualfiles.length);
+                for (var i = 0; i < e.virtualfiles.length; i++) {
+                    console.log("파일명: " + e.virtualfiles[i].filename);
+                }
 
-        	console.log(this.ds_fileInsert.saveXML());
+                // ds_file 내용 확인
+                console.log(this.ds_file.saveXML());
+            } else {
+                console.log("선택된 파일이 없습니다.");
+            }
         };
 
-        // 파일 추가 처리 함수 (드래그)
+        // 파일 추가 처리 함수
         this.addFileList = function(filelist) {
-            for (var i = 0, len = filelist.length, vFile; i < len; i++)
-            {
-                vFile = filelist[i];
-                vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
-                vFile.addEventHandler("onerror", this.FileList_onerror , this);
+            for (var i = 0; i < filelist.length; i++) {
+                var file = filelist[i];  // 각 virtualfile 객체 참조
+                var filename = file.filename;  // filename을 file 객체에서 가져옴
+                var fileExists = false;
 
-                vFile.open(null, 1);
+                // 이미 동일한 파일명이 있는지 확인
+                for (var j = 0; j < this.ds_file.getRowCount(); j++) {
+                    if (this.ds_file.getColumn(j, "FILE_NAME") === filename) {
+                        fileExists = true;
+                        this.alert("동일한 이름의 파일이 존재합니다");
+                        break;
+                    }
+                }
+
+                // 파일이 존재하지 않는 경우에만 추가
+                if (!fileExists) {
+                    var nRow = this.ds_file.addRow();  // 새로운 행 추가
+                    if (nRow >= 0) {
+                        this.ds_file.setColumn(nRow, "FILE_NAME", filename);  // 파일 이름 추가
+        				trace("파일추가시작");
+                        file.addEventHandler("onsuccess", this.FileList_onsuccess, this);  // 이벤트 핸들러 추가
+                        file.addEventHandler("onerror", this.FileList_onerror, this);  // 에러 핸들러 추가
+
+                        // 파일 열기 (비동기 처리)
+                        file.open(null, 1);
+                    } else {
+                        console.log("행 추가 실패: " + filename);
+                    }
+                } else {
+                    console.log("파일이 이미 존재합니다: " + filename);
+                }
             }
-        }
+        };
+
+
+
 
         // 파일 드래그 드랍 관련
         this.grd_file_ondrop = function(obj,e)
@@ -338,24 +385,37 @@
             if(e.datatype == "file")
             {
                 this.addFileList(e.filelist);
-        		this.ds_fileInsert.setColumn(0, "FILE_NAME", e.virtualfiles[0].filename);
+        		this.ds_file.setColumn(0, "FILE_NAME", e.virtualfiles[0].filename);
             }
         };
 
 
         // virtualfile의 성공 실패
-        this.FileList_onsuccess = function(obj, e)
-        {
-            switch (e.reason)
-            {
-                case 1:
-                    obj.getFileSize();
-                    break;
-                case 9:
-                    var nRowIdx = this.ds_file.addRow();
-                    this.ds_file.setColumn(nRowIdx, 0, obj.filename);
-                    /*this.ds_file.setColumn(nRowIdx, 1, this.cutFileSize(e.filesize));*/
-                    this.FileUpTransfer00.addFile(obj.filename, obj);
+        this.FileList_onsuccess = function(obj, e) {
+            switch (e.reason) {
+                case 9: // 파일이 성공적으로 열림
+                    var filename = obj.filename;  // 파일 이름 가져오기
+                    var fileExists = false;
+
+                    // 동일 파일명 확인
+                    for (var j = 0; j < this.ds_file.getRowCount(); j++) {
+                        if (this.ds_file.getColumn(j, "FILE_NAME") === filename) {
+                            fileExists = true;
+                            console.log("파일이 이미 존재합니다: " + filename);
+                            break;
+                        }
+                    }
+
+                    // 파일이 존재하지 않을 경우 데이터셋에 추가
+                    if (!fileExists) {
+                        var nRowIdx = this.ds_file.addRow();
+                        if (nRowIdx >= 0) {
+                            this.ds_file.setColumn(nRowIdx, "FILE_NAME", filename);  // 파일명 추가
+                            this.FileUpTransfer00.addFile(filename, obj);  // 파일 전송 준비
+                        } else {
+                            console.log("행 추가 실패: " + filename);
+                        }
+                    }
                     break;
             }
         };
@@ -368,18 +428,11 @@
         };
 
 
-        // // 파일 사이즈 계산 함수
-        // this.cutFileSize = function(filesize)
-        // {
-        //     var sOutput = filesize + " bytes";
-        //     for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++)
-        //     {
-        //         sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
-        //     }
-        //     return sOutput;
-        // };
+        //
+        /************************************************************************
+         * 				업로드한 파일 전체 삭제
+         ************************************************************************/
 
-        // 업로드한 파일 전체 삭제
         this.btn_deleteFile_onclick = function(obj,e)
         {
         	//selected file delete
@@ -409,6 +462,131 @@
             this.fn_addlog(e.statuscode);
         };
 
+        /************************************************************************
+         * 							수정 버튼 이벤트
+         ************************************************************************/
+
+          // 공지사항 업데이트 기능
+          this.fnUdateBoardData = function() {
+
+        	// 제목 및 공지사항이 비었을 때 처리
+        	if(this.txt_Title.value == ''
+        		 || this.txt_Title.value == 'undefined'
+        		 || this.txt_Title.value == null) {
+        			alert("제목을 입력해주세요.");
+        			return;
+        	}
+        		if(this.txt_Content.value == ''
+        		 || this.txt_Content.value == 'undefined'
+        		 || this.txt_Content.value == null) {
+        			alert("내용을 입력해주세요.");
+        			return;
+        	}
+
+            var strSvcId    = "updateBoard";
+            var strSvcUrl   = "svc::updateBoard.do";
+            var inData      = "ds_board=ds_board ds_copyCat=ds_copyCat";
+            var outData     = "";  // 결과를 받을 데이터셋
+            var strArg      = ""
+            var callBackFnc = "fnCallbackUpdateFile";
+            var isAsync     = false;
+
+            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        };
+
+        // 파일 저장 후 게시물 저장 호출될 콜백 함수
+        this.fnCallbackUpdateFile = function(svcID, errorCode, errorMsg) {
+            if (errorCode == 0) {  // 정상적으로 board가 저장되었을 때
+        		console.log("FILE 테이블 삭제 완료");
+        		console.log("BOARD 테이블 수정 완료");
+
+        		this.fnUpdateFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
+            } else {
+                alert("게시글 저장 중 오류 발생: " + errorMsg);
+            }
+        };
+
+
+         // 파일 업데이트 기능
+         this.fnUpdateFileData = function() {
+            var strSvcId    = "updateFile";
+            var strSvcUrl   = "svc::updateFile.do";
+            var inData      = "ds_file=ds_file ds_board=ds_board";
+            var outData     = "";  // 결과를 받을 데이터셋
+            var strArg      = ""
+            var callBackFnc = "fnCallbackUpdated";
+            var isAsync     = false;
+
+            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        };
+
+        this.fnCallbackUpdated = function(svcID, errorCode, errorMsg) {
+        	if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
+        		alert("게시글이 수정 되었습니다");
+        		this.close;
+            } else {
+                alert("게시글 저장 중 오류 발생: " + errorMsg);
+            }
+
+        };
+
+
+        this.btn_updateBoard_onclick = function(obj,e)
+        {
+        	this.fnUdateBoardData();
+        };
+
+        /************************************************************************
+         * 							삭제 관련
+         ************************************************************************/
+
+        this.fnDeleteBoardData = function() {
+            var strSvcId    = "deleteBoard";
+            var strSvcUrl   = "svc::deleteBoard.do";
+            var inData      = "ds_copyCat = ds_copyCat";  // 넘어가는 데이터셋
+            var outData     = "";  // 결과를 받을 데이터셋
+            var strArg      = ""
+            var callBackFnc = "fnCallbackDeletBoard";
+            var isAsync     = false;
+
+            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        }
+
+        this.btn_deleteBoard_onclick = function(obj,e)
+        {
+        	var confirmPopup = this.confirm("삭제하시겠습니까?");
+
+        	if (confirmPopup) {
+        		trace("삭제진행")
+        		this.fnDeleteBoardData();
+        	}
+        };
+
+        this.fnCallDeleteBoard = function(svcID, errorCode, errorMsg) {
+        	if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
+        		alert("게시글이 삭제 되었습니다");
+        		this.close;
+            } else {
+                alert("게시글 삭제 중 오류 발생: " + errorMsg);
+            }
+
+        };
+
+        /*
+        // 변경사항 감지
+        this.btn_closeBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+        {
+        	if (this.ds_copyCat == this.ds_board)
+        	{
+        		this.close
+        	} else {
+        		var onChanged = this.confirm("변경 된 사항이 있습니다.");
+        		if (!onChanged) {
+        			this.close();
+        		}
+        	}
+        };
+        */
 
         });
         
@@ -417,13 +595,18 @@
         {
             this.addEventHandler("onload",this.board_upload_onload,this);
             this.Static01_00_00.addEventHandler("onclick",this.Static01_00_onclick,this);
-            this.btn_closeBoard.addEventHandler("onclick",this.btn_addBoard_onclick,this);
+            this.btn_closeBoard.addEventHandler("onclick",this.btn_closeBoard_onclick,this);
+            this.btn_updateBoard.addEventHandler("onclick",this.btn_updateBoard_onclick,this);
             this.btn_fileDown.addEventHandler("onclick",this.btn_fileDown_onclick,this);
             this.btn_addFile.addEventHandler("onclick",this.btn_addFile_onclick,this);
             this.btn_deleteFile.addEventHandler("onclick",this.btn_deleteFile_onclick,this);
-            this.btn_deleteBoard.addEventHandler("onclick",this.btn_addBoard_onclick,this);
+            this.btn_deleteBoard.addEventHandler("onclick",this.btn_deleteBoard_onclick,this);
             this.FileDownTransfer00.addEventHandler("onerror",this.FileDownTransfer00_onerror,this);
             this.FileDownTransfer00.addEventHandler("onsuccess",this.FileDownTransfer00_onsuccess,this);
+            this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);
+            this.FileUpTransfer00.addEventHandler("onprogress",this.FileUpTransfer00_onprogress,this);
+            this.FileUpTransfer00.addEventHandler("onerror",this.FileUpTransfer00_onerror,this);
+            this.FileDialog00.addEventHandler("onclose",this.FileDialog00_onclose,this);
         };
         this.loadIncludeScript("board_detail.xfdl");
         this.loadPreloadList();

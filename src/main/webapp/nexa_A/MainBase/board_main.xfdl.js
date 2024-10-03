@@ -18,7 +18,7 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("boardList_ds", this);
-            obj._setContents("<ColumnInfo><Column id=\"BOARD_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"BOARD_DATE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"BOARD_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_DTM\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -28,7 +28,7 @@
 
 
             obj = new Dataset("searchType_ds", this);
-            obj._setContents("<ColumnInfo><Column id=\"CODE\" type=\"STRING\" size=\"256\"/><Column id=\"DATA\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"DATA\">전체</Col><Col id=\"CODE\">ALL</Col></Row><Row><Col id=\"DATA\">게시판 코드</Col><Col id=\"CODE\">BOARD_CODE</Col></Row><Row><Col id=\"CODE\">BOARD_TITLE</Col><Col id=\"DATA\">제목</Col></Row><Row><Col id=\"CODE\">BOARD_POSTER</Col><Col id=\"DATA\">작성자</Col></Row><Row><Col id=\"CODE\">BOARD_REGDATE</Col><Col id=\"DATA\">게시 날짜</Col></Row></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"CODE\" type=\"STRING\" size=\"256\"/><Column id=\"DATA\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"DATA\">전체</Col><Col id=\"CODE\">ALL</Col></Row><Row><Col id=\"DATA\">게시판 코드</Col><Col id=\"CODE\">BOARD_CODE</Col></Row><Row><Col id=\"CODE\">BOARD_TITLE</Col><Col id=\"DATA\">제목</Col></Row><Row><Col id=\"CODE\">BOARD_POSTER</Col><Col id=\"DATA\">작성자</Col></Row><Row><Col id=\"CODE\">BOARD_CRE_DTM</Col><Col id=\"DATA\">게시 날짜</Col></Row></Rows>");
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
@@ -41,7 +41,7 @@
             obj = new Grid("grd_board","65","150","1150","370",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("boardList_ds");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"238\"/><Column size=\"478\"/><Column size=\"196\"/><Column size=\"203\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"게시판 코드\"/><Cell col=\"1\" text=\"제 목\"/><Cell col=\"2\" text=\"작성자\"/><Cell col=\"3\" text=\"게시 날짜\"/></Band><Band id=\"body\"><Cell text=\"bind:BOARD_CODE\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:TITLE\"/><Cell col=\"2\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:BOARD_DATE\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"238\"/><Column size=\"478\"/><Column size=\"196\"/><Column size=\"203\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"게시번호\"/><Cell col=\"1\" text=\"제 목\"/><Cell col=\"2\" text=\"작성자\"/><Cell col=\"3\" text=\"게시 날짜\"/></Band><Band id=\"body\"><Cell text=\"bind:BOARD_CODE\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:TITLE\"/><Cell col=\"2\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:CRE_DTM\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_Search","1100","100","115","35",null,null,null,null,null,null,this);
@@ -132,14 +132,17 @@
             }
 
             if(strPopupID == "popupWork"){
-        		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_TXT", this.ds_dtl_selected.getColumn(0, "COL_TXT"));
-        		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_CHK", this.ds_dtl_selected.getColumn(0, "COL_CHK"));
-        		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_NUM", this.ds_dtl_selected.getColumn(0, "COL_NUM"));
-        		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_DTE", this.ds_dtl_selected.getColumn(0, "COL_DTE"));
-        		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_CBO", this.ds_dtl_selected.getColumn(0, "COL_CBO"));
+        // 		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_TXT", this.ds_dtl_selected.getColumn(0, "COL_TXT"));
+        // 		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_CHK", this.ds_dtl_selected.getColumn(0, "COL_CHK"));
+        // 		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_NUM", this.ds_dtl_selected.getColumn(0, "COL_NUM"));
+        // 		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_DTE", this.ds_dtl_selected.getColumn(0, "COL_DTE"));
+        // 		this.ds_dtl.setColumn(this.ds_dtl.rowposition, "COL_CBO", this.ds_dtl_selected.getColumn(0, "COL_CBO"));
 
                 this.alert("Return Value: " + strReturn);
+        		//this.board_main_onload();
             }
+        	trace("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
+        	this.board_main_onload();
         };
 
 
@@ -147,6 +150,7 @@
         this.board_main_onload = function(obj,e)
         {
         	this.search_ds.setColumn(0,"SEARCH_TYPE","ALL");
+        	//this.boardList_ds.setColumn(0,"REGDATE", setformatDate(this.boardList_ds.getColumn(0,"REGDATE"), "yy-MM-dd", "en_US"));
 
         	this.fnSearch();
         };
@@ -160,8 +164,8 @@
 
         	var strSvcId    = "selectBoardList";
         	var strSvcUrl   = "svc::selectBoardList.do";
-        	var inData      = "search_ds=search_ds";
-        	var outData     = "boardList_ds=boardList_ds";
+        	var inData      = "search_ds=search_ds"; //보내는 ds
+        	var outData     = "boardList_ds=boardList_ds"; //받는 ds
         	var strArg      = "";
         	var callBackFnc = "fnCallback";
         	var isAsync     = true;
@@ -182,7 +186,8 @@
         this.grd_board_oncelldblclick = function(obj,e)
         {
         	var boardCode = this.boardList_ds.getColumn(this.boardList_ds.rowposition, "BOARD_CODE");
-        	var objParam = {BOARD_CODE: boardCode};
+        	var NAME = this.boardList_ds.getColumn(this.boardList_ds.rowposition, "NAME");
+        	var objParam = {BOARD_CODE: boardCode, NAME: NAME};
 
         	var surl = "MainBase::board_detail.xfdl";
         	this.showPopup(objParam, surl);
@@ -201,12 +206,12 @@
         	this.showPopup(objParam, surl);
         };
 
-        	// 팝업호출
+        	// 팝업 설정 및 호출
         this.showPopup = function (objParam, surl)
         {
         	popup = new nexacro.ChildFrame;
         	popup.init("popupWork", 0, 0, 800, 700, null, null, surl);
-        	popup.set_dragmovetype("all");
+        	popup.set_dragmovetype("none");
         	popup.set_layered("true");
         	popup.set_autosize(true);
         	popup.set_showtitlebar("Popup Title");
@@ -214,8 +219,9 @@
         	popup.set_resizable(true);
         	popup.set_openalign("center middle");
         	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
-         	popup.style.set_overlaycolor("#6666664C");
-         	popup.form.style.set_border("1 solid #4c5a6f");
+         	//popup.style.set_overlaycolor("#6666664C");
+         	//popup.form.style.set_border("1 solid #4c5a6f");
+
         }
 
 

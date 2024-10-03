@@ -42,7 +42,7 @@
             // UI Components Initialize
             obj = new Static("stt_top","495","10","264","74",null,null,null,null,null,null,this);
             obj.set_taborder("0");
-            obj.set_text("공지사항 관리");
+            obj.set_text("공지사항 등록");
             obj.set_font("30pt \"gulim\",\"한컴 고딕\"");
             this.addChild(obj.name, obj);
 
@@ -151,6 +151,8 @@
         	if(this.ds_board.getRowCount() < 1) {
         		this.ds_board.addRow();
         	}
+
+        	trace(this.ds_board.saveXML);
         };
 
         /************************************************************************
@@ -183,7 +185,7 @@
         	console.log(this.ds_fileInsert.saveXML());
         };
 
-        // 파일 추가 처리 함수 (드래그)
+        // 파일 추가 처리 함수
         this.addFileList = function(filelist) {
             for (var i = 0, len = filelist.length, vFile; i < len; i++)
             {
@@ -275,7 +277,7 @@
         // textarea에 추가
         this.fn_addlog = function(strMessage)
         {
-            this.TextArea00.insertText(strMessage + '\n');
+            trace(strMessage + '\n');
         }
 
 
@@ -325,7 +327,6 @@
         	//this.ds_board.setColumn(0, "TITLE", this.txt_title.value);
         	//this.ds_board.setColumn(0, "CONTENT", this.txt_content.value);
 
-            this.TextArea00.set_value("");
             this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
 
         	// board에 넣고 callback함수로 file에 2차로 넣기
@@ -333,20 +334,34 @@
         };
         */
 
-         this.fnSetDataset = function() {
-        	 for(var i=0;i<this.ds_board.getRowCount();i++){
-        		this.ds_board.setColumn(i, "TITLE", this.txt_title.value);
-        		this.ds_board.setColumn(i, "CONTENT", this.txt_content.value);
-        		this.ds_fnInsert.setColumn(i, "TITLE", this.txt_content.value);
-        	}
-        }
+        //  this.fnSetDataset = function() {
+        // 	 for(var i=0;i<this.ds_board.getRowCount();i++){
+        // 		this.ds_board.setColumn(i, "TITLE", this.txt_title.value);
+        // 		this.ds_board.setColumn(i, "CONTENT", this.txt_content.value);
+        // 		this.ds_fnInsert.setColumn(i, "TITLE", this.txt_content.value);
+        // 	}
+        // }
 
          this.fnInsertBoardData = function() {
+
+        	// 제목 및 공지사항이 비었을 때 처리
+        	if(this.txt_title.value == ''
+        		 || this.txt_title.value == 'undefined'
+        		 || this.txt_title.value == null) {
+        			alert("제목을 입력해주세요.");
+        			return;
+        	}
+        		if(this.txt_content.value == ''
+        		 || this.txt_content.value == 'undefined'
+        		 || this.txt_content.value == null) {
+        			alert("내용을 입력해주세요.");
+        			return;
+        	}
 
             var strSvcId    = "insertBoard";
             var strSvcUrl   = "svc::insertBoard.do";
             var inData      = "ds_board=ds_board";
-            var outData     = "";  // 결과를 받을 데이터셋
+            var outData     = "ds_board=ds_board";  // 결과를 받을 데이터셋
             var strArg      = ""
             var callBackFnc = "fnCallbackInsertFile";
             var isAsync     = false;
@@ -358,7 +373,6 @@
         this.fnCallbackInsertFile = function(svcID, errorCode, errorMsg) {
             if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
         		console.log("BOARD 테이블 작성 완료");
-        		this.alert("공지사항이 게시되었습니다");
         		this.fnInsertFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
             } else {
                 alert("게시글 저장 중 오류 발생: " + errorMsg);
@@ -370,22 +384,33 @@
          this.fnInsertFileData = function() {
             var strSvcId    = "insertFile";
             var strSvcUrl   = "svc::insertFile.do";
-            var inData      = "ds_fileInsert=ds_fileInsert";
+            var inData      = "ds_fileInsert=ds_fileInsert ds_board=ds_board";
             var outData     = "";  // 결과를 받을 데이터셋
             var strArg      = ""
-            var callBackFnc = "fnCallback";
+            var callBackFnc = "fnCallbackClosePopup";
             var isAsync     = false;
 
             this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
 
+        // 마지막 파일 첨부 이후 팝업 닫기
+        this.fnCallbackClosePopup = function(svcID, errorCode, errorMsg) {
+            if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
+        		console.log("FILE 테이블 작성 완료");
+        		this.alert("공지사항이 게시되었습니다");
+        		this.close;
+            } else {
+                alert("게시글 저장 중 오류 발생: " + errorMsg);
+            }
+        };
+
+        // 등록 버튼 온클릭 이벤트
         this.btn_addBoard_onclick = function(obj,e)
         {
         	for (i=0; i < this.ds_fileInsert.rowcount; i++) {
         		this.ds_fileInsert.setColumn(i, "TITLE", this.txt_title.value);
         	}
 
-        	//this.TextArea00.set_value("");
             this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
 
         	// board에 넣고 callback함수로 file에 2차로 넣기
