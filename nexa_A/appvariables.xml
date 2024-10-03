@@ -26,6 +26,12 @@
           <Col id="MENU_PATH">MainBase::student.xfdl</Col>
         </Row>
         <Row>
+          <Col id="MENU_ID">000001</Col>
+          <Col id="MENU_NM">휴복학 관리</Col>
+          <Col id="MENU_LEVEL">2</Col>
+          <Col id="MENU_PATH">MainBase::student_status.xfdl</Col>
+        </Row>
+        <Row>
           <Col id="MENU_ID">0001</Col>
           <Col id="MENU_NM">교수</Col>
           <Col id="MENU_LEVEL">1</Col>

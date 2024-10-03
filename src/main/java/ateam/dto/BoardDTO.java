@@ -10,16 +10,8 @@ public class BoardDTO {
 	private String content;
 	private Date regDtm;
 	private int adminCode;
-	private String fileCode;
-	private File fileName;
 	
 
-	public File getFileName() {
-		return fileName;
-	}
-	public void setFileName(File fileName) {
-		this.fileName = fileName;
-	}
 	public int getBoardCode() {
 		return boardCode;
 	}
@@ -44,12 +36,6 @@ public class BoardDTO {
 	}
 	public void setAdminCode(int adminCode) {
 		this.adminCode = adminCode;
-	}
-	public String getFileCode() {
-		return fileCode;
-	}
-	public void setFileCode(String fileCode) {
-		this.fileCode = fileCode;
 	}
 	public Date getRegDtm() {
 		return regDtm;
