@@ -23,7 +23,7 @@
 <select id="selectLogin" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT CASE WHEN COUNT(0) THEN 'Y'
 		ELSE 'N'
-		END as LoginCheck, email, ADMIN_CODE
+		END as LoginCheck, email, ADMIN_CODE, NAME
 		FROM ADMIN
 		WHERE ADMIN_CODE = #{Id}
 		and PASSWORD = #{Password}

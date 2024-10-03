@@ -227,10 +227,11 @@
         		var gdsAd = nexacro.getApplication();
         		gdsAd.gds_adminInfo.setColumn(0, "ADMIN_CODE", this.Certificate_Ds.getColumn(0,"ADMIN_CODE"));
         		gdsAd.gds_adminInfo.setColumn(0, "REGDATE", this.Certificate_Ds.getColumn(0,"REGDATE"));
+        		gdsAd.gds_adminInfo.setColumn(0, "NAME", this.Certificate_Ds.getColumn(0, "NAME"));
 
         		console.log("세션 설정되나1 " + gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE"));
         		console.log("세션 설정되나2 " + gdsAd.gds_adminInfo.getColumn(0, "REGDATE"));
-
+        		console.log("세션 설정되나3 " + gdsAd.gds_adminInfo.getColumn(0, "NAME"));
         		// 세션 설정하기
         		var adminCode = gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE");
         		this.fn_addSession(adminCode);
