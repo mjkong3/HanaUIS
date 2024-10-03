@@ -94,7 +94,7 @@
           <Col id="MENU_ID">020001</Col>
           <Col id="MENU_NM">공지사항</Col>
           <Col id="MENU_LEVEL">2</Col>
-          <Col id="MENU_PATH">MainBase::board.xfdl</Col>
+          <Col id="MENU_PATH">MainBase::board_main.xfdl</Col>
         </Row>
       </Rows>
     </Dataset>
