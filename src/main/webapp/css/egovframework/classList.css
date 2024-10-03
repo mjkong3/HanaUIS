@@ -11,7 +11,7 @@ body {
 }
 .container {
     width: 800px;
-    height: 600px;
+    height: 900px;
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -27,21 +27,36 @@ h3 {
 }
 
 
-/* 검색 폼 */
-/* .form-inline {
+.form-control {
+   width: 180px;
     padding: 10px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-} */
+    border: 2px solid #EBEAE8;
+    border-radius: 4px;
+    cursor: pointer;
+    bottom: 10px;
+}
+
+.btn {
+   padding: 10px;
+    border: 2px solid #EBEAE8;
+    border-radius: 4px;
+    cursor: pointer;
+    bottom: 10px;
+}
+
+.btn:hover {
+   background-color: #EBEAE8;
+}
+
 
 .form-inline .form-control {
     width: 200px;
-    height: 50px;
+    height: 42px;
 }
 
 .form-inline .btn {
-    padding: 8px 20px;
+	width: 60px;
+	height: 40px;
 }
 
 /* 테이블 스타일 */
@@ -74,4 +89,13 @@ table, th, td {
     text-align: center;
     vertical-align: middle;
     padding: 15px;
+}
+
+.table td{
+	font-size: 12px;
+}
+
+a {
+    color:   #0056b3;
+    text-decoration: none;
 }

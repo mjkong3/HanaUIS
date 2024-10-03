@@ -23,10 +23,18 @@
 	<select id="selectLogin" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT CASE WHEN COUNT(0) THEN 'Y'
 		ELSE 'N'
-		END as LoginCheck, email
+		END as LoginCheck, email, ADMIN_CODE, NAME
 		FROM ADMIN
-		WHERE ADMIN_ID = #{Id}
-		and password = #{Password}
+		WHERE ADMIN_CODE = #{Id}
+		and PASSWORD = #{Password}
 		
 	</select>
+	
+		<!-- 폼 로드시 dept grd에 목록생성 -->
+	<select id="selectAdDept" resultType="java.util.Map">
+		SELECT DEPARTMENT_CODE, DEPARTMENT_NAME
+		FROM DEPARTMENT
+	</select>
+	
+	
 </mapper>

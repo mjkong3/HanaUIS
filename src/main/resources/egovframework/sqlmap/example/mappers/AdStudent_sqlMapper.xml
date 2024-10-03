@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+   namespace="ateam.mapper.AdStudentMapper">
+   <select id="selectDepartment" resultType="hashMap">
+      SELECT DEPARTMENT_CODE, DEPARTMENT_NAME
+      FROM DEPARTMENT
+   </select>
+   
+   <select id="selectAdStudent" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT Student_id, Name, Status, Phone, Email, DEPARTMENT_CODE, 0 AS 'Check'
+      FROM STUDENT
+      WHERE 1=1
+      
+      <if test="DEPARTMENT_CODE != 00">
+      AND DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+      </if>
+      
+      <if test="SEARCH_WORD != null">
+         <if test="SEARCH_TYPE == 'All'"> 
+            AND (Student_id LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR Name LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR Status LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR Phone LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR Email LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
+         </if>
+         <if test="SEARCH_TYPE == 'Student_id'">
+            AND Student_id LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+         </if>
+         <if test="SEARCH_TYPE == 'Name'">
+            AND Name LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+         </if>
+         <if test="SEARCH_TYPE == 'Status'">
+            AND Status LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+         </if>
+         <if test="SEARCH_TYPE == 'Phone'">
+            AND Phone LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+         </if>
+         <if test="SEARCH_TYPE == 'Email'">
+            AND Email LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+         </if>
+      </if>
+      
+   </select>
+   
+   <select id="checkAdStudent" parameterType="java.util.Map" resultType="Integer">
+      SELECT COUNT(1)
+      FROM STUDENT
+      WHERE STUDENT_ID = #{STUDENT_ID}
+   </select>
+   
+   
+   <insert id="insertAdStudent" parameterType="java.util.Map">
+      INSERT INTO STUDENT (STUDENT_ID,
+               PASSWORD,
+               NAME,
+               UNIV_YEAR,
+               PHONE,
+               EMAIL,
+               BIRTHDAY,
+               GENDER,
+               ADDRESS,
+               STATUS,
+               DEPARTMENT_CODE)
+               VALUES (#{STUDENT_ID},
+                     SHA2(#{PASSWORD}, 256),
+                     #{NAME},
+                     #{UNIV_YEAR},
+                     #{PHONE},
+                     #{EMAIL},
+                     #{BIRTHDAY},
+                     #{GENDER},
+                     #{ADDRESS},
+                     #{STATUS},
+                     #{DEPARTMENT_CODE})
+   
+   </insert>
+   
+   <update id="updateAdStudent" parameterType="java.util.Map">
+      update STUDENT set
+               PASSWORD = SHA2(#{PASSWORD}, 256),
+               NAME = #{NAME},
+               UNIV_YEAR = #{UNIV_YEAR},
+               PHONE = #{PHONE},
+               EMAIL = #{EMAIL},
+               BIRTHDAY = #{BIRTHDAY},
+               GENDER = #{GENDER},
+               ADDRESS = #{ADDRESS},
+               STATUS = #{STATUS},
+               DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+               where STUDENT_ID = #{STUDENT_ID}
+               
+   </update>
+   
+   <select id="selectAdStudentdtl" parameterType="hashMap" resultType="hashMap">
+      SELECT STUDENT_ID,
+               PASSWORD,
+               NAME,
+               UNIV_YEAR,
+               PHONE,
+               EMAIL,
+               BIRTHDAY,
+               GENDER,
+               ADDRESS,
+               STATUS,
+               DEPARTMENT_CODE
+      FROM STUDENT
+      where 1=1
+      and STUDENT_ID = #{Student_id}
+   </select>
+   
+   <delete id="deletAdStudent" parameterType="java.util.Map">
+      DELETE FROM STUDENT
+      WHERE STUDENT_ID = #{Student_id}
+   </delete>
+</mapper>

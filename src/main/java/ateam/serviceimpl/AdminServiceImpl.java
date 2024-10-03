@@ -15,22 +15,27 @@ import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 @Service("AdminService")
 public class AdminServiceImpl extends EgovAbstractServiceImpl implements AdminService {
 
-   @Resource(name="txManager")
-   PlatformTransactionManager transationManager;
-   
-   @Resource(name = "AdminMapper")
-   private AdminMapper mapper;
-   
-   @Override
-   public List<Map<String, Object>> selectCodeMst(Map<String, Object> param) {
-      // TODO Auto-generated method stub
-      return mapper.selectCodeMst(param);
-   }
-   
-   @Override
-	public Map<String, Object> selectLogin(Map<String, Object> param) {
+	@Resource(name = "txManager")
+	PlatformTransactionManager transationManager;
+
+	@Resource(name = "AdminMapper")
+	private AdminMapper mapper;
+
+	@Override
+	public List<Map<String, Object>> selectCodeMst(Map<String, Object> param) {
 		// TODO Auto-generated method stub
+		return mapper.selectCodeMst(param);
+	}
+
+	@Override
+	public Map<String, Object> selectLogin(Map<String, Object> param) {
 		return mapper.selectLogin(param);
-   }
-   
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAdDept() {
+		// TODO Auto-generated method stub
+		return mapper.selectAdDept();
+	}
+
 }

@@ -12,4 +12,5 @@ public interface AdminMapper {
 	
 	Map<String, Object> selectLogin(Map<String, Object> param);
 	
+	List<Map<String, Object>> selectAdDept();
 }

@@ -8,12 +8,13 @@ body {
 
 .container {
     width: 800px;
-    height: 600px;
+    height: 700px;
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 
 
 h3 {
@@ -49,4 +50,27 @@ h3 {
 .schedule-table td {
     padding: 8px;
     border-bottom: 1px solid #ddd;
+}
+a {
+    color:   #0056b3;
+    text-decoration: none;
+}
+.classInfoTD{
+	height:200px;
+}
+
+.classInfo{
+	width: 500px;
+	height: 200px;
+}
+a:hover {
+    text-decoration: underline;
+}
+textarea {
+    width: 100%;           /* textarea 너비를 100%로 설정 */
+    height: 150px;         /* 원하는 높이 설정 */
+    padding: 10px;         /* 내부 여백 설정 */
+    box-sizing: border-box; /* padding을 포함하여 width와 height 계산 */
+    font-size: 16px;       /* 텍스트 크기 */
+    resize: none;          /* textarea 크기 조절 비활성화 (선택 사항) */
 }

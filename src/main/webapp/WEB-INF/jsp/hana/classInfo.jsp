@@ -24,6 +24,40 @@
             submenu.style.display = "block";
         }
     }
+    
+    /* 수정 정보를 수정 */
+    function fn_updateClassInfo(){
+    	
+	   	 let formData = $("#infoForm").serializeArray();
+		 let jsonData = {};
+		 
+		 classCode = document.getElementById("classCode").value;
+		 classInfo = document.getElementById("classInfo").value;
+		 
+		 jsonData['classCode'] = classCode;
+		 jsonData['classInfo'] = classInfo;
+		 
+		 console.log(jsonData);
+    	
+    	$.ajax({
+    		type:"POST",
+    		url: "updateClassInfo.do",
+    	    data: jsonData,
+            dataType: "text",
+    		success: function(data){
+    			if(data == "ok"){
+    				alert("강의 개요가 수정되었습니다.");
+    			}else{
+    				alert("강의 개요 수정에 실패했습니다.");
+    			}
+    		},
+    		error: function(request,status, error){
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+    		}
+    	})
+    }
+    
+    
     </script>
 </head>
 <body>
@@ -44,39 +78,55 @@
             </tr>
             <tr>
                 <th>강의 코드</th>
-                <td><c:out value="${classInfo.classCode}"/></td>
+                <td>${classInfo.classCode}</td>
             </tr>
             <tr>
                 <th>교수명</th>
-                <td><c:out value="${classInfo.name}"/></td>
+                <td>${classInfo.name}</td>
             </tr>
             <tr>
-                <th>수강 인원</th>
-                <td><c:out value="${classInfo.maxPeople}"/></td>
+                <th>수강 정원</th>
+                <td>${classInfo.maxPeople} 명</td>
             </tr>
             <tr>
                 <th>강의 시간표</th>
                 <td>
                     <table class="schedule-table">
-                    	<tr>
-                    		<td>요일</td>
-                    		<td>교시</td>
-                    		<td>강의실</td>
-                    	</tr>
 				        <c:forEach var="schedule" items="${timetable}">
 				            <tr>
-				                <td>${schedule.weekDay}</td>
-				                <td>${schedule.classHour}</td>
+				                <td>
+				                	<c:choose>
+					                    <c:when test="${schedule.weekDay == 1}">월요일</c:when>
+					                    <c:when test="${schedule.weekDay == 2}">화요일</c:when>
+					                    <c:when test="${schedule.weekDay == 3}">수요일</c:when>
+					                    <c:when test="${schedule.weekDay == 4}">목요일</c:when>
+					                    <c:when test="${schedule.weekDay == 5}">금요일</c:when>
+				                    </c:choose>
+				                </td>
+				                <td>${schedule.classHour} 교시</td>
 				                <td>${schedule.location}</td>
 				            </tr>
 				        </c:forEach>
                     </table>
                 </td>
             </tr>
-            <tr>
-                <th>강의 개요</th>
-                <td><c:out value="${classInfo.classInfo}"/></td>
-
+            <tr class="classInfoTD">
+              	<th>강의 개요</th>
+              	<td class="classInfo">
+	                <c:choose>
+				        <c:when test="${not empty student}">
+				        	<c:out value="${classInfo.classInfo}"/>
+				        </c:when>
+				        
+				        <c:when test="${not empty professor}">
+				        	<form id="infoForm" >
+					        	<input type="hidden" id="classCode" value="${classInfo.classCode}">
+				        		<textarea id="classInfo" class="classInfo">${classInfo.classInfo}</textarea>
+				        		<a href="javascript:fn_updateClassInfo()">수정</a>
+							</form>
+				        </c:when>
+				    </c:choose>
+              	</td>
             </tr>
         </table>
     </div>

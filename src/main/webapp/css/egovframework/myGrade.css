@@ -8,13 +8,29 @@ body {
 
 .container {
     width: 800px;
-    height: 600px;
+    height: 1000px;
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.totalTable th{
+	width: 150px	
+}
+.filters {
+	margin:15px;
+
+	
+}
+.filters select{
+	width:150px;
+	height: 30px;
+}
+.filters button{
+	width:50px;
+	height:30px;
+}
 
 h3 {
     font-size: 24px;
@@ -23,7 +39,6 @@ h3 {
     border-bottom: 2px solid #007BFF;
     padding-bottom: 10px;
 }
-
 
 .student-info p {
     font-size: 16px;
@@ -37,7 +52,7 @@ h3 {
 
 .course-info th, .course-info td {
     padding: 10px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
 }
 
@@ -45,9 +60,6 @@ h3 {
     background-color:#f2f2f2;
 }
 
-.course-info tr:hover {
-    background-color:  #f1f1f1;
-}
 
 .course-info td {
     color: #333;

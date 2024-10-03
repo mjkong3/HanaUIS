@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="add_Professor_Popup" width="1280" height="720" titletext="New Form" onload="add_Professor_Popup_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+        <Static id="Static00_03_01_00_00_00_01" taborder="0" left="436" top="416" width="493" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00_00_00" taborder="1" left="710" top="220" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00_00" taborder="2" left="710" top="269" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00" taborder="3" left="436" top="269" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00_00" taborder="4" left="710" top="171" width="219" height="50" background="white" border="1px solid #d3d3d4" text=""/>
+        <Static id="Static00_03_00_00" taborder="5" left="710" top="122" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00" taborder="6" left="436" top="171" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01" taborder="7" left="436" top="122" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00" taborder="8" left="710" top="73" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03" taborder="9" left="436" top="73" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00" taborder="10" left="339" top="73" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   교번" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_00" taborder="11" left="339" top="122" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   성명"/>
+        <Static id="Static00_01" taborder="12" left="612" top="73" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   비밀번호"/>
+        <Static id="Static00_00_00" taborder="13" left="612" top="122" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   담당학과"/>
+        <Static id="Static00_01_00" taborder="14" left="612" top="269" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이메일" onclick="Static00_01_00_onclick"/>
+        <Static id="Static00_00_00_00" taborder="15" left="612" top="220" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   연락처"/>
+        <Static id="Static00_00_01" taborder="16" left="339" top="171" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   성별"/>
+        <ImageViewer id="ImageViewer00" taborder="17" left="93" top="73" width="177" height="236"/>
+        <Static id="Static00_00_01_00" taborder="18" left="339" top="269" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   재직여부"/>
+        <Static id="Static00_00_01_00_00" taborder="19" left="612" top="171" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   생년월일"/>
+        <Static id="Static00_00_01_00_01" taborder="20" left="339" top="416" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   주소"/>
+        <Edit id="edt_ProId" taborder="21" left="447" top="83" width="153" height="30" readonly="false"/>
+        <Edit id="edt_ProPw" taborder="22" left="721" top="83" width="195" height="30" password="false" readonly="false"/>
+        <Edit id="edt_ProName" taborder="23" left="447" top="132" width="153" height="30" readonly="false"/>
+        <Combo id="cmb_Dept" taborder="24" text="" left="721" top="131" width="195" height="31" index="0" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value="" readonly="false"/>
+        <Edit id="edt_Email" taborder="25" left="721" top="279" width="195" height="30" readonly="false"/>
+        <Radio id="rdo_Gender" taborder="26" left="447" top="181" width="153" height="36" innerdataset="ds_gender" datacolumn="data" codecolumn="code" index="1" text="" value="M" direction="vertical" readonly="false"/>
+        <Edit id="edt_Phone" taborder="27" left="721" top="230" width="195" height="30" readonly="false"/>
+        <Combo id="cmb_Status" taborder="28" text="" left="447" top="279" width="153" height="31" index="0" innerdataset="ds_status" codecolumn="code" datacolumn="data" value="" readonly="false"/>
+        <Calendar id="cal_Birth" taborder="29" left="721" top="181" width="195" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
+        <Edit id="edt_Adr" taborder="30" left="448" top="426" width="469" height="30" readonly="false"/>
+        <Static id="Static00_00_02" taborder="31" left="339" top="220" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   연구실" onclick="Static_onclick"/>
+        <Static id="Static00_03_02" taborder="32" left="436" top="220" width="176" height="50" background="white" border="1px solid #d3d3d4" onclick="Static_onclick"/>
+        <Combo id="cmb_Lab" taborder="33" text="" left="447" top="230" width="153" height="31" index="0" innerdataset="static_type_ds" codecolumn="code" datacolumn="data" value="" readonly="false"/>
+        <FileUpload id="FileUpload00" taborder="34" left="93" top="329" width="177" height="22" onitemchanged="FileUpload00_onitemchanged"/>
+        <Button id="btn_Add" taborder="35" text="작성완료" left="779" top="491" width="151" height="38" onclick="btn_Add_onclick"/>
+        <Static id="Static00_03_01_00_00_00_02" taborder="36" left="436" top="318" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00_00_00" taborder="37" left="710" top="318" width="219" height="50" background="white" border="1px solid #d3d3d4" text=""/>
+        <Static id="Static00_00_01_00_02" taborder="38" left="339" top="318" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   등록ID"/>
+        <Static id="Static00_01_00_00" taborder="39" left="612" top="318" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   등록일"/>
+        <Edit id="edt_Admin" taborder="40" left="447" top="328" width="153" height="30" readonly="true"/>
+        <Static id="Static00_00_01_00_01_00" taborder="41" left="339" top="367" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   재직일" onclick="Static00_00_01_00_01_00_onclick"/>
+        <Static id="Static00_03_01_00_00_00_02_00" taborder="42" left="436" top="367" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00_00_00_00" taborder="43" left="710" top="367" width="219" height="50" background="white" border="1px solid #d3d3d4" text=""/>
+        <Static id="Static00_01_00_00_00" taborder="44" left="612" top="367" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   퇴직일"/>
+        <Calendar id="cal_LastDay" taborder="45" left="720" top="377" width="195" height="31" dateformat="yyyy-MM-dd" readonly="false" visible="true"/>
+        <Calendar id="cal_FirstDay" taborder="46" left="447" top="377" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
+        <Edit id="edt_Regdate" taborder="47" left="721" top="328" width="195" height="30" readonly="true"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[// 필요한 기능
+// 1. 화면호출 - default 값 설정 + param 받기
+// 2. 등록 - insert문 실행
+
+this.add_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	/* 필요한 기능
+	 * 1. 부모폼에서 필요한 ds 밑 var 받아오기
+	 * 2. 컴포넌트 default 설정하기
+	 */
+	
+	// dept ds 받아오기
+	var objParam1 = this.parent.param1;
+	// admin ds 받아오기
+/*	var objParam2 = this.parent.param2*/
+	// admin ds가 XML파일로 넘어갔을 때의 값을 String으로 반환받아 확인
+/*	trace(this.ds_admin.saveXML());*/
+	// 부모폼에서 현재 선택한 dept grd의 rowposition을 기반으로 dept값 받아오기
+    var deptCode = this.parent.deptCode;
+	// 전역변수 받아와서 사용해보기 - 실패
+// 	var regDate = nexacro.getApplication().getVariable("regDate");
+// 	trace(regdDate);
+
+	// dept 정보를 해당폼 dept ds에 복사 - ds가 서로 동일해야 가능!
+	this.ds_dept.copyData(objParam1);
+	// admin 정보를 해당폼 admin ds에 복사
+/*	this.ds_admin.copyData(objParam2); */
+	
+	// 콤보박스에 받아온 부모폼의 사용자 선택 dept code 넣기
+	// ds의 setColum으로는 rowposition 문제로 전체학과는 출력이 안됨
+	this.cmb_Dept.set_value(deptCode);
+	
+	
+	// gds 호출로 등록일, 등록자 넣기
+	var gdsApp = nexacro.getApplication();
+	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+	var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+	this.ds_pro.setColumn(0, "ADMIN_CODE", adCode);
+	this.ds_pro.setColumn(0, "REGDATE", regdt);
+	trace("아이디 제대로 들어갔나? " + this.ds_pro.getColumn(0, "ADMIN_CODE"));
+	trace("일시 제대로 들어갔나? " + this.ds_pro.getColumn(0, "REGDATE"));
+	console.log("@@@@@@@@");
+	console.log(this.ds_pro.saveXML());
+	console.log("#####");
+	
+	// cmb box 기본값 설정
+	this.ds_pro.setColumn(0, "GENDER", "M");
+	this.ds_pro.setColumn(0, "STATUS", "재직");
+};
+
+// 작성완료 btn 누를 시 insert문 실행
+this.btn_Add_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_insertPro();
+};
+
+// 교수정보 입력 함수
+this.fn_insertPro = function ()
+{
+	var strSvcId    = "insertPro";
+	var strSvcUrl   = "svc::saveAdPro.do";
+	var inData      = "ds_pro=ds_pro ds_admin=ds_admin";
+	var outData     = "";
+	var strArg      = "";
+	var callBackFnc = "fnCallBack";
+	var isAsync     = true;
+	
+	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);	
+	
+};
+
+// insert 함수 콜백처리
+this.fnCallBack = function (svcID, errCD, errMsg)
+{
+	// 콜백이 호출 되는가?
+	trace("콜백 실행됨");
+	// 삭제후 검색
+	if(svcID == "insertPro" && errCD == 0){
+	trace("등록완료")
+	alert("등록에 성공하였습니다!");
+	this.close();
+	} else {
+	trace(errMsg);
+	}
+};]]></Script>
+    <Objects>
+      <Dataset id="ds_gender">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">M</Col>
+            <Col id="data">남성</Col>
+          </Row>
+          <Row>
+            <Col id="code">W</Col>
+            <Col id="data">여성</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_dept">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="name" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_status">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">재직</Col>
+            <Col id="data">재직</Col>
+          </Row>
+          <Row>
+            <Col id="code">휴직</Col>
+            <Col id="data">휴직</Col>
+          </Row>
+          <Row>
+            <Col id="code">퇴직</Col>
+            <Col id="data">퇴직</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_pro">
+        <ColumnInfo>
+          <Column id="PROFESSOR_ID" type="STRING" size="256"/>
+          <Column id="PASSWORD" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
+          <Column id="PHONE" type="STRING" size="256"/>
+          <Column id="EMAIL" type="STRING" size="256"/>
+          <Column id="BIRTHDAY" type="STRING" size="256"/>
+          <Column id="GENDER" type="STRING" size="256"/>
+          <Column id="ADDRESS" type="STRING" size="256"/>
+          <Column id="STATUS" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_CODE" type="STRING" size="256"/>
+          <Column id="ADMIN_CODE" type="STRING" size="256"/>
+          <Column id="REGDATE" type="STRING" size="256"/>
+          <Column id="PHOTO" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="edt_ProId" propid="value" datasetid="ds_pro" columnid="PROFESSOR_ID"/>
+      <BindItem id="item1" compid="edt_ProPw" propid="value" datasetid="ds_pro" columnid="PASSWORD"/>
+      <BindItem id="item2" compid="edt_ProName" propid="value" datasetid="ds_pro" columnid="NAME"/>
+      <BindItem id="item3" compid="ImageViewer00" propid="text" datasetid="ds_pro" columnid="PHOTO"/>
+      <BindItem id="item4" compid="rdo_Gender" propid="value" datasetid="ds_pro" columnid="GENDER"/>
+      <BindItem id="item5" compid="cmb_Dept" propid="value" datasetid="ds_pro" columnid="DEPARTMENT_CODE"/>
+      <BindItem id="item6" compid="cal_Birth" propid="value" datasetid="ds_pro" columnid="BIRTHDAY"/>
+      <BindItem id="item7" compid="edt_Phone" propid="value" datasetid="ds_pro" columnid="PHONE"/>
+      <BindItem id="item8" compid="edt_Email" propid="value" datasetid="ds_pro" columnid="EMAIL"/>
+      <BindItem id="item10" compid="edt_Adr" propid="value" datasetid="ds_pro" columnid="ADDRESS"/>
+      <BindItem id="item11" compid="cmb_Status" propid="value" datasetid="ds_pro" columnid="STATUS"/>
+      <BindItem id="item9" compid="edt_Admin" propid="value" datasetid="ds_pro" columnid="ADMIN_CODE"/>
+      <BindItem id="item12" compid="edt_Regdate" propid="value" datasetid="ds_pro" columnid="REGDATE"/>
+    </Bind>
+  </Form>
+</FDL>
