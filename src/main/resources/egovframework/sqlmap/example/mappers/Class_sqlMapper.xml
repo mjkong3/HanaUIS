@@ -2,68 +2,327 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="ateam.mapper.ClassMapper">
 
-<!-- 교수 강의 목록 : header 목록 출력 용 -->
-<select id="selectClassList" parameterType="int" resultType="ateam.dto.ClassDTO">
-		select class_code, class_name from CLASS where professor_id = #{id};
-</select>
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2 강의 정보 -->
+	<select id="allClass" parameterType="HashMap" resultType ="HashMap">
+		SELECT C.CLASS_CODE AS classCode,
+			C.CLASS_NAME AS className,
+			C.CLASS_START AS classStart,
+			C.CLASS_END AS classEnd,
+			D.DEPARTMENT_NAME AS departmentName,
+			CR.CLASSROOM_NAME AS classroomName,
+			P.NAME AS professorName,
+			C.CLASS_TYPE AS classType,
+			C.CLASS_INFO AS classInfo
+		FROM CLASS C
+			INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID 
+			INNER JOIN PROFESSOR P ON P.PROFESSOR_ID = C.PROFESSOR_ID 
+			INNER JOIN DEPARTMENT D ON D.DEPARTMENT_CODE = C.DEPARTMENT_CODE 
+	 	WHERE 1=1
+			<if test="departmentCode != 'ALL' and departmentCode !='' and departmentCode != NULL">
+				AND C.DEPARTMENT_CODE = #{departmentCode}
+			</if>
+	      ORDER BY C.CLASS_CODE ASC
+	      LIMIT #{pageSize} OFFSET #{offset}
+	</select>
+	 <select id="countAllClass" parameterType="HashMap" resultType="int">
+		   SELECT COUNT(*)
+		   FROM CLASS C
+		   WHERE 1=1
+	   <if
+	      test="departmentCode != 'ALL' and departmentCode != '' and departmentCode != NULL">
+			AND C.DEPARTMENT_CODE = #{departmentCode}
+	   </if>
+	
+	</select>
 
-<!-- 교수 시간표  -->
-<select id="professorClassTimeList" parameterType ="int" resultType="HashMap">
-		SELECT 
-		    C.CLASS_NAME AS subject,
-		    P.NAME AS professor,
-		    CT.TIME_NUMBER AS classHour,  
-		    CT.CLASS_WEEK AS weekDay,
-		    CR.CLASSROOM_NAME AS location
-		FROM CLASS_TIME CT
-		INNER JOIN CLASS C ON CT.CLASS_CODE = C.CLASS_CODE
-		INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID
-		INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID
-		WHERE P.PROFESSOR_ID = #{id}
-		ORDER BY CT.CLASS_WEEK, CT.TIME_NUMBER;
-</select>
 
-<!-- 학생 시간표 -->
-<select id="studentClassTimeList" parameterType ="int" resultType="HashMap">
-        SELECT 
-            C.CLASS_NAME AS subject,
-            P.PROFESSOR_NAME AS professor,
-            CT.TIME_NUMBER AS classHour,  
-            CT.CLASS_WEEK AS weekDay,
-            CR.CLASSROOM_NAME AS location
-        FROM CLASS_TIME CT
-        INNER JOIN CLASS C ON CT.CLASS_CODE = C.CLASS_CODE
-        INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID
-        INNER JOIN ENROLLMENT E ON C.CLASS_CODE = E.CLASS_CODE
-        INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID
-        WHERE E.STUDENT_ID = #{id}
-        ORDER BY CT.CLASS_WEEK, CT.TIME_NUMBER;
-</select>
-
-<!-- 수업 정보를 반환 -->
-<select id="selectClass" parameterType="int" resultType="HashMap">
-SELECT C.CLASS_CODE AS classCode, C.CLASS_NAME AS className, C.CLASS_START AS classStart, 
-		C.CLASS_END AS classEnd, C.SEMESTER AS semester, C.CLASS_GRADE as classGrade, 
-		C.CLASS_INFO AS classInfo, CR.MAX_PEOPLE AS maxPeople ,C.DEPARTMENT_CODE AS departmentCode, CR.CLASSROOM_NAME AS classRoomName , P.NAME AS name
-	FROM CLASS C
-		INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID =CR.CLASSROOM_ID 
-		INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID 
-	WHERE C.CLASS_CODE = #{classCode};
-</select>
-
-<!-- 수업 시간을 반환 -->
-<select id="selectClassTime" parameterType ="int" resultType="HashMap">
-		SELECT 
-		    C.CLASS_NAME AS subject,
-		    P.NAME AS professor,
-		    CT.TIME_NUMBER AS classHour,  
-		    CT.CLASS_WEEK AS weekDay,
-		    CR.CLASSROOM_NAME AS location
-		FROM CLASS_TIME CT
-		INNER JOIN CLASS C ON CT.CLASS_CODE = C.CLASS_CODE
-		INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID
-		INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID
+	<!-- 강의 정보를 반환 -->
+	<select id="selectClass" parameterType="int" resultType="HashMap">
+	SELECT C.CLASS_CODE AS classCode, C.CLASS_NAME AS className, C.CLASS_START AS classStart, 
+			C.CLASS_END AS classEnd, C.SEMESTER AS semester, C.CLASS_GRADE as classGrade, 
+			C.CLASS_INFO AS classInfo, CR.MAX_PEOPLE AS maxPeople ,C.DEPARTMENT_CODE AS departmentCode, CR.CLASSROOM_NAME AS classRoomName , P.NAME AS name
+		FROM CLASS C
+			INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID =CR.CLASSROOM_ID 
+			INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID 
 		WHERE C.CLASS_CODE = #{classCode}
-		ORDER BY CT.CLASS_WEEK, CT.TIME_NUMBER;
-</select>
+	</select>
+	
+	<!-- 강의의 강의 시간을 반환 -->
+	<select id="selectClassTime" parameterType ="int" resultType="HashMap">
+			SELECT 
+			    C.CLASS_NAME AS subject,
+			    P.NAME AS professor,
+			    CT.TIME_NUMBER AS classHour,  
+			    CT.CLASS_WEEK AS weekDay,
+			    CR.CLASSROOM_NAME AS location
+			FROM CLASS_TIME CT
+			INNER JOIN CLASS C ON CT.CLASS_CODE = C.CLASS_CODE
+			INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID
+			INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID
+			WHERE C.CLASS_CODE = #{classCode}
+			ORDER BY CT.CLASS_WEEK, CT.TIME_NUMBER
+	</select>
+	
+	<update id="updateClassInfo" parameterType="Map">
+		UPDATE CLASS 
+		 	SET CLASS_INFO = #{classInfo},
+				UPD_DTM = SYSDATE(),
+				UPD_USR = #{professorId}	
+		WHERE CLASS_CODE = #{classCode};
+	</update>
+	
+
+	
+	
+	
+	
+	
+	
+	
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 한교수 강의 목록 : header 목록 출력 용 -->
+	<select id="selectClassList" parameterType="int" resultType="ateam.dto.ClassDTO">
+			select class_code, class_name from CLASS where professor_id = #{professerId};
+	</select>
+	
+	
+	
+	
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 시간표 -->
+	<select id="selectSchedule" parameterType ="HashMap" resultType="HashMap">
+			SELECT DISTINCT
+			    C.CLASS_NAME AS subject,
+			    P.NAME AS professor,
+			    CT.TIME_NUMBER AS classHour,  
+			    CT.CLASS_WEEK AS weekDay,
+			    CR.CLASSROOM_NAME AS location
+			    
+			FROM CLASS_TIME CT
+				INNER JOIN CLASS C ON CT.CLASS_CODE = C.CLASS_CODE
+				INNER JOIN PROFESSOR P ON C.PROFESSOR_ID = P.PROFESSOR_ID
+				
+				<if test="studentId != NULL and studentId !=''">
+					INNER JOIN ENROLLMENT E ON C.CLASS_CODE = E.CLASS_CODE
+				</if>
+				
+				INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID
+				
+				WHERE SYSDATE() BETWEEN  C.CLASS_START AND C.CLASS_END
+				
+				<if test="studentId != NULL and studentId !=''">
+					AND E.STUDENT_ID = #{studentId}
+				</if>
+				
+				<if test="professorId != NULL and professorId !=''">
+					AND P.PROFESSOR_ID = #{professorId}
+				</if>
+				
+			ORDER BY CT.CLASS_WEEK, CT.TIME_NUMBER;
+	</select>
+	
+	
+	
+	
+	
+
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적정보 -->
+	<update id="updateGrade" parameterType="Map">
+	   UPDATE ENROLLMENT
+	      SET MIDDLE_TEST = #{middleTest}, 
+	      FINAL_TEST = #{finalTest}, 
+	      REPORT = #{report}, 
+	      SCORE = #{score},
+	      GRADE = #{grade},
+      	  UPD_DTM = SYSDATE(),
+		  UPD_USR = #{professorId}	
+	   WHERE STUDENT_ID = #{studentId} 
+	         AND CLASS_CODE = #{classCode}
+	</update>
+	
+	<select id="selectClassGrade" parameterType="int" resultType="Map">
+		SELECT DISTINCT
+				E.CLASS_CODE AS classCode,
+				S.STUDENT_ID AS studentId,
+				S.NAME AS studentName,
+				E.MIDDLE_TEST as middleTest,
+				E.FINAL_TEST AS finalTest,
+				E.REPORT AS report,
+				E.SCORE AS score,
+				E.GRADE AS grade
+		FROM ENROLLMENT E
+			INNER JOIN STUDENT S ON S.STUDENT_ID = E.STUDENT_ID 
+		WHERE E.CLASS_CODE = #{classCode}
+	      ORDER BY S.STUDENT_ID
+	      LIMIT #{pageSize}
+	      OFFSET #{offset}
+	</select>
+
+
+
+
+
+	
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 학생 정보 -->
+	 <select id="getTotalStudentsBySearchKeyword" parameterType="map" resultType="int">
+			SELECT COUNT(*)
+			FROM ENROLLMENT E
+				INNER JOIN STUDENT S ON E.STUDENT_ID = S.STUDENT_ID
+				INNER JOIN CLASS C ON E.CLASS_CODE = C.CLASS_CODE
+			WHERE E.CLASS_CODE = #{classCode}
+			<if test="searchType == 'id'">
+				AND S.STUDENT_ID CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchType == 'name'">
+				AND S.NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="departmentCode != 'ALL' and departmentCode != '' and departmentCode != NULL">
+				AND S.DEPARTMENT_CODE = #{departmentCode}
+			</if>
+	 </select>
+
+
+
+   <select id="selectClassStudent" parameterType="int" resultType="Map">
+      SELECT DISTINCT
+      E.CLASS_CODE AS classCode,
+      S.STUDENT_ID AS
+      studentId,
+      S.NAME AS studentName,
+      S.GENDER AS gender,
+      S.UNIV_YEAR AS
+      year,
+      D.DEPARTMENT_NAME AS departmentName,
+      S.PHONE AS phone,
+      S.EMAIL AS
+      email
+      FROM ENROLLMENT E
+      INNER JOIN STUDENT S ON S.STUDENT_ID =
+      E.STUDENT_ID
+      INNER JOIN DEPARTMENT D ON S.DEPARTMENT_CODE =
+      D.DEPARTMENT_CODE
+      WHERE E.CLASS_CODE = #{classCode}
+      ORDER BY
+      S.STUDENT_ID
+      LIMIT #{pageSize}
+      OFFSET #{offset}
+
+
+   </select>
+   
+   <select id="searchClassStudentByKeyword" parameterType="map"
+      resultType="map">
+      SELECT
+	      E.CLASS_CODE AS classCode,
+	      S.STUDENT_ID AS studentId,
+	      S.NAME AS studentName,
+	      E.MIDDLE_TEST AS middleTest,
+	      E.FINAL_TEST AS finalTest,
+	      E.REPORT AS report,
+	      E.SCORE AS score,
+	      E.GRADE AS grade
+      FROM
+	      ENROLLMENT E
+	      	LEFT JOIN STUDENT S ON S.STUDENT_ID = E.STUDENT_ID
+	      	LEFT JOIN CLASS C ON E.CLASS_CODE = C.CLASS_CODE
+      WHERE
+	      E.CLASS_CODE = #{classCode}
+			<if test="searchType == 'id'">
+				AND S.STUDENT_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchType == 'name'">
+				AND S.NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="departmentCode != 'ALL' and departmentCode != '' and departmentCode != NULL">
+				AND S.DEPARTMENT_CODE = #{departmentCode}
+			</if>
+      ORDER BY S.STUDENT_ID
+      LIMIT #{i}
+      OFFSET #{offset}
+   </select>
+   
+   <select id="searchStudentByKeyword" parameterType="map"
+      resultType="map">
+      SELECT DISTINCT
+      E.CLASS_CODE AS classCode,
+      S.STUDENT_ID AS studentId,
+      S.NAME AS studentName,
+      S.GENDER AS gender,
+      S.UNIV_YEAR AS year,
+      D.DEPARTMENT_NAME AS departmentName,
+      S.PHONE AS phone,
+      S.EMAIL AS email
+      FROM ENROLLMENT E
+      INNER JOIN STUDENT S ON S.STUDENT_ID = E.STUDENT_ID
+      INNER JOIN DEPARTMENT D ON S.DEPARTMENT_CODE = D.DEPARTMENT_CODE
+      WHERE
+      E.CLASS_CODE = #{classCode}
+			<if test="searchType == 'id'">
+				AND S.STUDENT_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchType == 'name'">
+				AND S.NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="departmentCode != 'ALL' and departmentCode != '' and departmentCode != NULL">
+				AND S.DEPARTMENT_CODE = #{departmentCode}
+			</if>
+      ORDER BY S.STUDENT_ID
+      LIMIT #{i}
+      OFFSET #{offset}
+   </select>
+   
+
+
+   
+   
+   
+   <!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 차트  -->
+	<select id="totalScoreChart" resultType="Map">
+	    SELECT 
+	        SUM(CASE WHEN GRADE = 'A' THEN 1 ELSE 0 END) AS TOTAL_A,
+	        SUM(CASE WHEN GRADE = 'B' THEN 1 ELSE 0 END) AS TOTAL_B,
+	        SUM(CASE WHEN GRADE = 'C' THEN 1 ELSE 0 END) AS TOTAL_C,
+	        SUM(CASE WHEN GRADE = 'D' THEN 1 ELSE 0 END) AS TOTAL_D,
+	        SUM(CASE WHEN GRADE = 'F' OR GRADE IS NULL THEN 1 ELSE 0 END) AS TOTAL_F
+	    FROM ENROLLMENT
+	    WHERE CLASS_CODE = #{classCode}
+	</select>
+	<select id="middleTestScoreChart" resultType="Map">
+	   SELECT
+	   		SUM(CASE WHEN MIDDLE_TEST >=90 THEN 1 ELSE 0 END) AS MIDDLE_TEST_A,
+	   		SUM(CASE WHEN MIDDLE_TEST &lt; 90 AND MIDDLE_TEST >=80 THEN 1 ELSE 0 END) AS MIDDLE_TEST_B,
+	   		SUM(CASE WHEN MIDDLE_TEST &lt; 80 AND MIDDLE_TEST >=70 THEN 1 ELSE 0 END) AS MIDDLE_TEST_C,
+	   		SUM(CASE WHEN MIDDLE_TEST &lt; 70 AND MIDDLE_TEST >=60 THEN 1 ELSE 0 END) AS MIDDLE_TEST_D,
+	    	SUM(CASE WHEN MIDDLE_TEST &lt; 60 OR MIDDLE_TEST IS NULL THEN 1 ELSE 0 END) AS MIDDLE_TEST_F
+		FROM ENROLLMENT
+		WHERE CLASS_CODE = #{classCode}
+	</select>
+	<select id="finalTestScoreChart" resultType="Map">
+	   SELECT
+	   		SUM(CASE WHEN FINAL_TEST >=90 THEN 1 ELSE 0 END) AS FINAL_TEST_A,
+	   		SUM(CASE WHEN FINAL_TEST &lt; 90 AND FINAL_TEST >=80 THEN 1 ELSE 0 END) AS FINAL_TEST_B,
+	   		SUM(CASE WHEN FINAL_TEST &lt; 80 AND FINAL_TEST >=70 THEN 1 ELSE 0 END) AS FINAL_TEST_C,
+	   		SUM(CASE WHEN FINAL_TEST &lt; 70 AND FINAL_TEST >=60 THEN 1 ELSE 0 END) AS FINAL_TEST_D,
+	   		SUM(CASE WHEN FINAL_TEST &lt; 60 OR FINAL_TEST IS NULL THEN 1 ELSE 0 END) AS FINAL_TEST_F
+	   		FROM ENROLLMENT
+	   		WHERE CLASS_CODE = #{classCode}
+	</select>
+	
+	<select id="reportScoreChart" resultType="Map">
+	   SELECT
+	   		SUM(CASE WHEN REPORT >=90 THEN 1 ELSE 0 END) AS REPORT_A,
+	   		SUM(CASE WHEN REPORT &lt; 90 AND REPORT >=80 THEN 1 ELSE 0 END) AS REPORT_B,
+	   		SUM(CASE WHEN REPORT &lt; 80 AND REPORT >=70 THEN 1 ELSE 0 END) AS REPORT_C,
+	   		SUM(CASE WHEN REPORT &lt; 70 AND REPORT >=60 THEN 1 ELSE 0 END) AS REPORT_D,
+	   		SUM(CASE WHEN REPORT &lt; 60 OR REPORT IS NULL THEN 1 ELSE 0 END) AS REPORT_F
+	   		FROM ENROLLMENT
+	   		WHERE CLASS_CODE = #{classCode}
+	</select>
+	
+	<select id="getClassName" resultType="String">
+	    SELECT CLASS_NAME FROM CLASS WHERE CLASS_CODE = #{classCode}
+	</select>
+	
+	<select id="getTotalStudents" resultType="int">
+	    SELECT COUNT(*) FROM ENROLLMENT WHERE CLASS_CODE = #{classCode}
+	</select>
+	
 </mapper>

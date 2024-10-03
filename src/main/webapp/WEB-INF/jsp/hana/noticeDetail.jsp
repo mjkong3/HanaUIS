@@ -42,14 +42,30 @@
     <div class="content">
 
 	    <div class="container">
-	        <h1>공지사항 상세보기</h1>
-	        <div class="info">
-	            <div><span>제목:</span>${board.title}</div>
-	            <div><span>작성일:</span> <fmt:formatDate value="${notice.boardDate}" pattern="yyyy년  MM월  dd일"/></div>
-	        </div>
-	        <div class="noticeContent">
-				${board.content}
-	        </div>
+	        <h3>공지사항 상세보기</h3>
+	        
+	        <table>
+		        <tr>
+		        	<th>제목</th>
+		        	<td>${board.title}</td>
+		        </tr>
+		        <tr>
+		        	<th>작성일</th>
+		        	<td name="date"><fmt:formatDate value="${board.regDtm}" pattern="yyyy년  MM월  dd일"/></td>
+		        </tr>
+		        <tr>
+		        	 <th>첨부 파일</th>
+               		  <td>
+	                  <c:forEach var="file" items="${boardFile}">
+	                     <a href="http://localhost:8082/HanaUIS/filedownload.jsp?fileName=${file.fileName}"><c:out value="${file.fileName}"/></a><br>
+	                  </c:forEach>
+	                  </td>
+		        </tr>
+		        <tr >
+		        	<td class="boardContent" colspan="2">${board.content}</td>
+		        </tr>
+	        </table>
+
 	        <div class="back-button">
 	            <a href="javascript:fn_notice()">목록으로 돌아가기</a>
 	        </div>

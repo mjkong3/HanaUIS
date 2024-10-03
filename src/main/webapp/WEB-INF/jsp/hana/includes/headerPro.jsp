@@ -6,33 +6,44 @@
 <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/header.css'/>"/>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javaScript" language="javascript" defer="defer">
+	
+	function fn_notice() {
+	    location.href = "/HanaUIS/pfs/notice.do";
+	}
 
 	function fn_myPage() {
-	    location.href = "/pfs/myPage.do";
-	}
-	function fn_notice() {
-	    location.href = "/pfs/notice.do";
-	}
-	function fn_studentInfo() {
-	    location.href = "/pfs/studentInfo.do";
-	}
-	function fn_schedule() {
-	    location.href = "/pfs/schedule.do";
+	    location.href = "/HanaUIS/pfs/myPage.do";
 	}
 	
 	 function fn_classInfo(no) {
+		console.log("fn_classInfo 실행 =============")
 		document.listForm.selectedNo.value = no;
 		document.listForm.action = "<c:url value='/pfs/classInfo.do'/>";	
 		document.listForm.submit();
-	}
-	 
+	} 
+
 	function fn_studentInfo(no) {
+		console.log("fn_studentInfo 실행 =============")
+
 		document.listForm.selectedNo.value = no;
 		document.listForm.action = "<c:url value='/pfs/studentInfo.do'/>";	
 		document.listForm.submit();
 	}
+	
+	function fn_gradeInfo(no) {
+		console.log("fn_gradeInfo 실행 =============")
+		console.log(no);
+		document.listForm.selectedNo.value = no;
+		document.listForm.action = "<c:url value='/pfs/gradeInfo.do'/>";	
+		document.listForm.submit();
+	}
+	
+	function fn_schedule() {
+	    location.href = "/HanaUIS/pfs/schedule.do";
+	}
+	
 
-	/* 만약 강의가 없으면 비동기 통신을 이용하여 알림창을 띄우기 */
+
 </script>
 <div class="menu">
 
@@ -43,7 +54,7 @@
    		<input type="hidden" name="selectedNo" />
     
 	    <ul>
-	        <li> <a href="javascript:fn_myPage()" ">마이페이지</a></li>
+	        <li> <a href="javascript:fn_myPage()">마이페이지</a></li>
 	    
 	        <li><a onclick="toggleSubmenu(event)">강의 조회</a>
 	            	<ul class="submenu">
@@ -59,7 +70,21 @@
 	             
 	        </li>
 	        
-	        <li> <a onclick="toggleSubmenu(event)">학생 성적관리</a>
+	        <li> <a onclick="toggleSubmenu(event)">성적관리</a>
+	            <ul class="submenu">
+	            
+           			<c:forEach var="professorClass" items="${professorClass}" varStatus="status">
+			          	<li>
+			                <!-- 강의 클릭 시 fn_classInfo 호출 -->
+			                <a href="javascript:fn_gradeInfo('<c:out value="${professorClass.classCode}"/>')">
+			                    <c:out value="${professorClass.className}"/>
+			                </a>
+			            </li>
+		            </c:forEach>
+	            </ul>
+	        </li>
+	        
+	        <li> <a onclick="toggleSubmenu(event)">학생관리</a>
 	            <ul class="submenu">
 	            
            			<c:forEach var="professorClass" items="${professorClass}" varStatus="status">
@@ -73,8 +98,7 @@
 	            </ul>
 	        </li>
 	        
-	        <li> <a href="javascript:fn_schedule()">강의시간표</a></ul>
-	       	</li>
+	        <li> <a href="javascript:fn_schedule()">강의시간표</a></li>
 	    </ul>
    	 </form>
 	    

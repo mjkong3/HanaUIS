@@ -8,11 +8,26 @@ body {
 
 .container {
     width: 800px;
-    height: 600px;
+    height: 800px;
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.search-section {
+	margin:10px;
+}
+.search-section select{
+	width:100px;
+	height: 30px;
+}
+.search-section input{
+	width:150px;
+	height: 25px;
+}
+.search-section button{
+	width:70px;
+	height:30px;
 }
 
 
@@ -22,9 +37,13 @@ h3 {
     color: #333;
     border-bottom: 2px solid #007BFF;
     padding-bottom: 10px;
+    
 }
-
-
+.title {
+    display: flex; /* Flexbox로 설정 */
+    justify-content: space-between; /* 요소들을 양 끝으로 배치 */
+    align-items: center; /* 세로축 가운데 정렬 */
+}
 
 
 .student-list table {
@@ -47,6 +66,7 @@ h3 {
 }
 
 .student-list td {
+    text-align: center;
     color: #333;
 }
 
@@ -59,19 +79,3 @@ h3 {
     padding: 5px;
 }
 
-.submit-section {
-    text-align: right;
-    margin-top: 20px;
-}
-
-.submit-section button {
-    padding: 10px 20px;
-    background-color: #0056b3;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-.submit-section button:hover {
-    background-color:  rgb(15,15,112);
-}

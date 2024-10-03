@@ -35,44 +35,107 @@
 
 	<div class="content">
 		<div class="container">
+		
         <div class="course-info">
-            <h3>수강 정보</h3>
+            <h3>성적 조회</h3>
+            
+            <p style="color: grey;">학점은 중간 (40%), 기말(40%), 과제(20%)를 합산하여 부여</p>
+            
+           		<table class="totalTable">
+					<thead>
+		                <tr>
+		                  <th>학기</th>
+		                  <th>총 학점 </th>
+		                </tr>
+		            </thead>
+		            <tbody>
+			            <c:forEach var="totalGrade" items="${totalGrade}">	
+							<tr>
+								<th>${totalGrade.studentYear} 학년 ${totalGrade.semester}학기</th>
+								<td>${totalGrade.totalCredit} / ${totalGrade.totalGrade}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+
+            <!-- 학년, 학기 선택 폼 -->
+	            <form action="myGrade.do" method="post">
+	               <div class="filters">
+	                  <label for="yearSemesterSelect"></label>
+	                  <select id="yearSemesterSelect" name="yearSemester">
+	                     <option value="0" <c:if test="${selectedYear == 1 && selectedSemester == 1}">selected</c:if>>전체학기</option>
+	                     <option value="1-1" <c:if test="${selectedYear == 1 && selectedSemester == 1}">selected</c:if>>1학년 1학기</option>
+	                     <option value="1-2" <c:if test="${selectedYear == 1 && selectedSemester == 2}">selected</c:if>>1학년 2학기</option>
+	                     <option value="2-1" <c:if test="${selectedYear == 2 && selectedSemester == 1}">selected</c:if>>2학년 1학기</option>
+	                     <option value="2-2" <c:if test="${selectedYear == 2 && selectedSemester == 2}">selected</c:if>>2학년 2학기</option>
+	                  </select>
+	
+	                  <!-- 조회 버튼 추가 -->
+	                  <button type="submit">조회</button>
+	               </div>
+	            </form>
+	            <form>
             <table>
                 <thead>
                     <tr>
-                        <th>과목 코드</th>
                         <th>과목명</th>
-                        <th>학점</th>
-                        <th>성적</th>
+                        <th>학기</th>
+		                <th>중간</th>
+		                <th>기말</th>
+		                <th>과제</th>
+		                <th>총점</th>
+		                <th>학점</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>CSE101</td>
-                        <td>프로그래밍 입문</td>
-                        <td>3</td>
-                        <td>A+</td>
-                    </tr>
-                    <tr>
-                        <td>CSE102</td>
-                        <td>자료구조</td>
-                        <td>3</td>
-                        <td>A</td>
-                    </tr>
-                    <tr>
-                        <td>MAT101</td>
-                        <td>미적분학</td>
-                        <td>3</td>
-                        <td>B+</td>
-                    </tr>
-                    <tr>
-                        <td>ENG101</td>
-                        <td>기초 영어</td>
-                        <td>2</td>
-                        <td>A</td>
-                    </tr>
+                
+                   <c:if test="${empty grade}">
+                   		<tr>
+                   			<td colspan="7">해당 기간에 수강한 강의가 없습니다</td>
+                   		</tr>
+               		</c:if>
+                   
+                
+                   <c:forEach var="grade" items="${grade}">	
+          				<input type="hidden" name="studentId" value="${grade.studentId}"/>			            
+	                <tr>
+		                <td>${grade.className}</td>
+		                <td>${grade.studentYear} 학년 ${grade.semester}학기</td>
+	                    <td>${grade.middleTest}</td>
+	                    <td>${grade.finalTest}</td>
+	                    <td>${grade.report}</td>
+	                    <td>${grade.score}</td>
+	                    <td>${grade.grade}</td>
+	                </tr>
+	            	</c:forEach>
                 </tbody>
             </table>
+            <div class="pagination">
+			   <!-- 첫 페이지로 이동 -->
+			   <a href="?page=1&yearSemester=${yearSemester}"
+			      class="${pageHandler.page == 1 ? 'disabled' : ''}">처음</a>
+			
+			   <!-- 이전 페이지로 이동 -->
+			   <a href="?page=${pageHandler.page > 1 ? pageHandler.page - 1 : 1}&yearSemester=${yearSemester}"
+			      class="${pageHandler.page == 1 ? 'disabled' : ''}">이전</a>
+			
+			   <!-- 중간 페이지 목록 (1~5 or 6~10) -->
+			   <c:forEach begin="${pageHandler.beginPage}" end="${pageHandler.endPage}" var="i">
+			      <a href="?page=${i}&yearSemester=${yearSemester}"
+			         class="${i == pageHandler.page ? 'active' : ''}">${i}</a>
+			   </c:forEach>
+			
+			   <!-- 다음 페이지로 이동 -->
+			   <a href="?page=${pageHandler.page < pageHandler.totalPage ? pageHandler.page + 1 : pageHandler.totalPage}&yearSemester=${yearSemester}"
+			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">다음</a>
+			
+			   <!-- 마지막 페이지로 이동 -->
+			   <a href="?page=${pageHandler.totalPage}&yearSemester=${yearSemester}"
+			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">끝</a>
+			</div>
+            
+            
+            </form>
         </div>
     </div>
 	</div>

@@ -23,12 +23,12 @@
 
 
             obj = new Dataset("ds_list", this);
-            obj._setContents("<ColumnInfo><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"10\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"10\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
             obj = new Dataset("ds_cmb", this);
-            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">ALL</Col><Col id=\"data\">전체</Col></Row><Row><Col id=\"code\">PROFESSOR_ID</Col><Col id=\"data\">교번</Col></Row><Row><Col id=\"code\">NAME</Col><Col id=\"data\">성명</Col></Row><Row><Col id=\"code\">PHONE</Col><Col id=\"data\">연락처</Col></Row><Row><Col id=\"code\">EMAIL</Col><Col id=\"data\">EMAL</Col></Row><Row><Col id=\"code\">GENDER</Col><Col id=\"data\">성별</Col></Row><Row><Col id=\"code\">ADDRESS</Col><Col id=\"data\">주소</Col></Row><Row><Col id=\"code\">STATUS</Col><Col id=\"data\">재직/휴직</Col></Row><Row><Col id=\"code\">ADMIN_CODE</Col><Col id=\"data\">관리자</Col></Row><Row><Col id=\"code\">REGDATE</Col><Col id=\"data\">등록일</Col></Row></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">ALL</Col><Col id=\"data\">전체</Col></Row><Row><Col id=\"code\">PROFESSOR_ID</Col><Col id=\"data\">교번</Col></Row><Row><Col id=\"code\">NAME</Col><Col id=\"data\">성명</Col></Row><Row><Col id=\"code\">PHONE</Col><Col id=\"data\">연락처</Col></Row><Row><Col id=\"code\">EMAIL</Col><Col id=\"data\">EMAL</Col></Row><Row><Col id=\"code\">GENDER</Col><Col id=\"data\">성별</Col></Row><Row><Col id=\"code\">ADDRESS</Col><Col id=\"data\">주소</Col></Row><Row><Col id=\"code\">STATUS</Col><Col id=\"data\">재직/휴직</Col></Row></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -63,7 +63,7 @@
             obj.set_taborder("1");
             obj.set_autofittype("col");
             obj.set_binddataset("ds_list");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"48\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"No\"/><Cell col=\"2\" text=\"교번\"/><Cell col=\"3\" text=\"성명\"/><Cell col=\"4\" text=\"연락처\"/><Cell col=\"5\" text=\"EMAIL\"/><Cell col=\"6\" text=\"생년월일\"/><Cell col=\"7\" text=\"성별\"/><Cell col=\"8\" text=\"주소\"/><Cell col=\"9\" text=\"재직여부\"/><Cell col=\"10\" text=\"학과코드\"/><Cell col=\"11\" text=\"관리자\"/><Cell col=\"12\" text=\"등록일\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"expr:currow + 1\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:PROFESSOR_ID\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:PHONE\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:EMAIL\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:BIRTHDAY\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:GENDER\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:ADDRESS\" textAlign=\"center\"/><Cell col=\"9\" text=\"bind:STATUS\" textAlign=\"center\"/><Cell col=\"10\" text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\"/><Cell col=\"11\" text=\"bind:ADMIN_CODE\" textAlign=\"center\"/><Cell col=\"12\" text=\"bind:REGDATE\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"48\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"No\"/><Cell col=\"2\" text=\"교번\"/><Cell col=\"3\" text=\"성명\"/><Cell col=\"4\" text=\"연락처\"/><Cell col=\"5\" text=\"EMAIL\"/><Cell col=\"6\" text=\"생년월일\"/><Cell col=\"7\" text=\"성별\"/><Cell col=\"8\" text=\"주소\"/><Cell col=\"9\" text=\"재직여부\"/><Cell col=\"10\" text=\"학과코드\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"expr:currow + 1\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:PROFESSOR_ID\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:PHONE\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:EMAIL\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:BIRTHDAY\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:GENDER\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:ADDRESS\" textAlign=\"center\"/><Cell col=\"9\" text=\"bind:STATUS\" textAlign=\"center\"/><Cell col=\"10\" text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Combo("cmb_Search","33","30","237","46",null,null,null,null,null,null,this);
@@ -136,8 +136,6 @@
 
            // cmb 기본값 all로 설정
            // value로 binding된 ds 사용
-           trace("rowcount = " + this.ds_search.getRowCount());
-           trace("rowindex = " + this.ds_search.getColIndex("SEARCH_TYPE"))
            this.ds_search.setColumn(0,"SEARCH_TYPE","ALL");
            trace("rowcount1 = " + this.ds_search.getRowCount());
            trace("rowindex1 = " + this.ds_search.getColIndex("SEARCH_TYPE"))
@@ -285,7 +283,7 @@
            var checkedCount = this.ds_delete.rowcount;
            if(checkedCount>0){
               if(confirm("선택한 항목을 삭제하시겠습니까?")){
-                 this.fn_deletePro();
+                 this.fn_deleteList();
               }
            }
            else {

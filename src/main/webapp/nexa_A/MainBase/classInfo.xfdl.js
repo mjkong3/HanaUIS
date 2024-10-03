@@ -33,7 +33,7 @@
 
 
             obj = new Dataset("ds_classinfo", this);
-            obj._setContents("<ColumnInfo><Column id=\"CLASS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_START\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_END\" type=\"STRING\" size=\"256\"/><Column id=\"SEMESTER\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_GRADE\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"10\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"CLASS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_START\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_END\" type=\"STRING\" size=\"256\"/><Column id=\"SEMESTER\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_GRADE\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"10\"/><Column id=\"CLASS_INFO\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -58,7 +58,7 @@
             obj.set_taborder("1");
             obj.set_autofittype("col");
             obj.set_binddataset("ds_classinfo");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"강의코드\"/><Cell col=\"2\" text=\"강의명\"/><Cell col=\"3\" text=\"개강일\"/><Cell col=\"4\" text=\"종강일\"/><Cell col=\"5\" text=\"학기\"/><Cell col=\"6\" text=\"학년\"/><Cell col=\"7\" text=\"학과코드\"/><Cell col=\"8\" text=\"강의실\"/><Cell col=\"9\" text=\"교수코드\"/><Cell col=\"10\" text=\"이수구분\"/><Cell col=\"11\" text=\"관리자\"/><Cell col=\"12\" text=\"등록일\"/></Band><Band id=\"body\"><Cell text=\"bind:CHECK\" displaytype=\"checkboxcontrol\" edittype=\"checkbox\"/><Cell col=\"1\" text=\"bind:CLASS_CODE\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:CLASS_NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:CLASS_START\" textAlign=\"center\" displaytype=\"calendarcontrol\"/><Cell col=\"4\" text=\"bind:CLASS_END\" textAlign=\"center\" displaytype=\"calendarcontrol\"/><Cell col=\"5\" text=\"bind:SEMESTER\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:CLASS_GRADE\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:CLASSROOM_ID\" textAlign=\"center\"/><Cell col=\"9\" text=\"bind:PROFESSOR_ID\" textAlign=\"center\"/><Cell col=\"10\" text=\"bind:CLASS_TYPE\" textAlign=\"center\"/><Cell col=\"11\" text=\"bind:ADMIN_CODE\" textAlign=\"center\"/><Cell col=\"12\" text=\"bind:REGDATE\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"강의코드\"/><Cell col=\"2\" text=\"강의명\"/><Cell col=\"3\" text=\"개강일\"/><Cell col=\"4\" text=\"종강일\"/><Cell col=\"5\" text=\"학기\"/><Cell col=\"6\" text=\"교수코드\"/><Cell col=\"7\" text=\"학과코드\"/><Cell col=\"8\" text=\"강의실\"/><Cell col=\"9\" text=\"이수학점\"/><Cell col=\"10\" text=\"이수구분\"/><Cell col=\"11\" text=\"관리자\"/><Cell col=\"12\" text=\"등록일\"/></Band><Band id=\"body\"><Cell text=\"bind:CHECK\" displaytype=\"checkboxcontrol\" edittype=\"checkbox\"/><Cell col=\"1\" text=\"bind:CLASS_CODE\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:CLASS_NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:CLASS_START\" textAlign=\"center\" displaytype=\"calendarcontrol\"/><Cell col=\"4\" text=\"bind:CLASS_END\" textAlign=\"center\" displaytype=\"calendarcontrol\"/><Cell col=\"5\" text=\"bind:SEMESTER\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:PROFESSOR_ID\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:CLASSROOM_ID\" textAlign=\"center\"/><Cell col=\"9\" text=\"bind:CLASS_GRADE\" textAlign=\"center\"/><Cell col=\"10\" text=\"bind:CLASS_TYPE\" textAlign=\"center\"/><Cell col=\"11\" text=\"bind:ADMIN_CODE\" textAlign=\"center\"/><Cell col=\"12\" text=\"bind:REGDATE\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Combo("cmb_Search","33","30","237","46",null,null,null,null,null,null,this);
@@ -209,7 +209,16 @@
         // 3. 등록
         this.btn_Add_onclick = function(obj,e)
         {
-        	this.ds_classinfo.insertRow(0);
+        	// 현재 클릭한 dept_code 값
+        	var deptCode = this.ds_dept.getColumn(this.ds_dept.rowposition, "DEPARTMENT_CODE");
+
+        	var objParam = {
+                    param1: this.ds_dept,   // 전체 데이터셋
+                    deptCode: deptCode      // dept grd의 현재 rowposition의 dept code
+        	};
+        	 var surl = "MainBase::add_ClassInfo_Popup.xfdl"; // popup 경로
+        	 this.showPopup(objParam, surl); // 팝업호출
+
         };
 
         // 팝업 호출 함수
