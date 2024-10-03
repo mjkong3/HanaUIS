@@ -32,11 +32,6 @@
             this.addChild(obj.name, obj);
 
 
-            obj = new Dataset("ds_admin", this);
-            obj._setContents("<ColumnInfo><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
-            this.addChild(obj.name, obj);
-
-
             obj = new Dataset("ds_pro", this);
             obj._setContents("<ColumnInfo><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
@@ -314,50 +309,49 @@
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_RegDate","721","328","195","31",null,null,null,null,null,null,this);
-            obj.set_taborder("41");
-            obj.set_dateformat("yyyy-MM-dd");
-            obj.set_readonly("true");
-            this.addChild(obj.name, obj);
-
             obj = new Static("Static00_00_01_00_01_00","339","367","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("42");
+            obj.set_taborder("41");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   재직일");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_01_00_00_00_02_00","436","367","176","50",null,null,null,null,null,null,this);
-            obj.set_taborder("43");
+            obj.set_taborder("42");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_01_00_00_00_00_00_00","710","367","219","50",null,null,null,null,null,null,this);
-            obj.set_taborder("44");
+            obj.set_taborder("43");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_01_00_00_00","612","367","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("45");
+            obj.set_taborder("44");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   퇴직일");
             this.addChild(obj.name, obj);
 
             obj = new Calendar("cal_LastDay","720","377","195","31",null,null,null,null,null,null,this);
-            obj.set_taborder("46");
+            obj.set_taborder("45");
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("false");
             obj.set_visible("true");
             this.addChild(obj.name, obj);
 
             obj = new Calendar("cal_FirstDay","447","377","153","31",null,null,null,null,null,null,this);
-            obj.set_taborder("47");
+            obj.set_taborder("46");
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("false");
+            this.addChild(obj.name, obj);
+
+            obj = new Edit("edt_Regdate","721","328","195","30",null,null,null,null,null,null,this);
+            obj.set_taborder("47");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -410,11 +404,11 @@
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item12","edt_Admin","value","ds_admin","ADMIN_CODE");
+            obj = new BindItem("item9","edt_Admin","value","ds_pro","ADMIN_CODE");
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item13","cal_RegDate","value","ds_admin","REGDATE");
+            obj = new BindItem("item12","edt_Regdate","value","ds_pro","REGDATE");
             this.addChild(obj.name, obj);
             obj.bind();
             
@@ -464,9 +458,14 @@
 
         	// gds 호출로 등록일, 등록자 넣기
         	var gdsApp = nexacro.getApplication();
-        	this.ds_admin.copyData(gdsApp.gds_adminInfo);
+        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        	var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+        	this.ds_pro.setColumn(0, "ADMIN_CODE", adCode);
+        	this.ds_pro.setColumn(0, "REGDATE", regdt);
+        	trace("아이디 제대로 들어갔나? " + this.ds_pro.getColumn(0, "ADMIN_CODE"));
+        	trace("일시 제대로 들어갔나? " + this.ds_pro.getColumn(0, "REGDATE"));
         	console.log("@@@@@@@@");
-        	console.log(this.ds_admin.saveXML());
+        	console.log(this.ds_pro.saveXML());
         	console.log("#####");
 
         	// cmb box 기본값 설정
@@ -485,7 +484,7 @@
         {
         	var strSvcId    = "insertPro";
         	var strSvcUrl   = "svc::saveAdPro.do";
-        	var inData      = "ds_pro = ds_pro";
+        	var inData      = "ds_pro=ds_pro ds_admin=ds_admin";
         	var outData     = "";
         	var strArg      = "";
         	var callBackFnc = "fnCallBack";
@@ -520,7 +519,6 @@
             this.Static00_03_02.addEventHandler("onclick",this.Static_onclick,this);
             this.FileUpload00.addEventHandler("onitemchanged",this.FileUpload00_onitemchanged,this);
             this.btn_Add.addEventHandler("onclick",this.btn_Add_onclick,this);
-            this.cal_RegDate.addEventHandler("onchanged",this.cal_RegDate_onchanged,this);
             this.Static00_00_01_00_01_00.addEventHandler("onclick",this.Static00_00_01_00_01_00_onclick,this);
         };
         this.loadIncludeScript("add_Professor_Popup.xfdl");

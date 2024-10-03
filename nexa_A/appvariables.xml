@@ -108,6 +108,7 @@
       <ColumnInfo>
         <Column id="ADMIN_CODE" type="STRING" size="256"/>
         <Column id="REGDATE" type="STRING" size="256"/>
+        <Column id="NAME" type="STRING" size="256"/>
       </ColumnInfo>
       <Rows>
         <Row/>

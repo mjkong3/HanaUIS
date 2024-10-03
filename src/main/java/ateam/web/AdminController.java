@@ -64,7 +64,7 @@ public class AdminController {
     			// 인증번호 ds에 저장
     			Certificate_Ds.put("Check", email_Check);
     			// 등록일 생성 및 ds에 저장
-    			String regDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    			String regDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm").format(new Date());
     		    System.out.println("현재 날짜?" + regDate);
     			Certificate_Ds.put("REGDATE", regDate);
     			System.out.println(Certificate_Ds.get("email"));

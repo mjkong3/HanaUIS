@@ -1,41 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="test11" width="1280" height="720" titletext="New Form">
+  <Form id="test11" width="1280" height="720" titletext="New Form" onload="test11_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <BasicChart id="BasicChart00" taborder="0" left="515" top="60" width="585" height="430" binddataset="Dataset00" categorycolumn="bind:등급">
+        <BasicChart id="BasicChart00" taborder="0" left="236" top="50" width="534" height="410" binddataset="CHART" categorycolumn="bind:등급">
           <Contents><![CDATA[{
-	"title": {
-		"id": "title",
-		"textfont": "20pt/normal '맑은 고딕'",
-		"padding": "0px 0px 5px"
-	},
 	"legend": {
 		"id": "legend",
 		"padding": "3px 10px 3px 10px",
 		"itemtextfont": "9pt '맑은 고딕'",
-		"itemtextcolor": "#4c4c4c",
-		"useiteminvisible": "true"
-	},
-	"hrangebar": {
-		"id": "hrangebar",
-		"trackbarpadding": "1px",
-		"background": "#eaeaea",
-		"linestyle": "1px solid #d5d5d5",
-		"trackbarlinestyle": "0px none",
-		"trackbarfillstyle": "#c9c9c9",
-		"size": "12",
-		"visible": "false"
-	},
-	"vrangebar": {
-		"id": "vrangebar",
-		"trackbarpadding": "1px",
-		"background": "#eaeaea",
-		"linestyle": "1px solid #d5d5d5",
-		"trackbarlinestyle": "0px none",
-		"trackbarfillstyle": "#c9c9c9",
-		"size": "12",
-		"visible": "false"
+		"itemtextcolor": "#4c4c4c"
 	},
 	"tooltip": {
 		"id": "tooltip",
@@ -50,7 +24,7 @@
 	},
 	"categoryaxis": {
 		"id": "categoryaxis",
-		"titletext": "등급",
+		"titletext": "categoryaxis",
 		"titletextcolor": "#4c4c4c",
 		"titletextfont": "bold 12pt '맑은 고딕'",
 		"labeltextcolor": "#6f6f6f",
@@ -68,7 +42,7 @@
 			"itemtextvisible": true,
 			"itemtextcolor": "#003860",
 			"itemtextfont": "bold 12pt '맑은 고딕'",
-			"valuecolumn": "bind:중간"
+			"valuecolumn": "bind:A"
 		},
 		{
 			"id": "series1",
@@ -78,7 +52,7 @@
 			"itemtextvisible": true,
 			"itemtextcolor": "#003860",
 			"itemtextfont": "bold 12pt '맑은 고딕'",
-			"valuecolumn": "bind:기말"
+			"valuecolumn": "bind:B"
 		},
 		{
 			"id": "series2",
@@ -88,24 +62,13 @@
 			"itemtextvisible": true,
 			"itemtextcolor": "#003860",
 			"itemtextfont": "bold 12pt '맑은 고딕'",
-			"valuecolumn": "bind:레포트"
-		},
-		{
-			"id": "series3",
-			"titletext": "series",
-			"barvisible": true,
-			"barsize": "65",
-			"itemtextvisible": true,
-			"itemtextcolor": "#003860",
-			"itemtextfont": "bold 12pt '맑은 고딕'",
-			"valuecolumn": "bind:합산",
-			"linevisible": "false"
+			"valuecolumn": "bind:C"
 		}
 	],
 	"valueaxes": [
 		{
 			"id": "valueaxis0",
-			"titletext": "인원",
+			"titletext": "valueaxis",
 			"boardlinevisible": true,
 			"boardlinestyle": "1px solid #d0d0d0",
 			"labeltextcolor": "#6f6f6f",
@@ -114,97 +77,45 @@
 			"titletextfont": "bold 12pt '맑은 고딕'",
 			"ticklinestyle": "1px solid #525252",
 			"axislinestyle": "1px solid #525252",
-			"visible": "true"
+			"autotickscale": "0"
 		}
 	]
 }]]></Contents>
         </BasicChart>
-        <Div id="Div00" taborder="1" text="Div00" left="173" top="108" width="297" height="72" background="BLUE">
-          <Layouts>
-            <Layout>
-              <Combo id="Combo00" taborder="0" text="Combo00" left="12" top="4" width="95" height="20"/>
-              <Combo id="Combo00_00" taborder="1" text="Combo00" left="122" top="4" width="95" height="20"/>
-              <Radio id="Radio00" taborder="2" left="11" top="45" width="222" height="17" background="WHITE" innerdataset="Dataset01" codecolumn="CODE" datacolumn="DATA" columncount="4"/>
-              <Static id="Static00" taborder="3" text="Static00" left="7" top="37" width="288" height="26" border="2px solid crimson, 0px none, 0px none"/>
-            </Layout>
-          </Layouts>
-        </Div>
-        <Grid id="Grid00" taborder="2" left="177" top="183" width="289" height="257"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	Application.gdsSession.set_item("regDate", this.ds_date.getColumn(0, "regDate"));
-	trace(gdsSession.get_id(0));
-};
-
-this.TextArea00_onchanged = function(obj:nexacro.TextArea,e:nexacro.ChangeEventInfo)
+this.test11_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	
 };
 ]]></Script>
     <Objects>
-      <Dataset id="Dataset00">
+      <Dataset id="CHART">
         <ColumnInfo>
           <Column id="등급" type="STRING" size="256"/>
-          <Column id="중간" type="STRING" size="256"/>
-          <Column id="기말" type="STRING" size="256"/>
-          <Column id="레포트" type="STRING" size="256"/>
-          <Column id="합산" type="STRING" size="256"/>
+          <Column id="A" type="STRING" size="256"/>
+          <Column id="B" type="STRING" size="256"/>
+          <Column id="C" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
             <Col id="등급">A</Col>
-            <Col id="중간">10</Col>
-            <Col id="기말">11</Col>
-            <Col id="레포트">4</Col>
-            <Col id="합산">7</Col>
+            <Col id="A">5</Col>
+            <Col id="B">4</Col>
+            <Col id="C">7</Col>
           </Row>
           <Row>
             <Col id="등급">B</Col>
-            <Col id="중간">10</Col>
-            <Col id="기말">5</Col>
-            <Col id="레포트">4</Col>
-            <Col id="합산">6</Col>
+            <Col id="A">4</Col>
+            <Col id="B">5</Col>
+            <Col id="C">6</Col>
           </Row>
           <Row>
             <Col id="등급">C</Col>
-            <Col id="중간">5</Col>
-            <Col id="기말">6</Col>
-            <Col id="레포트">5</Col>
-            <Col id="합산">8</Col>
-          </Row>
-          <Row>
-            <Col id="등급">D</Col>
-            <Col id="중간">5</Col>
-            <Col id="기말">1</Col>
-            <Col id="레포트">6</Col>
-            <Col id="합산">9</Col>
-          </Row>
-        </Rows>
-      </Dataset>
-      <Dataset id="Dataset01">
-        <ColumnInfo>
-          <Column id="CODE" type="STRING" size="256"/>
-          <Column id="DATA" type="STRING" size="256"/>
-        </ColumnInfo>
-        <Rows>
-          <Row>
-            <Col id="CODE">중간</Col>
-            <Col id="DATA">중간</Col>
-          </Row>
-          <Row>
-            <Col id="CODE">기말</Col>
-            <Col id="DATA">기말</Col>
-          </Row>
-          <Row>
-            <Col id="CODE">과제</Col>
-            <Col id="DATA">과제</Col>
-          </Row>
-          <Row>
-            <Col id="CODE">최종</Col>
-            <Col id="DATA">최종</Col>
+            <Col id="A">7</Col>
+            <Col id="B">8</Col>
+            <Col id="C">3</Col>
           </Row>
         </Rows>
       </Dataset>
