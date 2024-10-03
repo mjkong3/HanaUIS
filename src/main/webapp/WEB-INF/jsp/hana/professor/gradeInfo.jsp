@@ -104,6 +104,12 @@
 			<div class="search-container">
 				<form action="gradeInfo.do" method="get">
 					<div class="search-section">
+		 	            <select class="form-control" name="departmentCode" id="departmentCode">
+			            		<option value="ALL">전체 학과</option>
+		        				<c:forEach var="department" items="${department}">	        				
+					                <option value="${department.departmentCode}">${department.departmentName}</option>
+					            </c:forEach>
+			            </select> 
 						<select name="searchType">
 							<option value="id" ${searchType == 'id' ? 'selected' : ''}>학번</option>
 							<option value="name" ${searchType == 'name' ? 'selected' : ''}>이름</option>
@@ -111,8 +117,6 @@
 						<input type="text" name="searchKeyword" placeholder="학번 또는 이름으로 검색" value="${searchKeyword}"> 
 						<input type="hidden" name="selectedNo" value="${classCode}" />
 						<button type="submit">검색</button>
-						<button type="button"
-							onclick="location.href='gradeInfo.do?selectedNo=${classCode}'">전체보기</button>
 					</div>
 				</form>
 

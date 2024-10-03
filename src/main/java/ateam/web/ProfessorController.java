@@ -1,6 +1,5 @@
 package ateam.web;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -8,13 +7,11 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,10 +21,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ateam.dto.BoardDTO;
 import ateam.dto.ClassDTO;
-import ateam.dto.FileDTO;
+import ateam.dto.DepartmentDTO;
 import ateam.dto.ProfessorDTO;
 import ateam.service.BoardService;
 import ateam.service.ClassService;
+import ateam.service.DepartmentService;
 import ateam.service.MailSendService;
 import ateam.service.ProfessorService;
 
@@ -46,7 +44,12 @@ public class ProfessorController {
 	public ProfessorService professorService;
 	@Autowired
 	public ClassService classService;
+	@Autowired
+	private DepartmentService departmentService;
 
+	
+	
+	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 공지사항
 	// 공지사항 화면
 	@RequestMapping(value = "/notice.do")
 	public String noticeView(@RequestParam(value = "page", defaultValue = "1") int page, Model model,
@@ -89,7 +92,14 @@ public class ProfessorController {
 
 		return "hana/noticeDetail";
 	}
+	
+	
+	
+	
+	
+	
 
+	//// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마이페이지
 	// 마이페이지 조회
 	@RequestMapping(value = "/myPage.do")
 	public String mainView(HttpSession session, Model model) {
@@ -109,9 +119,14 @@ public class ProfessorController {
 
 	// 연락처 수정
 	@RequestMapping("/updatePhone.do")
-	public String updatePhone(@RequestParam("professorId") String professorId, @RequestParam("phone") String phone,
-			RedirectAttributes redirectAttributes) {
-		professorService.updatePhone(professorId, phone);
+	public String updatePhone(@RequestParam Map<String, Object> param, 
+								HttpSession session,
+								RedirectAttributes redirectAttributes) {
+		
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		param.put("professorId", professor.getProfessorId());
+		
+		professorService.updatePhone(param);
 		redirectAttributes.addFlashAttribute("updateStatus", "success");
 
 		return "redirect:myPage.do";
@@ -119,15 +134,26 @@ public class ProfessorController {
 
 	// 이메일을 수정
 	@RequestMapping("/updateEmail.do")
-	public String updateEmail(@RequestParam("professorId") String professorId, @RequestParam("email") String email,
-			RedirectAttributes redirectAttributes) {
+	public String updateEmail(@RequestParam Map<String, Object> param, 
+								HttpSession session,
+								RedirectAttributes redirectAttributes) {
 
-		professorService.updateEmail(professorId, email);
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		param.put("professorId", professor.getProfessorId());
+		
+		professorService.updateEmail(param);
 		redirectAttributes.addFlashAttribute("updateStatus", "success");
 
 		return "redirect:myPage.do";
 	}
 
+	
+	
+	
+	
+	
+	
+	//// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 강의
 	// 강의 정보 조회
 	@RequestMapping(value = "/classInfo.do")
 	public String classInfoView(@RequestParam("selectedNo") int no, Model model, HttpServletRequest request) {
@@ -148,14 +174,17 @@ public class ProfessorController {
 	// 강의 정보 수정
 	@ResponseBody
 	@RequestMapping(value = "/updateClassInfo.do", method = RequestMethod.POST)
-	public String updateClassInfo(@RequestParam Map<String, Object> param) {
-
+	public String updateClassInfo(@RequestParam Map<String, Object> param,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		int professorId = professor.getProfessorId();
 		String classInfo = (String) param.get("classInfo");
 		int classCode = Integer.parseInt((String) param.get("classCode"));
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("classInfo", classInfo);
 		map.put("classCode", classCode);
+		map.put("professorId", professorId);
 
 		int result = classService.updateClassInfo(map);
 
@@ -167,6 +196,72 @@ public class ProfessorController {
 		return message;
 	}
 
+	
+	
+	
+	
+	
+	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 학생조회
+	// 수강중인 학생정보 조회
+	@RequestMapping(value = "/studentInfo.do")
+	public String studentInfoView(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
+
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
+		model.addAttribute("professorClass", classList);
+
+		int no = Integer.parseInt((String) map.get("selectedNo"));
+		Map<String, Object> selectClass = classService.selectClass(no);
+		String className = (String) selectClass.get("className");
+		String searchKeyword = (String) map.get("searchKeyword");
+		String searchType = (String) map.get("searchType");
+		String pageStr = (String) map.get("page");
+		String departmentCode = (String) map.get("departmentCode");
+		int page = (pageStr == null || pageStr.isEmpty()) ? 1 : Integer.parseInt(pageStr);
+
+		model.addAttribute("classCode", no);
+		model.addAttribute("className", className);
+
+		List<DepartmentDTO> departmentList = departmentService.allDepartment();
+		model.addAttribute("department", departmentList);
+
+		// 검색어가 있을 경우에만 검색 수행
+		if (departmentCode != null && !departmentCode.isEmpty()) {
+			// 검색어에 맞는 학생 수와 목록 가져오기
+			int totalCnt = classService.getTotalStudentsBySearchKeyword(no, searchType, searchKeyword, departmentCode);
+			List<Map<String, Object>> selectClassStudent = classService.searchStudentByKeyword(no, searchType,
+					 searchKeyword , page, 10, departmentCode);
+			System.out.println(selectClassStudent);
+			if (selectClassStudent.isEmpty()) {
+				model.addAttribute("errorMessage", "해당 검색어는 존재하지 않습니다. 전체 학생 목록으로 돌아갑니다.");
+				totalCnt = classService.getTotalStudents(no);
+				selectClassStudent = classService.selectClassStudent(no, page, 10);
+			}
+
+			model.addAttribute("pageHandler", new PageHandler(totalCnt, 10, page));
+			model.addAttribute("selectClassStudent", selectClassStudent);
+			model.addAttribute("searchKeyword", searchKeyword);
+			model.addAttribute("searchType", searchType);
+		} else {
+			// 검색어가 없는 경우 전체 학생 목록 조회
+
+			int totalCnt = classService.getTotalStudents(no);
+			List<Map<String, Object>> selectClassStudent = classService.selectClassStudent(no, page, 10);
+
+			model.addAttribute("pageHandler", new PageHandler(totalCnt, 10, page));
+			model.addAttribute("selectClassStudent", selectClassStudent);
+		}
+
+		return "hana/professor/studentInfo";
+	}
+	
+	
+	
+	
+	
+	
+
+	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적 조회
 	// 학생들의 성적 조회
 	@RequestMapping(value = "/gradeInfo.do")
 	public String gradeInfoView(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
@@ -179,19 +274,25 @@ public class ProfessorController {
 		int classCode = Integer.parseInt((String) map.get("selectedNo"));
 		Map<String, Object> selectClass = classService.selectClass(classCode);
 		String className = (String) selectClass.get("className");
+		String departmentCode = (String) map.get("departmentCode");
+
 		model.addAttribute("classCode", classCode);
 		model.addAttribute("className", className);
+
+		List<DepartmentDTO> departmentList = departmentService.allDepartment();
+		model.addAttribute("department", departmentList);
+
 
 		String searchKeyword = (String) map.get("searchKeyword");
 		String searchType = (String) map.get("searchType");
 		String pageStr = (String) map.get("page");
 		int page = (pageStr == null || pageStr.isEmpty()) ? 1 : Integer.parseInt(pageStr);
 
-		if (searchKeyword != null && !searchKeyword.isEmpty()) {
+		if (departmentCode != null && !departmentCode.isEmpty()) {
 			// 검색어에 맞는 학생 수와 목록 가져오기
-			int totalCnt = classService.getTotalStudentsBySearchKeyword(classCode, searchType, searchKeyword);
+			int totalCnt = classService.getTotalStudentsBySearchKeyword(classCode, searchType, searchKeyword, departmentCode);
 			List<Map<String, Object>> selectClassStudent = classService.searchClassStudentByKeyword(classCode,
-					searchType, "%" + searchKeyword + "%", page, 10);
+					searchType, searchKeyword, page, 10, departmentCode);
 
 			if (selectClassStudent.isEmpty()) {
 				// 검색 결과가 없을 경우 메시지 출력 후 전체 학생 목록 조회
@@ -217,85 +318,41 @@ public class ProfessorController {
 		return "hana/professor/gradeInfo";
 	}
 
-	// 수강중인 학생정보 조회
-	@RequestMapping(value = "/studentInfo.do")
-	public String studentInfoView(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
-
-		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
-		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
-		model.addAttribute("professorClass", classList);
-
-		int no = Integer.parseInt((String) map.get("selectedNo"));
-		Map<String, Object> selectClass = classService.selectClass(no);
-		String className = (String) selectClass.get("className");
-		String searchKeyword = (String) map.get("searchKeyword");
-		String searchType = (String) map.get("searchType");
-		String pageStr = (String) map.get("page");
-		int page = (pageStr == null || pageStr.isEmpty()) ? 1 : Integer.parseInt(pageStr);
-
-		model.addAttribute("classCode", no);
-		model.addAttribute("className", className);
-		// 검색어가 있을 경우에만 검색 수행
-		if (searchKeyword != null && !searchKeyword.isEmpty()) {
-			// 검색어에 맞는 학생 수와 목록 가져오기
-			int totalCnt = classService.getTotalStudentsBySearchKeyword(no, searchType, searchKeyword);
-			List<Map<String, Object>> selectClassStudent = classService.searchStudentByKeyword(no, searchType,
-					"%" + searchKeyword + "%", page, 10);
-			System.out.println(selectClassStudent);
-			if (selectClassStudent.isEmpty()) {
-				model.addAttribute("errorMessage", "해당 검색어는 존재하지 않습니다. 전체 학생 목록으로 돌아갑니다.");
-				totalCnt = classService.getTotalStudents(no);
-				selectClassStudent = classService.selectClassStudent(no, page, 10);
-			}
-
-			model.addAttribute("pageHandler", new PageHandler(totalCnt, 10, page));
-			model.addAttribute("selectClassStudent", selectClassStudent);
-			model.addAttribute("searchKeyword", searchKeyword);
-			model.addAttribute("searchType", searchType);
-		} else {
-			// 검색어가 없는 경우 전체 학생 목록 조회
-
-			int totalCnt = classService.getTotalStudents(no);
-			List<Map<String, Object>> selectClassStudent = classService.selectClassStudent(no, page, 10);
-
-			model.addAttribute("pageHandler", new PageHandler(totalCnt, 10, page));
-			model.addAttribute("selectClassStudent", selectClassStudent);
-		}
-
-		return "hana/professor/studentInfo";
-	}
-
 	// 학생 성적 수정
 	@ResponseBody
 	@RequestMapping(value = "/updateGrade.do", method = RequestMethod.POST)
-	public String updateGrade(@RequestParam Map<String, Object> param) throws IOException {
+	public String updateGrade(@RequestParam Map<String, Object> param, HttpSession session) throws IOException {
+
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		param.put("professroId", professor.getProfessorId());
 		System.out.println("============================================");
 		System.out.println(param);
 		int middleTest = Integer.parseInt((String) param.get("middleTest"));
 		int finalTest = Integer.parseInt((String) param.get("finalTest"));
 		int report = Integer.parseInt((String) param.get("report"));
-		double score = (middleTest/100.0*40) + (finalTest/100.0*40) + (report/100.0*20);
+		double score = (middleTest / 100.0 * 40) + (finalTest / 100.0 * 40) + (report / 100.0 * 20);
 		int classCode = Integer.parseInt((String) param.get("classCode"));
 		System.out.println("============================================" + score);
 
 		System.out.println(score);
 		String grade = "";
 		if (score >= 90) {
-		    grade = "A";
+			grade = "A";
 		} else if (score >= 80) {
-		    grade = "B";
+			grade = "B";
 		} else if (score >= 70) {
-		    grade = "C";
+			grade = "C";
 		} else if (score >= 60) {
-		    grade = "D";
+			grade = "D";
 		} else {
-		    grade = "F";
+			grade = "F";
 		}
 		System.out.println(grade);
 
 		param.put("grade", grade);
 		param.put("score", score);
 		param.put("classCode", classCode);
+		param.put("professorId", professor.getProfessorId());
 
 		int result = classService.updateGrade(param);
 		System.out.println("result : " + result);
@@ -308,7 +365,45 @@ public class ProfessorController {
 
 	}
 
-	// 시간표 조회
+	// 성적 차트
+	@RequestMapping(value = "/chart.do")
+	public String chartView(@RequestParam(value = "classCode") int no, Model model, HttpSession session) {
+
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
+		model.addAttribute("professorClass", classList);
+
+		String className = classService.getClassName(no);
+		int totalStudents = classService.getTotalStudents(no);
+		model.addAttribute("className", className);
+		model.addAttribute("totalStudents", totalStudents);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("classCode", no);
+		List<Map<String, Object>> selectClassStudent = classService.selectClassStudent(no);
+		model.addAttribute("selectClassStudent", selectClassStudent);
+
+		Map<String, Integer> totalGrade = classService.totalScoreChart(no);
+		model.addAttribute("totalGrade", totalGrade);
+
+		Map<String, Integer> middleTestGrade = classService.middleTestScoreChart(no);
+		model.addAttribute("middleTestGrade", middleTestGrade);
+
+		Map<String, Integer> finalTestGrade = classService.finalTestScoreChart(no);
+		model.addAttribute("finalTestGrade", finalTestGrade);
+
+		Map<String, Integer> reportGrade = classService.reportScoreChart(no);
+		model.addAttribute("reportGrade", reportGrade);
+
+		return "hana/professor/chart";
+	}
+	
+	
+	
+	
+	
+
+	// //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 시간표 조회
 	@RequestMapping(value = "/schedule.do")
 	public String scheduleView(Model model, HttpSession session) {
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
@@ -326,7 +421,14 @@ public class ProfessorController {
 
 		return "hana/schedule";
 	}
+	
+	
+	
+	
+	
+	
 
+	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인
 	// 메일 보내기 + 로그인
 	@RequestMapping(value = "/sign.do", method = RequestMethod.POST)
 	public ModelAndView loginView(@RequestParam("id") int professorId, @RequestParam("password") String password,
@@ -394,38 +496,6 @@ public class ProfessorController {
 		view.setViewName("jsonView");
 
 		return view;
-	}
-
-	@RequestMapping(value = "/chart.do")
-	public String chartView(@RequestParam(value = "classCode") int no, Model model, HttpSession session) {
-
-		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
-		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
-		model.addAttribute("professorClass", classList);
-
-		String className = classService.getClassName(no);
-		int totalStudents = classService.getTotalStudents(no);
-		model.addAttribute("className", className);
-		model.addAttribute("totalStudents", totalStudents);
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("classCode", no);
-		List<Map<String, Object>> selectClassStudent = classService.selectClassStudent(no);
-		model.addAttribute("selectClassStudent", selectClassStudent);
-
-		Map<String, Integer> totalGrade = classService.totalScoreChart(no);
-		model.addAttribute("totalGrade", totalGrade);
-		
-		Map<String,Integer> middleTestGrade = classService.middleTestScoreChart(no);
-		model.addAttribute("middleTestGrade", middleTestGrade);
-		
-		Map<String,Integer> finalTestGrade = classService.finalTestScoreChart(no);
-		model.addAttribute("finalTestGrade", finalTestGrade);
-		
-		Map<String,Integer> reportGrade = classService.reportScoreChart(no);
-		model.addAttribute("reportGrade", reportGrade);
-		
-		return "hana/professor/chart";
 	}
 
 }

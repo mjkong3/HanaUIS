@@ -64,8 +64,10 @@
 			                <c:forEach var="schedule" items="${timetable}">
 			                    <c:if test="${schedule.weekDay == day && schedule.classHour == hour-8}">
 			                        <div class="class-info">
-			                            <strong>${schedule.subject}</strong><br/>
-			                            ${schedule.professor}<br/>
+			                            <strong>${schedule.subject}</strong>
+			                            <br/>
+			                            ${schedule.professor}
+			                            <br/>
 			                            ${schedule.location}
 			                        </div>
 			                    </c:if>

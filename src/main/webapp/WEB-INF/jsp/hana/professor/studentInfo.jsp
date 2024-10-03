@@ -14,7 +14,6 @@
    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
    <script type="text/javaScript" language="javascript" defer="defer">
    
-   
        /* 메뉴 클릭 이벤트 */
        function toggleSubmenu(event) {
            event.preventDefault(); // 기본 링크 클릭 동작 방지
@@ -27,15 +26,14 @@
        }
        
        
-       
        <c:if test="${not empty errorMessage}">
-       console.log("${errorMessage}");
-       alert("${errorMessage}"); // 경고창 띄우기
+	       console.log("${errorMessage}");
+	       alert("${errorMessage}"); // 경고창 띄우기
        </c:if>
 
        <c:if test="${not empty noResultsMessage}">
-       console.log("${noResultsMessage}");
-       alert("${noResultsMessage}"); // 검색 결과가 없을 때 경고창 띄우기
+	       console.log("${noResultsMessage}");
+	       alert("${noResultsMessage}"); // 검색 결과가 없을 때 경고창 띄우기
        </c:if>
 
        
@@ -54,6 +52,12 @@
                
 				<form action="studentInfo.do" method="get">
 					<div class="search-section">
+		 	            <select class="form-control" name="departmentCode" id="departmentCode">
+			            		<option value="ALL">전체 학과</option>
+		        				<c:forEach var="department" items="${department}">	        				
+					                <option value="${department.departmentCode}">${department.departmentName}</option>
+					            </c:forEach>
+			            </select> 
 						<select name="searchType">
 							<option value="id" ${searchType == 'id' ? 'selected' : ''}>학번</option>
 							<option value="name" ${searchType == 'name' ? 'selected' : ''}>이름</option>
@@ -61,7 +65,6 @@
 							placeholder="학번 또는 이름으로 검색" value="${searchKeyword}"> <input
 							type="hidden" name="selectedNo" value="${classCode}" />
 						<button type="submit">검색</button>
-						<button type="button" onclick="location.href='studentInfo.do?selectedNo=${classCode}'">전체보기</button>
 					</div>
 				</form>
 

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper
-	namespace="ateam.mapper.StudentMapper">
+<mapper namespace="ateam.mapper.StudentMapper">
 
-	<!-- 학생 로그인 -->
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 학생 로그인 -->
 	<select id="login_check" resultType="ateam.dto.StudentDTO">
-		SELECT STUDENT_ID, 
+		SELECT STUDENT_ID,
 				NAME,
 				PHONE,
 				EMAIL,
@@ -17,146 +16,191 @@
 				PHOTO
 		FROM STUDENT
 		WHERE STUDENT_ID = #{studentId}
-		AND PASSWORD = SHA2(#{password}, 256)
+			AND PASSWORD = SHA2(#{password}, 256)
 	</select>
-	
+
 	<select id="studentDepartment" resultType="String">
-		SELECT D.DEPARTMENT_NAME 
+		SELECT
+		D.DEPARTMENT_NAME
 		FROM DEPARTMENT D
-			JOIN STUDENT S ON D.DEPARTMENT_CODE = S.DEPARTMENT_CODE
+		JOIN STUDENT S ON D.DEPARTMENT_CODE = S.DEPARTMENT_CODE
 		WHERE S.STUDENT_ID = #{studentId}
 	</select>
-	
 
-	
-	<!--마이 페이지에서 수정 -->
-	   <update id="updatePhone" parameterType="map" >
-      UPDATE STUDENT
-         SET PHONE = #{phone}
-       WHERE STUDENT_ID = #{studentId}
-   </update>
 
-   <update id="updateEmail" parameterType="map">
-      UPDATE STUDENT
-         SET EMAIL = #{email}
-       WHERE STUDENT_ID = #{studentId}
-   </update>
-   
+
+
+
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마이 페이지에서 수정 -->
+	<update id="updatePhone" parameterType="map">
+		UPDATE STUDENT
+			SET PHONE = #{phone},
+				UPD_DTM = SYSDATE(),
+				UPD_USR = #{studentId}	
+		WHERE STUDENT_ID = #{studentId}
+	</update>
+	<update id="updateEmail" parameterType="map">
+		UPDATE STUDENT
+			SET EMAIL = #{email},
+				UPD_DTM = SYSDATE(),
+				UPD_USR = #{studentId}			
+		WHERE STUDENT_ID = #{studentId}
+	</update>
+
+
+
+
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 휴복학 신청 -->
 	<!-- 학생 휴학/복학 신청 & 정보 조회하기 -->
-	<select id="stuStatus" parameterType="int" resultType="ateam.dto.StudentDTO">
+	<select id="stuStatus" parameterType="int"
+		resultType="ateam.dto.StudentDTO">
 		SELECT A.STUDENT_ID,
-		    A.NAME,
-		    A.STATUS,
-		    B.DEPARTMENT_NAME
+		A.NAME,
+		A.STATUS,
+		B.DEPARTMENT_NAME
 		FROM STUDENT A
-		INNER JOIN DEPARTMENT B ON A.DEPARTMENT_CODE = B.DEPARTMENT_CODE
+		INNER JOIN DEPARTMENT B ON A.DEPARTMENT_CODE =
+		B.DEPARTMENT_CODE
 		WHERE A.STUDENT_ID = #{studentId};
 	</select>
-	
-		
+
 	<!-- 휴학/복학 신청 리스트 -->
-	<select id="statusList" parameterType="int" resultType="Map"> 
+	<select id="statusList" parameterType="int" resultType="Map">
 		SELECT STATUS_TYPE,
-			REASON,
-			REGDATE,
-			CASE 
-           	WHEN APPROVED = 'N' THEN '승인대기'
-           	WHEN APPROVED = 'Y' THEN '승인완료'
-           	WHEN APPROVED = 'C' THEN '승인거부'
-           	ELSE ''
-       		END AS APPROVED
+		REASON,
+		REG_DTM,
+		CASE
+		WHEN APPROVED = 'N' THEN '승인대기'
+		WHEN APPROVED = 'Y' THEN '승인완료'
+		WHEN APPROVED = 'C' THEN '승인거부'
+		ELSE ''
+		END AS APPROVED
 		FROM STUDENT_STATUS
 		WHERE STUDENT_ID = #{studentId}
-		ORDER BY STATUS_CODE DESC;
+		ORDER BY
+		STATUS_CODE DESC;
 	</select>
-
 
 	<!-- 휴학/복학 상태 넣기 -->
 	<insert id="insertStatus" parameterType="Map">
-	    INSERT INTO STUDENT_STATUS (
-	    	STUDENT_ID,
-	    	STATUS_TYPE,
-	    	LEAVE_DATE,
-	    	RETURN_DATE,
-	    	REASON,
-	    	REGDATE
-	    ) VALUES (
-	    	#{studentId}, 
-	    	#{statusType},
-	    	#{leaveDate}, 
-	    	#{returnDate}, 
-	    	#{reason},
-	    	NOW()
-	    )
+		INSERT INTO STUDENT_STATUS 
+		(
+			STUDENT_ID,
+			STATUS_TYPE,
+			LEAVE_DATE,
+			RETURN_DATE,
+			REASON,
+			REG_DTM,
+			CRE_DTM,
+			CRE_USR
+		)
+		VALUES 
+		(
+			#{studentId},
+			#{statusType},
+			#{leaveDate},
+			#{returnDate},
+			#{reason},
+			SYSDATE(),
+			SYSDATE(),
+			#{studentId}
+		)
 	</insert>
+	
+	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적조회 -->
 	<select id="myTotalGradeList" resultType="Map">
-			SELECT  E.STUDENT_ID AS studentId, 
-			        E.STUDENT_YEAR AS studentYear, 
-			        E.SEMESTER AS semester, 
-			        COUNT(E.SCORE) AS count, 
-			        SUM(E.SCORE) AS semesterCount,
-			        ROUND(SUM(CASE 
-			            WHEN E.GRADE = 'A' THEN 4.5
-			            WHEN E.GRADE = 'B' THEN 3.5
-			            WHEN E.GRADE = 'C' THEN 2.5
-			            WHEN E.GRADE = 'D' THEN 1.5
-			            WHEN E.GRADE = 'F' THEN 0
-			            ELSE 0
-			        END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) AS totalGrade,
-			        CASE 
-			            WHEN ROUND(SUM(CASE 
-			                WHEN E.GRADE = 'A' THEN 4.5
-			                WHEN E.GRADE = 'B' THEN 3.5
-			                WHEN E.GRADE = 'C' THEN 2.5
-			                WHEN E.GRADE = 'D' THEN 1.5
-			                WHEN E.GRADE = 'F' THEN 0
-			                ELSE 0
-			            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 4.0 THEN 'A'
-			            WHEN ROUND(SUM(CASE 
-			                WHEN E.GRADE = 'A' THEN 4.5
-			                WHEN E.GRADE = 'B' THEN 3.5
-			                WHEN E.GRADE = 'C' THEN 2.5
-			                WHEN E.GRADE = 'D' THEN 1.5
-			                WHEN E.GRADE = 'F' THEN 0
-			                ELSE 0
-			            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 3.0 THEN 'B'
-			            WHEN ROUND(SUM(CASE 
-			                WHEN E.GRADE = 'A' THEN 4.5
-			                WHEN E.GRADE = 'B' THEN 3.5
-			                WHEN E.GRADE = 'C' THEN 2.5
-			                WHEN E.GRADE = 'D' THEN 1.5
-			                WHEN E.GRADE = 'F' THEN 0
-			                ELSE 0
-			            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 2.0 THEN 'C'
-			            WHEN ROUND(SUM(CASE 
-			                WHEN E.GRADE = 'A' THEN 4.5
-			                WHEN E.GRADE = 'B' THEN 3.5
-			                WHEN E.GRADE = 'C' THEN 2.5
-			                WHEN E.GRADE = 'D' THEN 1.5
-			                WHEN E.GRADE = 'F' THEN 0
-			                ELSE 0
-			            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 1.0 THEN 'D'
-			            ELSE 'F'
-			        END AS totalCredit
-			FROM ENROLLMENT E
+		SELECT 
+				E.STUDENT_ID 	AS studentId,
+				E.STUDENT_YEAR 	AS studentYear,
+				E.SEMESTER 		AS semester,
+				COUNT(E.SCORE) 	AS count,
+				SUM(E.SCORE) 	AS semesterCount,
+				ROUND(SUM(CASE
+					WHEN E.GRADE = 'A' THEN 4.5
+					WHEN E.GRADE = 'B' THEN 3.5
+					WHEN E.GRADE = 'C' THEN 2.5
+					WHEN E.GRADE = 'D' THEN 1.5
+					WHEN E.GRADE = 'F' THEN 0
+					ELSE 0
+				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) AS totalGrade,
+					CASE
+					WHEN ROUND(SUM(CASE
+					WHEN E.GRADE = 'A' THEN 4.5
+					WHEN E.GRADE = 'B' THEN 3.5
+					WHEN E.GRADE = 'C' THEN 2.5
+					WHEN E.GRADE = 'D' THEN 1.5
+					WHEN E.GRADE = 'F' THEN 0
+					ELSE 0
+				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 4.0 THEN 'A'
+					WHEN ROUND(SUM(CASE
+					WHEN E.GRADE = 'A' THEN 4.5
+					WHEN E.GRADE = 'B' THEN 3.5
+					WHEN E.GRADE = 'C' THEN 2.5
+					WHEN E.GRADE = 'D' THEN 1.5
+					WHEN E.GRADE = 'F' THEN 0
+					ELSE 0
+				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 3.0 THEN 'B'
+					WHEN ROUND(SUM(CASE
+					WHEN E.GRADE = 'A' THEN 4.5
+					WHEN E.GRADE = 'B' THEN 3.5
+					WHEN E.GRADE = 'C' THEN 2.5
+					WHEN E.GRADE = 'D' THEN 1.5
+					WHEN E.GRADE = 'F' THEN 0
+					ELSE 0
+				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 2.0 THEN 'C'
+					WHEN ROUND(SUM(CASE
+					WHEN E.GRADE = 'A' THEN 4.5
+					WHEN E.GRADE = 'B' THEN 3.5
+					WHEN E.GRADE = 'C' THEN 2.5
+					WHEN E.GRADE = 'D' THEN 1.5
+					WHEN E.GRADE = 'F' THEN 0
+					ELSE 0
+				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 1.0 THEN 'D'
+				ELSE 'F'
+				END AS totalCredit
+		FROM ENROLLMENT E
 			LEFT JOIN CLASS C ON E.CLASS_CODE = C.CLASS_CODE
-			WHERE E.STUDENT_ID = #{studentId}
-			GROUP BY STUDENT_YEAR, SEMESTER
+		WHERE E.STUDENT_ID = #{studentId}
+		GROUP BY STUDENT_YEAR, SEMESTER
 	</select>
 	
+	<select id="myGradeList" parameterType="Map" resultType="Map">
+		SELECT 
+				E.CLASS_CODE 	AS classCode,
+				C.CLASS_NAME 	AS className,
+				S.STUDENT_ID 	AS studentId,
+				S.NAME 			AS studentName,
+				E.STUDENT_YEAR 	AS studentYear,
+				E.SEMESTER 		AS semester,
+				E.MIDDLE_TEST 	AS middleTest,
+				E.FINAL_TEST 	AS finalTest,
+				E.REPORT 		AS report,
+				E.SCORE 		AS score,
+				E.GRADE 		AS grade
+		FROM
+			ENROLLMENT E
+				INNER JOIN STUDENT S ON S.STUDENT_ID = E.STUDENT_ID
+				INNER JOIN CLASS C ON C.CLASS_CODE = E.CLASS_CODE
+		WHERE 
+			S.STUDENT_ID = #{studentId}
+		<if test="year !='' and year != NULL">
+			AND E.STUDENT_YEAR = #{year}
+			AND E.SEMESTER = #{semester}
+		</if>
+		ORDER BY 
+			studentYear, semester DESC
+		LIMIT 
+			#{pageSize} OFFSET #{offset}
+	</select>
 	
 	<select id="countAllClass" parameterType="HashMap"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM ENROLLMENT E
-		INNER JOIN STUDENT S ON
-		S.STUDENT_ID =
-		E.STUDENT_ID
-		INNER JOIN CLASS C ON C.CLASS_CODE =
-		E.CLASS_CODE
+		INNER JOIN STUDENT S ON S.STUDENT_ID = E.STUDENT_ID
+		INNER JOIN CLASS C ON C.CLASS_CODE = E.CLASS_CODE
 		WHERE
-		S.STUDENT_ID =
-		#{studentId}
+		S.STUDENT_ID = #{studentId}
 		<if test="year !='' and year != NULL">
 			AND E.STUDENT_YEAR = #{year}
 			AND E.SEMESTER = #{semester}
@@ -165,304 +209,279 @@
 
 
 
-
-	<select id="myGradeList" parameterType="Map" resultType="Map">
-		SELECT E.CLASS_CODE AS classCode,
-		C.CLASS_NAME AS className,
-		S.STUDENT_ID AS studentId,
-		S.NAME AS studentName,
-		E.STUDENT_YEAR AS
-		studentYear,
-		E.SEMESTER AS semester,
-		E.MIDDLE_TEST as middleTest,
-		E.FINAL_TEST AS finalTest,
-		E.REPORT AS report,
-		E.SCORE AS score,
-		E.GRADE
-		AS grade
-		FROM
-		ENROLLMENT E
-		INNER JOIN
-		STUDENT S ON S.STUDENT_ID = E.STUDENT_ID
-		INNER JOIN
-		CLASS C ON C.CLASS_CODE = E.CLASS_CODE
-		WHERE
-		S.STUDENT_ID =
-		#{studentId}
-		<if test="year !='' and year != NULL">
-			AND E.STUDENT_YEAR = #{year}
-			AND E.SEMESTER = #{semester}
-		</if>
-		ORDER BY E.CLASS_CODE ASC
-		LIMIT #{pageSize} OFFSET #{offset}
-	</select>
 
 	
+
+<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 수강신청 -->
 	<!-- 수강신청 1.수강목록 조회 -->
-    <select id="selectClass" resultType="map" parameterType="int">
-       SELECT A.CLASS_CODE,
-             A.CLASS_NAME,
-             A.CLASS_GRADE,
-             A.CLASS_TYPE,
-             A.SEMESTER,
-             B.NAME,
-             C.CLASSROOM_NAME,
-             C.MAX_PEOPLE,
-             COALESCE(E.CNT, 0) AS PEOPLE,
-             F.DEPARTMENT_NAME,
-             G.TIME_NUMBER,
-             GROUP_CONCAT(
-                   DISTINCT CASE
-                     WHEN G.CLASS_WEEK = 1 THEN '월'
-                     WHEN G.CLASS_WEEK = 2 THEN '화'
-                     WHEN G.CLASS_WEEK = 3 THEN '수'
-                     WHEN G.CLASS_WEEK = 4 THEN '목'
-                     WHEN G.CLASS_WEEK = 5 THEN '금'
-                     WHEN G.CLASS_WEEK = 6 THEN '토'
-                     WHEN G.CLASS_WEEK = 7 THEN '일'
-                     ELSE '요일 미정'
-                 END
-                 ORDER BY G.CLASS_WEEK
-                 SEPARATOR ''
-             ) AS CLASS_WEEK
-      FROM CLASS A 
-      LEFT JOIN PROFESSOR B ON A.PROFESSOR_ID = B.PROFESSOR_ID
-      LEFT JOIN CLASSROOM C ON A.CLASSROOM_ID = C.CLASSROOM_ID
-      LEFT JOIN (
-          SELECT I.CLASS_CODE,
-                 COALESCE(COUNT(I.STUDENT_ID), 0) AS CNT
-          FROM ENROLLMENT I
-          INNER JOIN CLASS J
-          ON I.CLASS_CODE = J.CLASS_CODE
-          WHERE YEAR(J.CLASS_START) = YEAR(CURRENT_DATE())
-          AND I.SEMESTER = CASE 
-                        WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1 
-                        ELSE 2 
-                       END
-          GROUP BY I.CLASS_CODE
-      ) E ON A.CLASS_CODE = E.CLASS_CODE
-      LEFT JOIN DEPARTMENT F ON A.DEPARTMENT_CODE = F.DEPARTMENT_CODE
-      INNER JOIN CLASS_TIME G ON A.CLASS_CODE = G.CLASS_CODE
-      WHERE A.CLASS_END > CURRENT_DATE()
-          AND YEAR(A.CLASS_START) = YEAR(CURRENT_DATE())
-          AND A.SEMESTER = CASE 
-                        WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1 
-                        ELSE 2 
-                       END
-          AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
-          AND NOT EXISTS (
-              SELECT 1
-              FROM ENROLLMENT H
-              INNER JOIN CLASS K
-              ON H.CLASS_CODE = K.CLASS_CODE
-              WHERE H.CLASS_CODE = A.CLASS_CODE
-              AND H.STUDENT_ID = #{studentId}
-              AND YEAR(K.CLASS_START) = YEAR(CURRENT_DATE())
-              AND H.SEMESTER = CASE 
-                            WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1 
-                            ELSE 2 
-                           END
-          )
-      GROUP BY A.CLASS_CODE, 
-             A.CLASS_NAME, 
-             A.CLASS_GRADE, 
-             A.CLASS_TYPE, 
-             A.SEMESTER, 
-               B.NAME, 
-               C.CLASSROOM_NAME, 
-               C.MAX_PEOPLE, 
-               F.DEPARTMENT_NAME
-      ORDER BY A.CLASS_TYPE DESC;
-   </select>
-
-
+	<select id="selectClass" resultType="map" parameterType="int">
+		SELECT A.CLASS_CODE,
+		A.CLASS_NAME,
+		A.CLASS_GRADE,
+		A.CLASS_TYPE,
+		A.SEMESTER,
+		B.NAME,
+		C.CLASSROOM_NAME,
+		C.MAX_PEOPLE,
+		COALESCE(E.CNT, 0) AS PEOPLE,
+		F.DEPARTMENT_NAME,
+		G.TIME_NUMBER,
+		GROUP_CONCAT(
+		DISTINCT CASE
+		WHEN G.CLASS_WEEK = 1 THEN '월'
+		WHEN G.CLASS_WEEK = 2 THEN '화'
+		WHEN G.CLASS_WEEK = 3 THEN '수'
+		WHEN G.CLASS_WEEK = 4 THEN '목'
+		WHEN G.CLASS_WEEK = 5 THEN '금'
+		WHEN G.CLASS_WEEK = 6 THEN '토'
+		WHEN G.CLASS_WEEK = 7 THEN '일'
+		ELSE '요일 미정'
+		END
+		ORDER BY G.CLASS_WEEK
+		SEPARATOR ''
+		) AS CLASS_WEEK
+		FROM CLASS A
+		LEFT JOIN PROFESSOR B ON A.PROFESSOR_ID = B.PROFESSOR_ID
+		LEFT JOIN CLASSROOM C ON A.CLASSROOM_ID = C.CLASSROOM_ID
+		LEFT JOIN (
+		SELECT I.CLASS_CODE,
+		COALESCE(COUNT(I.STUDENT_ID), 0) AS CNT
+		FROM ENROLLMENT I
+		INNER JOIN CLASS J
+		ON I.CLASS_CODE = J.CLASS_CODE
+		WHERE YEAR(J.CLASS_START) = YEAR(CURRENT_DATE())
+		AND I.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END
+		GROUP BY I.CLASS_CODE
+		) E ON A.CLASS_CODE = E.CLASS_CODE
+		LEFT JOIN DEPARTMENT F ON A.DEPARTMENT_CODE = F.DEPARTMENT_CODE
+		INNER JOIN CLASS_TIME G ON A.CLASS_CODE = G.CLASS_CODE
+		WHERE A.CLASS_END > CURRENT_DATE()
+		AND YEAR(A.CLASS_START) = YEAR(CURRENT_DATE())
+		AND A.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END
+		AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
+		AND NOT EXISTS (
+		SELECT 1
+		FROM ENROLLMENT H
+		INNER JOIN CLASS K
+		ON H.CLASS_CODE = K.CLASS_CODE
+		WHERE H.CLASS_CODE = A.CLASS_CODE
+		AND H.STUDENT_ID = #{studentId}
+		AND YEAR(K.CLASS_START) = YEAR(CURRENT_DATE())
+		AND H.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END
+		)
+		GROUP BY A.CLASS_CODE,
+		A.CLASS_NAME,
+		A.CLASS_GRADE,
+		A.CLASS_TYPE,
+		A.SEMESTER,
+		B.NAME,
+		C.CLASSROOM_NAME,
+		C.MAX_PEOPLE,
+		F.DEPARTMENT_NAME
+		ORDER BY A.CLASS_TYPE DESC;
+	</select>
 
 	<!-- 수강신청 2.등록 -->
 	<insert id="enrollClass" parameterType="ateam.dto.EnrollmentDTO">
-		INSERT INTO ENROLLMENT (
+		INSERT INTO ENROLLMENT 
+		(
 			CLASS_CODE,
 			STUDENT_ID,
-			REGDATE,
-			SEMESTER
-		) VALUES (
+			SEMESTER,
+			REG_DTM,
+			CRE_DTM,
+			CRE_USR
+		) VALUES 
+		(
 			#{classCode},
 			#{studentId},
-			now(),
-		 	CASE 
-        		WHEN MONTH(NOW()) BETWEEN 2 AND 6 THEN 1
-        		ELSE 2
-    		END
-		);
+			CASE
+				WHEN MONTH(NOW()) BETWEEN 2 AND 6 THEN 1
+				ELSE 2
+			END,
+			SYSDATE(),
+			SYSDATE(),
+			#{studentId}
+		)
 	</insert>
-	
-	  <!-- 수업신청 4.학과별 수강목록 조회 -->
-    <select id="selectClasses" resultType="map" parameterType="ateam.dto.StudentDTO">
-        SELECT A.CLASS_CODE,
-             A.CLASS_NAME,
-             A.CLASS_GRADE,
-             A.CLASS_TYPE,
-             A.SEMESTER,
-             B.NAME,
-             C.CLASSROOM_NAME,
-             C.MAX_PEOPLE,
-             COALESCE(E.CNT, 0) AS PEOPLE,
-             F.DEPARTMENT_NAME,
-             G.TIME_NUMBER,
-             GROUP_CONCAT(
-                   DISTINCT CASE
-                     WHEN G.CLASS_WEEK = 1 THEN '월'
-                     WHEN G.CLASS_WEEK = 2 THEN '화'
-                     WHEN G.CLASS_WEEK = 3 THEN '수'
-                     WHEN G.CLASS_WEEK = 4 THEN '목'
-                     WHEN G.CLASS_WEEK = 5 THEN '금'
-                     WHEN G.CLASS_WEEK = 6 THEN '토'
-                     WHEN G.CLASS_WEEK = 7 THEN '일'
-                     ELSE '요일 미정'
-                 END
-                 ORDER BY G.CLASS_WEEK
-                 SEPARATOR ''
-             ) AS CLASS_WEEK
-      FROM CLASS A 
-      LEFT JOIN PROFESSOR B ON A.PROFESSOR_ID = B.PROFESSOR_ID
-      LEFT JOIN CLASSROOM C ON A.CLASSROOM_ID = C.CLASSROOM_ID
-      LEFT JOIN (
-          SELECT I.CLASS_CODE,
-                 COALESCE(COUNT(I.STUDENT_ID), 0) AS CNT
-          FROM ENROLLMENT I
-          INNER JOIN CLASS J
-          ON I.CLASS_CODE = J.CLASS_CODE
-          WHERE YEAR(J.CLASS_START) = YEAR(CURRENT_DATE())
-          AND I.SEMESTER = CASE 
-                        WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1 
-                        ELSE 2 
-                       END
-          GROUP BY I.CLASS_CODE
-      ) E ON A.CLASS_CODE = E.CLASS_CODE
-      LEFT JOIN DEPARTMENT F ON A.DEPARTMENT_CODE = F.DEPARTMENT_CODE
-      INNER JOIN CLASS_TIME G ON A.CLASS_CODE = G.CLASS_CODE
-      WHERE A.CLASS_END > CURRENT_DATE()
-          AND YEAR(A.CLASS_START) = YEAR(CURRENT_DATE())
-          AND A.SEMESTER = CASE 
-                        WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1 
-                        ELSE 2 
-                       END
-          AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
-          AND NOT EXISTS (
-              SELECT 1
-              FROM ENROLLMENT H
-              INNER JOIN CLASS K
-              ON H.CLASS_CODE = K.CLASS_CODE
-              WHERE H.CLASS_CODE = A.CLASS_CODE
-              AND H.STUDENT_ID = #{studentId}
-              AND YEAR(K.CLASS_START) = YEAR(CURRENT_DATE())
-              AND H.SEMESTER = CASE 
-                            WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1 
-                            ELSE 2 
-                           END
-          )
-          AND A.DEPARTMENT_CODE = #{departmentCode}
-      GROUP BY A.CLASS_CODE, 
-             A.CLASS_NAME, 
-             A.CLASS_GRADE, 
-             A.CLASS_TYPE, 
-             A.SEMESTER, 
-               B.NAME, 
-               C.CLASSROOM_NAME, 
-               C.MAX_PEOPLE, 
-               F.DEPARTMENT_NAME
-      ORDER BY A.CLASS_TYPE DESC;
-   </select>
-   <!-- 수강신청 5. 수강신청한 학점 총합 보기 -->
-   <select id="totalGrades" resultType="int">
-      SELECT IFNULL(SUM(CLASS_GRADE), 0) AS TOTAL_GRADES
-      FROM ENROLLMENT A
-      INNER JOIN CLASS B ON A.CLASS_CODE = B.CLASS_CODE
-      WHERE YEAR(B.CLASS_START) = YEAR(CURRENT_DATE())
-      AND STUDENT_ID = #{studentId}
-      AND A.SEMESTER = CASE
-                  WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
-                  ELSE 2
-                  END;
-   </select>
-   <!-- 수업신청 6.기존 수강신청 + 학과별 수강목록 조회 -->
-   <select id="selectedClasses" resultType="map" parameterType="int">
-       SELECT A.CLASS_CODE,
-      A.CLASS_NAME,
-      A.CLASS_GRADE,
-      A.CLASS_TYPE,
-      A.SEMESTER,
-      B.NAME,
-      C.CLASSROOM_NAME,
-      C.MAX_PEOPLE,
-      COALESCE(E.CNT, 0) AS PEOPLE,
-      F.DEPARTMENT_NAME,
-      G.TIME_NUMBER,
-      GROUP_CONCAT(
-      DISTINCT CASE
-      WHEN G.CLASS_WEEK = 1 THEN '월'
-      WHEN G.CLASS_WEEK = 2 THEN '화'
-      WHEN G.CLASS_WEEK = 3 THEN '수'
-      WHEN G.CLASS_WEEK = 4 THEN '목'
-      WHEN G.CLASS_WEEK = 5 THEN '금'
-      WHEN G.CLASS_WEEK = 6 THEN '토'
-      WHEN G.CLASS_WEEK = 7 THEN '일'
-      ELSE '요일 미정'
-      END
-      ORDER BY G.CLASS_WEEK
-      SEPARATOR ''
-      ) AS CLASS_WEEK
-      FROM CLASS A
-      LEFT JOIN PROFESSOR B ON A.PROFESSOR_ID = B.PROFESSOR_ID
-      LEFT JOIN CLASSROOM C ON A.CLASSROOM_ID = C.CLASSROOM_ID
-      LEFT JOIN (
-      SELECT I.CLASS_CODE,
-      COALESCE(COUNT(I.STUDENT_ID), 0) AS CNT
-      FROM ENROLLMENT I
-      INNER JOIN CLASS J
-      ON I.CLASS_CODE = J.CLASS_CODE
-      WHERE YEAR(J.CLASS_START) = YEAR(CURRENT_DATE())
-      AND I.SEMESTER = CASE
-      WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
-      ELSE 2
-      END
-      GROUP BY I.CLASS_CODE
-      ) E ON A.CLASS_CODE = E.CLASS_CODE
-      LEFT JOIN DEPARTMENT F ON A.DEPARTMENT_CODE = F.DEPARTMENT_CODE
-      INNER JOIN CLASS_TIME G ON A.CLASS_CODE = G.CLASS_CODE
-      WHERE A.CLASS_END > CURRENT_DATE()
-      AND YEAR(A.CLASS_START) = YEAR(CURRENT_DATE())
-      AND A.SEMESTER = CASE
-      WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
-      ELSE 2
-      END
-      AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
-      AND EXISTS (
-      SELECT 1
-      FROM ENROLLMENT H
-      INNER JOIN CLASS K
-      ON H.CLASS_CODE = K.CLASS_CODE
-      WHERE H.CLASS_CODE = A.CLASS_CODE
-      AND H.STUDENT_ID = #{studentId}
-      AND YEAR(K.CLASS_START) = YEAR(CURRENT_DATE())
-      AND H.SEMESTER = CASE
-      WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
-      ELSE 2
-      END
-      )
-      GROUP BY A.CLASS_CODE,
-      A.CLASS_NAME,
-      A.CLASS_GRADE,
-      A.CLASS_TYPE,
-      A.SEMESTER,
-      B.NAME,
-      C.CLASSROOM_NAME,
-      C.MAX_PEOPLE,
-      F.DEPARTMENT_NAME
-      ORDER BY A.CLASS_TYPE DESC;
-   </select>
-   
-	
 
+	<!-- 수업신청 4.학과별 수강목록 조회 -->
+	<select id="selectClasses" resultType="map"
+		parameterType="ateam.dto.StudentDTO">
+		SELECT A.CLASS_CODE,
+		A.CLASS_NAME,
+		A.CLASS_GRADE,
+		A.CLASS_TYPE,
+		A.SEMESTER,
+		B.NAME,
+		C.CLASSROOM_NAME,
+		C.MAX_PEOPLE,
+		COALESCE(E.CNT, 0) AS PEOPLE,
+		F.DEPARTMENT_NAME,
+		G.TIME_NUMBER,
+		GROUP_CONCAT(
+		DISTINCT CASE
+		WHEN G.CLASS_WEEK = 1 THEN '월'
+		WHEN G.CLASS_WEEK = 2 THEN '화'
+		WHEN G.CLASS_WEEK = 3 THEN '수'
+		WHEN G.CLASS_WEEK = 4 THEN '목'
+		WHEN G.CLASS_WEEK = 5 THEN '금'
+		WHEN G.CLASS_WEEK = 6 THEN '토'
+		WHEN G.CLASS_WEEK = 7 THEN '일'
+		ELSE '요일 미정'
+		END
+		ORDER BY G.CLASS_WEEK
+		SEPARATOR ''
+		) AS CLASS_WEEK
+		FROM CLASS A
+		LEFT JOIN PROFESSOR B ON A.PROFESSOR_ID = B.PROFESSOR_ID
+		LEFT JOIN CLASSROOM C ON A.CLASSROOM_ID = C.CLASSROOM_ID
+		LEFT JOIN (
+		SELECT I.CLASS_CODE,
+		COALESCE(COUNT(I.STUDENT_ID), 0) AS CNT
+		FROM ENROLLMENT I
+		INNER JOIN CLASS J
+		ON I.CLASS_CODE = J.CLASS_CODE
+		WHERE YEAR(J.CLASS_START) = YEAR(CURRENT_DATE())
+		AND I.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END
+		GROUP BY I.CLASS_CODE
+		) E ON A.CLASS_CODE = E.CLASS_CODE
+		LEFT JOIN DEPARTMENT F ON A.DEPARTMENT_CODE = F.DEPARTMENT_CODE
+		INNER JOIN CLASS_TIME G ON A.CLASS_CODE = G.CLASS_CODE
+		WHERE A.CLASS_END > CURRENT_DATE()
+		AND YEAR(A.CLASS_START) = YEAR(CURRENT_DATE())
+		AND A.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END
+		AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
+		AND NOT EXISTS (
+		SELECT 1
+		FROM ENROLLMENT H
+		INNER JOIN CLASS K
+		ON H.CLASS_CODE = K.CLASS_CODE
+		WHERE H.CLASS_CODE = A.CLASS_CODE
+		AND H.STUDENT_ID = #{studentId}
+		AND YEAR(K.CLASS_START) = YEAR(CURRENT_DATE())
+		AND H.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END
+		)
+		AND A.DEPARTMENT_CODE = #{departmentCode}
+		GROUP BY A.CLASS_CODE,
+		A.CLASS_NAME,
+		A.CLASS_GRADE,
+		A.CLASS_TYPE,
+		A.SEMESTER,
+		B.NAME,
+		C.CLASSROOM_NAME,
+		C.MAX_PEOPLE,
+		F.DEPARTMENT_NAME
+		ORDER BY A.CLASS_TYPE DESC;
+	</select>
 	
+	<!-- 수강신청 5. 수강신청한 학점 총합 보기 -->
+	<select id="totalGrades" resultType="int">
+		SELECT IFNULL(SUM(CLASS_GRADE), 0) AS TOTAL_GRADES
+		FROM ENROLLMENT A
+		INNER JOIN CLASS B ON A.CLASS_CODE = B.CLASS_CODE
+		WHERE YEAR(B.CLASS_START) = YEAR(CURRENT_DATE())
+		AND STUDENT_ID = #{studentId}
+		AND A.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END;
+	</select>
+	
+	<!-- 수업신청 6.기존 수강신청 + 학과별 수강목록 조회 -->
+	<select id="selectedClasses" resultType="map"
+		parameterType="int">
+		SELECT A.CLASS_CODE,
+		A.CLASS_NAME,
+		A.CLASS_GRADE,
+		A.CLASS_TYPE,
+		A.SEMESTER,
+		B.NAME,
+		C.CLASSROOM_NAME,
+		C.MAX_PEOPLE,
+		COALESCE(E.CNT, 0) AS PEOPLE,
+		F.DEPARTMENT_NAME,
+		G.TIME_NUMBER,
+		GROUP_CONCAT(
+		DISTINCT CASE
+		WHEN G.CLASS_WEEK = 1 THEN '월'
+		WHEN G.CLASS_WEEK = 2 THEN '화'
+		WHEN G.CLASS_WEEK = 3 THEN '수'
+		WHEN G.CLASS_WEEK = 4 THEN '목'
+		WHEN G.CLASS_WEEK = 5 THEN '금'
+		WHEN G.CLASS_WEEK = 6 THEN '토'
+		WHEN G.CLASS_WEEK = 7 THEN '일'
+		ELSE '요일 미정'
+		END
+		ORDER BY G.CLASS_WEEK
+		SEPARATOR ''
+		) AS CLASS_WEEK
+		FROM CLASS A
+		LEFT JOIN PROFESSOR B ON A.PROFESSOR_ID = B.PROFESSOR_ID
+		LEFT JOIN CLASSROOM C ON A.CLASSROOM_ID = C.CLASSROOM_ID
+		LEFT JOIN (
+		SELECT I.CLASS_CODE,
+		COALESCE(COUNT(I.STUDENT_ID), 0) AS CNT
+		FROM ENROLLMENT I
+		INNER JOIN CLASS J
+		ON I.CLASS_CODE = J.CLASS_CODE
+		WHERE YEAR(J.CLASS_START) = YEAR(CURRENT_DATE())
+		AND I.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END
+		GROUP BY I.CLASS_CODE
+		) E ON A.CLASS_CODE = E.CLASS_CODE
+		LEFT JOIN DEPARTMENT F ON A.DEPARTMENT_CODE = F.DEPARTMENT_CODE
+		INNER JOIN CLASS_TIME G ON A.CLASS_CODE = G.CLASS_CODE
+		WHERE A.CLASS_END > CURRENT_DATE()
+		AND YEAR(A.CLASS_START) = YEAR(CURRENT_DATE())
+		AND A.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END
+		AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
+		AND EXISTS (
+		SELECT 1
+		FROM ENROLLMENT H
+		INNER JOIN CLASS K
+		ON H.CLASS_CODE = K.CLASS_CODE
+		WHERE H.CLASS_CODE = A.CLASS_CODE
+		AND H.STUDENT_ID = #{studentId}
+		AND YEAR(K.CLASS_START) = YEAR(CURRENT_DATE())
+		AND H.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END
+		)
+		GROUP BY A.CLASS_CODE,
+		A.CLASS_NAME,
+		A.CLASS_GRADE,
+		A.CLASS_TYPE,
+		A.SEMESTER,
+		B.NAME,
+		C.CLASSROOM_NAME,
+		C.MAX_PEOPLE,
+		F.DEPARTMENT_NAME
+		ORDER BY A.CLASS_TYPE DESC;
+	</select>
 
 </mapper>
