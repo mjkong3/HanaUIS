@@ -1,5 +1,9 @@
 <%@ page contentType="application/octet-stream;charset=utf-8" errorPage="/errorpage.jsp"%>
+<<<<<<< HEAD
+<%@ page import="java.io.*, java.net.URLConnection, java.net.URLEncoder" %>
+=======
 <%@ page import="java.io.*, java.net.URLConnection" %>
+>>>>>>> dev
 <%
     // 파일 이름과 경로 설정
     String fileName = request.getParameter("fileName");
@@ -19,7 +23,11 @@
         // 응답 헤더 초기화 및 설정
         response.reset();  // 응답을 리셋하여 기존 헤더 제거
         response.setContentType(mimeType);
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+        
+        // 파일 이름 인코딩
+        String encodedFileName = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + encodedFileName + "\"; filename*=UTF-8''" + encodedFileName);
+        
         response.setContentLength((int) file.length());
 
         // 파일 스트림을 통해 파일 데이터를 읽고 출력

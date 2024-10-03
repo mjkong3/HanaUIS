@@ -336,13 +336,14 @@
               return;
            }
 
-           switch(svcID)
-           {
-              case "saveAdStudent":
-                 this.alert("성공적으로 등록을 하였습니다.");
-                 this.close("saveAdStudent");
-                 break;
-           }
+        	switch(svcID)
+        	{
+        		case "saveAdStudent":
+        			this.alert("성공적으로 등록을 하였습니다.");
+        			this.close("saveAdStudent");
+        			break;
+        	}
+
         };
 
         // this.Popup_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)

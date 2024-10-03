@@ -44,13 +44,13 @@
         <Static id="Static00_00_01_00_02" taborder="38" left="339" top="318" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   등록ID"/>
         <Static id="Static00_01_00_00" taborder="39" left="612" top="318" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   등록일"/>
         <Edit id="edt_Admin" taborder="40" left="447" top="328" width="153" height="30" readonly="true"/>
-        <Calendar id="cal_RegDate" taborder="41" left="721" top="328" width="195" height="31" dateformat="yyyy-MM-dd" readonly="true" onchanged="cal_RegDate_onchanged"/>
-        <Static id="Static00_00_01_00_01_00" taborder="42" left="339" top="367" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   재직일" onclick="Static00_00_01_00_01_00_onclick"/>
-        <Static id="Static00_03_01_00_00_00_02_00" taborder="43" left="436" top="367" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01_00_00_00_00_00_00" taborder="44" left="710" top="367" width="219" height="50" background="white" border="1px solid #d3d3d4" text=""/>
-        <Static id="Static00_01_00_00_00" taborder="45" left="612" top="367" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   퇴직일"/>
-        <Calendar id="cal_LastDay" taborder="46" left="720" top="377" width="195" height="31" dateformat="yyyy-MM-dd" readonly="false" visible="true"/>
-        <Calendar id="cal_FirstDay" taborder="47" left="447" top="377" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
+        <Static id="Static00_00_01_00_01_00" taborder="41" left="339" top="367" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   재직일" onclick="Static00_00_01_00_01_00_onclick"/>
+        <Static id="Static00_03_01_00_00_00_02_00" taborder="42" left="436" top="367" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00_00_00_00" taborder="43" left="710" top="367" width="219" height="50" background="white" border="1px solid #d3d3d4" text=""/>
+        <Static id="Static00_01_00_00_00" taborder="44" left="612" top="367" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   퇴직일"/>
+        <Calendar id="cal_LastDay" taborder="45" left="720" top="377" width="195" height="31" dateformat="yyyy-MM-dd" readonly="false" visible="true"/>
+        <Calendar id="cal_FirstDay" taborder="46" left="447" top="377" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
+        <Edit id="edt_Regdate" taborder="47" left="721" top="328" width="195" height="30" readonly="true"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[// 필요한 기능
@@ -88,9 +88,14 @@ this.add_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventI
 	
 	// gds 호출로 등록일, 등록자 넣기
 	var gdsApp = nexacro.getApplication();
-	this.ds_admin.copyData(gdsApp.gds_adminInfo);
+	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+	var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+	this.ds_pro.setColumn(0, "ADMIN_CODE", adCode);
+	this.ds_pro.setColumn(0, "REGDATE", regdt);
+	trace("아이디 제대로 들어갔나? " + this.ds_pro.getColumn(0, "ADMIN_CODE"));
+	trace("일시 제대로 들어갔나? " + this.ds_pro.getColumn(0, "REGDATE"));
 	console.log("@@@@@@@@");
-	console.log(this.ds_admin.saveXML());
+	console.log(this.ds_pro.saveXML());
 	console.log("#####");
 	
 	// cmb box 기본값 설정
@@ -98,7 +103,7 @@ this.add_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventI
 	this.ds_pro.setColumn(0, "STATUS", "재직");
 };
 
-// 작성완료 btn 누를 시 insert문 실행 - 트랜잭션 함수 호출
+// 작성완료 btn 누를 시 insert문 실행
 this.btn_Add_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.fn_insertPro();
@@ -109,7 +114,7 @@ this.fn_insertPro = function ()
 {
 	var strSvcId    = "insertPro";
 	var strSvcUrl   = "svc::saveAdPro.do";
-	var inData      = "ds_pro = ds_pro";
+	var inData      = "ds_pro=ds_pro ds_admin=ds_admin";
 	var outData     = "";
 	var strArg      = "";
 	var callBackFnc = "fnCallBack";
@@ -120,23 +125,18 @@ this.fn_insertPro = function ()
 };
 
 // insert 함수 콜백처리
-this.fnCallBack = function (SvcId)
+this.fnCallBack = function (svcID, errCD, errMsg)
 {
-	// 에러 시 화면 처리 내역
-	if(errorCode == -1)
-	{
-		this.alert(errorMsg);
-		return;
+	// 콜백이 호출 되는가?
+	trace("콜백 실행됨");
+	// 삭제후 검색
+	if(svcID == "insertPro" && errCD == 0){
+	trace("등록완료")
+	alert("등록에 성공하였습니다!");
+	this.close();
+	} else {
+	trace(errMsg);
 	}
-
-	switch(svcID)
-	{
-		case "insertPro":
-			this.alert("성공적으로 등록을 하였습니다.");
-			this.close();
-			break;
-	}
-
 };]]></Script>
     <Objects>
       <Dataset id="ds_gender">
@@ -184,12 +184,6 @@ this.fnCallBack = function (SvcId)
           </Row>
         </Rows>
       </Dataset>
-      <Dataset id="ds_admin">
-        <ColumnInfo>
-          <Column id="ADMIN_CODE" type="STRING" size="256"/>
-          <Column id="REGDATE" type="STRING" size="256"/>
-        </ColumnInfo>
-      </Dataset>
       <Dataset id="ds_pro">
         <ColumnInfo>
           <Column id="PROFESSOR_ID" type="STRING" size="256"/>
@@ -223,8 +217,8 @@ this.fnCallBack = function (SvcId)
       <BindItem id="item8" compid="edt_Email" propid="value" datasetid="ds_pro" columnid="EMAIL"/>
       <BindItem id="item10" compid="edt_Adr" propid="value" datasetid="ds_pro" columnid="ADDRESS"/>
       <BindItem id="item11" compid="cmb_Status" propid="value" datasetid="ds_pro" columnid="STATUS"/>
-      <BindItem id="item12" compid="edt_Admin" propid="value" datasetid="ds_admin" columnid="ADMIN_CODE"/>
-      <BindItem id="item13" compid="cal_RegDate" propid="value" datasetid="ds_admin" columnid="REGDATE"/>
+      <BindItem id="item9" compid="edt_Admin" propid="value" datasetid="ds_pro" columnid="ADMIN_CODE"/>
+      <BindItem id="item12" compid="edt_Regdate" propid="value" datasetid="ds_pro" columnid="REGDATE"/>
     </Bind>
   </Form>
 </FDL>

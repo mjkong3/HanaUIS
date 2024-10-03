@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ateam.mapper.AdminUploadMapper">
+	<insert id="insertBoard" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="BOARD_CODE">
+		INSERT INTO BOARD
+			(TITLE, CONTENT, REG_DTM, CRE_DTM, CRE_USR, UPD_DTM, UPD_USR)
+		VALUES
+			(#{TITLE}, #{CONTENT}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1010212, CURRENT_TIMESTAMP, 1010212)
+	</insert>
+
+	<insert id="insertFile" parameterType="java.util.Map">
+		INSERT INTO FILE 
+			(BOARD_CODE, FILE_NAME, CRE_DTM, CRE_USR, UPD_DTM, UPD_USR)
+		VALUES 
+			(#{BOARD_CODE}, #{FILE_NAME}, CURRENT_TIMESTAMP, 1010212, CURRENT_TIMESTAMP, 1010212)
+	</insert>
+	
+	
+	<!-- 공지사항 수정 SQL  -->	
+	<delete id="deleteFile" parameterType="Map">
+		DELETE FROM FILE
+		WHERE BOARD_CODE = #{BOARD_CODE}
+	</delete>
+	
+	<update id="updateBoard" parameterType="java.util.Map">
+		UPDATE BOARD
+		SET TITLE = #{TITLE},
+			CONTENT = #{CONTENT},
+			REG_DTM = CURRENT_TIMESTAMP,
+			UPD_DTM = CURRENT_TIMESTAMP,
+			UPD_USR = 1010212
+		WHERE BOARD_CODE = #{BOARD_CODE}
+	</update>
+	
+	<insert id="updateFile" parameterType="java.util.Map">
+		INSERT INTO FILE
+			(BOARD_CODE, FILE_NAME, CRE_DTM, CRE_USR ,UPD_DTM, UPD_USR)
+		VALUES
+			(#{BOARD_CODE}, #{FILE_NAME}, CURRENT_TIMESTAMP, 1010212, CURRENT_TIMESTAMP, 1010212)
+	</insert>
+	
+	<delete id="deleteBoard" parameterType="java.util.Map">
+		DELETE FROM BOARD
+		WHERE BOARD_CODE = #{BOARD_CODE}
+	</delete>
+
+
+</mapper>

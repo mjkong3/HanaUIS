@@ -51,16 +51,11 @@ public class AdProfessorController {
 		NexacroResult result = new NexacroResult();
 		System.out.println("param1 = " + param);
 
-		try {
 
 			// 반환할 ds가 없으므로 service 로직만 실행
 			service.saveAdPro(param);
 			System.out.println("param2 = " + param);
-		} catch (Exception ee) {
-			System.out.println(ee);
-			result.setErrorCode(-1);
-			result.setErrorMsg("catch 조회 오류");
-		}
+		
 		// 반환값이 없어도 null은 안된다 - 빈 nexacro 객체를 반환!
 		return result;
 	}
