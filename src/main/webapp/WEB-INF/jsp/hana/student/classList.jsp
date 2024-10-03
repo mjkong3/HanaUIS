@@ -3,6 +3,8 @@
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="ui"     uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,6 +26,20 @@
             submenu.style.display = "block";
         }
     }
+    
+    function fn_classDetail(classCode) {
+		document.classForm.selectedNo.value = classCode;
+		document.classForm.action = "<c:url value='/std/classInfo.do'/>";	
+		document.classForm.submit();
+    }
+    
+    function fn_searchClass(){
+        var selectedDepartmentCode = document.getElementById("department").value;
+		console.log(selectedDepartmentCode)
+		document.searchForm.departmentCode.value = selectedDepartmentCode;
+		document.searchForm.action = "<c:url value='/std/classList.do'/>";	
+		document.searchForm.submit();
+    }
     </script>
 </head>
 <body>
@@ -32,19 +48,24 @@
 
     <div class="content">
 	    <div class="container">
-  	        <h3>수업 목록 조회</h3>
-	        <form action="classSearch" method="GET" class="form-inline justify-content-center">
-	            <label for="department" class="mr-2">학과 선택:</label>
-	            <select class="form-control mr-2" name="department" id="department">
-	                <option value="all">전체</option>
-	                <option value="cs">컴퓨터공학과</option>
-	                <option value="me">기계공학과</option>
-	                <option value="ee">전기전자공학과</option>
-	            </select>
-	            <button type="submit" class="btn btn-primary">조회</button>
-	        </form>
+  	        <h3>강의 목록</h3>
+			<form id="searchForm" name="searchForm" method="GET" class="form-inline justify-content-center">
+	            <input type="hidden" name="departmentCode"/>
+	             <select class="form-control" name="department" id="department">
+	                 <option value="" <c:if test="${param.department == 'ALL'}">selected</c:if>>전체 학과</option>
+	                 <c:forEach var="department" items="${department}">
+	                     <option value="${department.departmentCode}" 
+	                         <c:if test="${param.departmentCode == department.departmentCode}">selected</c:if>>
+	                         ${department.departmentName}
+	                     </option>
+	                 </c:forEach>
+	             </select>
+	             <button type="button" class="btn" onclick="fn_searchClass()">조회</button>
+	         </form>
 	
 	    <!-- 수업 목록 테이블 -->
+	    <form name="classForm" method="get">
+	    	<input type="hidden" name="selectedNo" />
 	        <table class="table table-hover mt-4">
 	            <thead class="thead-dark">
 	                <tr>
@@ -53,23 +74,51 @@
 	                    <th>교수명</th>
 	                    <th>학과</th>
 	                    <th>강의실</th>
-	                    
+	                    <th>이수구분</th>
 	                    <th>강의정보</th>
+	                    
 	                </tr>
 	            </thead>
 	            <tbody>
-	                <%-- <c:forEach var="class" items="${classList}"> --%>
-	                    <tr>
-	                        <td>05</td>
-	                        <td>빡센 코딩</td>
-	                        <td>나경진</td>
-	                        <td>컴공과</td>
-	                        <td>301</td>
-	                        <td>코딩 기초에 대한 이해와 흐름 숙지</td>
-	                    </tr>
-	                <%-- </c:forEach> --%>
+					<c:forEach var="selectClass" items="${classList}">
+						<tr>
+							<td>${selectClass.classCode}</td>
+							<td>${selectClass.className}</td>
+							<td>${selectClass.professorName}</td>
+							<td>${selectClass.departmentName}</td>
+							<td>${selectClass.classroomName}</td>
+							<td>${selectClass.classType}</td>
+							<td><a href="javascript:fn_classDetail('${selectClass.classCode}')">상세보기</a></td>
+						</tr>
+					</c:forEach>
 	            </tbody>
 	        </table>
+	        
+	                    <div class="pagination">
+			   <!-- 첫 페이지로 이동 -->
+			   <a href="?page=1&departmentCode=${departmentCode}"
+			      class="${pageHandler.page == 1 ? 'disabled' : ''}">처음</a>
+			
+			   <!-- 이전 페이지로 이동 -->
+			   <a href="?page=${pageHandler.page > 1 ? pageHandler.page - 1 : 1}&departmentCode=${departmentCode}"
+			      class="${pageHandler.page == 1 ? 'disabled' : ''}">이전</a>
+			
+			   <!-- 중간 페이지 목록 (1~5 or 6~10) -->
+			   <c:forEach begin="${pageHandler.beginPage}" end="${pageHandler.endPage}" var="i">
+			      <a href="?page=${i}&departmentCode=${departmentCode}"
+			         class="${i == pageHandler.page ? 'active' : ''}">${i}</a>
+			   </c:forEach>
+			
+			   <!-- 다음 페이지로 이동 -->
+			   <a href="?page=${pageHandler.page < pageHandler.totalPage ? pageHandler.page + 1 : pageHandler.totalPage}&departmentCode=${departmentCode}"
+			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">다음</a>
+			
+			   <!-- 마지막 페이지로 이동 -->
+			   <a href="?page=${pageHandler.totalPage}&departmentCode=${departmentCode}"
+			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">끝</a>
+			</div>
+        
+        </form>
 	</div>
     </div>
 

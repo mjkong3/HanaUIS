@@ -13,7 +13,7 @@
             this.set_titletext("New Form");
             if (Form == this.constructor)
             {
-                this._setFormPosition(1280,720);
+                this._setFormPosition(800,700);
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
@@ -62,7 +62,7 @@
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
-            obj = new Layout("default","",1024,768,this,function(p){});
+            obj = new Layout("default","",800,700,this,function(p){});
             obj.set_stepcount("0");
             this.addLayout(obj.name, obj);
             
@@ -79,7 +79,7 @@
         };
         
         // User Script
-        this.registerScript("board.xfdl", function() {
+        this.registerScript("fileupload.xfdl", function() {
 
         this.Button00_onclick = function(obj,e)
         {
@@ -88,7 +88,9 @@
 
         this.FileDialog00_onclose = function(obj,e)
         {
+        	trace("Selected files: " + e.virtualfiles.length);  // 파일이 선택되었는지 확인
         	this.addFileList(e.virtualfiles);
+        	this.FileUpTransfer00.upload('http://localhost:8082/AdminFileUpload');
         };
 
         this.addFileList = function(filelist)
@@ -161,7 +163,7 @@
         this.Button01_onclick = function(obj,e)
         {
         	this.TextArea00.set_value("");
-        	this.FileUpTransfer00.upload('svc::file/fileupload.jsp');
+        	this.FileUpTransfer00.upload('http://localhost:8082/hanaUIS/nexa_A/AdminFileUpload');
         };
 
         this.FileUpTransfer00_onprogress = function(obj,e)
@@ -202,7 +204,7 @@
             this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);
             this.FileUpTransfer00.addEventHandler("onerror",this.FileUpTransfer00_onerror,this);
         };
-        this.loadIncludeScript("board.xfdl");
+        this.loadIncludeScript("fileupload.xfdl");
         this.loadPreloadList();
         
         // Remove Reference

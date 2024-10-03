@@ -64,7 +64,7 @@ public class AdminController {
     			// 인증번호 ds에 저장
     			Certificate_Ds.put("Check", email_Check);
     			// 등록일 생성 및 ds에 저장
-    			String regDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    			String regDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm").format(new Date());
     		    System.out.println("현재 날짜?" + regDate);
     			Certificate_Ds.put("REGDATE", regDate);
     			System.out.println(Certificate_Ds.get("email"));
@@ -116,24 +116,25 @@ public class AdminController {
 	}
 	
 	
-	
 	@RequestMapping(value = "/selectCodeMst.do")
-	public NexacroResult selectCodMst(@ParamDataSet(name = "ds_Search", required = false) Map<String, Object>param) {
-		
+	public NexacroResult selectCodMst(@ParamDataSet(name = "ds_Search", required = false) Map<String, Object> param) {
+
 		NexacroResult result = new NexacroResult();
-		
+
 		System.out.println(param);
-		
+
 		try {
 			List<Map<String, Object>> ds_CodeMstList = service.selectCodeMst(param);
-					
+
 			result.addDataSet("ds_CodeMstList", ds_CodeMstList);
-		} catch(Exception ee) {
+		} catch (Exception ee) {
 			System.out.println(ee);
 			result.setErrorCode(01);
 			result.setErrorMsg("catch 조회 오류");
 		}
-		
+
 		return result;
 	}
+	
+	
 }

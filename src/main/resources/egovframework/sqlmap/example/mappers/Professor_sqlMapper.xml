@@ -2,19 +2,55 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="ateam.mapper.ProfessorMapper">
 
-	<select id="selectProfessor" parameterType="int" resultType="ateam.dto.ProfessorDTO">
-		SELECT professor_id, name, department_code FROM PROFESSOR WHERE PROFESSOR_ID = #{professorId}
-	</select>
+   <select id="selectProfessor" parameterType="int" resultType="ateam.dto.ProfessorDTO">
+      SELECT P.PROFESSOR_ID, 
+             P.NAME,
+             P.PHONE,
+             P.EMAIL,
+             P.BIRTHDAY,
+             P.GENDER,
+             P.ADDRESS,
+             P.STATUS,
+             D.DEPARTMENT_NAME,
+             P.PHOTO
+      FROM PROFESSOR P
+      	LEFT JOIN DEPARTMENT D ON P.DEPARTMENT_CODE = D.DEPARTMENT_CODE
+      WHERE P.PROFESSOR_ID = #{professorId}
+   </select>
 	
 	<!-- 교수 로그인처리 -->
 	<select id="login_check" resultType="ateam.dto.ProfessorDTO">
 		SELECT PROFESSOR_ID, 
-				EMAIL,
 				NAME,
-				DEPARTMENT_CODE
+				PHONE,
+				EMAIL,
+				BIRTHDAY,
+				GENDER,
+				ADDRESS,
+				STATUS,
+				DEPARTMENT_CODE,
+				PHOTO
 		FROM PROFESSOR
 		WHERE PROFESSOR_ID = #{professorId}
-		AND PASSWORD = #{password}
+		AND PASSWORD = SHA2(#{password}, 256)
 	</select>
+	
+	
+	<!--마이 페이지에서 수정 -->
+	   <update id="updatePhone" parameterType="map" >
+      UPDATE PROFESSOR
+         SET PHONE = #{phone},
+			 UPD_DTM = SYSDATE(),
+			 UPD_USR = #{professorId}	
+       WHERE PROFESSOR_ID = #{professorId}
+   </update>
+
+   <update id="updateEmail" parameterType="map">
+      UPDATE PROFESSOR
+         SET EMAIL = #{email},
+         	 UPD_DTM = SYSDATE(),
+			 UPD_USR = #{professorId}	
+       WHERE PROFESSOR_ID = #{professorId}
+   </update>
 
 </mapper>

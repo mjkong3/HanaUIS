@@ -20,3 +20,50 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 40px;
 }
+
+
+/*  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@페이징 여기요@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+/* <!-- 아래로 페이징 버튼 --> */
+
+.pagination {
+    display: flex;
+    justify-content: center; /* 가로 가운데 정렬 */
+    gap: 10px; /* 버튼 간격 조정 */
+    padding: 20px 0; /* 상하 여백 */
+}
+.pagination a {
+    color: #333;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: 1px solid #ddd;
+}
+
+.pagination a:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+}
+
+.pagination a:first-child, .pagination a:last-child {
+    background-color: #007BFF;
+    color: white;
+}
+
+.pagination a:first-child:hover, .pagination a:last-child:hover {
+    background-color: #0056b3;
+}
+.pagination a.disabled {
+    pointer-events: none;
+    color: gray;
+    text-decoration: none;
+}
+
