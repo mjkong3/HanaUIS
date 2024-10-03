@@ -350,6 +350,7 @@
         // 상세보기 호출 함수
         this.fn_searchProInfo = function(proId)
         {
+
         	var strSvcId    = "selectAdProInfo";
         	var strSvcUrl   = "svc::selectAdProInfo.do";
         	var inData      = "";

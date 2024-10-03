@@ -158,7 +158,7 @@ this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
 	var objParam2 = this.parent.param2;
  	
  	this.ds_pro.copyData(objParam1);
-	this.ds_dept.copyData(objParam2);	 
+	this.ds_dept.copyData(objParam2);
 	
 	// readonly 설정하기
 	this.edt_ProId.set_readonly(true);

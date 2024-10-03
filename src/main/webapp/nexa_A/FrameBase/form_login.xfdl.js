@@ -103,6 +103,7 @@
             obj = new Button("Test_Btn","228","548","205","72",null,null,null,null,null,null,this);
             obj.set_taborder("10");
             obj.set_text("바로넘어가기");
+            obj.set_visible("true");
             this.addChild(obj.name, obj);
 
             obj = new Edit("txt_Id","731","345","250","40",null,null,null,null,null,null,this);
