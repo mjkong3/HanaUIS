@@ -15,6 +15,4 @@ public interface AdStudentService {
 
    void deletAdStudent(Map<String, Object> param);
 
-	void deletAdStudent(Map<String, Object> param);
-
 }

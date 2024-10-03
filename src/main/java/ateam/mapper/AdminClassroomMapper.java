@@ -12,7 +12,7 @@ public interface AdminClassroomMapper {
 
 	List<Map<String, Object>> SelectAdminClasstime(String param);
 	
-	List<Map<String, Object>> SelectAdminClasscourse();
+	List<Map<String, Object>> SelectAdminClasscourse(Map<String, Object> param);
 
 	List<Map<String, Object>> SelectAdminClasstimeid(String param);
 
@@ -20,5 +20,18 @@ public interface AdminClassroomMapper {
 	void updateAdminClasscourse(Map<String, Object> param);
 	void insertAdminClasscourse(Map<String, Object> param);
 	void updateAdminClasscourse2(Map<String, Object> param);
+	
+	void deleteAdminClasscourse(Map<String, Object> param);
+
+	List<Map<String, Object>> SelectAdminclassyear();
+
+	List<Map<String, Object>> SelectAdminclasssem();
+
+
+	int checkAdminclassroom(Map<String, Object> param);
+	void updateAdminclassroom(Map<String, Object> param);
+	void insertAdminclassroom(Map<String, Object> param);
+
+	void deleteAdminClassroom(Map<String, Object> param);
 
 }

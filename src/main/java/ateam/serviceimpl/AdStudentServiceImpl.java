@@ -56,10 +56,4 @@ public class AdStudentServiceImpl extends EgovAbstractServiceImpl implements AdS
       
    }
 
-	@Override
-	public void deletAdStudent(Map<String, Object> param) {
-		mapper.deletAdStudent(param);
-		
-	}
-
 }

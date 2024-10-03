@@ -30,9 +30,9 @@ public class AdminClassroomServiceImpl extends EgovAbstractServiceImpl implement
 	}
 
 	@Override
-	public List<Map<String, Object>> SelectAdminClasscourse() {
+	public List<Map<String, Object>> SelectAdminClasscourse(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		return mapper.SelectAdminClasscourse();
+		return mapper.SelectAdminClasscourse(param);
 	}
 
 	@Override
@@ -42,16 +42,58 @@ public class AdminClassroomServiceImpl extends EgovAbstractServiceImpl implement
 	}
 
 	@Override
-	public void saveAdminClasscourse(Map<String, Object> param) {
-		int checkinsert = mapper.SelectAdminclasstime(param);
-		if (checkinsert > 0) {
-			mapper.updateAdminClasscourse(param);
-			mapper.updateAdminClasscourse2(param);
-		}else {
-			mapper.updateAdminClasscourse(param);
-			mapper.insertAdminClasscourse(param);
+	public void saveAdminClasscourse(List<Map<String, Object>> param) {		
+		int checkinsert = 0;
+		for(int i =0; i < param.size(); i++) {
+			checkinsert = mapper.SelectAdminclasstime(param.get(i));
+    		mapper.updateAdminClasscourse(param.get(i));
+    		if (checkinsert > 0) {
+    			mapper.updateAdminClasscourse2(param.get(i));
+    		}else {
+    			mapper.insertAdminClasscourse(param.get(i));
+    		}
+    	}
+	
+	}
+
+	@Override
+	public void deleteAdminClasscourse(List<Map<String, Object>> param) {
+		for(int i =0; i < param.size(); i++) {
+			if(param.get(i) != null) {
+				System.out.println(param.get(i));
+				mapper.deleteAdminClasscourse(param.get(i));
+			}
+		}
+	}
+
+	@Override
+	public List<Map<String, Object>> SelectAdminclassyear() {
+		// TODO Auto-generated method stub
+		return mapper.SelectAdminclassyear();
+	}
+
+	@Override
+	public List<Map<String, Object>> SelectAdminclasssem() {
+		// TODO Auto-generated method stub
+		return mapper.SelectAdminclasssem();
+	}
+
+	@Override
+	public void saveAdminClassroom(Map<String, Object> param) {
+		int checksave = 0;
+		checksave = mapper.checkAdminclassroom(param);
+		if(checksave > 0) {
+			mapper.updateAdminclassroom(param);
+		}
+		else {
+			mapper.insertAdminclassroom(param);
 		}
 		
 	}
 
+	@Override
+	public void deleteAdminClassroom(Map<String, Object> param) {
+		mapper.deleteAdminClassroom(param);
+		
+	}
 }

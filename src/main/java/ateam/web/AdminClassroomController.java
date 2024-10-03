@@ -32,8 +32,18 @@ public class AdminClassroomController {
     		//Map<String, Object> welcome = service.welcome(param);
     		System.out.println("dkdkdkddkefewa"+ classroom_ds);
     		
+    		List<Map<String, Object>> ds_classyear = service.SelectAdminclassyear();
+    		
+    		System.out.println("여기 년도 확인 하는 곳 입니다. =====" + ds_classyear);
+    		
+    		List<Map<String, Object>> ds_classsem = service.SelectAdminclasssem();
+    		
+    		System.out.println(ds_classsem);
+    		
             // 조회된 데이터를 넥사크로 데이터셋에 추가
             result.addDataSet("classroom_ds", classroom_ds);
+            result.addDataSet("ds_classyear", ds_classyear);
+            result.addDataSet("ds_classsem", ds_classsem);
     		
     	}catch(Exception ee) {
     		System.out.println(ee);
@@ -43,6 +53,29 @@ public class AdminClassroomController {
     	
     	return result;
     }
+	
+	@RequestMapping(value = "/SelectAdminClassroom2.do")
+    public NexacroResult SelectAdminClassroom2() {
+    	System.out.println("SelectAdminClassroom2.do");
+    	NexacroResult result = new NexacroResult();
+    	
+    	try {
+    		List<Map<String, Object>> ds_classroom = service.SelectAdminClassroom();
+    		//Map<String, Object> welcome = service.welcome(param);
+    		System.out.println("dkdkdkddkefewa"+ ds_classroom);
+    		
+            // 조회된 데이터를 넥사크로 데이터셋에 추가
+            result.addDataSet("ds_classroom", ds_classroom);
+    		
+    	}catch(Exception ee) {
+    		System.out.println(ee);
+    		result.setErrorCode(-1);
+    		result.setErrorMsg("catch 조회 오류");
+    	}
+    	
+    	return result;
+    }
+	
 	
 	@RequestMapping(value = "/SelectAdminClasstime.do")
     public NexacroResult SelectAdminClasstime(@ParamVariable(name = "CLASSROOM_ID", required = false) String param) {
@@ -87,12 +120,12 @@ public class AdminClassroomController {
     }
 	
 	@RequestMapping(value = "/SelectAdminClasscourse.do")
-    public NexacroResult SelectAdminClasscourse() {
-    	System.out.println("아니 진짜");
+    public NexacroResult SelectAdminClasscourse(@ParamDataSet(name = "ds_insrtcourse", required = false) Map<String, Object> param) {
+    	System.out.println(param);
     	NexacroResult result = new NexacroResult();
 
     	try {
-    		List<Map<String, Object>> classcourse_ds = service.SelectAdminClasscourse();
+    		List<Map<String, Object>> classcourse_ds = service.SelectAdminClasscourse(param);
     		
     		System.out.println("dkdkdkddkefewa"+ classcourse_ds);
 
@@ -113,11 +146,56 @@ public class AdminClassroomController {
     	NexacroResult result = new NexacroResult();
 
     	try {
+    		service.saveAdminClasscourse(param);
+    		
+    	}catch(Exception ee) {
+    		ee.printStackTrace();
+    		result.setErrorCode(-1);
+    		result.setErrorMsg("catch 조회 오류");
+    	}
+    	
+    	return result;
+    }
+	
+	@RequestMapping(value = "/deleteAdminClasscourse.do")
+    public NexacroResult deleteAdminClasscourse(@ParamDataSet(name = "classcoursedelete_ds", required = false) List<Map<String, Object>> param) {
+    	NexacroResult result = new NexacroResult();
+
+    	try {
     		System.out.println(param);
-    		for(int i =0; i < param.size(); i++) {
-        		System.out.println(param.get(i));
-        		service.saveAdminClasscourse(param.get(i));
-        	}
+    		service.deleteAdminClasscourse(param);
+    		
+    	}catch(Exception ee) {
+    		ee.printStackTrace();
+    		result.setErrorCode(-1);
+    		result.setErrorMsg("catch 조회 오류");
+    	}
+    	
+    	return result;
+    }
+	
+	@RequestMapping(value = "/saveAdminClassroom.do")
+    public NexacroResult saveAdminClassroom(@ParamDataSet(name = "ds_trans", required = false) Map<String, Object> param) {
+    	NexacroResult result = new NexacroResult();
+
+    	try {
+    		service.saveAdminClassroom(param);
+    		
+    	}catch(Exception ee) {
+    		ee.printStackTrace();
+    		result.setErrorCode(-1);
+    		result.setErrorMsg("catch 조회 오류");
+    	}
+    	
+    	return result;
+    }
+	
+	@RequestMapping(value = "/deleteAdminClassroom.do")
+    public NexacroResult deleteAdminClassroom(@ParamDataSet(name = "ds_trans", required = false) Map<String, Object> param) {
+    	NexacroResult result = new NexacroResult();
+
+    	try {
+    		service.deleteAdminClassroom(param);
     		
     	}catch(Exception ee) {
     		ee.printStackTrace();

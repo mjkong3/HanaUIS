@@ -45,11 +45,6 @@
             obj = new Dataset("ds_delete", this);
             obj._setContents("");
             this.addChild(obj.name, obj);
-
-
-            obj = new Dataset("ds_list_dtl", this);
-            obj._setContents("");
-            this.addChild(obj.name, obj);
             
             // UI Components Initialize
             obj = new Grid("grd_Depart","33","96","237","524",null,null,null,null,null,null,this);

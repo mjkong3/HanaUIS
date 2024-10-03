@@ -53,13 +53,13 @@
         </Row>
         <Row>
           <Col id="MENU_ID">010000</Col>
-          <Col id="MENU_NM">강의 목록</Col>
+          <Col id="MENU_NM">강의 관리</Col>
           <Col id="MENU_LEVEL">2</Col>
-          <Col id="MENU_PATH">MainBase::course.xfdl</Col>
+          <Col id="MENU_PATH">MainBase::classInfo.xfdl</Col>
         </Row>
         <Row>
           <Col id="MENU_ID">010001</Col>
-          <Col id="MENU_NM">강의실관리</Col>
+          <Col id="MENU_NM">강의실 배정 관리</Col>
           <Col id="MENU_LEVEL">2</Col>
           <Col id="MENU_PATH">MainBase::classroom.xfdl</Col>
         </Row>

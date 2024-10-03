@@ -8,6 +8,18 @@
 		from CLASSROOM;
 	</select>
 	
+	<select id="SelectAdminclassyear" resultType="java.util.Map">
+		SELECT DISTINCT YEAR(CLASS_START) as YEAR, CONCAT(YEAR(CLASS_START), "년") AS YEARN
+		FROM CLASS
+		order by YEAR desc;
+	</select>
+	
+	<select id="SelectAdminclasssem" resultType="java.util.Map">
+		SELECT DISTINCT	SEMESTER as SEMESTER, CONCAT(SEMESTER, "학기") as SEMESTERN
+		FROM CLASS
+		order by SEMESTER desc;
+	</select>
+	
 	<select id="SelectAdminClasstime" parameterType="String" resultType="java.util.Map">
 		WITH TIME_TABLE AS (
 		    SELECT 1 AS TIME_NUMBER
@@ -71,32 +83,37 @@
 		ORDER BY t.TIME_NUMBER ASC;
 	</select>
 	
-	<select id="SelectAdminClasscourse" resultType="java.util.Map">
-		SELECT a.CLASSROOM_ID as CLASSROOM_ID, 
+	<select id="SelectAdminClasscourse" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT c.CLASS_TIME_CODE as CLASS_TIME_CODE,
+			   a.CLASSROOM_ID as CLASSROOM_ID, 
 		       a.CLASS_NAME as CLASS_NAME, 
 		       a.PROFESSOR_ID as PROFESSOR_ID, 
 		       b.CLASSROOM_NAME as CLASSROOM_NAME, 
 		       a.DEPARTMENT_CODE as DEPARTMENT_CODE, 
 		       c.TIME_NUMBER as TIME_NUMBER, 
 		       c.CLASS_WEEK as CLASS_WEEK,
-		       a.CLASS_CODE as CLASS_CODE
+		       a.CLASS_CODE as CLASS_CODE,
+		       p.NAME as PROFESSOR_NAME,
+		       a.SEMESTER as SEMESTER,
+		       a.CLASS_GRADE as CLASS_GRADE,
+		       a.CLASS_START as CLASS_START,
+		       a.CLASS_END as CLASS_END,
+		       0 AS 'CHECK'
 		FROM CLASS a
 		LEFT JOIN CLASSROOM b
 		    ON a.CLASSROOM_ID = b.CLASSROOM_ID
 		LEFT JOIN CLASS_TIME c
 		    ON a.CLASS_CODE = c.CLASS_CODE
-		WHERE a.CLASSROOM_ID IS NULL 
-		   OR a.PROFESSOR_ID IS NULL
-		   OR c.CLASS_WEEK IS NULL
-		   OR c.CLASS_WEEK IS NULL;
+		LEFT JOIN PROFESSOR p
+			ON p.PROFESSOR_ID = a.PROFESSOR_ID
+		WHERE YEAR(a.CLASS_START)= #{YEAR}
+				and a.SEMESTER = #{SEMESTER};
 	</select>
 	
 	<select id="SelectAdminclasstime" parameterType="java.util.Map" resultType="Integer">
 		SELECT COUNT(CLASS_TIME_CODE)  
 		FROM CLASS_TIME
-		WHERE CLASS_CODE = #{CLASS_CODE}
-		AND CLASS_WEEK = #{CLASS_WEEK}
-		AND	TIME_NUMBER = #{TIME_NUMBER}
+		WHERE CLASS_TIME_CODE = #{CLASS_TIME_CODE}
 	</select>
 	
 	<update id="updateAdminClasscourse" parameterType="java.util.Map">
@@ -105,13 +122,19 @@
 	
 	<insert id="insertAdminClasscourse" parameterType="java.util.Map">
 		INSERT INTO CLASS_TIME(
+			<if test="CLASS_TIME_CODE != null">
+				CLASS_TIME_CODE,
+			</if>
 			CLASS_CODE, 
 			CLASS_WEEK, 
 			TIME_NUMBER)
 				VALUES (
 				#{CLASS_CODE}, 
 				#{CLASS_WEEK}, 
-				#{TIME_NUMBER})
+				#{TIME_NUMBER}
+				<if test="CLASS_TIME_CODE != null">
+					,#{CLASS_TIME_CODE}
+				</if>)
 	</insert>
 	
 	<update id="updateAdminClasscourse2" parameterType="java.util.Map">
@@ -119,6 +142,36 @@
 		SET CLASS_CODE = #{CLASS_CODE},
 			CLASS_WEEK = #{CLASS_WEEK},
 			TIME_NUMBER = #{TIME_NUMBER}
-		WHERE CLASS_CODE = #{CLASS_CODE};
+		WHERE CLASS_TIME_CODE = #{CLASS_TIME_CODE};
 	</update>
+	
+	<delete id="deleteAdminClasscourse" parameterType="java.util.Map">
+		DELETE from CLASS_TIME
+		WHERE CLASS_TIME_CODE = #{CLASS_TIME_CODE};
+	</delete>
+	
+<!-- 		int checkAdminclassroom(Map<String, Object> param);
+	void updateAdminclassroom(Map<String, Object> param);
+	void insertAdminclassroom(Map<String, Object> param); -->
+	<select id="checkAdminclassroom" parameterType="java.util.Map" resultType="Integer">
+		SELECT COUNT(CLASSROOM_ID)  
+		FROM CLASSROOM
+		WHERE CLASSROOM_ID = #{CLASSROOM_ID}
+	</select>
+	
+	<insert id="insertAdminclassroom" parameterType="java.util.Map">
+		INSERT INTO CLASSROOM (CLASSROOM_ID, CLASSROOM_NAME, MAX_PEOPLE, CRE_DTM)
+			VALUES(#{CLASSROOM_ID}, #{CLASSROOM_NAME}, #{MAX_PEOPLE}, NOW())
+	</insert>
+	
+	<update id="updateAdminclassroom" parameterType="java.util.Map">
+		UPDATE CLASSROOM SET CLASSROOM_NAME = #{CLASSROOM_NAME}, MAX_PEOPLE = #{MAX_PEOPLE}, UPD_DTM = NOW()
+		WHERE CLASSROOM_ID = #{CLASSROOM_ID}
+	</update>
+	
+	<delete id="deleteAdminClassroom" parameterType="java.util.Map">
+		DELETE from CLASSROOM
+		WHERE CLASSROOM_ID = #{CLASSROOM_ID};
+	</delete>
+	
 </mapper>
