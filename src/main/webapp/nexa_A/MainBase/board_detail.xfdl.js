@@ -140,6 +140,9 @@
 
             obj = new TextArea("txt_Content","377","270","666","160",null,null,null,null,null,null,this);
             obj.set_taborder("15");
+            obj.set_scrolltype("horizontal");
+            obj.set_tooltiptype("hover");
+            obj.set_scrollbartype("default");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_addFile","916","482","57","48",null,null,null,null,null,null,this);
@@ -210,6 +213,8 @@
         */
 
 
+
+        // 화면 온로드
         this.board_upload_onload = function(obj,e)
         {
         	this.fnOnload();
@@ -572,13 +577,16 @@
 
         };
 
-        /*
+
         // 변경사항 감지
-        this.btn_closeBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+        this.btn_closeBoard_onclick = function(obj,e)
         {
-        	if (this.ds_copyCat == this.ds_board)
+        	var origin = this.ds_board.saveXML();
+        	var copy = this.ds_copyCat.saveXML();
+
+        	if (this.origin === this.copy)
         	{
-        		this.close
+        		this.close();
         	} else {
         		var onChanged = this.confirm("변경 된 사항이 있습니다.");
         		if (!onChanged) {
@@ -586,7 +594,8 @@
         		}
         	}
         };
-        */
+
+
 
         });
         
@@ -598,6 +607,7 @@
             this.btn_closeBoard.addEventHandler("onclick",this.btn_closeBoard_onclick,this);
             this.btn_updateBoard.addEventHandler("onclick",this.btn_updateBoard_onclick,this);
             this.btn_fileDown.addEventHandler("onclick",this.btn_fileDown_onclick,this);
+            this.txt_Content.addEventHandler("onkeyup",this.txt_Content_onkeyup,this);
             this.btn_addFile.addEventHandler("onclick",this.btn_addFile_onclick,this);
             this.btn_deleteFile.addEventHandler("onclick",this.btn_deleteFile_onclick,this);
             this.btn_deleteBoard.addEventHandler("onclick",this.btn_deleteBoard_onclick,this);

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Script version="1.0" type="xscript5.1"><![CDATA[/**
+* @description 	    	: Div 사이즈 변경 함수
+* @param objDiv  		: 사이즈를 변경 할 Div
+* @param sResizeType	: 사이즈 변경 방식
+* @param nGap			: 하위 컴포넌트와 Div간 여백 값
+* @return           	: 없음
+*/
+this.gfnResetDivSize = function(objDiv, sResizeType, nGap)
+{
+	//컴포넌트를 Scroll없이 표현하기 위한 Div Width, Height 값
+	var nMaxHeight = 0;
+	var nMaxWidth = 0;
+	
+	//Div에 포함된 컴포넌트 리스트 가져오기
+	var objComps = objDiv.form.components;
+	
+	//Div에 포함된 컴포넌트의 갯수
+	var nCompCnt = objComps.length;
+	
+	//컴포넌트용 변수
+	var objTargetComp;
+	
+	//컴포넌트의 Left, Top, Width, Height 좌표값
+	var nLeft, nTop, nWidth, nHeight;
+	
+	//컴포넌트의 Right, Bootom 좌표값
+	var nRight, nBottom;
+	
+	if(!sResizeType)sResizeType = "both";
+	
+	if(!nGap)nGap = 0;
+	
+	//컴포넌트의 갯수만큼 Loop
+	for(var i=0;i<nCompCnt;i++)
+	{
+		//확인할 컴포넌트 가져오기
+		objTargetComp = objComps[i];
+		
+		if(objTargetComp.visible==false)continue;
+		
+		if(sResizeType=="height"||sResizeType=="both")
+		{
+			//컴포넌트의 Top 좌표값 가져오기
+			nTop = nexacro.toNumber(objTargetComp.getOffsetTop());
+			
+			//컴포넌트의 Height 값 가져오기
+			nHeight = nexacro.toNumber(objTargetComp.getOffsetHeight());
+			
+			//컴포넌트의 Bottom 값 구하기
+			nBottom = nTop + nHeight;
+			
+			//가장 하단에 위치한 컴포넌트의 Bottom값으로 
+			//Scroll없이 표현하기 위한 Div Height 값 구하기
+			if(nMaxHeight<nBottom)nMaxHeight = nBottom;
+		}
+		
+		if(sResizeType=="width"||sResizeType=="both")
+		{
+			//컴포넌트의 Left 좌표값 가져오기
+			nLeft = nexacro.toNumber(objTargetComp.getOffsetLeft());
+			
+			//컴포넌트의 Width 값 가져오기
+			nWidth = nexacro.toNumber(objTargetComp.getOffsetWidth());
+			
+			//컴포넌트의 Rigth 값 구하기
+			nRight = nLeft + nWidth;
+			
+			//가장 하단에 위치한 컴포넌트의 Right값으로 
+			//Scroll없이 표현하기 위한 Div Width 값 구하기
+			if(nMaxWidth<nRight)nMaxWidth = nRight;
+		}
+	}
+	
+	if(sResizeType=="width")
+	{
+		//Div Width 변경
+		objDiv.setOffsetWidth(nMaxWidth+nGap);
+	}else if(sResizeType=="height")
+	{
+		//Div Height 변경
+		objDiv.setOffsetHeight(nMaxHeight+nGap);
+	}else
+	{
+		//Div Width 변경
+		objDiv.setOffsetWidth(nMaxWidth+nGap);
+		
+		//Div Height 변경
+		objDiv.setOffsetHeight(nMaxHeight+nGap);
+	}
+	
+	//ResetScroll로 Scrollbar 갱신
+	objDiv.form.resetScroll();
+}]]></Script>

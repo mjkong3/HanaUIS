@@ -36,7 +36,7 @@
         <Button id="btn_updateBoard" taborder="12" text="수정" left="634" top="617" width="72" height="33" onclick="btn_updateBoard_onclick"/>
         <FileDownload id="btn_fileDown" taborder="13" text="파일 다운" left="845" top="482" width="58" height="48" onclick="btn_fileDown_onclick"/>
         <TextArea id="txt_Title" taborder="14" left="377" top="137" width="283" height="46"/>
-        <TextArea id="txt_Content" taborder="15" left="377" top="270" width="666" height="160"/>
+        <TextArea id="txt_Content" taborder="15" left="377" top="270" width="666" height="160" scrolltype="horizontal" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="default"/>
         <Button id="btn_addFile" taborder="16" text="파일 첨부" left="916" top="482" width="57" height="48" onclick="btn_addFile_onclick"/>
         <Button id="btn_deleteFile" taborder="17" text="파일 삭제" left="983" top="482" width="60" height="48" onclick="btn_deleteFile_onclick"/>
         <Button id="btn_deleteBoard" taborder="18" text="삭제" left="971" top="617" width="72" height="33" color="white" background="#ff0505" onclick="btn_deleteBoard_onclick"/>
@@ -50,6 +50,8 @@
 */
 
 
+
+// 화면 온로드
 this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.fnOnload();
@@ -412,13 +414,16 @@ this.fnCallDeleteBoard = function(svcID, errorCode, errorMsg) {
 
 };
 
-/*
+
 // 변경사항 감지
 this.btn_closeBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	if (this.ds_copyCat == this.ds_board)
+	var origin = this.ds_board.saveXML();
+	var copy = this.ds_copyCat.saveXML();
+
+	if (this.origin === this.copy)
 	{
-		this.close
+		this.close();
 	} else {
 		var onChanged = this.confirm("변경 된 사항이 있습니다.");
 		if (!onChanged) {
@@ -426,7 +431,8 @@ this.btn_closeBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventIn
 		}
 	}
 };
-*/
+
+
 ]]></Script>
     <Objects>
       <Dataset id="ds_board">

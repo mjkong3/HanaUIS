@@ -11,6 +11,9 @@
         {
             this.set_name("board_upload");
             this.set_titletext("New Form");
+            this.set_scrollbarsize("0");
+            this.set_scrolltype("horizontal");
+            this.set_scrollbartype("none default");
             if (Form == this.constructor)
             {
                 this._setFormPosition(1280,720);
@@ -23,7 +26,7 @@
 
 
             obj = new Dataset("ds_board", this);
-            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -80,9 +83,12 @@
             obj = new TextArea("txt_content","410","260","584","190",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_textAlign("left");
-            obj.set_font("16px/normal \"Gulim\"");
-            obj.set_scrolltype("horizontal");
+            obj.set_font("16px/1.2 \"Gulim\"");
+            obj.set_scrolltype("both");
             obj.set_readonly("false");
+            obj.set_wordWrap("both");
+            obj.set_scrollbartype("default default");
+            obj.set_scrollbarsize("10");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static01_00_00","174","460","172","93",null,null,null,null,null,null,this);
@@ -146,19 +152,14 @@
         // 폼 온로드
         this.board_upload_onload = function(obj,e)
         {
-        	// 작성자 이름 가져오기
-
-        	if(this.ds_board.getRowCount() < 1) {
-        		this.ds_board.addRow();
-        	}
+        	// 글로벌 DS(SESSION)에서 작성자 이름 ds_board에 박기
+        	var gdsApp = nexacro.getApplication();
+        	var adName = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_NAME");
+        	this.ds_board.setColumn(0, "ADMIN_NAME", adName);
+        	trace("이름 제대로 들어갔나? " + this.ds_pro.getColumn(0, "ADMIN_NAME"));
 
         	trace(this.ds_board.saveXML);
         };
-
-        /************************************************************************
-         * 							공지사항 ds 추가
-         ************************************************************************/
-
 
         /************************************************************************
          *							파일 업로드
@@ -167,16 +168,18 @@
         // 파일 업로드 버튼
         this.btn_addFile_onclick = function(obj,e)
         {
+        	//파일 첨부하기 위한 팝업 및 데이터 전달 도구
             this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);
-
         };
 
         // 파일 팝업 창 닫을 때 파일 추가
         this.FileDialog00_onclose = function(obj,e)
         {
+        	// 파일 첨부 창에서 선택한 파일들을 가상에 추가
             this.addFileList(e.virtualfiles);
         	console.log(e.virtualfiles.length);
 
+        	// 파일 제목들을 fileInsert_ds (FILE, BOARD db에 들어갈 ds)에 저장
         	for(var i=0;i<e.virtualfiles.length;i++){
         		var nRow = this.ds_fileInsert.addRow();
         		this.ds_fileInsert.setColumn(nRow, "FILE_NAME", e.virtualfiles[i].filename);
@@ -185,10 +188,11 @@
         	console.log(this.ds_fileInsert.saveXML());
         };
 
-        // 파일 추가 처리 함수
+        // 파일 추가 처리 함수 (파일 첨부 창에서 선택한 파일들을 vFile에 list로 삽입)
         this.addFileList = function(filelist) {
             for (var i = 0, len = filelist.length, vFile; i < len; i++)
             {
+        		// 파일이 제대로 들어오면 성공으로 / 실패로 반환
                 vFile = filelist[i];
                 vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
                 vFile.addEventHandler("onerror", this.FileList_onerror , this);
@@ -208,23 +212,23 @@
         };
 
 
-        // virtualfile의 성공 실패
+        // 파일 변환 성공 시 grid에 표현, ds에 추가 및 fileuptransfer에 추가
         this.FileList_onsuccess = function(obj, e)
         {
             switch (e.reason)
             {
                 case 1:
-                    obj.getFileSize();
+                    //obj.getFileSize();
                     break;
                 case 9:
                     var nRowIdx = this.ds_file.addRow();
                     this.ds_file.setColumn(nRowIdx, 0, obj.filename);
-                    this.ds_file.setColumn(nRowIdx, 1, this.cutFileSize(e.filesize));
                     this.FileUpTransfer00.addFile(obj.filename, obj);
                     break;
             }
         };
 
+        // 넘어가지 않을 시 에러 표현
         this.FileList_onerror = function(obj, e)
         {
             trace("errortype: "+e.errortype);
@@ -234,15 +238,15 @@
 
 
         // 파일 사이즈 계산 함수
-        this.cutFileSize = function(filesize)
-        {
-            var sOutput = filesize + " bytes";
-            for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++)
-            {
-                sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
-            }
-            return sOutput;
-        };
+        // this.cutFileSize = function(filesize)
+        // {
+        //     var sOutput = filesize + " bytes";
+        //     for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++)
+        //     {
+        //         sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
+        //     }
+        //     return sOutput;
+        // };
 
         // 업로드한 파일 전체 삭제
         this.btn_deleteFile_onclick = function(obj,e)
@@ -274,7 +278,7 @@
             this.fn_addlog(e.statuscode);
         };
 
-        // textarea에 추가
+        // 성공 및 실패 여부 표현
         this.fn_addlog = function(strMessage)
         {
             trace(strMessage + '\n');
@@ -284,64 +288,8 @@
         /************************************************************************
          * 								데이터 전송
          ************************************************************************/
-         /*
-         this.fnInsertBoardData = function() {
 
-            var strSvcId    = "insertBoard";
-            var strSvcUrl   = "svc::insertBoard.do";
-            var inData      = "ds_board=ds_board";
-            var outData     = "";  // 결과를 받을 데이터셋
-            var strArg      = ""
-            var callBackFnc = "fnCallbackInsertBoard";
-            var isAsync     = true;
-
-            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
-        };
-
-        // 게시글 저장 후 호출될 콜백 함수
-        this.fnCallbackInsertBoard = function(svcID, errorCode, errorMsg) {
-            if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
-        		console.log("BOARD 테이블 작성 완료");
-        		this.alert("공지사항이 게시되었습니다");
-        		this.fnInsertFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
-            } else {
-                alert("게시글 저장 중 오류 발생: " + errorMsg);
-            }
-        };
-
-         this.fnInsertFileData = function() {
-            var strSvcId    = "insertFile";
-            var strSvcUrl   = "svc::insertFile.do";
-            var inData      = "ds_fileInsert=ds_fileInsert";
-            var outData     = "";  // 결과를 받을 데이터셋
-            var strArg      = ""
-            var callBackFnc = "fnCallback";
-            var isAsync     = false;
-
-            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
-        };
-
-        // 게시 버튼 누를 시 // 파일 업로드 (복사)
-        this.btn_addBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-        {
-        	//this.ds_board.setColumn(0, "TITLE", this.txt_title.value);
-        	//this.ds_board.setColumn(0, "CONTENT", this.txt_content.value);
-
-            this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
-
-        	// board에 넣고 callback함수로 file에 2차로 넣기
-        	this.fnInsertBoardData();
-        };
-        */
-
-        //  this.fnSetDataset = function() {
-        // 	 for(var i=0;i<this.ds_board.getRowCount();i++){
-        // 		this.ds_board.setColumn(i, "TITLE", this.txt_title.value);
-        // 		this.ds_board.setColumn(i, "CONTENT", this.txt_content.value);
-        // 		this.ds_fnInsert.setColumn(i, "TITLE", this.txt_content.value);
-        // 	}
-        // }
-
+        //공지사항 트랜잭션
          this.fnInsertBoardData = function() {
 
         	// 제목 및 공지사항이 비었을 때 처리
@@ -360,7 +308,7 @@
 
             var strSvcId    = "insertBoard";
             var strSvcUrl   = "svc::insertBoard.do";
-            var inData      = "ds_board=ds_board";
+            var inData      = "ds_board=ds_board";	// 정보를 넘길 데이터셋
             var outData     = "ds_board=ds_board";  // 결과를 받을 데이터셋
             var strArg      = ""
             var callBackFnc = "fnCallbackInsertFile";
@@ -375,12 +323,12 @@
         		console.log("BOARD 테이블 작성 완료");
         		this.fnInsertFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
             } else {
-                alert("게시글 저장 중 오류 발생: " + errorMsg);
+                alert("공지사항 등록 중 오류 발생: " + errorMsg);
             }
         };
 
 
-
+        // 파일 입력 트랜잭션 (BOARD table INSERT 후 진행)
          this.fnInsertFileData = function() {
             var strSvcId    = "insertFile";
             var strSvcUrl   = "svc::insertFile.do";
@@ -400,7 +348,7 @@
         		this.alert("공지사항이 게시되었습니다");
         		this.close;
             } else {
-                alert("게시글 저장 중 오류 발생: " + errorMsg);
+                alert("첨부파일 등록 중 오류 발생: " + errorMsg);
             }
         };
 
@@ -411,12 +359,45 @@
         		this.ds_fileInsert.setColumn(i, "TITLE", this.txt_title.value);
         	}
 
+        	// JSP를 통해 POST 방식으로 로컬 폴더(D:/upload/)로 업로드)
             this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
 
         	// board에 넣고 callback함수로 file에 2차로 넣기
         	this.fnInsertBoardData();
         	this.ds_fileInsert.saveXML();
 
+        };
+
+
+
+
+
+        /************************************************************************
+         * 							진행 사항
+         ************************************************************************/
+
+
+        // 게시글 textarea 높이 늘리기
+        this.txt_content_onkeyup = function(obj,e)
+        {
+        	var defaultHeight = 190;  // 기본 높이
+            var textLineHeight = 20;  // 줄 당 높이(대략적인 값)
+
+            // 현재 텍스트의 스크롤 높이
+            var contentScrollHeight = obj.getElement().scrollHeight;
+
+            // 아무 내용도 없거나 기본값보다 작은 경우 기본값으로 설정
+            if (contentScrollHeight <= defaultHeight) {
+                obj.set_height(defaultHeight);
+            } else {
+                // 기본 줄을 넘어서면 contentScrollHeight로 높이 설정
+                obj.set_height(contentScrollHeight);
+            }
+
+            // TextArea의 높이가 변함에 따라 다른 컴포넌트들도 조정
+            // 예시로 'comp'라는 다른 컴포넌트가 있다고 가정하고, 위치를 조정
+        //     var newCompYPosition = obj.getOffsetBottom();  // TextArea의 하단 y 좌표
+        //     this.comp.set_top(newCompYPosition + 10);  // 다른 컴포넌트를 TextArea 하단에 배치
         };
 
 
@@ -427,7 +408,7 @@
         {
             this.addEventHandler("onload",this.board_upload_onload,this);
             this.Static01_00.addEventHandler("onclick",this.Static01_00_onclick,this);
-            this.txt_content.addEventHandler("onchanged",this.txt_content_onchanged,this);
+            this.txt_content.addEventHandler("onkeyup",this.txt_content_onkeyup,this);
             this.Static01_00_00.addEventHandler("onclick",this.Static01_00_onclick,this);
             this.grd_file.addEventHandler("onclick",this.grd_file_onclick,this);
             this.grd_file.addEventHandler("ondrop",this.grd_file_ondrop,this);
