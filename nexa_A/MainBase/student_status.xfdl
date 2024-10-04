@@ -39,10 +39,10 @@
         </Grid>
         <Static id="Static00_00" taborder="2" left="545" top="109" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학번" font="12px/normal &quot;Gulim&quot;" onclick="Static00_00_onclick"/>
         <Static id="Static00_03" taborder="3" left="642" top="109" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_StdId" taborder="4" left="654" top="119" width="153" height="31" readonly="false"/>
+        <Edit id="edt_StdId" taborder="4" left="654" top="119" width="153" height="31" readonly="true"/>
         <Static id="Static00_00_00" taborder="5" left="545" top="206" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청유형" font="12px/normal &quot;Gulim&quot;"/>
         <Static id="Static00_03_00" taborder="6" left="642" top="206" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_StatusType" taborder="7" left="654" top="216" width="153" height="31" readonly="false"/>
+        <Edit id="edt_StatusType" taborder="7" left="654" top="216" width="153" height="31" readonly="true"/>
         <Static id="Static00_00_00_00" taborder="8" left="545" top="255" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   휴학희망일" font="12px/normal &quot;Gulim&quot;"/>
         <Static id="Static00_03_00_00" taborder="9" left="642" top="255" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_00_00_00_00" taborder="10" left="817" top="255" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   복학희망일" font="12px/normal &quot;Gulim&quot;"/>
@@ -50,20 +50,20 @@
         <Static id="Static00_03_00_00_00_00" taborder="12" left="914" top="206" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_00_00_00_00_00" taborder="13" left="817" top="206" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청일자" font="12px/normal &quot;Gulim&quot;"/>
         <Static id="Static00_03_00_00_00_00_00" taborder="14" left="914" top="109" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_Name" taborder="15" left="926" top="119" width="153" height="31" readonly="false"/>
+        <Edit id="edt_Name" taborder="15" left="926" top="119" width="153" height="31" readonly="true"/>
         <Static id="Static00_00_00_00_00_00_00" taborder="16" left="817" top="109" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이름" font="12px/normal &quot;Gulim&quot;" onclick="Static00_00_00_00_00_00_00_onclick"/>
         <Static id="Static00_00_00_00_00_00_01" taborder="17" left="817" top="158" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학적상태" font="12px/normal &quot;Gulim&quot;"/>
         <Static id="Static00_03_00_00_00_00_01" taborder="18" left="914" top="158" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_StdStatus" taborder="19" left="926" top="168" width="153" height="31" readonly="false"/>
+        <Edit id="edt_StdStatus" taborder="19" left="926" top="168" width="153" height="31" readonly="true"/>
         <Static id="Static00_03_00_00_00_00_01_00" taborder="20" left="642" top="158" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_department" taborder="21" left="654" top="168" width="153" height="31" readonly="false"/>
+        <Edit id="edt_department" taborder="21" left="654" top="168" width="153" height="31" readonly="true"/>
         <Static id="Static00_00_00_00_00_00_01_00" taborder="22" left="545" top="158" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과" font="12px/normal &quot;Gulim&quot;"/>
         <Static id="Static00_03_00_00_00_00_01_00_00" taborder="23" left="642" top="304" width="448" height="188" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_00_00_00_00_00_01_00_00" taborder="24" left="545" top="304" width="98" height="187" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청사유" font="12px/normal &quot;Gulim&quot;"/>
-        <TextArea id="ta_Reasen" taborder="25" left="654" top="315" width="425" height="165" onchanged="Reasen_onchanged" readonly="false"/>
-        <Calendar id="cal_LeaveDate" taborder="26" left="654" top="265" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
-        <Calendar id="cal_RegDate" taborder="27" left="926" top="216" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
-        <Calendar id="cal_RetuenDate" taborder="28" left="926" top="265" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
+        <TextArea id="ta_Reasen" taborder="25" left="654" top="315" width="425" height="165" onchanged="Reasen_onchanged" readonly="true"/>
+        <Calendar id="cal_LeaveDate" taborder="26" left="654" top="265" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
+        <Calendar id="cal_RegDate" taborder="27" left="926" top="216" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
+        <Calendar id="cal_RetuenDate" taborder="28" left="926" top="265" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
         <Static id="Static00_00_00_00_01" taborder="29" left="545" top="490" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   승인여부" font="12px/normal &quot;Gulim&quot;"/>
         <Static id="Static00_03_00_00_01" taborder="30" left="642" top="490" width="448" height="50" background="white" border="1px solid #d3d3d4" text=""/>
         <Button id="btn_Save" taborder="31" text="저장" left="950" top="496" width="129" height="38" onclick="btn_Save_onclick"/>
@@ -158,7 +158,12 @@
           <Column id="REASON" type="STRING" size="256"/>
           <Column id="APPROVED" type="STRING" size="256"/>
           <Column id="STATUS_CODE" type="STRING" size="256"/>
+          <Column id="CRE_DTM" type="STRING" size="256"/>
+          <Column id="CRE_USR" type="STRING" size="256"/>
         </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
       </Dataset>
       <Dataset id="ds_SearchDepartment">
         <ColumnInfo>
@@ -179,6 +184,7 @@ this.student_status_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo){
 
 	this.fn_departmentList();
 	this.fn_studentList();
+
 }
 
 //학과목록 호출 함수 : 구자명
@@ -243,39 +249,67 @@ this.btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.fn_studentList();
 };
+
 //생성버튼 클릭
 this.btn_Create_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	this.ds_StudentList.addRow();
-	
-	this.edt_StdId.set_readonly(false);
-	this.edt_Name.set_readonly(false);
-	this.edt_department.set_readonly(false);
-	this.edt_StdStatus.set_readonly(false);
-	this.edt_statusType.set_readonly(false);
-	this.cal_RegDate.set_readonly(false);
-	this.cal_LeaveDate.set_readonly(false);
-	this.cal_RetuenDate.set_readonly(false);
-	this.ta_Reasen.set_readonly(false);
+{	
+	// 새로운 행 추가 - 실제 입력할 행을 만든다
+    var newRow = this.ds_StudentList.insertRow(); 
+	// 이전 트랜잭션 결과 값 초기화
+    this.ds_StudentDetail.clearData();  
+	// 그리드에 포커스 설정
+    this.grd_applicationList.setFocus(true);
+	// 새로 추가된 행으로 이동
+    this.grd_applicationList.selectRow(newRow); 
 
+    // oncellclick 이벤트 강제 호출
+    var cellClickEventInfo = new nexacro.GridClickEventInfo(
+        this.grd_applicationList, "oncellclick", newRow, 0, 0, 0, "left", "cell"
+    );
+    this.grd_applicationList.oncellclick._fireEvent(this.grd_applicationList, cellClickEventInfo);
 };
 //저장버튼 클릭
 this.btn_Save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	var gdsApp = nexacro.getApplication();
+	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+	var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+	trace("gds에서 받아온 값 = " + adCode + " / " + regdt);
+	this.ds_StudentDetail.setColumn(0, "CRE_USR", adCode);
+	this.ds_StudentDetail.setColumn(0, "CRE_DTM", regdt);
+	var chkUsr = this.ds_StudentDetail.getColumn(0, "CRE_USR");
+	var chkDtm = this.ds_StudentDetail.getColumn(0, "CRE_DTM");
+	trace("setcolumn한 값 = " + chkUsr + " / " + chkDtm);
+	
+	if(chkUsr != null && chkUsr != '' && chkUsr != 0) {
 	this.fn_studentDetailSave();
+	trace("입력값 넘기기11@!? " + this.ds_StudentDetail.saveXML());
+	} else {
+	trace("하하핳ㅎ");
+	}
 };
 //그리드 내 학생 클릭
 this.cell_student_onclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-	var statusCode = this.ds_StudentList.getColumn(this.ds_StudentList.rowposition, "STATUS_CODE");
-	
-	this.fn_studentDetail(statusCode);
-	
+    var rowPos = this.ds_StudentList.rowposition;
+	trace("현재 row값은? = " + rowPos);
+    var rowTp = this.ds_StudentList.getRowType(rowPos);
+
+    // 새로운 행일 경우 트랜잭션을 실행하지 않고 readonly 해제
+    if (rowTp == Dataset.ROWTYPE_INSERT) {
+       
+	   // 새로운 행을 추가하여 작성 가능하게 만듦
+        this.ds_StudentDetail.addRow();  
+       // readonly 해제
+	   this.fn_setReadonly(false);  
+       // 트랜잭션 실행하지 않음
+	   return;  
+    }
+
+    var statusCode = this.ds_StudentList.getColumn(rowPos, "STATUS_CODE");
+    this.fn_studentDetail(statusCode);  // 기존 데이터는 트랜잭션 실행하여 상세 정보 조회
 
 };
-
-
-
 
 
 //콜백 함수
@@ -297,11 +331,11 @@ this.fnCallback = function(svcID,errorCode,errorMsg){
 			break;
 			
 		case "studentList":
-			trace("받아온 값? = " + this.ds_StudentList.saveXML());
+			/*trace("받아온 값? = " + this.ds_StudentList.saveXML());*/
 			break;
 		case "studentDetail":
-			trace("받아온 값? = " + this.ds_StudentDetail.saveXML());
-			
+			trace("받아온 값? = " + this.ds_StudentDetail.getColumn(0, "NAME"));
+			this.fn_setReadonly(true);
 			break;	
 		case "studentDetailSave":
 			  this.alert("저장되었습니다");
@@ -313,7 +347,17 @@ this.fnCallback = function(svcID,errorCode,errorMsg){
 };
 
 
-
+this.fn_setReadonly = function(isReadonly) {
+    this.edt_department.set_readonly(isReadonly);
+	this.edt_Name.set_readonly(isReadonly);
+	this.edt_StatusType.set_readonly(isReadonly);
+	this.edt_StdId.set_readonly(isReadonly);
+	this.edt_StdStatus.set_readonly(isReadonly);
+	this.cal_LeaveDate.set_readonly(isReadonly);
+	this.cal_RegDate.set_readonly(isReadonly);
+	this.cal_RetuenDate.set_readonly(isReadonly);
+	this.ta_Reasen.set_readonly(isReadonly);
+};
 
 
 

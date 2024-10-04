@@ -405,19 +405,23 @@
         		trace("강의리스트는? = " + this.ds_class.saveXML());
         		trace("강의리스트 첫번째 = " + this.ds_class.getColumn(0, "CLASS_NAME"));
 
-        		// 콤보박스 초기화
+        		// 콤보박스 초기화 및 스태틱 초기화
+        		// 초기화하지 않을 경우 빈 데이터셋일때 이전 이름 남아있다
         		this.Div00.form.cmb_Class.set_index(-1);
-        		this.Div00.form.Static01.set_text("");    // 스태틱 초기화
+        		this.Div00.form.Static01.set_text("");
 
         		// 동적으로 데이터가 바인딩된 후 첫 번째 값을 설정
         		if (this.ds_class.rowcount > 0) {
-        			this.Div00.form.cmb_Class.set_index(0);  // 첫 번째 값을 강제로 선택
+        			// 데이터셋이 있을 경우 강제로 첫번째 값 설정
+        			this.Div00.form.cmb_Class.set_index(0);
 
         			// ds_search에 값 설정
         			this.ds_search.setColumn(0, "PROFESSOR_ID", this.ds_class.getColumn(0, "PROFESSOR_ID"));
         			this.ds_search.setColumn(0, "NAME", this.ds_class.getColumn(0, "NAME"));
+        			this.Div00.form.Static01.set_text(this.ds_class.getColumn(0, "NAME"));
 
         			// 강제로 onitemchanged 이벤트를 트리거
+        			// 해주지 않으면 만약 item값이 동일한 경우(동일한 교수) 스태틱이 null이 된다
         			this.Div00.form.cmb_Class.on_fire_onitemchanged(this.Div00.form.cmb_Class, null, null, this.Div00.form.cmb_Class.index, 0);
         		}
         		// 데이터셋 rowcount에 따라 검색 버튼 활성화

@@ -33,7 +33,7 @@
 
 
             obj = new Dataset("ds_StudentDetail", this);
-            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"REG_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"LEAVE_DATE\" type=\"STRING\" size=\"256\"/><Column id=\"RETURN_DATE\" type=\"STRING\" size=\"256\"/><Column id=\"REASON\" type=\"STRING\" size=\"256\"/><Column id=\"APPROVED\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"REG_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"LEAVE_DATE\" type=\"STRING\" size=\"256\"/><Column id=\"RETURN_DATE\" type=\"STRING\" size=\"256\"/><Column id=\"REASON\" type=\"STRING\" size=\"256\"/><Column id=\"APPROVED\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -70,7 +70,7 @@
 
             obj = new Edit("edt_StdId","654","119","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("4");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00","545","206","98","50",null,null,null,null,null,null,this);
@@ -89,7 +89,7 @@
 
             obj = new Edit("edt_StatusType","654","216","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("7");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00_00","545","255","98","50",null,null,null,null,null,null,this);
@@ -142,7 +142,7 @@
 
             obj = new Edit("edt_Name","926","119","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("15");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00_00_00_00_00","817","109","98","50",null,null,null,null,null,null,this);
@@ -169,7 +169,7 @@
 
             obj = new Edit("edt_StdStatus","926","168","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("19");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_00_00_00_00_01_00","642","158","176","50",null,null,null,null,null,null,this);
@@ -180,7 +180,7 @@
 
             obj = new Edit("edt_department","654","168","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("21");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00_00_00_00_01_00","545","158","98","50",null,null,null,null,null,null,this);
@@ -207,25 +207,25 @@
 
             obj = new TextArea("ta_Reasen","654","315","425","165",null,null,null,null,null,null,this);
             obj.set_taborder("25");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Calendar("cal_LeaveDate","654","265","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("26");
             obj.set_dateformat("yyyy-MM-dd");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Calendar("cal_RegDate","926","216","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("27");
             obj.set_dateformat("yyyy-MM-dd");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Calendar("cal_RetuenDate","926","265","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("28");
             obj.set_dateformat("yyyy-MM-dd");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00_00_01","545","490","98","50",null,null,null,null,null,null,this);
@@ -366,6 +366,7 @@
 
         	this.fn_departmentList();
         	this.fn_studentList();
+
         }
 
         //학과목록 호출 함수 : 구자명
@@ -430,39 +431,67 @@
         {
         	this.fn_studentList();
         };
+
         //생성버튼 클릭
         this.btn_Create_onclick = function(obj,e)
         {
-        	this.ds_StudentList.addRow();
+        	// 새로운 행 추가 - 실제 입력할 행을 만든다
+            var newRow = this.ds_StudentList.insertRow();
+        	// 이전 트랜잭션 결과 값 초기화
+            this.ds_StudentDetail.clearData();
+        	// 그리드에 포커스 설정
+            this.grd_applicationList.setFocus(true);
+        	// 새로 추가된 행으로 이동
+            this.grd_applicationList.selectRow(newRow);
 
-        	this.edt_StdId.set_readonly(false);
-        	this.edt_Name.set_readonly(false);
-        	this.edt_department.set_readonly(false);
-        	this.edt_StdStatus.set_readonly(false);
-        	this.edt_statusType.set_readonly(false);
-        	this.cal_RegDate.set_readonly(false);
-        	this.cal_LeaveDate.set_readonly(false);
-        	this.cal_RetuenDate.set_readonly(false);
-        	this.ta_Reasen.set_readonly(false);
-
+            // oncellclick 이벤트 강제 호출
+            var cellClickEventInfo = new nexacro.GridClickEventInfo(
+                this.grd_applicationList, "oncellclick", newRow, 0, 0, 0, "left", "cell"
+            );
+            this.grd_applicationList.oncellclick._fireEvent(this.grd_applicationList, cellClickEventInfo);
         };
         //저장버튼 클릭
         this.btn_Save_onclick = function(obj,e)
         {
+        	var gdsApp = nexacro.getApplication();
+        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        	var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+        	trace("gds에서 받아온 값 = " + adCode + " / " + regdt);
+        	this.ds_StudentDetail.setColumn(0, "CRE_USR", adCode);
+        	this.ds_StudentDetail.setColumn(0, "CRE_DTM", regdt);
+        	var chkUsr = this.ds_StudentDetail.getColumn(0, "CRE_USR");
+        	var chkDtm = this.ds_StudentDetail.getColumn(0, "CRE_DTM");
+        	trace("setcolumn한 값 = " + chkUsr + " / " + chkDtm);
+
+        	if(chkUsr != null && chkUsr != '' && chkUsr != 0) {
         	this.fn_studentDetailSave();
+        	trace("입력값 넘기기11@!? " + this.ds_StudentDetail.saveXML());
+        	} else {
+        	trace("하하핳ㅎ");
+        	}
         };
         //그리드 내 학생 클릭
         this.cell_student_onclick = function(obj,e)
         {
-        	var statusCode = this.ds_StudentList.getColumn(this.ds_StudentList.rowposition, "STATUS_CODE");
+            var rowPos = this.ds_StudentList.rowposition;
+        	trace("현재 row값은? = " + rowPos);
+            var rowTp = this.ds_StudentList.getRowType(rowPos);
 
-        	this.fn_studentDetail(statusCode);
+            // 새로운 행일 경우 트랜잭션을 실행하지 않고 readonly 해제
+            if (rowTp == Dataset.ROWTYPE_INSERT) {
 
+        	   // 새로운 행을 추가하여 작성 가능하게 만듦
+                this.ds_StudentDetail.addRow();
+               // readonly 해제
+        	   this.fn_setReadonly(false);
+               // 트랜잭션 실행하지 않음
+        	   return;
+            }
+
+            var statusCode = this.ds_StudentList.getColumn(rowPos, "STATUS_CODE");
+            this.fn_studentDetail(statusCode);  // 기존 데이터는 트랜잭션 실행하여 상세 정보 조회
 
         };
-
-
-
 
 
         //콜백 함수
@@ -484,11 +513,11 @@
         			break;
 
         		case "studentList":
-        			trace("받아온 값? = " + this.ds_StudentList.saveXML());
+        			/*trace("받아온 값? = " + this.ds_StudentList.saveXML());*/
         			break;
         		case "studentDetail":
-        			trace("받아온 값? = " + this.ds_StudentDetail.saveXML());
-
+        			trace("받아온 값? = " + this.ds_StudentDetail.getColumn(0, "NAME"));
+        			this.fn_setReadonly(true);
         			break;
         		case "studentDetailSave":
         			  this.alert("저장되었습니다");
@@ -500,7 +529,17 @@
         };
 
 
-
+        this.fn_setReadonly = function(isReadonly) {
+            this.edt_department.set_readonly(isReadonly);
+        	this.edt_Name.set_readonly(isReadonly);
+        	this.edt_StatusType.set_readonly(isReadonly);
+        	this.edt_StdId.set_readonly(isReadonly);
+        	this.edt_StdStatus.set_readonly(isReadonly);
+        	this.cal_LeaveDate.set_readonly(isReadonly);
+        	this.cal_RegDate.set_readonly(isReadonly);
+        	this.cal_RetuenDate.set_readonly(isReadonly);
+        	this.ta_Reasen.set_readonly(isReadonly);
+        };
 
 
 
