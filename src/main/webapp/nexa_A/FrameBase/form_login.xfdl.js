@@ -258,6 +258,14 @@
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
+
+        this.form_login_onkeyup = function(obj,e)
+        {
+        	if(e.keycode==13){
+        		this.Login_btn.click();
+        	}
+        };
+
         });
         
         // Regist UI Components Event

@@ -59,6 +59,7 @@
             obj.set_innerdataset("ds_dept");
             obj.set_codecolumn("DEPARTMENT_CODE");
             obj.set_datacolumn("DEPARTMENT_NAME");
+            obj.set_displaynulltext("학과를 선택하세요");
             obj.set_text("Combo00");
             this.Div00.addChild(obj.name, obj);
 
@@ -423,12 +424,9 @@
         			// 강제로 onitemchanged 이벤트를 트리거
         			// 해주지 않으면 만약 item값이 동일한 경우(동일한 교수) 스태틱이 null이 된다
         			this.Div00.form.cmb_Class.on_fire_onitemchanged(this.Div00.form.cmb_Class, null, null, this.Div00.form.cmb_Class.index, 0);
-        		}
-        		// 데이터셋 rowcount에 따라 검색 버튼 활성화
-        		var cRow = this.ds_class.rowcount;
-        		if (cRow > 0) {
         			this.Div00.form.btn_Search.set_enable(true);
         		} else {
+        			this.Div00.form.cmb_Class.set_displaynulltext("강의가 없습니다");
         			this.Div00.form.btn_Search.set_enable(false);
         		}
         	}
@@ -455,14 +453,6 @@
 
            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
-
-
-
-
-
-
-
-
         });
         
         // Regist UI Components Event

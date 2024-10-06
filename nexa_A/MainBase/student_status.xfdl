@@ -56,18 +56,17 @@
         <Static id="Static00_03_00_00_00_00_01" taborder="18" left="914" top="158" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
         <Edit id="edt_StdStatus" taborder="19" left="926" top="168" width="153" height="31" readonly="true"/>
         <Static id="Static00_03_00_00_00_00_01_00" taborder="20" left="642" top="158" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_department" taborder="21" left="654" top="168" width="153" height="31" readonly="true"/>
-        <Static id="Static00_00_00_00_00_00_01_00" taborder="22" left="545" top="158" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00_03_00_00_00_00_01_00_00" taborder="23" left="642" top="304" width="448" height="188" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_00_00_00_00_00_01_00_00" taborder="24" left="545" top="304" width="98" height="187" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청사유" font="12px/normal &quot;Gulim&quot;"/>
-        <TextArea id="ta_Reasen" taborder="25" left="654" top="315" width="425" height="165" onchanged="Reasen_onchanged" readonly="true"/>
-        <Calendar id="cal_LeaveDate" taborder="26" left="654" top="265" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
-        <Calendar id="cal_RegDate" taborder="27" left="926" top="216" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
-        <Calendar id="cal_RetuenDate" taborder="28" left="926" top="265" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
-        <Static id="Static00_00_00_00_01" taborder="29" left="545" top="490" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   승인여부" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00_03_00_00_01" taborder="30" left="642" top="490" width="448" height="50" background="white" border="1px solid #d3d3d4" text=""/>
-        <Button id="btn_Save" taborder="31" text="저장" left="950" top="496" width="129" height="38" onclick="btn_Save_onclick"/>
-        <Radio id="rdo_approved" taborder="32" left="653" top="502" width="273" height="27" onitemchanged="rdo_approved_onitemchanged" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical">
+        <Static id="Static00_00_00_00_00_00_01_00" taborder="21" left="545" top="158" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_03_00_00_00_00_01_00_00" taborder="22" left="642" top="304" width="448" height="188" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_00_00_00_00_00_01_00_00" taborder="23" left="545" top="304" width="98" height="187" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청사유" font="12px/normal &quot;Gulim&quot;"/>
+        <TextArea id="ta_Reasen" taborder="24" left="654" top="315" width="425" height="165" onchanged="Reasen_onchanged" readonly="true"/>
+        <Calendar id="cal_LeaveDate" taborder="25" left="654" top="265" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
+        <Calendar id="cal_RegDate" taborder="26" left="926" top="216" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
+        <Calendar id="cal_RetuenDate" taborder="27" left="926" top="265" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
+        <Static id="Static00_00_00_00_01" taborder="28" left="545" top="490" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   승인여부" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_03_00_00_01" taborder="29" left="642" top="490" width="448" height="50" background="white" border="1px solid #d3d3d4" text=""/>
+        <Button id="btn_Save" taborder="30" text="저장" left="950" top="496" width="129" height="38" onclick="btn_Save_onclick"/>
+        <Radio id="rdo_approved" taborder="31" left="653" top="502" width="273" height="27" onitemchanged="rdo_approved_onitemchanged" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical">
           <Dataset id="innerdataset">
             <ColumnInfo>
               <Column id="codecolumn" size="256"/>
@@ -90,10 +89,11 @@
           </Dataset>
         </Radio>
         <Combo id="cmb_Search" taborder="1" left="237" top="40" width="179" height="46" onitemchanged="cmb_Search_onitemchanged" index="-1" value="ALL" innerdataset="ds_SearchType" codecolumn="SEARCH_TYPE" datacolumn="data"/>
-        <Edit id="edt_search" taborder="33" left="440" top="40" width="179" height="46"/>
-        <Button id="btn_Search" taborder="34" text="검색" left="636" top="40" width="120" height="46" onclick="btn_Search_onclick"/>
-        <Combo id="cmb_Search00" left="37" top="40" width="179" height="46" taborder="35" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" text="" value="" index="-1"/>
-        <Button id="btn_Create" taborder="36" text="생성" left="766" top="40" width="120" height="46" onclick="btn_Create_onclick"/>
+        <Edit id="edt_search" taborder="32" left="440" top="40" width="179" height="46"/>
+        <Button id="btn_Search" taborder="33" text="검색" left="636" top="40" width="120" height="46" onclick="btn_Search_onclick"/>
+        <Combo id="cmb_Search00" left="37" top="40" width="179" height="46" taborder="34" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" text="" value="" index="-1"/>
+        <Button id="btn_Create" taborder="35" text="생성" left="766" top="40" width="120" height="46" onclick="btn_Create_onclick"/>
+        <Combo id="cmb_Dept" taborder="36" text="Combo00" left="654" top="168" width="153" height="31" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" readonly="true"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -160,6 +160,9 @@
           <Column id="STATUS_CODE" type="STRING" size="256"/>
           <Column id="CRE_DTM" type="STRING" size="256"/>
           <Column id="CRE_USR" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_CODE" type="STRING" size="256"/>
+          <Column id="UPD_DTM" type="STRING" size="256"/>
+          <Column id="UPD_USR" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row/>
@@ -251,37 +254,52 @@ this.btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 };
 
 //생성버튼 클릭
+// 필요기능 1. 새로 생성한 행으로 커서 이동 - 버튼 onclick 이벤트에서 처리
+// 필요기능 2. 바로 작성가능한 상태 만들기 - 그리드 oncellclick 이벤트에서 처리
 this.btn_Create_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
+	// 1. 새로 추가될 행에 focus를 두도록 만드는 과정
 	// 새로운 행 추가 - 실제 입력할 행을 만든다
     var newRow = this.ds_StudentList.insertRow(); 
-	// 이전 트랜잭션 결과 값 초기화
+	// 이전 트랜잭션 결과 값이 화면에 남아있는 문제 해결을 위해 ds 초기화
     this.ds_StudentDetail.clearData();  
 	// 그리드에 포커스 설정
     this.grd_applicationList.setFocus(true);
 	// 새로 추가된 행으로 이동
-    this.grd_applicationList.selectRow(newRow); 
-
+    this.grd_applicationList.selectRow(newRow);
+	
+	// 2. 새로 추가된 행을 클릭한 것처럼 동작하게 만드는 과정
     // oncellclick 이벤트 강제 호출
+	// 이벤트 강제호출 방식 - this.이벤트명(obj, e)
+	// UI에서 동작을 제어하려면 e(이벤트 객체)를 생성하고 값을 지정
     var cellClickEventInfo = new nexacro.GridClickEventInfo(
-        this.grd_applicationList, "oncellclick", newRow, 0, 0, 0, "left", "cell"
-    );
-    this.grd_applicationList.oncellclick._fireEvent(this.grd_applicationList, cellClickEventInfo);
+        this.grd_applicationList, 	// 이벤트 대상이 되는 객체(ds도 가능) 
+		"oncellclick",  			// 이벤트 종류
+		newRow,  					// 클릭된 행의 인덱스 - 여기선 생성된 행
+		0, 							// 클릭된 셀의 인덱스 - newRow 내의 셀
+		0, 							// 클릭된 헤더의 인덱스
+		0, 							// 클릭된 바디의 인덱스
+		"left", 					// 클릭한 마우스 버튼
+		"cell" 						// 클릭된 셀의 종류
+		);
+	// 지정한 객체값을 넣어주고 이벤트 강제 호출
+    this.cell_student_onclick(this.grd_applicationList, cellClickEventInfo);
 };
 //저장버튼 클릭
 this.btn_Save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+	// 로그인시 gds에 받아온 값을 호출
 	var gdsApp = nexacro.getApplication();
 	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
-	var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
-	trace("gds에서 받아온 값 = " + adCode + " / " + regdt);
+	trace("gds에서 받아온 값 = " + adCode);
+	// gds값을 insert나 update시 사용할 ds에 넣어준다
 	this.ds_StudentDetail.setColumn(0, "CRE_USR", adCode);
-	this.ds_StudentDetail.setColumn(0, "CRE_DTM", regdt);
-	var chkUsr = this.ds_StudentDetail.getColumn(0, "CRE_USR");
-	var chkDtm = this.ds_StudentDetail.getColumn(0, "CRE_DTM");
-	trace("setcolumn한 값 = " + chkUsr + " / " + chkDtm);
-	
-	if(chkUsr != null && chkUsr != '' && chkUsr != 0) {
+	this.ds_StudentDetail.setColumn(0, "UPD_USR", adCode);
+	var chkCre = this.ds_StudentDetail.getColumn(0, "CRE_USR");
+	var chkUpd = this.ds_StudentDetail.getColumn(0, "UPD_USR");
+	trace("setcolumn한 값 = " + chkCre + " / " + chkUpd);
+	// gds값이 정상적으로 들어갔을 때만 save로직 실행
+	if(chkCre != null && chkCre != '' && chkCre != 0 || chkUpd != null && chkUpd != '' && chkUpd != 0) {
 	this.fn_studentDetailSave();
 	trace("입력값 넘기기11@!? " + this.ds_StudentDetail.saveXML());
 	} else {
@@ -291,11 +309,18 @@ this.btn_Save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 //그리드 내 학생 클릭
 this.cell_student_onclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
+	// edit은 바인딩된 ds가 비어있을 경우 readonly(true)상태가 되어버린다
+	// 새로운 행을 생성할 경우 transaction 결과로 바인딩된 ds가 늘 null이다
+	// 따라서 새로 생성한 행일 경우 트랜잭션 발동을 막는다
+	// IFNULL로 해결가능한지? - statusCode 자체가 없기때문에 ifnull 사용해도 null
+	
+	// 현재 선택한 row의 tpye을 알아낸다
     var rowPos = this.ds_StudentList.rowposition;
 	trace("현재 row값은? = " + rowPos);
     var rowTp = this.ds_StudentList.getRowType(rowPos);
 
     // 새로운 행일 경우 트랜잭션을 실행하지 않고 readonly 해제
+	// Dataset.ROWTYPE_INSERT - 넥사크로 내에서 관리하는 상수 / 새로 추가된 row임을 뜻한다
     if (rowTp == Dataset.ROWTYPE_INSERT) {
        
 	   // 새로운 행을 추가하여 작성 가능하게 만듦
@@ -305,9 +330,9 @@ this.cell_student_onclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventIn
        // 트랜잭션 실행하지 않음
 	   return;  
     }
-
+	// 기존 데이터는 트랜잭션 실행하여 상세 정보 조회
     var statusCode = this.ds_StudentList.getColumn(rowPos, "STATUS_CODE");
-    this.fn_studentDetail(statusCode);  // 기존 데이터는 트랜잭션 실행하여 상세 정보 조회
+    this.fn_studentDetail(statusCode);  
 
 };
 
@@ -346,9 +371,9 @@ this.fnCallback = function(svcID,errorCode,errorMsg){
 	}
 };
 
-
+// readonly 제어 함수
 this.fn_setReadonly = function(isReadonly) {
-    this.edt_department.set_readonly(isReadonly);
+    this.cmb_Dept.set_readonly(isReadonly);
 	this.edt_Name.set_readonly(isReadonly);
 	this.edt_StatusType.set_readonly(isReadonly);
 	this.edt_StdId.set_readonly(isReadonly);
@@ -424,7 +449,6 @@ this.fn_sort = function(obj:Grid, e:GridClickEventInfo)
 ]]></Script>
     <Bind>
       <BindItem id="item1" compid="edt_StdId" propid="value" datasetid="ds_StudentDetail" columnid="STUDENT_ID"/>
-      <BindItem id="item2" compid="edt_department" propid="value" datasetid="ds_StudentDetail" columnid="DEPARTMENT_NAME"/>
       <BindItem id="item3" compid="edt_StatusType" propid="value" datasetid="ds_StudentDetail" columnid="STATUS_TYPE"/>
       <BindItem id="item4" compid="edt_Name" propid="value" datasetid="ds_StudentDetail" columnid="NAME"/>
       <BindItem id="item5" compid="edt_StdStatus" propid="value" datasetid="ds_StudentDetail" columnid="STATUS"/>
@@ -436,6 +460,7 @@ this.fn_sort = function(obj:Grid, e:GridClickEventInfo)
       <BindItem id="item11" compid="cmb_Search" propid="value" datasetid="ds_Search" columnid="SEARCH_TYPE"/>
       <BindItem id="item0" compid="edt_search" propid="value" datasetid="ds_Search" columnid="SEARCH_WORD"/>
       <BindItem id="item12" compid="cmb_Search00" propid="value" datasetid="ds_Search" columnid="DEPARTMENT_CODE"/>
+      <BindItem id="item13" compid="cmb_Dept" propid="value" datasetid="ds_StudentDetail" columnid="DEPARTMENT_CODE"/>
     </Bind>
   </Form>
 </FDL>

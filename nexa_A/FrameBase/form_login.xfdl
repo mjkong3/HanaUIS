@@ -131,7 +131,15 @@ this.fn_addSession = function (adminCode)
 	var isAsync     = true;
 	
 	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 	
-};]]></Script>
+};
+
+this.form_login_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode==13){
+		this.Login_btn.click();
+	}
+};
+]]></Script>
     <Objects>
       <Dataset id="Login_Ds" useclientlayout="true">
         <ColumnInfo>

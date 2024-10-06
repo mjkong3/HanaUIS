@@ -23,15 +23,21 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 	}
 
 	@Override
-	public void saveAdPro(Map<String, Object> param) {
+	public void insertAdPro(Map<String, Object> param) {
 		// TODO Auto-generated method stub
-		int check = 0;
-		check = mapper.checkAdPro(param);
-		if (check == 0) {
+//		int checkId = 0;
+//		int checkEm = 0;
+//		checkId = mapper.dupCheckId(param);
+//		checkEm = mapper.dupCheckEm(param);
+//		if (checkId == 0 && checkEm == 0) {
 			mapper.insertAdPro(param);
-		} else if (check > 0){
-			mapper.updateAdPro(param);
-		}
+//	}
+	}
+	
+	@Override
+	public void updateAdPro(Map<String, Object> param) {
+		// TODO Auto-generated method stub
+		mapper.updateAdPro(param);
 	}
 
 	@Override
