@@ -1,9 +1,5 @@
 <%@ page contentType="application/octet-stream;charset=utf-8" errorPage="/errorpage.jsp"%>
-<<<<<<< HEAD
 <%@ page import="java.io.*, java.net.URLConnection, java.net.URLEncoder" %>
-=======
-<%@ page import="java.io.*, java.net.URLConnection" %>
->>>>>>> dev
 <%
     // 파일 이름과 경로 설정
     String fileName = request.getParameter("fileName");

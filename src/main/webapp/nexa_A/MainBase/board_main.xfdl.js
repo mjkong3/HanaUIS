@@ -167,7 +167,7 @@
         {
         	popup = new nexacro.ChildFrame;
         	popup.init("popupWork", 0, 0, 800, 700, null, null, surl);
-        	popup.set_dragmovetype("none");
+        	popup.set_dragmovetype("normal");
         	popup.set_layered("true");
         	popup.set_autosize(true);
         	popup.set_showtitlebar("Popup Title");
@@ -186,14 +186,24 @@
         	this.search_ds.setColumn(0,"SEARCH_TYPE", this.cmb_Search.value);
         };
 
+        // 엔터 시 검색
+        this.board_main_onkeyup = function(obj,e)
+        {
+        	if (e.keycode==13) {
+        		this.btn_Search.click();
+        	}
+        };
+
         });
         
         // Regist UI Components Event
         this.on_initEvent = function()
         {
             this.addEventHandler("onload",this.board_main_onload,this);
+            this.addEventHandler("onkeyup",this.board_main_onkeyup,this);
             this.grd_board.addEventHandler("oncelldblclick",this.grd_board_oncelldblclick,this);
             this.btn_Search.addEventHandler("onclick",this.btn_Search_onclick,this);
+            this.btn_Search.addEventHandler("onkeyup",this.btn_Search_onkeyup,this);
             this.cmb_Search.addEventHandler("onitemchanged",this.cmb_Search_onitemchanged,this);
             this.btn_add.addEventHandler("onclick",this.btn_add_onclick,this);
             this.boardList_ds.addEventHandler("onvaluechanged",this.boardList_ds_onvaluechanged,this);

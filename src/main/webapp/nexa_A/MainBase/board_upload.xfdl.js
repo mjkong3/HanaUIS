@@ -11,9 +11,8 @@
         {
             this.set_name("board_upload");
             this.set_titletext("New Form");
-            this.set_scrollbarsize("0");
-            this.set_scrolltype("horizontal");
-            this.set_scrollbartype("none default");
+            this.set_scrolltype("vertical");
+            this.set_scrollbartype("auto auto");
             if (Form == this.constructor)
             {
                 this._setFormPosition(1280,720);
@@ -26,7 +25,7 @@
 
 
             obj = new Dataset("ds_board", this);
-            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"INT\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -49,7 +48,7 @@
             obj.set_font("30pt \"gulim\",\"한컴 고딕\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01","174","134","172","53",null,null,null,null,null,null,this);
+            obj = new Static("stt_title","174","134","172","53",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_text("제목");
             obj.set_textAlign("center");
@@ -57,42 +56,35 @@
             obj.set_border("0px none, 1px solid, 0px none, 0px none");
             this.addChild(obj.name, obj);
 
-            obj = new TextArea("txt_title","410","137","584","46",null,null,null,null,null,null,this);
+            obj = new Static("stt_boarder","174","194","172","53",null,null,null,null,null,null,this);
             obj.set_taborder("2");
-            obj.set_textAlign("left");
-            obj.set_font("16px/normal \"Gulim\"");
-            obj.set_scrolltype("none");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("Static01_00","174","194","172","53",null,null,null,null,null,null,this);
-            obj.set_taborder("3");
             obj.set_text("작성자");
             obj.set_textAlign("center");
             obj.set_font("20pt \"Arial\"");
             obj.set_border("0px none, 1px solid, 0px none, 0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01_01","174","257","172","197",null,null,null,null,null,null,this);
-            obj.set_taborder("4");
+            obj = new Static("stt_content","174","257","172","180",null,null,null,null,null,null,this);
+            obj.set_taborder("3");
             obj.set_text("내용");
             obj.set_textAlign("center");
             obj.set_font("20pt \"Arial\"");
             obj.set_border("0px none, 1px solid, 0px none, 0px none");
             this.addChild(obj.name, obj);
 
-            obj = new TextArea("txt_content","410","260","584","190",null,null,null,null,null,null,this);
-            obj.set_taborder("5");
+            obj = new TextArea("txt_content","410","260","584","180",null,null,null,null,null,null,this);
+            obj.set_taborder("4");
             obj.set_textAlign("left");
             obj.set_font("16px/1.2 \"Gulim\"");
-            obj.set_scrolltype("both");
+            obj.set_scrolltype("horizontal");
             obj.set_readonly("false");
             obj.set_wordWrap("both");
             obj.set_scrollbartype("default default");
             obj.set_scrollbarsize("10");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01_00_00","174","460","172","93",null,null,null,null,null,null,this);
-            obj.set_taborder("6");
+            obj = new Static("stt_file","174","464","172","93",null,null,null,null,null,null,this);
+            obj.set_taborder("5");
             obj.set_text("첨부파일");
             obj.set_textAlign("center");
             obj.set_font("20pt \"Arial\"");
@@ -100,29 +92,43 @@
             this.addChild(obj.name, obj);
 
             obj = new Grid("grd_file","410","464","480","94",null,null,null,null,null,null,this);
-            obj.set_taborder("7");
+            obj.set_taborder("6");
             obj.set_binddataset("ds_file");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"378\"/><Column size=\"100\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"파일명\"/><Cell col=\"1\" text=\"파일용량\"/></Band><Band id=\"body\"><Cell text=\"bind:file\"/><Cell col=\"1\" text=\"bind:filepac\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_addFile","900","464","94","42",null,null,null,null,null,null,this);
-            obj.set_taborder("8");
+            obj = new Button("btn_addFile","900","465","94","40",null,null,null,null,null,null,this);
+            obj.set_taborder("7");
             obj.set_text("파일 첨부");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_deleteFile","900","516","94","40",null,null,null,null,null,null,this);
-            obj.set_taborder("9");
+            obj = new Button("btn_deleteFile","900","520","94","40",null,null,null,null,null,null,this);
+            obj.set_taborder("8");
             obj.set_text("파일 삭제");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_addBoard","630","624","72","33",null,null,null,null,null,null,this);
-            obj.set_taborder("10");
+            obj = new Button("btn_addBoard","630","625","72","33",null,null,null,null,null,null,this);
+            obj.set_taborder("9");
             obj.set_text("게시");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_uploader","409","203","181","40",null,null,null,null,null,null,this);
-            obj.set_taborder("11");
+            obj = new Static("stt_uploader","419","203","181","40",null,null,null,null,null,null,this);
+            obj.set_taborder("10");
             obj.set_text("Static02");
+            this.addChild(obj.name, obj);
+
+            obj = new Edit("Edit00","410","137","584","46",null,null,null,null,null,null,this);
+            obj.set_taborder("11");
+            this.addChild(obj.name, obj);
+
+            obj = new ImageViewer("ImageViewer00","410","450","584","5",null,null,null,null,null,null,this);
+            obj.set_taborder("12");
+            obj.set_visible("false");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_addContentPhoto","900","203","94","40",null,null,null,null,null,null,this);
+            obj.set_taborder("13");
+            obj.set_text("본문 사진 추가");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -134,7 +140,11 @@
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item1","txt_title","value","ds_board","TITLE");
+            obj = new BindItem("item2","stt_uploader","text","gds_adminInfo","NAME");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item3","Edit00","value","ds_board","TITLE");
             this.addChild(obj.name, obj);
             obj.bind();
             
@@ -156,9 +166,15 @@
         	var gdsApp = nexacro.getApplication();
         	var adName = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_NAME");
         	this.ds_board.setColumn(0, "ADMIN_NAME", adName);
-        	trace("이름 제대로 들어갔나? " + this.ds_pro.getColumn(0, "ADMIN_NAME"));
+        	trace("이름 제대로 들어갔나? " + this.ds_board.getColumn(0, "ADMIN_NAME"));
+
+        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        	this.ds_board.setColumn(0, "ADMIN_CODE", adCode);
+        	trace("코드 제대로 들어갔나? " + this.ds_board.getColumn(0, "ADMIN_CODE"));
 
         	trace(this.ds_board.saveXML);
+
+
         };
 
         /************************************************************************
@@ -186,6 +202,7 @@
         	}
 
         	console.log(this.ds_fileInsert.saveXML());
+        	console.log(this.ds_file.saveXML());
         };
 
         // 파일 추가 처리 함수 (파일 첨부 창에서 선택한 파일들을 vFile에 list로 삽입)
@@ -218,11 +235,12 @@
             switch (e.reason)
             {
                 case 1:
-                    //obj.getFileSize();
+                    obj.getFileSize();
                     break;
                 case 9:
                     var nRowIdx = this.ds_file.addRow();
-                    this.ds_file.setColumn(nRowIdx, 0, obj.filename);
+        			this.ds_file.setColumn(nRowIdx, 0, obj.filename);
+        			this.ds_file.setColumn(nRowIdx, 1, this.cutFileSize(e.filesize));
                     this.FileUpTransfer00.addFile(obj.filename, obj);
                     break;
             }
@@ -238,15 +256,15 @@
 
 
         // 파일 사이즈 계산 함수
-        // this.cutFileSize = function(filesize)
-        // {
-        //     var sOutput = filesize + " bytes";
-        //     for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++)
-        //     {
-        //         sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
-        //     }
-        //     return sOutput;
-        // };
+        this.cutFileSize = function(filesize)
+        {
+            var sOutput = filesize + " bytes";
+            for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++)
+            {
+                sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
+            }
+            return sOutput;
+        };
 
         // 업로드한 파일 전체 삭제
         this.btn_deleteFile_onclick = function(obj,e)
@@ -373,33 +391,79 @@
 
 
         /************************************************************************
-         * 							진행 사항
+         * 						게시물 내용 처리
          ************************************************************************/
 
 
         // 게시글 textarea 높이 늘리기
         this.txt_content_onkeyup = function(obj,e)
         {
-        	var defaultHeight = 190;  // 기본 높이
-            var textLineHeight = 20;  // 줄 당 높이(대략적인 값)
-
-            // 현재 텍스트의 스크롤 높이
-            var contentScrollHeight = obj.getElement().scrollHeight;
-
-            // 아무 내용도 없거나 기본값보다 작은 경우 기본값으로 설정
-            if (contentScrollHeight <= defaultHeight) {
-                obj.set_height(defaultHeight);
-            } else {
-                // 기본 줄을 넘어서면 contentScrollHeight로 높이 설정
-                obj.set_height(contentScrollHeight);
-            }
-
-            // TextArea의 높이가 변함에 따라 다른 컴포넌트들도 조정
-            // 예시로 'comp'라는 다른 컴포넌트가 있다고 가정하고, 위치를 조정
-        //     var newCompYPosition = obj.getOffsetBottom();  // TextArea의 하단 y 좌표
-        //     this.comp.set_top(newCompYPosition + 10);  // 다른 컴포넌트를 TextArea 하단에 배치
+        	this.adjustTextareaHeight();
         };
 
+        this.txt_content.set_scrolltype("none");  // 스크롤바 기본 비활성화
+
+        // 줄 수를 계산하는 함수
+        this.getTextLineCount = function(text) {
+            // \n으로 구분된 줄 수를 기준으로 텍스트를 나눔
+            var lines = this.txt_content.text.split("\n");
+            var totalLines = 0;
+
+            // 각 줄의 길이를 계산하여 줄 수를 증가시킴
+            for (var i = 0; i < lines.length; i++) {
+                var lineLength = lines[i].length;
+
+        		if (lineLength === 0) {
+        			totalLines += 1;
+        		} else {
+                var charsPerLine = Math.floor(this.txt_content.getOffsetWidth() / 10);  // 예시로 문자 당 10px 너비로 계산
+                totalLines += Math.ceil(lineLength / charsPerLine);  // 현재 줄에서 차지하는 줄 수 계산
+        		}
+        	}
+
+            return totalLines;
+        };
+
+        // 텍스트의 변화에 따라 높이를 조정하는 함수
+        this.adjustTextareaHeight = function() {
+            var maxLines = 8;  // 제한할 최대 줄 수
+            var text = this.txt_content.value;
+
+            // 줄 수를 계산
+            var nTextLines = this.getTextLineCount(text);
+            var lineHeight = 20;  // 폰트 크기 또는 한 줄의 높이를 하드코딩 (예: 20px)
+            var nHeight = this.txt_content.getOffsetHeight();  // 현재 TextArea 높이
+
+            // 현재 줄 수에 맞춰 높이를 조정
+            if (nTextLines >= maxLines) {
+                var newHeight = lineHeight * nTextLines + 20;  // 여유 공간을 주기 위해 +20 추가
+                this.txt_content.set_height(newHeight);
+                this.txt_content.set_scrolltype("none");  // 스크롤 비활성화
+            } else {
+                // 최대 줄 수를 넘었을 경우, TextArea 높이를 고정하고 스크롤 활성화
+                var maxHeight = lineHeight * maxLines + 20;
+                this.txt_content.set_height(maxHeight);
+                this.txt_content.set_scrolltype("vertical");  // 스크롤 활성화
+            }
+
+        	// 기준이 될 content tarea
+        	var contentY = this.txt_content.getOffsetBottom();  // TextArea의 하단 y 좌표
+
+        	// content tarea, stt 높이 동일
+        	this.stt_content.set_height(nHeight);
+
+        	// content, file 높이 15차이 , stt, upload btn 높이 동일시
+        	this.grd_file.set_top(contentY + 15);  // 다른 컴포넌트를 TextArea 하단에 배치
+        	this.stt_file.set_top(contentY + 15);
+        	this.btn_addFile.set_top(contentY + 15);
+        	this.btn_deleteFile.set_top(contentY + 65);
+        	this.btn_addBoard.set_top(contentY + 175);
+        };
+
+        this.btn_addContentPhoto_onclick = function(obj,e)
+        {
+
+        };
 
         });
         
@@ -407,9 +471,11 @@
         this.on_initEvent = function()
         {
             this.addEventHandler("onload",this.board_upload_onload,this);
-            this.Static01_00.addEventHandler("onclick",this.Static01_00_onclick,this);
+            this.addEventHandler("onkeyup",this.board_upload_onkeyup,this);
+            this.stt_boarder.addEventHandler("onclick",this.Static01_00_onclick,this);
             this.txt_content.addEventHandler("onkeyup",this.txt_content_onkeyup,this);
-            this.Static01_00_00.addEventHandler("onclick",this.Static01_00_onclick,this);
+            this.txt_content.addEventHandler("onkeydown",this.txt_content_onkeydown,this);
+            this.stt_file.addEventHandler("onclick",this.Static01_00_onclick,this);
             this.grd_file.addEventHandler("onclick",this.grd_file_onclick,this);
             this.grd_file.addEventHandler("ondrop",this.grd_file_ondrop,this);
             this.grd_file.addEventHandler("ondragenter",this.grd_file_ondragenter,this);
@@ -417,6 +483,7 @@
             this.btn_addFile.addEventHandler("onclick",this.btn_addFile_onclick,this);
             this.btn_deleteFile.addEventHandler("onclick",this.btn_deleteFile_onclick,this);
             this.btn_addBoard.addEventHandler("onclick",this.btn_addBoard_onclick,this);
+            this.btn_addContentPhoto.addEventHandler("onclick",this.btn_addContentPhoto_onclick,this);
             this.FileUpTransfer00.addEventHandler("onerror",this.FileUpTransfer00_onerror,this);
             this.FileUpTransfer00.addEventHandler("onprogress",this.FileUpTransfer00_onprogress,this);
             this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);

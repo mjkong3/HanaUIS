@@ -4,11 +4,11 @@
     <Layouts>
       <Layout height="720" width="1280">
         <Static id="stt_boardTop" taborder="0" text="공지사항" left="563" top="16" width="155" height="74" font="30pt &quot;gulim&quot;,&quot;한컴 고딕&quot;"/>
-        <Static id="Static01" taborder="1" text="제목" left="174" top="134" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="Static01_00" taborder="2" text="작성자" left="174" top="194" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="Static01_01" taborder="3" text="내용" left="174" top="257" width="172" height="197" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="Static01_00_00" taborder="4" text="첨부파일" left="174" top="460" width="172" height="93" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none" onclick="Static01_00_onclick"/>
-        <Grid id="grd_file" taborder="5" left="377" top="464" width="453" height="94" binddataset="ds_file">
+        <Static id="Static01" taborder="1" text="제목" left="175" top="134" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="Static01_00" taborder="2" text="작성자" left="175" top="194" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="stt_Content" taborder="3" text="내용" left="175" top="260" width="172" height="170" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="stt_file" taborder="4" text="첨부파일" left="175" top="460" width="172" height="93" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none" onclick="Static01_00_onclick"/>
+        <Grid id="grd_file" taborder="5" left="377" top="460" width="455" height="94" binddataset="ds_file">
           <Formats>
             <Format id="default">
               <Columns>
@@ -34,13 +34,15 @@
         <Static id="Static01_00_01_00" taborder="10" text="게시번호" left="660" top="197" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
         <Static id="stt_boardCode" taborder="11" left="898" top="203" width="145" height="40"/>
         <Button id="btn_updateBoard" taborder="12" text="수정" left="634" top="617" width="72" height="33" onclick="btn_updateBoard_onclick"/>
-        <FileDownload id="btn_fileDown" taborder="13" text="파일 다운" left="845" top="482" width="58" height="48" onclick="btn_fileDown_onclick"/>
-        <TextArea id="txt_Title" taborder="14" left="377" top="137" width="283" height="46"/>
-        <TextArea id="txt_Content" taborder="15" left="377" top="270" width="666" height="160" scrolltype="horizontal" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="default"/>
-        <Button id="btn_addFile" taborder="16" text="파일 첨부" left="916" top="482" width="57" height="48" onclick="btn_addFile_onclick"/>
-        <Button id="btn_deleteFile" taborder="17" text="파일 삭제" left="983" top="482" width="60" height="48" onclick="btn_deleteFile_onclick"/>
+        <FileDownload id="btn_fileDown" taborder="13" text="파일 다운" left="850" top="520" width="90" height="35" onclick="btn_fileDown_onclick"/>
+        <TextArea id="txt_Title" taborder="14" left="380" top="137" width="283" height="46"/>
+        <TextArea id="txt_Content" taborder="15" left="380" top="260" width="666" height="170" scrolltype="horizontal" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="auto auto"/>
+        <Button id="btn_addFile" taborder="16" text="파일 첨부" left="850" top="460" width="90" height="35" onclick="btn_addFile_onclick"/>
+        <Button id="btn_deleteFile" taborder="17" text="파일 삭제" left="953" top="520" width="90" height="35" onclick="btn_deleteFile_onclick"/>
         <Button id="btn_deleteBoard" taborder="18" text="삭제" left="971" top="617" width="72" height="33" color="white" background="#ff0505" onclick="btn_deleteBoard_onclick"/>
         <Calendar id="cal_Dtm" taborder="19" left="890" top="140" width="153" height="47"/>
+        <Button id="btn_addContentPhoto" taborder="20" text="본문 파일 삽입" left="953" top="460" width="90" height="35" onclick="btn_addContentPhoto_onclick"/>
+        <ImageViewer id="ImageViewer00" taborder="21" left="380" top="440" width="662" height="10" visible="false"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[/*
@@ -66,7 +68,7 @@ this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 // 호출
 this.fnOnload = function(obj, e) {
 	
-	var BOARD_CODE = this.parent.BOARD_CODE;  // 부모창에서 넘어온 board_code 값 받기
+	var BOARD_CODE = this.parent.BOARD_CODE;  // 부모창에서 넘어온 board_code 값 받기	
 	var CRE_USR = this.parent.NAME;
     trace("Received board_code: " + BOARD_CODE);  // board_code 값 확인 (콘솔에 출력)
 	trace("Received CRE_USR: " + CRE_USR);  // CRE_USR 값 확인 (콘솔에 출력)
@@ -324,6 +326,10 @@ this.FileUpTransfer00_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.Fi
 			alert("내용을 입력해주세요.");
 			return;
 	}
+	
+	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+	this.ds_board.setColumn(0, "CRE_USR", adCode);
+	trace("코드 제대로 들어갔나? " + this.ds_board.getColumn(0, "CRE_USR"));
 
     var strSvcId    = "updateBoard";
     var strSvcUrl   = "svc::updateBoard.do";
@@ -432,7 +438,79 @@ this.btn_closeBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventIn
 	}
 };
 
+// 공지 내용 늘리고 줄이기 //
 
+// 게시글 textarea 높이 늘리기
+this.txt_Content_onkeyup = function(obj:nexacro.TextArea,e:nexacro.KeyEventInfo)
+{
+	this.adjustTextareaHeight();	
+};
+
+this.txt_Content.set_scrolltype("none");  // 스크롤바 기본 비활성화
+
+// 줄 수를 계산하는 함수
+this.getTextLineCount = function(text) {
+    // \n으로 구분된 줄 수를 기준으로 텍스트를 나눔
+    var lines = this.txt_Content.text.split("\n");		
+    var totalLines = 0;
+
+    // 각 줄의 길이를 계산하여 줄 수를 증가시킴
+    for (var i = 0; i < lines.length; i++) {
+        var lineLength = lines[i].length;
+		
+		if (lineLength === 0) {
+			totalLines += 1;
+		} else {
+        var charsPerLine = Math.floor(this.txt_Content.getOffsetWidth() / 10);  // 예시로 문자 당 10px 너비로 계산
+        totalLines += Math.ceil(lineLength / charsPerLine);  // 현재 줄에서 차지하는 줄 수 계산
+		}
+	}
+
+    return totalLines;
+};
+
+// 텍스트의 변화에 따라 높이를 조정하는 함수
+this.adjustTextareaHeight = function() {
+    var maxLines = 8;  // 제한할 최대 줄 수
+    var text = this.txt_Content.value;
+    
+    // 줄 수를 계산
+    var nTextLines = this.getTextLineCount(text);
+    var lineHeight = 20;  // 폰트 크기 또는 한 줄의 높이를 하드코딩 (예: 20px)
+    var nHeight = this.txt_Content.getOffsetHeight();  // 현재 TextArea 높이
+
+    // 현재 줄 수에 맞춰 높이를 조정
+    if (nTextLines >= maxLines) {
+        var newHeight = lineHeight * nTextLines + 20;  // 여유 공간을 주기 위해 +20 추가
+        this.txt_Content.set_height(newHeight);
+        this.txt_Content.set_scrolltype("none");  // 스크롤 비활성화
+    } else {
+        // 최대 줄 수를 넘었을 경우, TextArea 높이를 고정하고 스크롤 활성화
+        var maxHeight = lineHeight * maxLines + 20;
+        this.txt_content.set_height(maxHeight);
+        this.txt_content.set_scrolltype("vertical");  // 스크롤 활성화
+    }
+	
+	// 기준이 될 content tarea
+	var contentY = this.txt_Content.getOffsetBottom();  // TextArea의 하단 y 좌표
+	
+	// content tarea, stt 높이 동일
+	this.stt_Content.set_height(nHeight);
+	
+	// content, file 높이 15차이 , stt, upload btn 높이 동일시
+	this.grd_file.set_top(contentY + 15);  // 다른 컴포넌트를 TextArea 하단에 배치
+	this.stt_file.set_top(contentY + 15);
+	this.btn_addFile.set_top(contentY + 15);
+	this.btn_deleteFile.set_top(contentY + 65);
+	this.btn_addBoard.set_top(contentY + 175);
+	
+	this.adjustFormScroll();
+};
+
+this.btn_addContentPhoto_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
 ]]></Script>
     <Objects>
       <Dataset id="ds_board">

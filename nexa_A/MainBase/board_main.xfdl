@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="board_main" width="1280" height="720" titletext="New Form" onload="board_main_onload">
+  <Form id="board_main" width="1280" height="720" titletext="New Form" onload="board_main_onload" onkeyup="board_main_onkeyup">
     <Layouts>
       <Layout height="720" width="1280">
         <Static id="stt_board" taborder="0" text="공지사항" left="65" top="35" width="172" height="51" font="bold 42px/normal &quot;Gulim&quot;"/>
@@ -32,7 +32,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="btn_Search" taborder="2" text="검색" left="1100" top="100" width="115" height="35" onclick="btn_Search_onclick"/>
+        <Button id="btn_Search" taborder="2" text="검색" left="1100" top="100" width="115" height="35" onclick="btn_Search_onclick" onkeyup="btn_Search_onkeyup"/>
         <Edit id="edt_Search" taborder="3" left="933" top="103" width="150" height="30"/>
         <Combo id="cmb_Search" taborder="4" text="전체" left="780" top="100" width="135" height="35" innerdataset="searchType_ds" datacolumn="DATA" codecolumn="CODE" index="0" value="ALL" onitemchanged="cmb_Search_onitemchanged"/>
         <Button id="btn_add" taborder="5" text="공지사항 등록" left="1115" top="540" width="100" height="40" onclick="btn_add_onclick"/>
@@ -164,7 +164,7 @@ this.showPopup = function (objParam, surl)
 {		  
 	popup = new nexacro.ChildFrame;
 	popup.init("popupWork", 0, 0, 800, 700, null, null, surl);
-	popup.set_dragmovetype("none");
+	popup.set_dragmovetype("normal");
 	popup.set_layered("true");
 	popup.set_autosize(true);
 	popup.set_showtitlebar("Popup Title");
@@ -181,6 +181,14 @@ this.showPopup = function (objParam, surl)
 this.cmb_Search_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
 {
 	this.search_ds.setColumn(0,"SEARCH_TYPE", this.cmb_Search.value);
+};
+
+// 엔터 시 검색
+this.board_main_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if (e.keycode==13) {
+		this.btn_Search.click();
+	}
 };
 ]]></Script>
     <Bind>
