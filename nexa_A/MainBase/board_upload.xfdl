@@ -48,6 +48,7 @@ this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	}
 	
 	trace(this.ds_board.saveXML);
+	
 };
 
 /************************************************************************
@@ -313,7 +314,6 @@ this.btn_addBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
 	this.ds_fileInsert.saveXML();
 	
 };
-
 ]]></Script>
     <Objects>
       <Dataset id="ds_file">
