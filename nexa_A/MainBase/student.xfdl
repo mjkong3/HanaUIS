@@ -3,7 +3,7 @@
   <Form id="Form_Code" width="1280" height="720" titletext="New Form" onload="Form_Code_onload" onkeyup="Form_Code_onkeyup">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="Depart_Grd" taborder="0" left="33" top="96" width="237" height="524" binddataset="DEPARTMENT_List">
+        <Grid id="Depart_Grd" taborder="0" left="33" top="96" width="237" height="524" binddataset="DEPARTMENT_List" autofittype="col">
           <Formats>
             <Format id="default">
               <Columns>
@@ -25,7 +25,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="Dtl_Grid" taborder="1" left="293" top="96" width="947" height="524" binddataset="DEPARTMENT_DTL_List" oncelldblclick="Dtl_Grid_oncelldblclick" onheadclick="Dtl_Grid_onheadclick">
+        <Grid id="Dtl_Grid" taborder="1" left="293" top="96" width="947" height="524" binddataset="DEPARTMENT_DTL_List" oncelldblclick="Dtl_Grid_oncelldblclick" onheadclick="Dtl_Grid_onheadclick" autofittype="col">
           <Formats>
             <Format id="default">
               <Columns>
@@ -63,10 +63,11 @@
           </Formats>
         </Grid>
         <Combo id="Search_Cmb" taborder="2" left="33" top="30" width="237" height="46" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="All"/>
-        <Button id="Select_btn" taborder="3" text="조회" left="1026" top="30" width="68" height="46" onclick="Select_btn_onclick"/>
-        <Edit id="Edit00" taborder="4" left="293" top="30" width="697" height="46"/>
-        <Button id="plus_btn" taborder="5" text="등록" left="1116" top="30" width="64" height="46" onclick="plus_btn_onclick"/>
-        <Button id="delete_btn" taborder="6" text="삭제" left="1200" top="30" width="66" height="46" onclick="delete_btn_onclick" visible="true"/>
+        <Button id="Select_btn" taborder="3" text="조회" left="1000" top="30" width="68" height="46" onclick="Select_btn_onclick"/>
+        <Edit id="Edit00" taborder="4" left="293" top="30" width="687" height="46"/>
+        <Button id="plus_btn" taborder="5" text="등록" left="1090" top="30" width="64" height="46" onclick="plus_btn_onclick"/>
+        <Button id="delete_btn" taborder="6" text="삭제" left="1174" top="30" width="66" height="46" onclick="delete_btn_onclick" visible="true"/>
+        <Button id="btn_test" taborder="7" text="테스트용 버튼" left="980" top="120" width="168" height="68" onclick="btn_test_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -370,6 +371,11 @@ this.delete_btn_onclick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)
    else {
         alert("삭제할 항목을 선택하세요.");
     }
+};
+
+this.btn_test_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	window.open("http://localhost:8082/HanaUIS/");
 };
 ]]></Script>
     <Objects>

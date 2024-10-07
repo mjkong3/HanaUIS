@@ -28,7 +28,7 @@
             obj.set_treeinitstatus("collapse,null");
             obj.set_treeusecheckbox("false");
             obj.set_visible("true");
-            obj.set_treeusebutton("use");
+            obj.set_treeusebutton("noclick");
             obj.set_treeuseimage("true");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"190\"/></Columns><Rows><Row size=\"40\"/></Rows><Band id=\"body\"><Cell displaytype=\"treeitemcontrol\" edittype=\"tree\" treelevel=\"bind:MENU_LEVEL\" treestartlevel=\"1\" text=\"bind:MENU_NM\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);

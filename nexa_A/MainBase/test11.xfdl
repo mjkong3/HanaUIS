@@ -1,39 +1,124 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="test11" width="1280" height="720" titletext="New Form">
+  <Form id="test11" width="1280" height="720" titletext="New Form" onload="test11_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Button id="Button00" taborder="0" text="Button00" left="390" top="43" width="120" height="50" onclick="Button00_onclick"/>
-        <Calendar id="Calendar00" taborder="1" left="406" top="92" width="208" height="82"/>
-        <TextArea id="TextArea00" taborder="2" left="56" top="68" width="294" height="152" onchanged="TextArea00_onchanged"/>
+        <BasicChart id="BasicChart00" taborder="0" left="236" top="50" width="534" height="410" binddataset="CHART" categorycolumn="bind:등급">
+          <Contents><![CDATA[{
+	"legend": {
+		"id": "legend",
+		"padding": "3px 10px 3px 10px",
+		"itemtextfont": "9pt '맑은 고딕'",
+		"itemtextcolor": "#4c4c4c"
+	},
+	"tooltip": {
+		"id": "tooltip",
+		"background": "#4b4b4b",
+		"linestyle": "0px none",
+		"textcolor": "white",
+		"textfont": "10pt/normal '맑은 고딕'",
+		"padding": "5px"
+	},
+	"board": {
+		"id": "board"
+	},
+	"categoryaxis": {
+		"id": "categoryaxis",
+		"titletext": "categoryaxis",
+		"titletextcolor": "#4c4c4c",
+		"titletextfont": "bold 12pt '맑은 고딕'",
+		"labeltextcolor": "#6f6f6f",
+		"labeltextfont": "11pt '맑은 고딕'",
+		"axislinestyle": "1px solid #525252",
+		"ticklinestyle": "1px solid #525252",
+		"boardlinestyle": "1px solid #d0d0d0"
+	},
+	"seriesset": [
+		{
+			"id": "series0",
+			"titletext": "series",
+			"barvisible": true,
+			"barsize": "65",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:A"
+		},
+		{
+			"id": "series1",
+			"titletext": "series",
+			"barvisible": true,
+			"barsize": "65",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:B"
+		},
+		{
+			"id": "series2",
+			"titletext": "series",
+			"barvisible": true,
+			"barsize": "65",
+			"itemtextvisible": true,
+			"itemtextcolor": "#003860",
+			"itemtextfont": "bold 12pt '맑은 고딕'",
+			"valuecolumn": "bind:C"
+		}
+	],
+	"valueaxes": [
+		{
+			"id": "valueaxis0",
+			"titletext": "valueaxis",
+			"boardlinevisible": true,
+			"boardlinestyle": "1px solid #d0d0d0",
+			"labeltextcolor": "#6f6f6f",
+			"labeltextfont": "10pt/normal '맑은 고딕'",
+			"titletextcolor": "#4c4c4c",
+			"titletextfont": "bold 12pt '맑은 고딕'",
+			"ticklinestyle": "1px solid #525252",
+			"axislinestyle": "1px solid #525252",
+			"autotickscale": "0"
+		}
+	]
+}]]></Contents>
+        </BasicChart>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	Application.gdsSession.set_item("regDate", this.ds_date.getColumn(0, "regDate"));
-	trace(gdsSession.get_id(0));
-};
-
-this.TextArea00_onchanged = function(obj:nexacro.TextArea,e:nexacro.ChangeEventInfo)
+this.test11_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	
 };
 ]]></Script>
     <Objects>
-      <Dataset id="ds_date">
+      <Dataset id="CHART">
         <ColumnInfo>
-          <Column id="regDate" type="STRING" size="256"/>
+          <Column id="등급" type="STRING" size="256"/>
+          <Column id="A" type="STRING" size="256"/>
+          <Column id="B" type="STRING" size="256"/>
+          <Column id="C" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="regDate">2011-01-01</Col>
+            <Col id="등급">A</Col>
+            <Col id="A">5</Col>
+            <Col id="B">4</Col>
+            <Col id="C">7</Col>
+          </Row>
+          <Row>
+            <Col id="등급">B</Col>
+            <Col id="A">4</Col>
+            <Col id="B">5</Col>
+            <Col id="C">6</Col>
+          </Row>
+          <Row>
+            <Col id="등급">C</Col>
+            <Col id="A">7</Col>
+            <Col id="B">8</Col>
+            <Col id="C">3</Col>
           </Row>
         </Rows>
       </Dataset>
     </Objects>
-    <Bind>
-      <BindItem id="item0" compid="Calendar00" propid="value" datasetid="ds_date" columnid="regDate"/>
-    </Bind>
   </Form>
 </FDL>

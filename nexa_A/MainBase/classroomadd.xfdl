@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="classroomadd" width="516" height="340" titletext="New Form" onload="classroomadd_onload">
+    <Layouts>
+      <Layout height="340" width="516">
+        <Grid id="grd_classroom" taborder="0" left="0" top="0" width="516" height="291" binddataset="ds_classroom" autofittype="col">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="132"/>
+                <Column size="241"/>
+                <Column size="134"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="강의실 코드"/>
+                <Cell col="1" text="강의실"/>
+                <Cell col="2" text="정원"/>
+              </Band>
+              <Band id="body">
+                <Cell textAlign="center" displaytype="expr:CLASSROOM_ID==null ? 'imagecontrol' : 'text'" text="expr:CLASSROOM_ID ==null ? 'image::plusbtn.png' : CLASSROOM_ID" imagestretch="fixaspectratio"/>
+                <Cell col="1" text="bind:CLASSROOM_NAME" textAlign="center"/>
+                <Cell col="2" text="bind:MAX_PEOPLE" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btn_insert" taborder="1" text="등록" left="380" top="300" width="60" height="31" onclick="btn_insert_onclick"/>
+        <Button id="btn_delete" taborder="2" text="삭제" left="450" top="300" width="60" height="31" onclick="btn_delete_onclick"/>
+        <Edit id="edt_maxpeople" taborder="3" left="280" top="300" width="84" height="31"/>
+        <Edit id="edt_classname" taborder="4" left="112" top="300" width="158" height="31"/>
+        <Edit id="edt_classcode" taborder="5" left="10" top="300" width="90" height="31"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_classroom" onrowposchanged="ds_classroom_onrowposchanged">
+        <ColumnInfo>
+          <Column id="CLASSROOM_ID" type="STRING" size="256"/>
+          <Column id="CLASSROOM_NAME" type="STRING" size="256"/>
+          <Column id="MAX_PEOPLE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_trans">
+        <ColumnInfo>
+          <Column id="CLASSROOM_ID" type="STRING" size="256"/>
+          <Column id="CLASSROOM_NAME" type="STRING" size="256"/>
+          <Column id="MAX_PEOPLE" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.classroomadd_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+// 	var objParam1 = this.parent.param1;
+// 	this.ds_classroom.copyData(objParam1);
+	this.fn_classroom();
+};
+
+this.ds_classroom_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
+{
+	this.edt_classcode.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_ID"));
+	this.edt_classname.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_NAME"));
+	this.edt_maxpeople.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"MAX_PEOPLE"));
+	if(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_ID") == null){
+		this.edt_classcode.set_readonly(false);
+	}
+	else{
+		this.edt_classcode.set_readonly(true);
+	}
+};
+
+this.btn_insert_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(this.edt_classcode.value == null || this.edt_classname.value == null || this.edt_maxpeople == null){
+		this.alert("빈 값이 존재합니다.");
+	}
+	else{
+		this.fn_save();
+	}
+};
+
+this.btn_delete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(this.edt_classcode.value == null || this.edt_classname.value == null || this.edt_maxpeople == null){
+		this.alert("빈 값이 입니다.");
+	}
+	else if(confirm("삭제하시겠습니까?")){
+		this.fn_delete();
+	}
+	else{
+		alert("예상치 못한 오류가 발생했습니다.");
+	}
+};
+
+/****************************************************/
+/*                    콜백함수                     */
+/****************************************************/
+this.fnCallback = function(svcID,errorCode,errorMsg)
+{
+	// 에러 시 화면 처리 내역
+	if(errorCode == -1)
+	{
+		this.alert(errorMsg);
+		return;
+	}
+
+	switch(svcID)
+	{
+		case "SelectAdminClassroom2":
+			this.ds_classroom.addRow();
+			//this.grd_classroom.set
+			//this.grd_classroom.setCellProperty("body", this.ds_classroom.rowcount-1, "displaytype", "imagecontrol");
+			break;
+		case "saveAdminClassroom":
+			this.fn_classroom();
+			break;
+		case "deleteAdminClassroom":
+			this.fn_classroom();
+			break;
+		default:
+	}
+};
+
+
+/****************************************************/
+/*                    트랜젝션                     */
+/****************************************************/
+this.fn_save = function(){
+
+	var strSvcId    = "saveAdminClassroom";
+	var strSvcUrl   = "svc::saveAdminClassroom.do";
+	var inData      = "ds_trans = ds_trans";
+	var outData     = "";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	var isAsync     = true;
+	
+	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+	
+}
+this.fn_delete = function(){
+	
+	var strSvcId    = "deleteAdminClassroom";
+	var strSvcUrl   = "svc::deleteAdminClassroom.do";
+	var inData      = "ds_trans = ds_trans";
+	var outData     = "";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	var isAsync     = true;
+	
+	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+
+}
+this.fn_classroom = function(){
+	var strSvcId    = "SelectAdminClassroom2";
+	var strSvcUrl   = "svc::SelectAdminClassroom2.do";
+	var inData      = "";
+	var outData     = "ds_classroom=ds_classroom";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	var isAsync     = true;
+	
+	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+	
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="edt_classcode" propid="value" datasetid="ds_trans" columnid="CLASSROOM_ID"/>
+      <BindItem id="item1" compid="edt_classname" propid="value" datasetid="ds_trans" columnid="CLASSROOM_NAME"/>
+      <BindItem id="item2" compid="edt_maxpeople" propid="value" datasetid="ds_trans" columnid="MAX_PEOPLE"/>
+    </Bind>
+  </Form>
+</FDL>
