@@ -72,6 +72,7 @@
         //   this.staTitle.set_fittocontents("width");
         //
         // };
+        // };
 
         this.ImageViewer00_onclick = function(obj,e)
         {
