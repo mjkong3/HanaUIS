@@ -171,7 +171,7 @@
         	popup.set_layered("true");
         	popup.set_autosize(true);
         	popup.set_showtitlebar("Popup Title");
-        	popup.set_showstatusbar(false);
+        	popup.set_showstatusbar(true);
         	popup.set_resizable(true);
         	popup.set_openalign("center middle");
         	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);

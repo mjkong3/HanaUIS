@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="sample_grid_11" left="0" top="0" width="1024" height="768" titletext="New Form">
+  <Form id="sample_grid_11" left="0" top="0" width="1024" height="768" titletext="New Form" onload="sample_grid_11_onload">
     <Layouts>
       <Layout height="768" width="1024">
-        <Button id="btn_apply" taborder="4" text="applyChange" left="32" top="272" width="120" height="32" leftbase="" topbase="" bottombase="" rightbase="" widthbase="" heightbase="" right="" bottom="" onclick="btn_apply_onclick"/>
-        <Button id="btn_reset" taborder="4" text="Reset" left="160" top="272" width="120" height="32" leftbase="" topbase="" bottombase="" rightbase="" widthbase="" heightbase="" right="" bottom="" onclick="btn_reset_onclick"/>
+        <Button id="btn_apply" taborder="2" text="applyChange" left="32" top="272" width="120" height="32" leftbase="" topbase="" bottombase="" rightbase="" widthbase="" heightbase="" right="" bottom="" onclick="btn_apply_onclick"/>
+        <Button id="btn_reset" taborder="1" text="Reset" left="160" top="272" width="120" height="32" leftbase="" topbase="" bottombase="" rightbase="" widthbase="" heightbase="" right="" bottom="" onclick="btn_reset_onclick"/>
         <Grid id="Grid00" taborder="0" left="32" top="40" width="560" height="211" binddataset="Dataset00" autofittype="col" autosizingtype="row" extendsizetype="none" autosizebandtype="body" text="" autoenter="none" fillareatype="none" selecttype="row" cellsizingtype="none" cellmovingtype="none" cellsizebandtype="body" border="">
           <Formats>
             <Format id="default">
@@ -36,6 +36,8 @@
             </Format>
           </Formats>
         </Grid>
+        <TextArea id="TextArea00" taborder="3" left="329" top="274" width="342" height="151" oninput="TextArea00_oninput" onchanged="TextArea00_onchanged"/>
+        <WebBrowser id="WebBrowser00" taborder="4" left="595" top="41" width="242" height="213"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -116,6 +118,22 @@ this.btn_reset_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.Dataset00.reset();
 };
+
+this.TextArea00_oninput = function(obj:nexacro.TextArea,e:nexacro.InputEventInfo)
+{
+  var maxlen = 20;
+
+  this.TextArea00.set_scrolltype("both");
+  var nMax = this.TextArea00.vscrollbar.max;
+  this.TextArea00.set_scrolltype("none");
+  
+  var nHeight = this.TextArea00.getOffsetHeight();
+  var nFullHeight = nHeight + nMax;
+  
+  trace(nFullHeight); // 스크롤바 영역을 포함한 Height 값
+  this.TextArea00.set_height(nFullHeight);
+};
+
 ]]></Script>
   </Form>
 </FDL>

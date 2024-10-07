@@ -21,7 +21,7 @@ response.setHeader("Access-Control-Allow-Credentials", "true");
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
-   String filePath = "C:\\upload\\";//context.getInitParameter("file-upload");
+   String filePath = "C:\\showfile\\";//context.getInitParameter("file-upload");
 
    // Verify the content type
    String contentType = request.getContentType();
@@ -34,7 +34,7 @@ response.setHeader("Access-Control-Allow-Credentials", "true");
       factory.setSizeThreshold(maxMemSize);
       
       // Location to save data that is larger than maxMemSize.
-      factory.setRepository(new File("C:\\upload\\"));
+      factory.setRepository(new File("C:\\showfile\\"));
 
       // Create a new file upload handler
       ServletFileUpload upload = new ServletFileUpload(factory);
