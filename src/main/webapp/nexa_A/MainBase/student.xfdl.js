@@ -43,7 +43,8 @@
 
 
             obj = new Dataset("student_dtl_list", this);
-            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/></ColumnInfo>");
+            obj.set_useclientlayout("true");
+            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -93,11 +94,6 @@
             obj.set_taborder("6");
             obj.set_text("삭제");
             obj.set_visible("true");
-            this.addChild(obj.name, obj);
-
-            obj = new Button("btn_test","980","120","168","68",null,null,null,null,null,null,this);
-            obj.set_taborder("7");
-            obj.set_text("테스트용 버튼");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -194,8 +190,8 @@
            popup.set_resizable(true);
            popup.set_openalign("center middle");
            popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
-           popup.style.set_overlaycolor("#6666664C");
-           popup.form.style.set_border("1 solid #4c5a6f");
+        //    popup.style.set_overlaycolor("#6666664C");
+        //    popup.form.style.set_border("1 solid #4c5a6f");
         }
 
         // 팝업콜백 함수
@@ -445,7 +441,6 @@
             this.Select_btn.addEventHandler("onclick",this.Select_btn_onclick,this);
             this.plus_btn.addEventHandler("onclick",this.plus_btn_onclick,this);
             this.delete_btn.addEventHandler("onclick",this.delete_btn_onclick,this);
-            this.btn_test.addEventHandler("onclick",this.btn_test_onclick,this);
             this.DEPARTMENT_List.addEventHandler("onrowposchanged",this.DEPARTMENT_List_onrowposchanged,this);
             this.DEPARTMENT_DTL_List.addEventHandler("onrowposchanged",this.DEPARTMENT_DTL_List_onrowposchanged,this);
         };

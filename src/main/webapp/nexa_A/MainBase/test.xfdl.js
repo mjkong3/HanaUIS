@@ -23,7 +23,7 @@
             
             // UI Components Initialize
             obj = new Button("btn_apply","32","272","120","32",null,null,null,null,null,null,this);
-            obj.set_taborder("4");
+            obj.set_taborder("2");
             obj.set_text("applyChange");
             obj.getSetter("leftbase").set("");
             obj.getSetter("topbase").set("");
@@ -34,7 +34,7 @@
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_reset","160","272","120","32",null,null,null,null,null,null,this);
-            obj.set_taborder("4");
+            obj.set_taborder("1");
             obj.set_text("Reset");
             obj.getSetter("leftbase").set("");
             obj.getSetter("topbase").set("");
@@ -60,6 +60,14 @@
             obj.set_cellsizebandtype("body");
             obj.set_border("");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"80\"/><Column size=\"160\"/><Column size=\"80\"/><Column size=\"120\"/><Column size=\"100\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"Name\" border=\"\"/><Cell col=\"1\" text=\"Address\" border=\"\"/><Cell col=\"2\" text=\"Company\" border=\"\"/><Cell col=\"3\" text=\"Department\" border=\"\"/><Cell col=\"4\" text=\"Salary\" border=\"\"/></Band><Band id=\"body\"><Cell text=\"bind:Name\" textAlign=\"left\" suppress=\"0\" border=\"\" edittype=\"normal\"/><Cell col=\"1\" text=\"bind:Address\" textAlign=\"left\" wordWrap=\"char\" border=\"\" edittype=\"normal\"/><Cell col=\"2\" text=\"bind:Company\" textAlign=\"left\" suppress=\"0\" border=\"\" edittype=\"normal\"/><Cell col=\"3\" text=\"bind:Department\" textAlign=\"left\" wordWrap=\"english\" suppress=\"0\" border=\"\" edittype=\"normal\"/><Cell col=\"4\" text=\"bind:Salary\" displaytype=\"currency\" textAlign=\"right\" border=\"\" edittype=\"normal\"/></Band></Format></Formats>");
+            this.addChild(obj.name, obj);
+
+            obj = new TextArea("TextArea00","329","274","342","151",null,null,null,null,null,null,this);
+            obj.set_taborder("3");
+            this.addChild(obj.name, obj);
+
+            obj = new WebBrowser("WebBrowser00","595","41","242","213",null,null,null,null,null,null,this);
+            obj.set_taborder("4");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -90,13 +98,32 @@
         	this.Dataset00.reset();
         };
 
+        this.TextArea00_oninput = function(obj,e)
+        {
+          var maxlen = 20;
+
+          this.TextArea00.set_scrolltype("both");
+          var nMax = this.TextArea00.vscrollbar.max;
+          this.TextArea00.set_scrolltype("none");
+
+          var nHeight = this.TextArea00.getOffsetHeight();
+          var nFullHeight = nHeight + nMax;
+
+          trace(nFullHeight); // 스크롤바 영역을 포함한 Height 값
+          this.TextArea00.set_height(nFullHeight);
+        };
+
+
         });
         
         // Regist UI Components Event
         this.on_initEvent = function()
         {
+            this.addEventHandler("onload",this.sample_grid_11_onload,this);
             this.btn_apply.addEventHandler("onclick",this.btn_apply_onclick,this);
             this.btn_reset.addEventHandler("onclick",this.btn_reset_onclick,this);
+            this.TextArea00.addEventHandler("oninput",this.TextArea00_oninput,this);
+            this.TextArea00.addEventHandler("onchanged",this.TextArea00_onchanged,this);
         };
         this.loadIncludeScript("test.xfdl");
         this.loadPreloadList();
