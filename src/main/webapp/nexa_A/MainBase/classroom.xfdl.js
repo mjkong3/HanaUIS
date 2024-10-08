@@ -76,13 +76,14 @@
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"93\"/><Column size=\"142\"/><Column size=\"48\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"강의실코드\"/><Cell col=\"1\" text=\"강의실\"/><Cell col=\"2\" text=\"정원\"/></Band><Band id=\"body\"><Cell text=\"bind:CLASSROOM_ID\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:CLASSROOM_NAME\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:MAX_PEOPLE\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("classtime_Grid","548","50","502","277",null,null,null,null,null,null,this);
+            obj = new Grid("classtime_Grid","1288","53","502","277",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("classtime_ds");
             obj.set_autofittype("col");
             obj.set_autosizingtype("none");
             obj.set_selecttype("cell");
             obj.set_autosizebandtype("body");
+            obj.set_visible("false");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"50\"/></Rows><Band id=\"head\"><Cell text=\"교시\"/><Cell col=\"1\" text=\"월요일\"/><Cell col=\"2\" text=\"화요일\"/><Cell col=\"3\" text=\"수요일\"/><Cell col=\"4\" text=\"목요일\"/><Cell col=\"5\" text=\"금요일\"/></Band><Band id=\"body\"><Cell text=\"bind:교시\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:월요일\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:화요일\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:수요일\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:목요일\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:금요일\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
@@ -123,18 +124,12 @@
             obj.set_taborder("8");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_search","341","379","50","25",null,null,null,null,null,null,this);
-            obj.set_taborder("9");
-            obj.set_text("검색");
-            obj.set_visible("false");
-            this.addChild(obj.name, obj);
-
             obj = new Combo("cmb_course","31","380","118","25",null,null,null,null,null,null,this);
-            obj.set_taborder("10");
+            obj.set_taborder("9");
             obj.set_codecolumn("codecolumn");
             obj.set_datacolumn("datacolumn");
             var cmb_course_innerdataset = new nexacro.NormalDataset("cmb_course_innerdataset", obj);
-            cmb_course_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">CLASSROOM_NAME + CLASSROOM_ID + CLASS_NAME  + PROFESSOR_NAME</Col><Col id=\"datacolumn\">전체</Col></Row><Row><Col id=\"datacolumn\">강의실</Col><Col id=\"codecolumn\">CLASSROOM_NAME + CLASSROOM_ID</Col></Row><Row><Col id=\"datacolumn\">강의 이름</Col><Col id=\"codecolumn\">CLASS_NAME</Col></Row><Row><Col id=\"datacolumn\">교수</Col><Col id=\"codecolumn\">PROFESSOR_NAME</Col></Row></Rows>");
+            cmb_course_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">CLASSROOM_NAME + CLASSROOM_ID + CLASS_NAME  + PROFESSOR_NAME + CLASS_GRADE</Col><Col id=\"datacolumn\">전체</Col></Row><Row><Col id=\"datacolumn\">강의실</Col><Col id=\"codecolumn\">CLASSROOM_NAME + CLASSROOM_ID</Col></Row><Row><Col id=\"datacolumn\">강의 이름</Col><Col id=\"codecolumn\">CLASS_NAME</Col></Row><Row><Col id=\"datacolumn\">교수</Col><Col id=\"codecolumn\">PROFESSOR_NAME</Col></Row><Row><Col id=\"codecolumn\">CLASS_GRADE</Col><Col id=\"datacolumn\">학점</Col></Row></Rows>");
             obj.set_innerdataset(cmb_course_innerdataset);
             obj.set_text("전체");
             obj.set_value("CLASSROOM_NAME + CLASSROOM_ID + CLASS_NAME  + PROFESSOR_NAME");
@@ -142,7 +137,7 @@
             this.addChild(obj.name, obj);
 
             obj = new Combo("cmb_se","140","20","100","25",null,null,null,null,null,null,this);
-            obj.set_taborder("11");
+            obj.set_taborder("10");
             obj.set_innerdataset("ds_classsem");
             obj.set_codecolumn("SEMESTER");
             obj.set_datacolumn("SEMESTERN");
@@ -152,7 +147,7 @@
             this.addChild(obj.name, obj);
 
             obj = new Combo("cmb_year","31","20","100","25",null,null,null,null,null,null,this);
-            obj.set_taborder("12");
+            obj.set_taborder("11");
             obj.set_innerdataset("ds_classyear");
             obj.set_codecolumn("YEAR");
             obj.set_datacolumn("YEARN");
@@ -162,8 +157,32 @@
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_popclassplus","463","17","69","28",null,null,null,null,null,null,this);
-            obj.set_taborder("13");
+            obj.set_taborder("12");
             obj.set_text("강의실 추가");
+            this.addChild(obj.name, obj);
+
+            obj = new Div("Div00","540","7","537","333",null,null,null,null,null,null,this);
+            obj.set_taborder("14");
+            obj.set_text("Div00");
+            this.addChild(obj.name, obj);
+
+            obj = new Grid("classtime_Grid","18","42","502","277",null,null,null,null,null,null,this.Div00.form);
+            obj.set_taborder("0");
+            obj.set_binddataset("classtime_ds");
+            obj.set_autofittype("col");
+            obj.set_autosizingtype("none");
+            obj.set_selecttype("cell");
+            obj.set_autosizebandtype("body");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"50\"/></Rows><Band id=\"head\"><Cell text=\"교시\"/><Cell col=\"1\" text=\"월요일\"/><Cell col=\"2\" text=\"화요일\"/><Cell col=\"3\" text=\"수요일\"/><Cell col=\"4\" text=\"목요일\"/><Cell col=\"5\" text=\"금요일\"/></Band><Band id=\"body\"><Cell text=\"bind:교시\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:월요일\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:화요일\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:수요일\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:목요일\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:금요일\" textAlign=\"center\"/></Band></Format></Formats>");
+            this.Div00.addChild(obj.name, obj);
+
+            obj = new Static("stc_classroom","20","11","137","29",null,null,null,null,null,null,this.Div00.form);
+            obj.set_taborder("1");
+            this.Div00.addChild(obj.name, obj);
+
+            obj = new Button("btn_print","986","20","72","26",null,null,null,null,null,null,this);
+            obj.set_taborder("13");
+            obj.set_text("인쇄");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -241,14 +260,6 @@
         // 삭제버튼 클릭 카운트
         var countdelete = 0;
 
-        // 엔터키 검색
-        this.classroom_onkeyup = function(obj,e)
-        {
-        	if(e.keycode==13){
-        		this.btn_search.click();
-        	}
-        };
-
         // 데이터 null값 상단 배치
         this.topnull = function()
         {
@@ -304,8 +315,9 @@
         {
         	// 현재 선택된 강의실 ID 가져오기
         	var CLASSROOM_ID = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_ID");
+        	var CLASSROOM_NAME = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_NAME");
         	var grade = this.cmb_se.value;
-
+        	this.Div00.form.stc_classroom.set_text(CLASSROOM_NAME+"  "+CLASSROOM_ID);
         	// 요일을 나타내는 숫자를 요일 컬럼 ID로 변환하는 함수
         	function getDayColumnId(dayNumber) {
         		switch(dayNumber) {
@@ -531,16 +543,6 @@
 
         };
 
-        //검색 버튼 ---> 제거예정
-        this.btn_search_onclick = function(obj,e)
-        {
-        	this.searchfilter();
-        	//trace(this.cmb_year.value);
-
-        	// 데이터 null값 상단 배치
-        	this.topnull();
-        };
-
 
         // 변경 선택시 체크 바꾸기
         this.classcourse_grd_ondropdown = function(obj,e)
@@ -605,13 +607,31 @@
             this.showPopup(objParam, surl);
         };
 
+        this.classroom_onbeforeclose = function(obj,e)
+        {
+        	if (this.classcourse_ds.getCaseCount("CHECK == 1") > 0) {
+                var comt = "저장 안된 부분이 있습니다. 이동하겠습니까?";
+        		return comt;
+            }
+        };
+
+
+        this.btn_print_onclick = function(obj,e)
+        {
+            // 그리드를 프린트
+            //system.print(this.classtime_Grid, false, "middle", "left", false, "landscape");
+        	system.print(this.Div00, false, "middle", "left", false, "landscape");
+
+        };
+
+
         });
         
         // Regist UI Components Event
         this.on_initEvent = function()
         {
             this.addEventHandler("onload",this.classroom_onload,this);
-            this.addEventHandler("onkeyup",this.classroom_onkeyup,this);
+            this.addEventHandler("onbeforeclose",this.classroom_onbeforeclose,this);
             this.classcourse_grd.addEventHandler("ondropdown",this.classcourse_grd_ondropdown,this);
             this.reset_btn.addEventHandler("onclick",this.reset_btn_onclick,this);
             this.insert_btn.addEventHandler("onclick",this.insert_btn_onclick,this);
@@ -619,10 +639,10 @@
             this.btn_copy.addEventHandler("onclick",this.btn_copy_onclick,this);
             this.btn_delete.addEventHandler("onclick",this.btn_delete_onclick,this);
             this.edt_search.addEventHandler("onchanged",this.edt_search_onchanged,this);
-            this.btn_search.addEventHandler("onclick",this.btn_search_onclick,this);
             this.cmb_se.addEventHandler("onitemchanged",this.cmb_se_onitemchanged,this);
             this.cmb_year.addEventHandler("onitemchanged",this.cmb_year_onitemchanged,this);
             this.btn_popclassplus.addEventHandler("onclick",this.btn_popclassplus_onclick,this);
+            this.btn_print.addEventHandler("onclick",this.btn_print_onclick,this);
             this.classroom_ds.addEventHandler("onrowposchanged",this.classroom_ds_onrowposchanged,this);
             this.classcourse_ds.addEventHandler("cancolumnchange",this.classcourse_ds_cancolumnchange,this);
         };

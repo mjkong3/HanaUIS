@@ -67,7 +67,6 @@
         <Edit id="Edit00" taborder="4" left="293" top="30" width="687" height="46"/>
         <Button id="plus_btn" taborder="5" text="등록" left="1090" top="30" width="64" height="46" onclick="plus_btn_onclick"/>
         <Button id="delete_btn" taborder="6" text="삭제" left="1174" top="30" width="66" height="46" onclick="delete_btn_onclick" visible="true"/>
-        <Button id="btn_test" taborder="7" text="테스트용 버튼" left="980" top="120" width="168" height="68" onclick="btn_test_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -139,8 +138,8 @@ this.showPopup = function (objParam, surl)
    popup.set_resizable(true);
    popup.set_openalign("center middle");
    popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
-   popup.style.set_overlaycolor("#6666664C");
-   popup.form.style.set_border("1 solid #4c5a6f");
+//    popup.style.set_overlaycolor("#6666664C");
+//    popup.form.style.set_border("1 solid #4c5a6f");
 }
 
 // 팝업콜백 함수
@@ -445,7 +444,7 @@ this.btn_test_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
           <Row/>
         </Rows>
       </Dataset>
-      <Dataset id="student_dtl_list">
+      <Dataset id="student_dtl_list" useclientlayout="true">
         <ColumnInfo>
           <Column id="STUDENT_ID" type="INT" size="256"/>
           <Column id="PASSWORD" type="STRING" size="256"/>
@@ -458,6 +457,7 @@ this.btn_test_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
           <Column id="ADDRESS" type="STRING" size="256"/>
           <Column id="STATUS" type="STRING" size="256"/>
           <Column id="DEPARTMENT_CODE" type="INT" size="256"/>
+          <Column id="PHOTO" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dlt_ds">

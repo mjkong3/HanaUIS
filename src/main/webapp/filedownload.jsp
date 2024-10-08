@@ -7,7 +7,7 @@
 <%
     // 파일 이름과 경로 설정
     String fileName = request.getParameter("fileName");
-    String filePath = "D:\\upload\\" + fileName;
+    String filePath = "C:\\upload\\" + fileName;
     
     File file = new File(filePath);
     
