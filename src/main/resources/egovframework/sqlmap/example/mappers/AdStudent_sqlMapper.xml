@@ -61,7 +61,9 @@
                GENDER,
                ADDRESS,
                STATUS,
-               DEPARTMENT_CODE)
+               DEPARTMENT_CODE,
+               PHOTO,
+               CRE_DTM)
                VALUES (#{STUDENT_ID},
                      SHA2(#{PASSWORD}, 256),
                      #{NAME},
@@ -72,7 +74,9 @@
                      #{GENDER},
                      #{ADDRESS},
                      #{STATUS},
-                     #{DEPARTMENT_CODE})
+                     #{DEPARTMENT_CODE},
+                     #{PHOTO},
+                     NOW())
    
    </insert>
    
@@ -87,9 +91,10 @@
                GENDER = #{GENDER},
                ADDRESS = #{ADDRESS},
                STATUS = #{STATUS},
-               DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+               DEPARTMENT_CODE = #{DEPARTMENT_CODE},
+               PHOTO = #{PHOTO},
+               UPD_DTM = NOW()
                where STUDENT_ID = #{STUDENT_ID}
-               
    </update>
    
    <select id="selectAdStudentdtl" parameterType="hashMap" resultType="hashMap">
@@ -103,7 +108,8 @@
                GENDER,
                ADDRESS,
                STATUS,
-               DEPARTMENT_CODE
+               DEPARTMENT_CODE,
+               PHOTO
       FROM STUDENT
       where 1=1
       and STUDENT_ID = #{Student_id}

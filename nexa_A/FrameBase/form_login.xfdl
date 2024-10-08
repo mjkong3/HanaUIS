@@ -131,7 +131,8 @@ this.fn_addSession = function (adminCode)
 	var isAsync     = true;
 	
 	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 	
-};]]></Script>
+};
+]]></Script>
     <Objects>
       <Dataset id="Login_Ds" useclientlayout="true">
         <ColumnInfo>
