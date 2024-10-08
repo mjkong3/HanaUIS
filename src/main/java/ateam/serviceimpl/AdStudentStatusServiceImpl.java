@@ -37,6 +37,16 @@ public class AdStudentStatusServiceImpl extends EgovAbstractServiceImpl implemen
 		return mapper.statusDetail(statusCode);
 	}
 
+	@Override
+	public void statusDelete(String statusCode) {
+		mapper.statusApprovedDelete(statusCode);
+	}
+
+	@Override
+	public Map<String, Object> studentInfo(String studentId) {
+		return mapper.studentInfo(studentId);
+	}
+
 
 
 }

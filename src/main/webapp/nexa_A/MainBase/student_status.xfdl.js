@@ -33,7 +33,7 @@
 
 
             obj = new Dataset("ds_StudentDetail", this);
-            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"REG_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"LEAVE_DATE\" type=\"STRING\" size=\"256\"/><Column id=\"RETURN_DATE\" type=\"STRING\" size=\"256\"/><Column id=\"REASON\" type=\"STRING\" size=\"256\"/><Column id=\"APPROVED\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"REG_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"LEAVE_DATE\" type=\"STRING\" size=\"256\"/><Column id=\"RETURN_DATE\" type=\"STRING\" size=\"256\"/><Column id=\"REASON\" type=\"STRING\" size=\"256\"/><Column id=\"APPROVED\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_USR\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -51,7 +51,7 @@
             obj.set_taborder("0");
             obj.set_binddataset("ds_StudentList");
             obj.set_autofittype("col");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"No\" tooltiptext=\"expr:\"/><Cell col=\"1\" text=\"신청일\" calendardateformat=\"yyyy-MM-dd\"/><Cell col=\"2\" text=\"학번\"/><Cell col=\"3\" text=\"신청유형\"/><Cell col=\"4\" text=\"승인여부\"/><Cell col=\"5\" text=\"이름\"/></Band><Band id=\"body\"><Cell text=\"expr:currow + 1 \"/><Cell col=\"1\" text=\"bind:REG_DTM\" calendardateformat=\"yyyy-MM-dd\"/><Cell col=\"2\" text=\"bind:STUDENT_ID\"/><Cell col=\"3\" text=\"bind:STATUS_TYPE\"/><Cell col=\"4\" text=\"bind:APPROVED\"/><Cell col=\"5\" text=\"bind:NAME\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"43\"/><Column size=\"156\"/><Column size=\"80\"/><Column size=\"62\"/><Column size=\"69\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"No\" tooltiptext=\"expr:\"/><Cell col=\"1\" text=\"신청일\" calendardateformat=\"yyyy-MM-dd\"/><Cell col=\"2\" text=\"학번\"/><Cell col=\"3\" text=\"신청유형\"/><Cell col=\"4\" text=\"승인여부\"/><Cell col=\"5\" text=\"이름\"/></Band><Band id=\"body\"><Cell text=\"expr:currow + 1 \" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:REG_DTM\" calendardateformat=\"yyyy-MM-dd\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:STUDENT_ID\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:STATUS_TYPE\" textAlign=\"center\"/><Cell col=\"4\" textAlign=\"center\" text=\"bind:APPROVED\"/><Cell col=\"5\" text=\"bind:NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00","545","109","98","50",null,null,null,null,null,null,this);
@@ -70,7 +70,7 @@
 
             obj = new Edit("edt_StdId","654","119","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("4");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00","545","206","98","50",null,null,null,null,null,null,this);
@@ -87,13 +87,8 @@
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_StatusType","654","216","153","31",null,null,null,null,null,null,this);
-            obj.set_taborder("7");
-            obj.set_readonly("false");
-            this.addChild(obj.name, obj);
-
             obj = new Static("Static00_00_00_00","545","255","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("8");
+            obj.set_taborder("7");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   휴학희망일");
@@ -101,13 +96,13 @@
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_00_00","642","255","176","50",null,null,null,null,null,null,this);
-            obj.set_taborder("9");
+            obj.set_taborder("8");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00_00_00","817","255","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("10");
+            obj.set_taborder("9");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   복학희망일");
@@ -115,19 +110,19 @@
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_00_00_00","914","255","176","50",null,null,null,null,null,null,this);
-            obj.set_taborder("11");
+            obj.set_taborder("10");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_00_00_00_00","914","206","176","50",null,null,null,null,null,null,this);
-            obj.set_taborder("12");
+            obj.set_taborder("11");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00_00_00_00","817","206","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("13");
+            obj.set_taborder("12");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   신청일자");
@@ -135,18 +130,18 @@
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_00_00_00_00_00","914","109","176","50",null,null,null,null,null,null,this);
-            obj.set_taborder("14");
+            obj.set_taborder("13");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_Name","926","119","153","31",null,null,null,null,null,null,this);
-            obj.set_taborder("15");
-            obj.set_readonly("false");
+            obj.set_taborder("14");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00_00_00_00_00","817","109","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("16");
+            obj.set_taborder("15");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   이름");
@@ -154,7 +149,7 @@
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00_00_00_00_01","817","158","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("17");
+            obj.set_taborder("16");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   학적상태");
@@ -162,29 +157,24 @@
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_00_00_00_00_01","914","158","176","50",null,null,null,null,null,null,this);
-            obj.set_taborder("18");
+            obj.set_taborder("17");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_StdStatus","926","168","153","31",null,null,null,null,null,null,this);
-            obj.set_taborder("19");
-            obj.set_readonly("false");
+            obj.set_taborder("18");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_00_00_00_00_01_00","642","158","176","50",null,null,null,null,null,null,this);
-            obj.set_taborder("20");
+            obj.set_taborder("19");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_department","654","168","153","31",null,null,null,null,null,null,this);
-            obj.set_taborder("21");
-            obj.set_readonly("false");
-            this.addChild(obj.name, obj);
-
             obj = new Static("Static00_00_00_00_00_00_01_00","545","158","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("22");
+            obj.set_taborder("20");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   학과");
@@ -192,13 +182,13 @@
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_00_00_00_00_01_00_00","642","304","448","188",null,null,null,null,null,null,this);
-            obj.set_taborder("23");
+            obj.set_taborder("21");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00_00_00_00_01_00_00","545","304","98","187",null,null,null,null,null,null,this);
-            obj.set_taborder("24");
+            obj.set_taborder("22");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   신청사유");
@@ -206,30 +196,30 @@
             this.addChild(obj.name, obj);
 
             obj = new TextArea("ta_Reasen","654","315","425","165",null,null,null,null,null,null,this);
-            obj.set_taborder("25");
-            obj.set_readonly("false");
+            obj.set_taborder("23");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Calendar("cal_LeaveDate","654","265","153","31",null,null,null,null,null,null,this);
-            obj.set_taborder("26");
+            obj.set_taborder("24");
             obj.set_dateformat("yyyy-MM-dd");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Calendar("cal_RegDate","926","216","153","31",null,null,null,null,null,null,this);
-            obj.set_taborder("27");
+            obj.set_taborder("25");
             obj.set_dateformat("yyyy-MM-dd");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Calendar("cal_RetuenDate","926","265","153","31",null,null,null,null,null,null,this);
-            obj.set_taborder("28");
+            obj.set_taborder("26");
             obj.set_dateformat("yyyy-MM-dd");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00_00_01","545","490","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("29");
+            obj.set_taborder("27");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   승인여부");
@@ -237,28 +227,31 @@
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_00_00_01","642","490","448","50",null,null,null,null,null,null,this);
-            obj.set_taborder("30");
+            obj.set_taborder("28");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Save","950","496","129","38",null,null,null,null,null,null,this);
-            obj.set_taborder("31");
+            obj = new Button("btn_Save","950","496","60","38",null,null,null,null,null,null,this);
+            obj.set_taborder("29");
             obj.set_text("저장");
             this.addChild(obj.name, obj);
 
             obj = new Radio("rdo_approved","653","502","273","27",null,null,null,null,null,null,this);
-            obj.set_taborder("32");
+            obj.set_taborder("30");
             obj.set_codecolumn("codecolumn");
             obj.set_datacolumn("datacolumn");
             obj.set_direction("vertical");
             var rdo_approved_innerdataset = new nexacro.NormalDataset("rdo_approved_innerdataset", obj);
             rdo_approved_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">N</Col><Col id=\"datacolumn\">미확인</Col></Row><Row><Col id=\"codecolumn\">Y</Col><Col id=\"datacolumn\">승인</Col></Row><Row><Col id=\"codecolumn\">C</Col><Col id=\"datacolumn\">거절</Col></Row></Rows>");
             obj.set_innerdataset(rdo_approved_innerdataset);
+            obj.set_text("미확인");
+            obj.set_value("N");
+            obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Search","237","40","179","46",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_Search","237","50","179","36",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_innerdataset("ds_SearchType");
             obj.set_codecolumn("SEARCH_TYPE");
@@ -267,17 +260,17 @@
             obj.set_index("-1");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_search","440","40","179","46",null,null,null,null,null,null,this);
-            obj.set_taborder("33");
+            obj = new Edit("edt_search","440","50","179","36",null,null,null,null,null,null,this);
+            obj.set_taborder("31");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Search","636","40","120","46",null,null,null,null,null,null,this);
-            obj.set_taborder("34");
+            obj = new Button("btn_Search","636","50","94","36",null,null,null,null,null,null,this);
+            obj.set_taborder("32");
             obj.set_text("검색");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Search00","37","40","179","46",null,null,null,null,null,null,this);
-            obj.set_taborder("35");
+            obj = new Combo("cmb_Search00","37","50","179","36",null,null,null,null,null,null,this);
+            obj.set_taborder("33");
             obj.set_innerdataset("ds_dept");
             obj.set_codecolumn("DEPARTMENT_CODE");
             obj.set_datacolumn("DEPARTMENT_NAME");
@@ -286,9 +279,34 @@
             obj.set_index("-1");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Create","766","40","120","46",null,null,null,null,null,null,this);
-            obj.set_taborder("36");
+            obj = new Button("btn_Create","996","50","94","36",null,null,null,null,null,null,this);
+            obj.set_taborder("34");
             obj.set_text("생성");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_Delete","1020","496","60","38",null,null,null,null,null,null,this);
+            obj.set_taborder("35");
+            obj.set_text("삭제");
+            this.addChild(obj.name, obj);
+
+            obj = new Combo("cmb_Dept","654","168","153","31",null,null,null,null,null,null,this);
+            obj.set_taborder("36");
+            obj.set_innerdataset("ds_dept");
+            obj.set_codecolumn("DEPARTMENT_CODE");
+            obj.set_datacolumn("DEPARTMENT_NAME");
+            obj.set_readonly("true");
+            obj.set_text("Combo00");
+            this.addChild(obj.name, obj);
+
+            obj = new Combo("cmb_StatusType","654","215","153","31",null,null,null,null,null,null,this);
+            obj.set_taborder("37");
+            obj.set_codecolumn("codecolumn");
+            obj.set_datacolumn("datacolumn");
+            obj.set_readonly("true");
+            var cmb_StatusType_innerdataset = new nexacro.NormalDataset("cmb_StatusType_innerdataset", obj);
+            cmb_StatusType_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">복학</Col><Col id=\"datacolumn\">휴학</Col></Row><Row><Col id=\"codecolumn\">휴학</Col><Col id=\"datacolumn\">복학</Col></Row></Rows>");
+            obj.set_innerdataset(cmb_StatusType_innerdataset);
+            obj.set_text("");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -298,14 +316,6 @@
             
             // BindItem Information
             obj = new BindItem("item1","edt_StdId","value","ds_StudentDetail","STUDENT_ID");
-            this.addChild(obj.name, obj);
-            obj.bind();
-
-            obj = new BindItem("item2","edt_department","value","ds_StudentDetail","DEPARTMENT_NAME");
-            this.addChild(obj.name, obj);
-            obj.bind();
-
-            obj = new BindItem("item3","edt_StatusType","value","ds_StudentDetail","STATUS_TYPE");
             this.addChild(obj.name, obj);
             obj.bind();
 
@@ -348,6 +358,14 @@
             obj = new BindItem("item12","cmb_Search00","value","ds_Search","DEPARTMENT_CODE");
             this.addChild(obj.name, obj);
             obj.bind();
+
+            obj = new BindItem("item3","cmb_Dept","value","ds_StudentDetail","DEPARTMENT_CODE");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item2","cmb_StatusType","value","ds_StudentDetail","STATUS_TYPE");
+            this.addChild(obj.name, obj);
+            obj.bind();
             
             // TriggerItem Information
 
@@ -360,22 +378,24 @@
         
         // User Script
         this.registerScript("student_status.xfdl", function() {
-        //화면진입
+        ////////////////////////////////////////////////////////////////////////////////////////화면진입
         this.student_status_onload = function(obj,e){
-        	this.ds_Search.setColumn(0,"SEARCH_TYPE","ALL");
+           this.ds_Search.setColumn(0,"SEARCH_TYPE","ALL");
 
-        	this.fn_departmentList();
-        	this.fn_studentList();
+           this.fn_departmentList();
+           this.fn_studentList();
+
         }
 
-        //학과목록 호출 함수 : 구자명
+        /////////////////////////////////////////////////////////////////////////////////////////함수
+        //학과목록 호출 함수 : 구자명 광역함수
         this.fn_departmentList = function() {
 
            var strSvcId    = "departmentList";
-           var strSvcUrl   = "svc::selectAdDept.do";//컨트롤러 경로
+           var strSvcUrl   = "svc::statusApprovedDelete.do";//컨트롤러 경로
            var inData      = "";
            var outData     = "ds_dept = ds_dept";
-           var strArg      = "";					//리퀘스트 문자 파라미터
+           var strArg      = "";               //리퀘스트 문자 파라미터
            var callBackFnc = "fnCallback";
            var isAsync     = true;
 
@@ -391,6 +411,20 @@
            var inData      = "ds_Search = ds_Search";
            var outData     = "ds_StudentList = ds_StudentList";
            var strArg      = "";
+           var callBackFnc = "fnCallback";
+           var isAsync     = true;
+
+           this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+
+        }
+        //학생 정보 검색
+        this.fn_studentInfo = function(studentId){
+
+           var strSvcId    = "studentInfo";
+           var strSvcUrl   = "svc::studentInfo.do";
+           var inData      = "";
+           var outData     = "ds_StudentDetail = ds_StudentDetail";
+           var strArg      = "STUDENT_ID="+studentId;
            var callBackFnc = "fnCallback";
            var isAsync     = true;
 
@@ -413,7 +447,9 @@
 
         }
 
+        //학생정보 저장 함수
         this.fn_studentDetailSave = function(){
+        	trace("fn_studentDetailSave##############################");
            var strSvcId    = "studentDetailSave";
            var strSvcUrl   = "svc::statusUpdate.do";
            var inData      = "ds_StudentDetail = ds_StudentDetail";
@@ -425,78 +461,251 @@
            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         }
 
-        //검색버튼 클릭
+        //신청내역 삭제 함수
+        this.fn_statusDelete = function(statusCode){
+           var strSvcId    = "statusDelete";
+           var strSvcUrl   = "svc::statusApprovedDelete.do";
+           var inData      = "";
+           var outData     = "";
+           var strArg      = "STATUS_CODE="+statusCode;
+           var callBackFnc = "fnCallback";
+           var isAsync     = true;
+
+           this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+          }
+
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////버튼
+        //검색버튼
         this.btn_Search_onclick = function(obj,e)
         {
-        	this.fn_studentList();
+           this.fn_studentList();
         };
-        //생성버튼 클릭
+
+        //생성버튼
         this.btn_Create_onclick = function(obj,e)
         {
-        	this.ds_StudentList.addRow();
+           // 새로운 행 추가 - 실제 입력할 행을 만든다
+            var newRow = this.ds_StudentList.insertRow();
 
-        	this.edt_StdId.set_readonly(false);
-        	this.edt_Name.set_readonly(false);
-        	this.edt_department.set_readonly(false);
-        	this.edt_StdStatus.set_readonly(false);
-        	this.edt_statusType.set_readonly(false);
-        	this.cal_RegDate.set_readonly(false);
-        	this.cal_LeaveDate.set_readonly(false);
-        	this.cal_RetuenDate.set_readonly(false);
-        	this.ta_Reasen.set_readonly(false);
+           // 이전 트랜잭션 결과 값이 화면에 남아있는 문제 해결을 위해 ds 초기화
+            this.ds_StudentDetail.clearData();
+
+           // 그리드에 포커스 설정
+            this.grd_applicationList.setFocus(true);
+
+           // 새로 추가된 행으로 이동
+            this.grd_applicationList.selectRow(newRow);
+           trace("생성된 행은?" + newRow);
+
+            // oncellclick 이벤트 강제 호출
+           // 이벤트 강제호출 방식 - this.이벤트명(obj, e)
+           // UI에서 동작을 제어하려면 e(이벤트 객체)를 생성하고 값을 지정
+            var cellClickEventInfo = new nexacro.GridClickEventInfo(
+        		  this.grd_applicationList,    	// 이벤트 대상이 되는 객체(ds도 가능)
+        		  "oncellclick",           		// 이벤트 종류
+        		  newRow,                		// 클릭된 행의 인덱스 - 여기선 생성된 행
+        		  0,                      		// 클릭된 셀의 인덱스 - newRow 내의 셀
+        		  0,                      		// 클릭된 헤더의 인덱스
+        		  0,                      		// 클릭된 바디의 인덱스
+        		  "left",                		// 클릭한 마우스 버튼
+        		  "cell"                  		// 클릭된 셀의 종류
+        	);
+
+           // 지정한 객체값을 넣어주고 이벤트 강제 호출
+            this.cell_student_onclick(this.grd_applicationList, cellClickEventInfo);
+        	this.ds_StudentDetail.setColumn(this.ds_StudentDetail.rowPosition,"APPROVED","N");
 
         };
+
+        //삭제버튼 클릭
+        this.btn_Delete_onclick = function(obj,e)
+        {
+        	  if(confirm("정말로 삭제하시겠습니까?")){
+        		 var statusCode = this.ds_StudentDetail.getColumn(0, "STATUS_CODE");
+                 this.fn_statusDelete(statusCode);
+              }
+
+        };
+
         //저장버튼 클릭
         this.btn_Save_onclick = function(obj,e)
         {
-        	this.fn_studentDetailSave();
+        	if(this.ds_StudentDetail.getColumn(0, "STUDENT_ID")==''
+        		||	this.ds_StudentDetail.getColumn(0, "STUDENT_ID")=='undefined'
+        		||	this.ds_StudentDetail.getColumn(0, "STUDENT_ID")==null){
+        		alert("학번을 입력해주세요");
+        		return;
+        	}
+        	if(this.ds_StudentDetail.getColumn(0, "STATUS_TYPE")==''
+        		||	this.ds_StudentDetail.getColumn(0, "STATUS_TYPE")=='undefined'
+        		||	this.ds_StudentDetail.getColumn(0, "STATUS_TYPE")==null){
+        		alert("신청유형을 선택해주세요");
+        		return;
+        	}
+        	if(this.ds_StudentDetail.getColumn(0, "REASON")==''
+        		||	this.ds_StudentDetail.getColumn(0, "REASON")=='undefined'
+        		||	this.ds_StudentDetail.getColumn(0, "REASON")==null){
+        		alert("신청사유를 입력해주세요");
+        		return;
+        	}
+
+        	trace("STATUS_CODE ===========================??????");
+        	trace(this.ds_StudentDetail.getColumn(0, "STATUS_CODE"));
+        	if(this.ds_StudentDetail.getColumn(0, "STATUS_CODE") == ''
+        		||	this.ds_StudentDetail.getColumn(0, "STATUS_CODE")=='undefined'
+        		||	this.ds_StudentDetail.getColumn(0, "STATUS_CODE")==null){
+        		trace("STATUS_CODE ===========================NULL");
+        		this.ds_StudentDetail.addColumn("CRE_USR", "STRING");
+        		this.ds_StudentDetail.addColumn("UPD_USR", "STRING");
+        	}
+
+           // 로그인시 gds에 받아온 값을 호출
+           var gdsApp = nexacro.getApplication();
+           var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+           trace("gds에서 받아온 값 = " + adCode);
+           // gds값을 insert나 update시 사용할 ds에 넣어준다
+           this.ds_StudentDetail.setColumn(0, "CRE_USR", adCode);
+           this.ds_StudentDetail.setColumn(0, "UPD_USR", adCode);
+           var chkCre = this.ds_StudentDetail.getColumn(0, "CRE_USR");
+           var chkUpd = this.ds_StudentDetail.getColumn(0, "UPD_USR");
+           trace("setcolumn한 값 = " + chkCre + " / " + chkUpd);
+
+
+           // gds값이 정상적으로 들어갔을 때만 save로직 실행
+           if(chkCre != null && chkCre != '' && chkCre != 0 || chkUpd != null && chkUpd != '' && chkUpd != 0) {
+        		this.fn_studentDetailSave();
+        		trace("입력값 넘기기11@!? " + this.ds_StudentDetail.saveXML());
+           } else {
+           trace("하하핳ㅎ");
+           }
         };
         //그리드 내 학생 클릭
         this.cell_student_onclick = function(obj,e)
         {
-        	var statusCode = this.ds_StudentList.getColumn(this.ds_StudentList.rowposition, "STATUS_CODE");
+           // edit은 바인딩된 ds가 비어있을 경우 readonly(true)상태가 되어버린다
+           // 새로운 행을 생성할 경우 transaction 결과로 바인딩된 ds가 늘 null이다
+           // 따라서 새로 생성한 행일 경우 트랜잭션 발동을 막는다
+           // IFNULL로 해결가능한지? - statusCode 자체가 없기때문에 ifnull 사용해도 null
 
-        	this.fn_studentDetail(statusCode);
+           // 현재 선택한 row의 tpye을 알아낸다
+            var rowPos = this.ds_StudentList.rowposition;
+           trace("현재 row값은? = " + rowPos);
+            var rowTp = this.ds_StudentList.getRowType(rowPos);
 
+            // 새로운 행일 경우 트랜잭션을 실행하지 않고 readonly 해제
+           // Dataset.ROWTYPE_INSERT - 넥사크로 내에서 관리하는 상수 / 새로 추가된 row임을 뜻한다
+            if (rowTp == Dataset.ROWTYPE_INSERT) {
+
+              // 새로운 행을 추가하여 작성 가능하게 만듦
+                this.ds_StudentDetail.addRow();
+               // readonly 해제
+              this.fn_setReadonly(false);
+               // 트랜잭션 실행하지 않음
+              return;
+            }
+           // 기존 데이터는 트랜잭션 실행하여 상세 정보 조회
+            var statusCode = this.ds_StudentList.getColumn(rowPos, "STATUS_CODE");
+            this.fn_studentDetail(statusCode);
 
         };
 
+        //학번 입력시 학생정보자동 불러오기
+        this.edt_StdId_onkeyup = function(obj,e)
+        {
+           if (e.keycode == 13) {
+               var studentId = this.ds_StudentDetail.getColumn(0, "STUDENT_ID");
+               this.fn_studentInfo(studentId);
+           }
+        };
 
+        //신청유형에 따라 캘린더 비활성화
+        this.Combo00_onitemchanged = function(obj,e)
+        {
+        	var status = this.ds_StudentDetail.getColumn(0,"STATUS_TYPE");
+        	if(status == "휴학"){
+        		this.cal_LeaveDate.set_readonly(true);
+        	}
+        	if(status == "복학"){
+        		this.cal_LeaveDate.set_readonly(false);
+        	}
+        };
 
-
-
-        //콜백 함수
+        /////////////////////////////////////////////////////////////////////////////////////////콜백 함수
         this.fnCallback = function(svcID,errorCode,errorMsg){
-        	// 에러 시 화면 처리 내역
-        	if(errorCode == -1)
-        	{
-        		this.alert(errorMsg);
-        		return;
-        	}
+           // 에러 시 화면 처리 내역
+           if(errorCode == -1)
+           {
+              this.alert(errorMsg);
+              return;
+           }
 
-        	switch(svcID){
-        		case "departmentList":
+           switch(svcID){
+              case "departmentList":
 
-        		/*	trace("뎁트는? " + this.ds_dept.saveXML());*/
-        			var newRow = this.ds_dept.insertRow(0);
-        			this.ds_dept.setColumn(newRow, "DEPARTMENT_CODE", "ALL");
-        			this.ds_dept.setColumn(newRow, "DEPARTMENT_NAME", "전체학과");
-        			break;
+              /*   trace("뎁트는? " + this.ds_dept.saveXML());*/
+                 var newRow = this.ds_dept.insertRow(0);
+                 this.ds_dept.setColumn(newRow, "DEPARTMENT_CODE", "ALL");
+                 this.ds_dept.setColumn(newRow, "DEPARTMENT_NAME", "전체학과");
+                 break;
 
-        		case "studentList":
-        			trace("받아온 값? = " + this.ds_StudentList.saveXML());
-        			break;
-        		case "studentDetail":
-        			trace("받아온 값? = " + this.ds_StudentDetail.saveXML());
+              case "studentList":
+                 /*trace("받아온 값? = " + this.ds_StudentList.saveXML());*/
+        		 //var app = this.grd_applicationList.getCellProperty("body", e.)
+                 break;
+              case "studentDetail":
+                 trace("받아온 값? = " + this.ds_StudentDetail.getColumn(0, "NAME"));
+                 this.fn_setReadonly(true);
+                 break;
+              case "studentDetailSave":
+                   this.alert("저장되었습니다");
+                 this.fn_studentList();
+        		 this.fn_setReadonly(true);
+                 break;
+        	  case "studentInfo":
+        			var chkId = this.ds_StudentDetail.getColumn(0, "STUDENT_ID");
+        			if(chkId == ''
+        			||	chkId=='undefined'
+        			||	chkId==null){
+        					alert("해당 학생이 없습니다");
+        				   this.ds_StudentDetail.clearData();
+        				   this.fn_studentList();
+        			}else {
+        				   this.edt_Name.set_readonly(true);
+        				   this.cmb_Dept.set_readonly(true);
+        				   this.edt_StdStatus.set_readonly(true);
+        			}
+        			this.ds_StudentDetail.addColumn("STUDENT_ID", "INT");
+        			trace("받아온 info = " + this.ds_StudentDetail.saveXML());
+        			this.ds_StudentDetail.addColumn("STATUS_TYPE", "STRING");
+        			this.ds_StudentDetail.addColumn("LEAVE_DATE","STRING");
+        			this.ds_StudentDetail.addColumn("RETURN_DATE","STRING");
+        			this.ds_StudentDetail.addColumn("REASON", "STRING");
+        			this.ds_StudentDetail.addColumn("APPROVED","STRING");
+        			this.rdo_approved.set_value("N");
+        		 break;
+        	  case "statusDelete":
+        			alert("삭제되었습니다");
+        		    this.fn_studentList();
+        		break;
+              default :
+                 break;
+           }
+        };
 
-        			break;
-        		case "studentDetailSave":
-        			  this.alert("저장되었습니다");
-        			this.fn_studentList();
-        			break;
-        		default :
-        			break;
-        	}
+        // readonly 제어 함수
+        this.fn_setReadonly = function(isReadonly) {
+
+           this.edt_StdId.set_readonly(isReadonly);
+           this.edt_Name.set_readonly(isReadonly);
+           this.cmb_Dept.set_readonly(isReadonly);
+           this.edt_StdStatus.set_readonly(isReadonly);
+           this.cmb_StatusType.set_readonly(isReadonly);
+           //this.cal_RegDate.set_readonly(isReadonly);
+           this.cal_LeaveDate.set_readonly(isReadonly);
+           this.cal_RetuenDate.set_readonly(isReadonly);
+           this.ta_Reasen.set_readonly(isReadonly);
         };
 
 
@@ -504,10 +713,12 @@
 
 
 
-        ///////////////////////////////////////////////// 그리드 필터 정렬기능
+
+
+        ///////////////////////////////////////////////// 그리드 필터 정렬기능 : 구자명
         this.grd_applicationList_onheadclick = function(obj,e)
         {
-        	this.fn_sort(obj, e);
+           this.fn_sort(obj, e);
         };
 
 
@@ -565,6 +776,11 @@
 
 
 
+
+
+
+
+
         });
         
         // Regist UI Components Event
@@ -574,6 +790,7 @@
             this.grd_applicationList.addEventHandler("onheadclick",this.grd_applicationList_onheadclick,this);
             this.grd_applicationList.addEventHandler("oncellclick",this.cell_student_onclick,this);
             this.Static00_00.addEventHandler("onclick",this.Static00_00_onclick,this);
+            this.edt_StdId.addEventHandler("onkeyup",this.edt_StdId_onkeyup,this);
             this.Static00_00_00_00_00_00_00.addEventHandler("onclick",this.Static00_00_00_00_00_00_00_onclick,this);
             this.ta_Reasen.addEventHandler("onchanged",this.Reasen_onchanged,this);
             this.btn_Save.addEventHandler("onclick",this.btn_Save_onclick,this);
@@ -581,6 +798,8 @@
             this.cmb_Search.addEventHandler("onitemchanged",this.cmb_Search_onitemchanged,this);
             this.btn_Search.addEventHandler("onclick",this.btn_Search_onclick,this);
             this.btn_Create.addEventHandler("onclick",this.btn_Create_onclick,this);
+            this.btn_Delete.addEventHandler("onclick",this.btn_Delete_onclick,this);
+            this.cmb_StatusType.addEventHandler("onitemchanged",this.Combo00_onitemchanged,this);
         };
         this.loadIncludeScript("student_status.xfdl");
         this.loadPreloadList();
