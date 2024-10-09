@@ -93,7 +93,7 @@
         <Button id="btn_Search" taborder="33" text="검색" left="636" top="40" width="120" height="46" onclick="btn_Search_onclick"/>
         <Combo id="cmb_Search00" left="37" top="40" width="179" height="46" taborder="34" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" text="" value="" index="-1"/>
         <Button id="btn_Create" taborder="35" text="생성" left="766" top="40" width="120" height="46" onclick="btn_Create_onclick"/>
-        <Combo id="cmb_Dept" taborder="36" text="Combo00" left="654" top="168" width="153" height="31" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" readonly="true"/>
+        <Combo id="cmb_Dept" taborder="36" text="Combo00" left="654" top="168" width="153" height="31" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" readonly="true" onitemchanged="cmb_Dept_onitemchanged"/>
       </Layout>
     </Layouts>
     <Objects>

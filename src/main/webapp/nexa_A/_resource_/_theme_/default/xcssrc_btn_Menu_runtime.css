@@ -114,3 +114,8 @@
 	opacity : 0.96;
 	word-spacing : 5px;
 }
+.Edit.edt_Adr[status=readonly]
+{
+	background : white;
+	color : black;
+}

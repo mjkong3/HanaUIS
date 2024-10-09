@@ -68,6 +68,7 @@
             obj.set_innerdataset("ds_class");
             obj.set_codecolumn("CLASS_CODE");
             obj.set_datacolumn("CLASS_NAME");
+            obj.set_displaynulltext("강의가 없습니다");
             obj.set_text("");
             this.Div00.addChild(obj.name, obj);
 

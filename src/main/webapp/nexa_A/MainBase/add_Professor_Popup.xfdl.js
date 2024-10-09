@@ -23,17 +23,17 @@
 
 
             obj = new Dataset("ds_dept", this);
-            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"name\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
             obj = new Dataset("ds_status", this);
-            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">재직</Col><Col id=\"data\">재직</Col></Row><Row><Col id=\"code\">휴직</Col><Col id=\"data\">휴직</Col></Row><Row><Col id=\"code\">퇴직</Col><Col id=\"data\">퇴직</Col></Row></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">재직중</Col><Col id=\"data\">재직중</Col></Row><Row><Col id=\"code\">휴직중</Col><Col id=\"data\">휴직중</Col></Row><Row><Col id=\"code\">퇴직</Col><Col id=\"data\">퇴직</Col></Row></Rows>");
             this.addChild(obj.name, obj);
 
 
             obj = new Dataset("ds_pro", this);
-            obj._setContents("<ColumnInfo><Column id=\"PROFESSOR_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/><Column id=\"REG_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL_PART\" type=\"STRING\" size=\"256\"/><Column id=\"DOMAIN_PART\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/><Column id=\"REG_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL_PART\" type=\"STRING\" size=\"256\"/><Column id=\"DOMAIN_PART\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_USR\" type=\"STRING\" size=\"256\"/><Column id=\"ZIPCODE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -43,7 +43,22 @@
 
 
             obj = new Dataset("ds_domain", this);
-            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">직접입력</Col><Col id=\"data\">직접입력</Col></Row><Row><Col id=\"code\">HANA</Col><Col id=\"data\">@hnu.ac.kr</Col></Row><Row><Col id=\"code\">NAVER</Col><Col id=\"data\">@naver.com</Col></Row><Row><Col id=\"code\">GMAIL</Col><Col id=\"data\">@gmail.com</Col></Row><Row><Col id=\"code\">DAUM</Col><Col id=\"data\">@daum.com</Col></Row><Row><Col id=\"code\">HANMAIL</Col><Col id=\"data\">@hanmail.net</Col></Row><Row><Col id=\"code\">ICLOUD</Col><Col id=\"data\">@icloud.com</Col></Row></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">직접입력</Col><Col id=\"data\">직접입력</Col></Row><Row><Col id=\"code\">@hnu.ac.kr</Col><Col id=\"data\">@hnu.ac.kr</Col></Row><Row><Col id=\"code\">@naver.com</Col><Col id=\"data\">@naver.com</Col></Row><Row><Col id=\"code\">@gmail.com</Col><Col id=\"data\">@gmail.com</Col></Row><Row><Col id=\"code\">@daum.com</Col><Col id=\"data\">@daum.com</Col></Row><Row><Col id=\"code\">@hanmail.net</Col><Col id=\"data\">@hanmail.net</Col></Row><Row><Col id=\"code\">@icloud.com</Col><Col id=\"data\">@icloud.com</Col></Row></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_address", this);
+            obj._setContents("<ColumnInfo><Column id=\"ZIPCODE\" type=\"STRING\" size=\"256\"/><Column id=\"MAINADDR\" type=\"STRING\" size=\"256\"/><Column id=\"EXTRAADDR\" type=\"STRING\" size=\"256\"/><Column id=\"FULLADDR\" type=\"STRING\" size=\"256\"/><Column id=\"REMAINADDR\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_reAdr", this);
+            obj._setContents("");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_vali", this);
+            obj._setContents("<ColumnInfo><Column id=\"CHECK_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK_EM\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
@@ -257,7 +272,9 @@
 
             obj = new Edit("edt_Adr","518","407","512","30",null,null,null,null,null,null,this);
             obj.set_taborder("30");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
+            obj.set_displaynulltext("주소검색 버튼으로 검색하세요");
+            obj.set_cssclass("edt_Adr");
             this.addChild(obj.name, obj);
 
             obj = new FileUpload("FileUpload00","163","359","177","22",null,null,null,null,null,null,this);
@@ -325,6 +342,7 @@
 
             obj = new Edit("edt_DtlAdr","518","456","512","30",null,null,null,null,null,null,this);
             obj.set_taborder("42");
+            obj.set_displaynulltext("상세주소를 입력하세요");
             this.addChild(obj.name, obj);
 
             obj = new WebBrowser("wb_Adress","190","437","100","100",null,null,null,null,null,null,this);
@@ -332,8 +350,12 @@
             obj.set_visible("false");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("Edit00","517","358","153","30",null,null,null,null,null,null,this);
+            obj = new Edit("edt_ZipCd","517","358","153","30",null,null,null,null,null,null,this);
             obj.set_taborder("44");
+            obj.set_displaynulltext("우편번호");
+            obj.set_enable("true");
+            obj.set_readonly("true");
+            obj.set_cssclass("edt_Adr");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_01_00_02_00","409","348","98","50",null,null,null,null,null,null,this);
@@ -381,10 +403,6 @@
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item10","edt_Adr","value","ds_pro","ADDRESS");
-            this.addChild(obj.name, obj);
-            obj.bind();
-
             obj = new BindItem("item11","cmb_Status","value","ds_pro","STATUS");
             this.addChild(obj.name, obj);
             obj.bind();
@@ -404,6 +422,18 @@
             obj = new BindItem("item13","edt_Domain","value","ds_pro","DOMAIN_PART");
             this.addChild(obj.name, obj);
             obj.bind();
+
+            obj = new BindItem("item10","edt_ZipCd","value","ds_address","ZIPCODE");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item14","edt_Adr","value","ds_address","FULLADDR");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item15","edt_DtlAdr","value","ds_address","REMAINADDR");
+            this.addChild(obj.name, obj);
+            obj.bind();
             
             // TriggerItem Information
 
@@ -418,9 +448,10 @@
         this.registerScript("add_Professor_Popup.xfdl", function() {
         // 필요한 기능
         // 1. 화면호출 - default 값 설정 + param 받기 + 초기화용 ds 카피
-        // 2. 등록 - insert문 실행
+        // 2. 등록 - insert문 실행 + EMAIL/ADDR 합쳐서 넣기
         // 3. 초기화버튼
         // 4. 기타기능 - 이메일 + 주소검색
+        // 5. 유효성 검사
 
         // 1. 화면호출
         this.add_Professor_Popup_onload = function(obj,e)
@@ -428,6 +459,7 @@
         	/* 필요한 기능
         	* 1. 부모폼에서 필요한 ds 밑 var 받아오기
         	* 2. 컴포넌트 default 설정하기
+        	* 3. 초기화용 ds copy
         	*/
 
         	// dept ds 받아오기
@@ -438,13 +470,10 @@
 
         	// dept 정보를 해당폼 dept ds에 복사 - ds가 서로 동일해야 가능!
         	this.ds_dept.copyData(objParam1);
-        	// admin 정보를 해당폼 admin ds에 복사
-        	/*	this.ds_admin.copyData(objParam2); */
 
         	// 콤보박스에 받아온 부모폼의 사용자 선택 dept code 넣기
         	// ds의 setColum으로는 rowposition 문제로 전체학과는 출력이 안됨
         	this.cmb_Dept.set_value(deptCode);
-
 
         	// gds 호출로 등록일, 등록자 넣기
         	this.fn_getGds();
@@ -454,18 +483,35 @@
         	this.ds_pro.setColumn(0, "STATUS", "재직");
 
         	// 초기화용 ds 카피해두기
+        	this.ds_resetPro.clearData();
+        	this.ds_reAdr.clearData();
         	this.ds_resetPro.copyData(this.ds_pro);
+        	this.ds_reAdr.copyData(this.ds_address);
         };
 
         // 2. 등록 - 작성완료 btn 누를 시 insert문 실행
         this.btn_Add_onclick = function(obj,e)
         {
+        	// 이메일 파트 합치기
         	var ePart = this.ds_pro.getColumn(0, "EMAIL_PART");
         	var dPart = this.ds_pro.getColumn(0, "DOMAIN_PART");
-
         	this.ds_pro.setColumn(0, "EMAIL", ePart + dPart);
         	trace("이메일은? " + this.ds_pro.getColumn(0, "EMAIL"));
-        	this.fn_insertPro();
+
+        	// 주소 파트 합치기
+        	var fAddr = this.ds_address.getColumn(0, "FULLADDR");
+        	var rAddr = this.ds_address.getColumn(0, "REMAINADDR");
+        	this.ds_pro.setColumn(0, "ZIPCODE", this.ds_address.getColumn(0, "ZIPCODE"));
+        	trace("우편주소는?" + this.ds_pro.getColumn(0, "ZIPCODE"));
+        	this.ds_pro.setColumn(0, "ADDRESS", fAddr + "/" + rAddr);
+
+        	// 학과 선택 했는지?
+        	var dept = this.cmb_Dept.value;
+        	if (dept == 0){
+        		alert("학과를 선택해주세요");
+        	} else {
+        		this.fn_valiCheck();
+        	}
         };
 
         // 교수정보 입력 함수
@@ -483,7 +529,143 @@
 
         };
 
-        // insert 함수 콜백처리
+
+        // gds 호출 함수
+        this.fn_getGds = function ()
+        {
+        	// gds 호출로 등록자 넣기
+        	var gdsApp = nexacro.getApplication();
+        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        	this.ds_pro.setColumn(0, "CRE_USR", adCode);
+        	this.ds_pro.setColumn(0, "UPD_USR", adCode);
+        	trace("아이디 제대로 들어갔나? " + this.ds_pro.getColumn(0, "CRE_USR"));
+        };
+
+        // 3. 초기화버튼
+        this.btn_Reset_onclick = function(obj,e)
+        {
+        	// 초기 ds 다시 가져오기
+        	this.ds_pro.copyData(this.ds_resetPro);
+        	this.ds_address.copyData(this.ds_reAdr);
+        };
+
+        // 4. 기타기능 - 이메일 + 주소검색
+        // 4-1) 이메일
+        //도메인주소 cmb에 넣기 + 직접입력 설정해두기
+        this.cmb_Domain_onitemchanged = function(obj,e)
+        {
+        	var dPart = obj.value
+
+        	// 직접입력 선택시
+        	if (dPart == "직접입력") {
+                // 입력가능한 상태 만들기
+        		this.edt_Domain.set_value("");
+        		// edit박스 맨 앞으로
+        		this.edt_Domain.bringToFront();
+        		// @를 맨 앞에 추가되도록 이벤트 강제호출
+        		this.edt_Domain_oneditclick(this.edt_Domain, null);
+            } else {
+        		// 직접입력 아닐시 선택값 사용
+                this.ds_pro.setColumn(0, "DOMAIN_PART", dPart);
+            }
+
+        };
+
+        // 도메인 직접입력시 esc 누르면 다시 콤보박스 선택
+        this.edt_Domain_onkeyup = function(obj,e)
+        {
+        	if (e.keycode == 27) {
+        		this.cmb_Domain.bringToFront();
+        	}
+        };
+
+        // 이메일 입력파트 - @없이 작성시 맨 앞에 @ 추가
+        this.edt_Domain_onchanged = function(obj,e)
+        {
+        	var cVal = obj.value;
+
+        	if(cVal.indexOf("@") !== 0){
+        		obj.set_value("@" + cVal.replace("@", ""));
+        	}
+        };
+
+        // 이메일 입력파트 - 공백일 경우 @를 맨 앞에 추가한 후 커서를 그 뒤로
+        this.edt_Domain_oneditclick = function(obj,e)
+        {
+        	var cVal = obj.value;
+        	if (cVal == "") {
+        		obj.set_value("@");
+        		obj.setCaretPos(1);
+        	}
+
+        };
+
+        // 4-2) 주소검색
+        // 주소검색 버튼
+        this.btn_Adr_onclick = function(obj,e)
+        {
+        	this.wb_Adress.set_url("http://localhost:8082/HanaUIS/postcode.jsp");
+        };
+
+        // 주소검색 - 카카오API
+        this.wb_Adress_onusernotify = function(obj,e)
+        {
+        	// 주소검색 결과 받아오기
+            var receivedData = e.userdata;
+        	trace("받아온 값은? = " + receivedData);
+            var dataObj = JSON.parse(receivedData);
+
+            // 우편번호, 도로명 주소, 지번 주소, 참고 주소 ds에 넣기
+            this.ds_address.setColumn(0, "ZIPCODE", dataObj.zonecode);
+            this.ds_address.setColumn(0, "MAINADDR", dataObj.selectedAddress);
+            this.ds_address.setColumn(0, "EXTRAADDR", dataObj.extraAddress);
+            trace(this.ds_address.saveXML());
+
+        	// 도로명(지번)주소 + 참고주소 합치기
+        	var mAddr = this.ds_address.getColumn(0, "MAINADDR");
+        	var eAddr = this.ds_address.getColumn(0, "EXTRAADDR");
+        	this.ds_address.setColumn(0, "FULLADDR", mAddr + "" + eAddr);
+        	trace(this.ds_address.getColumn(0, "FULLADDR"));
+        };
+
+        // 5. 유효성 검사
+
+        // 5-1) 이메일 - 정규식 + 중복확인
+
+        this.edt_ProId_onchanged = function(obj,e)
+        {
+        	var proId = obj.value;
+        	trace(this.ds_pro.getRowType(0));
+        	if(isNaN(proId)){
+        		alert("숫자만 입력 가능합니다");
+        		obj.set_value("");
+        		obj.setFocus();
+        	} else if(proId.length !=5) {
+        		alert("교번은 다섯자리 입니다")
+        		obj.set_value("");
+        		obj.setFocus();
+        	} else {
+        	trace("실행되었나?");
+        	this.fn_dupIdChk(proId);
+        	}
+
+        };
+
+        this.fn_dupIdChk = function (proId){
+
+        	var strSvcId    = "dupCheckId";
+        	var strSvcUrl   = "svc::dupCheckId.do";
+        	var inData      = "";
+        	var outData     = "ds_vali=ds_vali";
+        	var strArg      = "PROFESSOR_ID="+proId;
+        	var callBackFnc = "fnCallback";
+        	var isAsync     = true;
+
+        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+
+        }
+
+        // 콜백함수
         this.fnCallback = function (svcID, errCD, errMsg)
         {
         	// 콜백이 호출 되는가?
@@ -496,74 +678,53 @@
         	} else {
         		trace(errMsg);
         	}
+        	if(svcID == "dupCheckId" && errCD == 0) {
+        		trace("전체값은? " + this.ds_vali.saveXML());
+        		var chkId = this.ds_vali.getColumn(0, "CHECK_ID")
+        		trace("값은? " + chkId);
+        		if (chkId == "Y"){
+        			alert("사용가능한 교번입니다");
+        			} else {
+        				alert("중복된 교번입니다");
+        				}
+        			}else{
+        			trace(errMsg);
+        			}
         };
-
-        // gds 호출 함수
-        this.fn_getGds = function ()
+        // 5-2) 비밀번호 유효성 검사
+        this.edt_ProPw_onchanged = function(obj,e)
         {
-        	// gds 호출로 등록자 넣기
-        	var gdsApp = nexacro.getApplication();
-        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
-        	this.ds_pro.setColumn(0, "CRE_USR", adCode);
-        	trace("아이디 제대로 들어갔나? " + this.ds_pro.getColumn(0, "CRE_USR"));
-        };
+            var password = obj.value;
+            var regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{4,}$/;
 
-        // 3. 초기화버튼
-        this.btn_Reset_onclick = function(obj,e)
-        {
-        	this.ds_pro.copyData(this.ds_resetPro);
-        };
-
-        // 4. 기타기능 - 이메일 + 주소검색
-        // 도메인주소 cmb에 넣기 + 직접입력 설정해두기
-        this.cmb_Domain_onitemchanged = function(obj,e)
-        {
-        	// 직접입력 선택시
-        	if (obj.value == "직접입력") {
-                // 입력가능한 상태 만들기
-        		this.edt_Domain.set_value("");
-        		// edit박스 맨 앞으로
-        		this.edt_Domain.bringToFront();
-        		// @를 맨 앞에 추가되도록 이벤트 강제호출
-        		this.edt_Domain_oneditclick(this.edt_Domain, null);
+            if (!regex.test(password)) {
+                alert("비밀번호는 최소 4자 이상이며, 특수문자가 포함되어야 합니다.");
+                obj.set_value("");
+                obj.setFocus();
             } else {
-        		// 직접입력 아닐시 선택값 사용
-                this.ds_pro.setColumn(0, "DOMAIN_PART", obj.value);
+                trace("비밀번호가 유효합니다.");
             }
         };
 
-        // 도메인 직접입력시 esc 누르면 다시 콤보박스 선택
-        this.edt_Domain_onkeyup = function(obj,e)
+        // 5-3) email + 연락처 정규식
+        this.fn_valiCheck = function ()
         {
-        	if (e.keycode == 27) {
-        		this.cmb_Domain.bringToFront();
+        	var email = this.ds_pro.getColumn(0, "EMAIL");
+        	var regem = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        	var phone = this.ds_pro.getColumn(0, "PHONE");
+        	var regph = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
+        	if (!regem.test(email)) {
+                alert("유효한 이메일 주소를 입력하세요.");
+        		this.edt_Email.set_value("");
+        		this.edt_Email.setFocus();
+        			}else if(!regph.test(phone)){
+        				alert("연락처는 다음과 같이 입력해주세요 : 01x-xxxx-xxxx");
+        				this.edt_Phone.set_value("");
+        				this.edt_Phone.setFocus();
+        			}
+        	if(regem.test(email) && regph.test(phone)){
+        		this.fn_insertPro();
         	}
-        };
-
-        // 만약 @없이 입력할 경우 @를 무조건 앞에 추가
-        this.edt_Domain_onchanged = function(obj,e)
-        {
-        	var cVal = obj.value;
-
-        	if(cVal.indexOf("@") !== 0){
-        		obj.set_value("@" + cVal.replace("@", ""));
-        	}
-        };
-
-        // 입력값 없을 시 무조건 맨 앞에 @를 추가
-        this.edt_Domain_oneditclick = function(obj,e)
-        {
-        	var cVal = obj.value;
-        	if (cVal == "") {
-        		obj.set_value("@");
-        		obj.setCaretPos(1);
-        	}
-
-        };
-
-        this.btn_Adr_onclick = function(obj,e)
-        {
-        	this.wb_Adress.set_url("http://localhost:8082/HanaUIS/postcode.jsp");
         };
 
         });
@@ -573,6 +734,11 @@
         {
             this.addEventHandler("onload",this.add_Professor_Popup_onload,this);
             this.Static00_01_00.addEventHandler("onclick",this.Static00_01_00_onclick,this);
+            this.edt_ProId.addEventHandler("onkillfocus",this.edt_ProId_onkillfocus,this);
+            this.edt_ProId.addEventHandler("onchanged",this.edt_ProId_onchanged,this);
+            this.edt_ProPw.addEventHandler("onchanged",this.edt_ProPw_onchanged,this);
+            this.cmb_Dept.addEventHandler("onitemchanged",this.cmb_Dept_onitemchanged,this);
+            this.edt_Email.addEventHandler("onkillfocus",this.edt_Email_onkillfocus,this);
             this.FileUpload00.addEventHandler("onitemchanged",this.FileUpload00_onitemchanged,this);
             this.btn_Add.addEventHandler("onclick",this.btn_Add_onclick,this);
             this.btn_Reset.addEventHandler("onclick",this.btn_Reset_onclick,this);
@@ -581,6 +747,7 @@
             this.edt_Domain.addEventHandler("oneditclick",this.edt_Domain_oneditclick,this);
             this.cmb_Domain.addEventHandler("onitemchanged",this.cmb_Domain_onitemchanged,this);
             this.btn_Adr.addEventHandler("onclick",this.btn_Adr_onclick,this);
+            this.wb_Adress.addEventHandler("onusernotify",this.wb_Adress_onusernotify,this);
         };
         this.loadIncludeScript("add_Professor_Popup.xfdl");
         this.loadPreloadList();

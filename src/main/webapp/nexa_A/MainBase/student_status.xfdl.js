@@ -646,6 +646,7 @@
             this.cmb_Search.addEventHandler("onitemchanged",this.cmb_Search_onitemchanged,this);
             this.btn_Search.addEventHandler("onclick",this.btn_Search_onclick,this);
             this.btn_Create.addEventHandler("onclick",this.btn_Create_onclick,this);
+            this.cmb_Dept.addEventHandler("onitemchanged",this.cmb_Dept_onitemchanged,this);
         };
         this.loadIncludeScript("student_status.xfdl");
         this.loadPreloadList();

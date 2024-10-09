@@ -14,4 +14,8 @@ public interface AdProfessorService {
 	Map<String, Object> selectAdProInfo(String ProId);
 	
 	void deleteAdPro(Map<String, Object> param);
+	
+	String dupCheckId(String ProId);
+	
+	String dupCheckEm(String email);
 }

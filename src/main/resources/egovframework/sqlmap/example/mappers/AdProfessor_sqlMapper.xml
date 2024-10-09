@@ -74,7 +74,9 @@
 			PHOTO,
 			CRE_USR,
 			CRE_DTM,
-			REG_DTM)
+			UPD_USR,
+			UPD_DTM,
+			ZIPCODE)
 					 VALUES(
 							#{PROFESSOR_ID},
 							SHA2(#{PASSWORD}, 256),
@@ -89,7 +91,9 @@
 							#{PHOTO},
 							#{CRE_USR},
 							SYSDATE(),
-							SYSDATE()
+							#{UPD_USR},
+							SYSDATE(),
+							#{ZIPCODE}
 							)
 	
 	</insert>
@@ -110,7 +114,7 @@
 					PHOTO = #{PHOTO},
 					UPD_USR = #{UPD_USR},
 					UPD_DTM = SYSDATE(),
-					REG_DTM = SYSDATE()
+					ZIPCODE = #{ZIPCODE}
 					WHERE PROFESSOR_ID = #{PROFESSOR_ID}
 	
 	</update>
@@ -130,9 +134,9 @@
         	IFNULL(STATUS, '') AS STATUS,
         	IFNULL(DEPARTMENT_CODE, '') AS DEPARTMENT_CODE,
         	IFNULL(PHOTO, '') AS PHOTO,
-        	IFNULL(REG_DTM, '') AS REG_DTM, 
         	IFNULL(UPD_DTM, '') AS UPD_DTM, 
-        	IFNULL(UPD_USR, 'SYSTEM') AS UPD_USR
+        	IFNULL(UPD_USR, 'SYSTEM') AS UPD_USR,
+        	IFNULL(ZIPCODE, '') AS ZIPCODE
     	FROM PROFESSOR
     	WHERE 1=1
     	AND PROFESSOR_ID = #{ProId}
@@ -146,4 +150,21 @@
       WHERE PROFESSOR_ID = #{PROFESSOR_ID}
    
    </delete>
+   
+   <!-- 아이디 중복체크 -->
+   <select id="dupCheckId" parameterType="java.util.Map" resultType="INTEGER">
+		
+		SELECT COUNT(1)
+		FROM PROFESSOR
+		WHERE PROFESSOR_ID = #{proId}
+		
+   </select>
+   
+  	<select id="dupCheckEm" parameterType="java.util.Map" resultType="INTEGER">
+  	
+  		SELECT COUNT(1)
+  		FROM PROFESSOR
+  		WHERE EMAIL = #{email}
+  		
+  	</select>
 </mapper>

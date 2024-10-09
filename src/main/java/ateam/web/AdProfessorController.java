@@ -1,5 +1,6 @@
 package ateam.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,6 +112,46 @@ public class AdProfessorController {
 			result.setErrorMsg("catch 조회 오류");
 		}
 
+		return result;
+	}
+	
+	@RequestMapping(value ="/dupCheckId.do")
+	public NexacroResult dupCheckId(@ParamVariable(name = "PROFESSOR_ID", required = false) String ProId) {
+		NexacroResult result = new NexacroResult();
+		
+		try {
+			Map<String, Object> ds_vali =  new HashMap<>();
+			String checkId = service.dupCheckId(ProId);
+			System.out.println("proId는?" + ProId);
+			ds_vali.put("CHECK_ID", checkId);
+			System.out.println("들어갔나?" + ds_vali);
+			result.addDataSet("ds_vali", ds_vali);
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+		System.out.println("result는? " + result);
+		return result;
+	}
+	
+	@RequestMapping(value ="/dupCheckEm.do")
+	public NexacroResult dupCheckEm(@ParamVariable(name = "EMAIL", required = false) String email) {
+		NexacroResult result = new NexacroResult();
+		
+		try {
+			Map<String, Object> ds_vali =  new HashMap<>();
+			String CheckEm = service.dupCheckEm(email);
+			System.out.println("email은?" + CheckEm);
+			ds_vali.put("CHECK_EM", CheckEm);
+			System.out.println("들어갔나?" + ds_vali);
+			result.addDataSet("ds_vali", ds_vali);
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+		System.out.println("result는? " + result);
 		return result;
 	}
 }

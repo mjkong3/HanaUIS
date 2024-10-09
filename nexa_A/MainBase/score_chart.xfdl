@@ -7,7 +7,7 @@
           <Layouts>
             <Layout>
               <Combo id="cmb_Dept" taborder="0" text="Combo00" left="50" top="16" width="130" height="29" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" onitemchanged="Div00_cmb_Dept_onitemchanged" displaynulltext="학과를 선택하세요"/>
-              <Combo id="cmb_Class" taborder="1" text="" left="540" top="16" width="160" height="29" innerdataset="ds_class" codecolumn="CLASS_CODE" datacolumn="CLASS_NAME" onitemchanged="Div00_cmb_Class_onitemchanged"/>
+              <Combo id="cmb_Class" taborder="1" text="" left="540" top="16" width="160" height="29" innerdataset="ds_class" codecolumn="CLASS_CODE" datacolumn="CLASS_NAME" onitemchanged="Div00_cmb_Class_onitemchanged" displaynulltext="강의가 없습니다"/>
               <Static id="Static00" taborder="2" text="학과" left="18" top="20" width="32" height="20" color="WHITE"/>
               <Static id="Static00_00" taborder="3" text="강의" left="508" top="20" width="32" height="20" color="WHITE"/>
               <Static id="Static00_01" taborder="4" text="학기" left="358" top="20" width="32" height="20" color="WHITE"/>

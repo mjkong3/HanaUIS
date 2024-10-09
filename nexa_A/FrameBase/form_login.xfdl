@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="form_login" width="1280" height="720" titletext="New Form" font="36px/normal &quot;Gulim&quot;">
+  <Form id="form_login" width="1280" height="720" titletext="New Form" font="36px/normal &quot;Gulim&quot;" onkeyup="form_login_onkeyup">
     <Layouts>
       <Layout height="720" width="1280">
         <ImageViewer id="image_logo" taborder="0" text="" left="-300:1.56%" top="36" width="599" height="600" image="url('image::KakaoTalk_20240905_092944347.png')" onclick="ImageViewer00_onclick" border="10px solid white"/>
@@ -138,6 +138,11 @@ this.form_login_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
 	if(e.keycode==13){
 		this.Login_btn.click();
 	}
+};
+
+this.image_logo_onkeyup = function(obj:nexacro.ImageViewer,e:nexacro.KeyEventInfo)
+{
+	
 };
 ]]></Script>
     <Objects>

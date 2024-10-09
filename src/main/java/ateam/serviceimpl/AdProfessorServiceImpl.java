@@ -53,7 +53,32 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 		
 	}
 
-	
+	@Override
+	public String dupCheckId(String ProId) {
+		
+		String checkId;
+		int check = mapper.dupCheckId(ProId);
+		if (check > 0) {
+			checkId = "N";
+		} else {
+			checkId = "Y";
+		}
+		
+		return checkId;
+	}
+
+	@Override
+	public String dupCheckEm(String email) {
+		
+		String checkEm;
+		int check = mapper.dupCheckEm(email);
+		if (check > 0 ) {
+			checkEm = "N";
+		} else {
+			checkEm = "Y";
+		}
+		return checkEm;
+	}
 	
 
 }

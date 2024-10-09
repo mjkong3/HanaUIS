@@ -59,4 +59,10 @@
     opacity: 0.96;                                  /* 약간의 투명도 (90%) */
     word-spacing: 5px;                             /* 단어 간격을 1px로 설정 */
 }
+
+.Edit.edt_Adr[status=readonly]
+{
+    background: white;
+    color: black;
+}
 ]]></XCSS>
