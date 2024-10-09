@@ -47,6 +47,24 @@
             						}
             					}
             				]
+            			},
+            			"Edit" :
+            			{
+            				"class" :
+            				[
+            					{
+            						"edt_Adr" :
+            						{
+            							"self" :
+            							{
+            								"readonly" :
+            								{
+            									"color" : nexacro.ColorObject("black")
+            								}
+            							}
+            						}
+            					}
+            				]
             			}
 		},
 		{

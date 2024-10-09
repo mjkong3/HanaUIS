@@ -69,4 +69,10 @@ background : #FFCEDA !important;
 background : #B0E0E6;
 
 
-}]]></XCSS>
+}
+.Edit.edt_Adr[status=readonly]
+{
+    background: white;
+    color: black;
+}
+]]></XCSS>

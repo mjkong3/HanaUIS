@@ -355,3 +355,8 @@ input::-ms-clear,input::-ms-reveal
 {
 	background-image : none;
 }
+#nexacontainer .Edit.edt_Adr[status=readonly]
+{
+	background : white;
+	color : black;
+}

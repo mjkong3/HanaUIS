@@ -325,3 +325,8 @@ input::-ms-clear,input::-ms-reveal
 	border-image-slice : 100% fill;
 	border-image-width : 0px;
 }
+#nexacontainer .Edit.edt_Adr[status=readonly]
+{
+	background : white;
+	color : black;
+}
