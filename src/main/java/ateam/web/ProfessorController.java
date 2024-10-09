@@ -109,7 +109,7 @@ public class ProfessorController {
 		model.addAttribute("professorClass", classList);
 
 		int professorId = (int) session.getAttribute("professorId");
-		ProfessorDTO professorDetail = professorService.selectProfessor(professorId);
+		Map<String, Object> professorDetail = professorService.selectProfessor(professorId);
 
 		model.addAttribute("professor", professor);
 		model.addAttribute("professorDetail", professorDetail);

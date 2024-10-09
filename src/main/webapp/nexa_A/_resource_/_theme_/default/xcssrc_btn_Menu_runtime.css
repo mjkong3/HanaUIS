@@ -86,6 +86,14 @@
 {
 	text-align : center;
 }
+.Grid .body .row .cell.backgroundRed
+{
+	background : #FFCEDA !important;
+}
+.Grid .body .row .cell.backgroundBlue
+{
+	background : #B0E0E6;
+}
 .Button.btn_top_menu[status=mouseover]
 {
 	border : 0px none #ffffff;

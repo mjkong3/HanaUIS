@@ -14,7 +14,6 @@ body {
     flex: 1;
     margin-left: 200px;
     padding: 20px;
-    width: 100%; /* 고정된 컨텐츠 너비 */
     height : 100%;
     background-color: #f4f4f4;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

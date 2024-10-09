@@ -62,7 +62,7 @@
 				          	<li>
 				                <!-- 강의 클릭 시 fn_classInfo 호출 -->
 				                <a href="javascript:fn_classInfo('<c:out value="${professorClass.classCode}"/>')">
-				                    <c:out value="${professorClass.className}"/>
+			                    <c:out value="${professorClass.semester}학기  ${professorClass.className}"/>
 				                </a>
 				            </li>
 			            </c:forEach>
@@ -72,12 +72,11 @@
 	        
 	        <li> <a onclick="toggleSubmenu(event)">성적관리</a>
 	            <ul class="submenu">
-	            
            			<c:forEach var="professorClass" items="${professorClass}" varStatus="status">
 			          	<li>
 			                <!-- 강의 클릭 시 fn_classInfo 호출 -->
 			                <a href="javascript:fn_gradeInfo('<c:out value="${professorClass.classCode}"/>')">
-			                    <c:out value="${professorClass.className}"/>
+			                    <c:out value="${professorClass.semester}학기  ${professorClass.className}"/>
 			                </a>
 			            </li>
 		            </c:forEach>
@@ -86,12 +85,11 @@
 	        
 	        <li> <a onclick="toggleSubmenu(event)">학생관리</a>
 	            <ul class="submenu">
-	            
            			<c:forEach var="professorClass" items="${professorClass}" varStatus="status">
 			          	<li>
 			                <!-- 강의 클릭 시 fn_classInfo 호출 -->
 			                <a href="javascript:fn_studentInfo('<c:out value="${professorClass.classCode}"/>')">
-			                    <c:out value="${professorClass.className}"/>
+			                    <c:out value="${professorClass.semester}학기  ${professorClass.className}"/>
 			                </a>
 			            </li>
 		            </c:forEach>

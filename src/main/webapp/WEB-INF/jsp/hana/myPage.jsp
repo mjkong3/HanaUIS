@@ -184,8 +184,8 @@
                		<c:choose>
 	                     <c:when test="${not empty student}">
 	                        <form id="emailForm" action="<c:url value='/std/updateEmail.do'/>" method="post" onsubmit="return validateForm(this);">
-	                           <input type="hidden" name="studentId" value="${student.studentId}" /> 
-	                           <input type="text" name="email" class="inputEmail" value="${student.email}" />
+	                           <input type="hidden" name="studentId" value="${studentDetail.studentId}" /> 
+	                           <input type="text" name="email" class="inputEmail" value="${studentDetail.email}" />
 	                           <button type="submit">수정</button>
 	                           <div class="emailError">올바르게 입력해주세요.</div>
 	                        </form>
@@ -207,8 +207,8 @@
                <td colspan="3"><c:choose>
                      <c:when test="${not empty student}">
                         <form id="phoneForm" action="<c:url value='/std/updatePhone.do'/>" method="post">
-                           <input type="hidden" name="studentId" value="${student.studentId}" /> 
-                           <input type="text" name="phone" class="inputPhone" value="${student.phone}" />
+                           <input type="hidden" name="studentId" value="${studentDetail.studentId}" /> 
+                           <input type="text" name="phone" class="inputPhone" value="${studentDetail.phone}" />
                            <button type="submit">수정</button>
                            <div class="phoneError">올바르게 입력해주세요.</div>
                         </form>
@@ -230,10 +230,14 @@
                <td colspan="3">
 	               	<c:choose>
 	                     <c:when test="${not empty student}">
-	                        <c:out value="${student.address}" />
+ 	                        (<c:out value="${studentDetail.zipCode}" />)<br>
+	                        <c:out value="${studentDetail.address}" /><br>
+	                        <c:out value="${studentDetail.addressDetail}" /> 
 	                     </c:when>
 	                     <c:when test="${not empty professor}">
-	                        <c:out value="${professorDetail.address}" />
+ 	                        (<c:out value="${professorDetail.zipCode}" />)<br>
+	                        <c:out value="${professorDetail.address}" /><br>
+	                        <c:out value="${professorDetail.addressDetail}" /> 
 	                     </c:when>
 	                  </c:choose>
                 </td>
