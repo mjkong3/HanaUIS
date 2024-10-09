@@ -259,24 +259,11 @@
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
 
-        this.form_login_onkeyup = function(obj,e)
-        {
-        	if(e.keycode==13){
-        		this.Login_btn.click();
-        	}
-        };
-
-        this.image_logo_onkeyup = function(obj,e)
-        {
-
-        };
-
         });
         
         // Regist UI Components Event
         this.on_initEvent = function()
         {
-            this.addEventHandler("onkeyup",this.form_login_onkeyup,this);
             this.image_logo.addEventHandler("onclick",this.ImageViewer00_onclick,this);
             this.Static00.addEventHandler("onclick",this.Static00_onclick,this);
             this.Static03.addEventHandler("onclick",this.Static03_onclick,this);

@@ -14,5 +14,9 @@ public interface AdStudentStatusService {
 
 	public Map<String, Object> statusDetail(String statusCode);
 
+	public void statusDelete(String statusCode);
+
+	public Map<String, Object> studentInfo(String studentId);
+
 
 }

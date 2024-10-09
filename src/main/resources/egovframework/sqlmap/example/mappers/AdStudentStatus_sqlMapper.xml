@@ -4,8 +4,12 @@
 	
 	<select id="statusApprovedList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT 
-			SS.STATUS_CODE, SS.REG_DTM, SS.STUDENT_ID, S.NAME, SS.STATUS_TYPE, SS.APPROVED
-		
+			SS.STATUS_CODE, SS.REG_DTM, SS.STUDENT_ID, S.NAME, SS.STATUS_TYPE,
+				(CASE WHEN APPROVED = 'N' THEN '미확인'
+				      WHEN APPROVED = 'Y' THEN '승인'
+			          WHEN APPROVED = 'C' THEN '거절'
+			  	END) AS APPROVED
+			
 		FROM STUDENT_STATUS SS
 			JOIN STUDENT S ON SS.STUDENT_ID = S.STUDENT_ID
 		
@@ -27,31 +31,39 @@
 			</if>
 	</select >
 	
-	<select id="statusDetail" parameterType="java.util.Map" resultType="java.util.Map">
-			SELECT 
-				IFNULL(SS.STUDENT_ID, '') AS STUDENT_ID,
-				IFNULL(S.NAME, '') AS NAME,
-				IFNULL(D.DEPARTMENT_NAME, '') AS DEPARTMENT_NAME,
-				IFNULL(S.STATUS, '') AS STATUS,
-				IFNULL(SS.STATUS_TYPE, '') AS STATUS_TYPE,
-				IFNULL(SS.REG_DTM, '') AS REG_DTM,
-				IFNULL(SS.LEAVE_DATE, '') AS LEAVE_DATE,
-				IFNULL(SS.RETURN_DATE, '') AS RETURN_DATE,
-				IFNULL(SS.REASON, '') AS REASON,
-				IFNULL(SS.APPROVED, '') AS APPROVED,
-				IFNULL(SS.STATUS_CODE, '') AS STATUS_CODE,
-				IFNULL(D.DEPARTMENT_CODE, '') AS DEPARTMENT_CODE
-			FROM STUDENT_STATUS SS
-				JOIN STUDENT S ON SS.STUDENT_ID = S.STUDENT_ID
-				JOIN DEPARTMENT D ON S.DEPARTMENT_CODE = D.DEPARTMENT_CODE
-			WHERE SS.STATUS_CODE = #{STATUS_CODE}
-	</select>
+   <select id="statusDetail" parameterType="java.util.Map" resultType="java.util.Map">
+         SELECT 
+            IFNULL(SS.STUDENT_ID, '') AS STUDENT_ID,
+            IFNULL(S.NAME, '') AS NAME,
+            IFNULL(D.DEPARTMENT_NAME, '') AS DEPARTMENT_NAME,
+            IFNULL(S.STATUS, '') AS STATUS,
+            IFNULL(SS.STATUS_TYPE, '') AS STATUS_TYPE,
+            IFNULL(SS.REG_DTM, '') AS REG_DTM,
+            IFNULL(SS.LEAVE_DATE, '') AS LEAVE_DATE,
+            IFNULL(SS.RETURN_DATE, '') AS RETURN_DATE,
+            IFNULL(SS.REASON, '') AS REASON,
+            IFNULL(SS.APPROVED, '') AS APPROVED,
+            IFNULL(SS.STATUS_CODE, '') AS STATUS_CODE,
+            IFNULL(D.DEPARTMENT_CODE, '') AS DEPARTMENT_CODE,
+            IFNULL(SS.CRE_USR, '') AS CRE_USR,
+            IFNULL(SS.UPD_USR, '') AS UPD_USR
+         FROM STUDENT_STATUS SS 
+            LEFT JOIN STUDENT S ON SS.STUDENT_ID = S.STUDENT_ID
+            LEFT JOIN DEPARTMENT D ON S.DEPARTMENT_CODE = D.DEPARTMENT_CODE
+         WHERE SS.STATUS_CODE = #{STATUS_CODE}
+   </select>
+   
+   <select id="studentInfo" parameterType="java.util.Map"  resultType="java.util.Map">
+   		SELECT STUDENT_ID, NAME, DEPARTMENT_CODE, STATUS
+   		FROM STUDENT
+   		WHERE STUDENT_ID = #{STUDENT_ID}
+   </select>
 
 	<update id="statusApprovedUpdate" parameterType="java.util.Map">
 	   	   UPDATE STUDENT_STATUS
 	      		SET APPROVED = #{APPROVED},
 	 				UPD_DTM = SYSDATE(),
-	 				UPD_USR = #{ADMIN_ID}	
+	 				UPD_USR = #{UPD_USR}	
 	       WHERE STATUS_CODE = #{STATUS_CODE}
 	</update>
 
@@ -60,7 +72,12 @@
 										REASON, APPROVED, REG_DTM, CRE_DTM, CRE_USR,
 										UPD_DTM, UPD_USR)
 			VALUES (#{STUDENT_ID}, #{STATUS_TYPE}, #{LEAVE_DATE}, #{RETURN_DATE},
-					#{REASON}, #{APPROVED}, #{REG_DTM}, #{CRE_DTM}, #{CRE_USR},
-					#{UPD_DTM}, #{UPD_USR})
+					#{REASON}, #{APPROVED}, SYSDATE(), SYSDATE(), #{ADMIN_ID},
+					SYSDATE(), #{ADMIN_ID})
 	</insert>
+	
+	<delete id="statusApprovedDelete" parameterType="java.util.Map">
+			DELETE FROM STUDENT_STATUS
+			WHERE STATUS_CODE = #{STATUS_CODE}
+	</delete>
 </mapper>
