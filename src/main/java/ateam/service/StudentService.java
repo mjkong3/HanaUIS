@@ -65,6 +65,8 @@ public interface StudentService {
 	public int updatePhone(Map<String, Object> param);
 	public int updateEmail(Map<String, Object> param);
 
+	public Map<String, Object> selectStudent(int studentId);
+
 	
 
 

@@ -37,7 +37,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 	}
 
 	@Override
-	public ProfessorDTO selectProfessor(int id) {
+	public Map<String, Object> selectProfessor(int id) {
 		return mapper.selectProfessor(id);
 	}
 

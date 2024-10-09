@@ -10,7 +10,6 @@ footer {
     bottom: 0;
     height: 100px;
     width: calc(100% - 200px); /* 메뉴 너비만큼 빼기 */
-    position: fixed;
 }
 * p{
 	font-size: 10px;;

@@ -371,11 +371,6 @@ this.delete_btn_onclick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)
         alert("삭제할 항목을 선택하세요.");
     }
 };
-
-this.btn_test_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	window.open("http://localhost:8082/HanaUIS/");
-};
 ]]></Script>
     <Objects>
       <Dataset id="Search_Type">
@@ -458,6 +453,8 @@ this.btn_test_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
           <Column id="STATUS" type="STRING" size="256"/>
           <Column id="DEPARTMENT_CODE" type="INT" size="256"/>
           <Column id="PHOTO" type="STRING" size="256"/>
+          <Column id="ADMIN_CODE" type="STRING" size="256"/>
+          <Column id="REGDATE" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dlt_ds">

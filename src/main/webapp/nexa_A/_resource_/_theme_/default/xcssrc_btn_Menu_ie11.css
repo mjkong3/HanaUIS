@@ -279,6 +279,14 @@ input::-ms-clear,input::-ms-reveal
 	text-align : center;
 	background-position-x : center;
 }
+.Grid .body .row .cell.backgroundRed.dummy.dummy.dummy
+{
+	background : #FFCEDA !important;
+}
+.Grid .body .row .cell.backgroundBlue.dummy.dummy.dummy
+{
+	background : #B0E0E6;
+}
 #nexacontainer .Button.btn_top_menu[status=mouseover]
 {
 	border : 0px none #ffffff;
@@ -316,4 +324,9 @@ input::-ms-clear,input::-ms-reveal
 	border-image-source : none;
 	border-image-slice : 100% fill;
 	border-image-width : 0px;
+}
+#nexacontainer .Edit.edt_Adr[status=readonly]
+{
+	background : white;
+	color : black;
 }

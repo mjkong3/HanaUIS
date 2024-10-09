@@ -20,6 +20,8 @@ public class AdStudentStatusController {
 	@Resource(name = "AdStudentStatusService")
 	private AdStudentStatusService service;
 	
+	
+	//휴복학 신청 리스트를 반환
 	@RequestMapping(value = "/statusApprovedList.do")
     public NexacroResult statusApprovedList(@ParamDataSet(name = "ds_Search", required = false) Map<String, Object> param) {
        System.out.println("statusApprovedList.do");
@@ -38,24 +40,42 @@ public class AdStudentStatusController {
        return result;
 	}
 	
+	
+	//신청 상세 정보를 반환
 	@RequestMapping(value="/statusApprovedDetail.do")
 	public NexacroResult statusApprovedDetail(@ParamVariable(name = "STATUS_CODE", required = false) String statusCode) {
 		NexacroResult result = new NexacroResult();
-		System.out.println("받아왔는지1? " + statusCode);
+
 		try {
 			Map<String, Object> statusDetail = service.statusDetail(statusCode);
-			System.out.println("받아왔는지2? " + statusDetail);
 			result.addDataSet("ds_StudentDetail", statusDetail);
-			System.out.println("넣어졌는지1? " + result);
 		} catch (Exception ee) {
 			System.out.println(ee);
 			result.setErrorCode(-1);
 			result.setErrorMsg("catch 조회 오류");
 		}
-		System.out.println("넣어졌는지2? " + result);
 		return result;
 	}
 	
+	
+	//신청 상세 정보를 반환
+	@RequestMapping(value="/studentInfo.do")
+	public NexacroResult studentInfo(@ParamVariable(name = "STUDENT_ID", required = false) String studentId) {
+		NexacroResult result = new NexacroResult();
+		try {
+			Map<String, Object> studentInfo = service.studentInfo(studentId);
+			result.addDataSet("ds_StudentDetail", studentInfo);
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+		return result;
+	}
+	
+	
+	//등록하거나 : insert
+	//신청 내용에 대한 승인 여부 : update
 	@RequestMapping(value="/statusUpdate.do")
 	public NexacroResult statusApprovedUpdate(@ParamDataSet(name = "ds_StudentDetail", required = false) Map<String, Object> param) {
 	       System.out.println(param);
@@ -79,20 +99,20 @@ public class AdStudentStatusController {
 	       return result;
 	}
 	
-	@RequestMapping(value="/statusApprovedInsert.do")
-	public NexacroResult statusApprovedInsert(@ParamDataSet(name = "", required = false) Map<String, Object> param) {
-	       System.out.println(param);
-	       System.out.println("statusApprovedInsert.do");
-	       
-	       NexacroResult result = new NexacroResult();
+	
+	//신청 내용을 삭제
+	@RequestMapping(value="/statusApprovedDelete.do")
+	public NexacroResult statusApprovedDelete(@ParamVariable(name = "STATUS_CODE", required = false) String studentId) {
+	       System.out.println("statusApprovedDelete.do");
 
-	       try {
-	    	   service.statusApprovedInsert(param);
-	       }catch(Exception ee) {
-	           System.out.println(ee);
-	           result.setErrorCode(-1);
-	           result.setErrorMsg("catch 조회 오류");
-	        }
-	       return result;
+	       NexacroResult result = new NexacroResult();
+		try {
+			service.statusDelete(studentId);
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+		return result;
 	}
 }

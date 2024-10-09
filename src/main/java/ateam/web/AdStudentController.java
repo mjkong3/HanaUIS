@@ -5,20 +5,29 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nexacro.uiadapter17.spring.core.annotation.ParamDataSet;
 import com.nexacro.uiadapter17.spring.core.data.NexacroResult;
 
+import ateam.dto.ProfessorDTO;
+import ateam.dto.StudentDTO;
 import ateam.service.AdStudentService;
+import ateam.service.StudentService;
 
 @Controller
 public class AdStudentController {
    
    @Resource(name = "AdStudentService")
    private AdStudentService service;
+   
+	@Autowired
+	private StudentService studentService;
    
    
    @RequestMapping(value = "/selectDepartment.do")
@@ -95,13 +104,13 @@ public class AdStudentController {
        return result;
     }
    
-   @RequestMapping(value = "/saveAdStudent.do")
-    public NexacroResult saveAdStudent(@ParamDataSet(name = "save_ds", required = false) Map<String, Object> param) {
+   @RequestMapping(value = "/insertAdStudent.do")
+    public NexacroResult insertAdStudent(@ParamDataSet(name = "save_ds", required = false) Map<String, Object> param) {
       NexacroResult result = new NexacroResult();
        System.out.println(param);
 
        try {
-          service.saveAdStudent(param);
+          service.insertAdStudent(param);
        }catch(Exception ee) {
           System.out.println(ee);
        }
@@ -109,6 +118,23 @@ public class AdStudentController {
        return result;
        
     }
+   
+   @RequestMapping(value = "/updateAdStudent.do")
+   public NexacroResult updateAdStudent(@ParamDataSet(name = "save_ds", required = false) Map<String, Object> param) {
+     NexacroResult result = new NexacroResult();
+      System.out.println(param);
+
+      try {
+         service.updateAdStudent(param);
+      }catch(Exception ee) {
+         System.out.println(ee);
+      }
+      System.out.println("뭘 리턴하지? " + result);
+      return result;
+      
+   }
+   
+   
    
    @RequestMapping(value = "/deleteAdStudent.do")
     public NexacroResult deleteAdStudent(@ParamDataSet(name = "dlt_ds", required = false) List<Map<String, Object>> param) {
@@ -129,6 +155,44 @@ public class AdStudentController {
        return result;
        
     }
-   
+   @RequestMapping(value = "/AdStudentgo.do")
+   public NexacroResult AdStudentgo(@ParamDataSet(name = "ds_mydata", required = false) Map<String, Object> param,
+		   HttpServletRequest request, StudentDTO dto) {
+     NexacroResult result = new NexacroResult();
+      System.out.println(param);
+      HttpSession session = request.getSession();
+      session.invalidate();
+      Object studentIdObj = param.get("studentid");
+      int id = 0;
+      if (studentIdObj instanceof Integer) {
+          id = (Integer) studentIdObj;
+      } else if (studentIdObj instanceof String) {
+          id = Integer.parseInt((String) studentIdObj);  // String인 경우 변환
+      }
+      String ps = (String) param.get("studentps");
+      System.out.println("efnwkjgnewkjnewkjgnewkgnewkjgnewkjgnewkngwk"+id + ps);
+   // 얻은 값 설정
+   		dto.setStudentId(id);
+   		dto.setPassword(ps);
+   		
+   		StudentDTO studentDTO = service.stdchecklogin(dto, request.getSession());
+   		System.out.println("efnwkjgnewkjnewkjgnewkgnewkjgnewkjgnewkngwk"+studentDTO);
+      try {
+    	  
+    	  session = request.getSession();
+
+    	  session.setAttribute("student", studentDTO); // 임시 사용자 정보 세션 저장
+    	  session.setMaxInactiveInterval(1800); // 로그인 세션 만료 시간 = 30분
+
+    	  
+    	  
+      }catch(Exception ee) {
+         System.out.println(ee);
+      }
+      System.out.println("뭘 리턴하지? " + result);
+      return result;
+      
+   }
+  
 
 }

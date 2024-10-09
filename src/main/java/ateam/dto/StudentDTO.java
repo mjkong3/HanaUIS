@@ -14,10 +14,9 @@ public class StudentDTO {
 	private String address;
 	private String status;
 	private String photo;
-	private int departmentCode;
+	private String departmentName;
 	private String password;
 
-	private String departmentName;
 	
 
 	public int getStudentId() {
@@ -85,13 +84,6 @@ public class StudentDTO {
 		this.address = address;
 	}
 
-	public int getDepartmentCode() {
-		return departmentCode;
-	}
-
-	public void setDepartmentCode(int departmentCode) {
-		this.departmentCode = departmentCode;
-	}
 
 
 

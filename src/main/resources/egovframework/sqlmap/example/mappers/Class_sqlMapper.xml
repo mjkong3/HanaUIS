@@ -81,7 +81,10 @@
 	
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 한교수 강의 목록 : header 목록 출력 용 -->
 	<select id="selectClassList" parameterType="int" resultType="ateam.dto.ClassDTO">
-			select class_code, class_name from CLASS where professor_id = #{professerId};
+			SELECT class_code, class_name, semester 
+			FROM CLASS 
+			WHERE professor_id = #{professerId}
+				AND YEAR(SYSDATE()) LIKE  YEAR(CLASS_START)
 	</select>
 	
 	

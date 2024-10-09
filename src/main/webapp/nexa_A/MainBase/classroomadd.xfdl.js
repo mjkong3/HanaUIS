@@ -18,12 +18,13 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("ds_classroom", this);
-            obj._setContents("<ColumnInfo><Column id=\"CLASSROOM_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"MAX_PEOPLE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj.set_useclientlayout("true");
+            obj._setContents("<ColumnInfo><Column id=\"CLASSROOM_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"MAX_PEOPLE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
             obj = new Dataset("ds_trans", this);
-            obj._setContents("<ColumnInfo><Column id=\"CLASSROOM_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"MAX_PEOPLE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"CLASSROOM_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"MAX_PEOPLE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
@@ -94,6 +95,9 @@
 
         this.ds_classroom_onrowposchanged = function(obj,e)
         {
+        	trace("아이디 제대로 들어갔나? " + this.ds_classroom.getColumn(this.ds_classroom.rowposition, "ADMIN_CODE"));
+        	trace("일시 제대로 들어갔나? " + this.ds_classroom.getColumn(this.ds_classroom.rowposition, "REGDATE"));
+
         	this.edt_classcode.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_ID"));
         	this.edt_classname.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_NAME"));
         	this.edt_maxpeople.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"MAX_PEOPLE"));
@@ -111,6 +115,10 @@
         		this.alert("빈 값이 존재합니다.");
         	}
         	else{
+        		var gdsApp = nexacro.getApplication();
+        		var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        		var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+        		this.ds_trans.setColumn(0, "ADMIN_CODE", adCode);
         		this.fn_save();
         	}
         };
@@ -146,6 +154,8 @@
         			this.ds_classroom.addRow();
         			//this.grd_classroom.set
         			//this.grd_classroom.setCellProperty("body", this.ds_classroom.rowcount-1, "displaytype", "imagecontrol");
+        			trace(this.ds_classroom.saveXML());
+
         			break;
         		case "saveAdminClassroom":
         			this.fn_classroom();

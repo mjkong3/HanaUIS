@@ -26,7 +26,7 @@
 		END as LoginCheck, email, ADMIN_CODE, NAME
 		FROM ADMIN
 		WHERE ADMIN_CODE = #{Id}
-		and PASSWORD = SHA2 (#{Password}, 256)
+		and PASSWORD = SHA2(#{Password}, 256)
 		
 	</select>
 	

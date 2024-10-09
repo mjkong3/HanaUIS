@@ -33,7 +33,7 @@
 
 
             obj = new Dataset("save_ds", this);
-            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -362,9 +362,10 @@
 
         	switch(svcID)
         	{
-        		case "saveAdStudent":
+        		case "insertAdStudent":
+        			this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
         			this.alert("성공적으로 등록을 하였습니다.");
-        			this.close("saveAdStudent");
+        			this.close();
         			break;
         	}
 
@@ -406,6 +407,14 @@
             // 데이터셋 복사: 부모 폼에서 넘겨받은 데이터셋을 ds_de에 복사
             this.ds_de.copyData(objParam);
 
+        	var gdsApp = nexacro.getApplication();
+        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        	var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+        	this.save_ds.setColumn(0, "ADMIN_CODE", adCode);
+        	this.save_ds.setColumn(0, "REGDATE", regdt);
+        	trace("아이디 제대로 들어갔나? " + this.save_ds.getColumn(0, "ADMIN_CODE"));
+        	trace("일시 제대로 들어갔나? " + this.save_ds.getColumn(0, "REGDATE"));
+
         //     // 콤보박스에 데이터셋 바인딩 설정
         //     this.de.set_innerdataset(this.ds_de);
         //     this.de.set_codecolumn("DEPARTMENT_CODE");  // 콤보박스에서 사용할 코드 컬럼
@@ -434,19 +443,20 @@
             this.save_ds.setColumn(0, "DEPARTMENT_CODE", selectedDeptCode);  // 선택한 학과 코드 설정
         };
 
-
+        // 등록 시 이벤트
         this.Stu_Add_btn_onclick = function(obj,e)
         {
-        	trace(this.save_ds.getColumn(0,"PHOTO"));
-        	this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
+        	//trace(this.save_ds.getColumn(0,"PHOTO"));
+        	/*this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');*/
             this.insertstudent();
 
         };
 
+        // 등록 트랜젝션
         this.insertstudent = function()
         {
-           var strSvcId    = "saveAdStudent";
-           var strSvcUrl   = "svc::saveAdStudent.do";
+           var strSvcId    = "insertAdStudent";
+           var strSvcUrl   = "svc::insertAdStudent.do";
            var inData      = "save_ds = save_ds";
            var outData     = "";
            var strArg      = "";
@@ -457,6 +467,7 @@
 
         };
 
+        // 필요없는 함수
         this.FileUpload00_onitemchanged = function(obj,e)
         {
         	this.ImageViewer00.set_image("URL('file://" + this.FileUpload00.value + "')");
@@ -470,11 +481,13 @@
         	//this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
         };
 
+        // 이미지 등록 이벤트
         this.btn_addfile_onclick = function(obj,e)
         {
         	this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);
         };
 
+        // 이미지 등록 시 확장자 확인
         this.gfnIsImageFile = function(fileTxt) {
             var imageExt = ["png", "jpg", "jpeg"];
             var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
@@ -509,13 +522,16 @@
         	}
 
         };
+
+        // 이미지 미리보기 이벤트
         this.aftereventFunction = function(){
         	trace("이벤트 후에 실행되는 작업입니다.");
         	var filename = this.dsList.getColumn(0,"FILE_NAME");
         	trace(filename);
-        	this.showImagePreview(filename);
+        	this.showImagePreview(filename); // 이미지 미리보기 함수
 
         }
+
         // 파일 추가 처리 함수
         this.addFileList = function(filelist) {
             for (var i = 0, len = filelist.length, vFile; i < len; i++) {
@@ -526,14 +542,14 @@
                 // 파일을 서버에 업로드하는 함수 호출
                 this.uploadFileToServer(vFile);
             }
-        }
+        };
 
         // 파일 업로드 함수
         this.uploadFileToServer = function(vFile) {
         	this.FileUpTransfer00.clearFileList();
             this.FileUpTransfer00.addFile(vFile.filename, vFile);
             this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
-        }
+        };
 
         // 이미지 미리보기 함수
         this.showImagePreview = function(fileName) {
@@ -590,12 +606,14 @@
                 case 1:
                     obj.getFileSize();
                     break;
-                case 9:
+                case 9: // 들어와졌을 때
                     this.FileUpTransfer00.addFile(obj.filename, obj);
         			this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/fileupload.jsp");
                     break;
             }
         };
+
+        // 파일 추가 에러시 발동 함수
         this.FileList_onerror = function(obj, e)
         {
             trace("errortype: "+e.errortype);

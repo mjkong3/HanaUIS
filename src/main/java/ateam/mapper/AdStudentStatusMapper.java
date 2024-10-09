@@ -16,5 +16,10 @@ public interface AdStudentStatusMapper {
 
 	Map<String, Object> statusDetail(String statusCode);
 
+	void statusApprovedDelete(String statusCode);
+	
+	public Map<String, Object> studentInfo(String studentId);
+
+
 
 }
