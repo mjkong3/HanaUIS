@@ -258,13 +258,11 @@ this.btn_resetStd_onclick = function (obj:nexacro.Button, e:nexacro.ClickEventIn
 };
 
 
-this.grd_scoreList_oninput = function(obj:nexacro.Grid,e:nexacro.InputEventInfo)
+this.grd_scoreList_oninput = function(obj:nexacro.Grid, e:nexacro.InputEventInfo)
 {
-	var row = this.ds_scoreList.rowposition
-	/*this.alert("값은@@"+row);*/
-	var check = this.ds_scoreList.setColumn(row,"CHECK","1");
-	
-	
+    var row = this.ds_scoreList.rowposition;
+   
+    this.ds_scoreList.setColumn(row, "CHECK", "1");
 };
 
 
@@ -285,28 +283,46 @@ this.btn_update_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 };
 
 // 수정목록 필터링
-this.updateCheck= function()
-{
-	this.ds_updateScore.clearData();
-	trace("필터링 전 " + this.ds_scoreList.getRowCount());
-	this.ds_scoreList.filter("CHECK==1");
-	trace("필터링 후 " + this.ds_scoreList.getRowCount());
-	var nRow = this.ds_scoreList.getRowCount();
-	var gdsAd = nexacro.getApplication();
-	var adCode = gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE");
-	trace("ad코드는? " + adCode);
-	
-	//this.ds_scoreList.set_enableevent(false);
-	for (var i=0; i<nRow; i++){
-		
+this.updateCheck = function() {
+    this.ds_updateScore.clearData();
+    trace("필터링 전 " + this.ds_scoreList.getRowCount());
+    this.ds_scoreList.filter("CHECK==1");
+    trace("필터링 후 " + this.ds_scoreList.getRowCount());
+
+    var nRow = this.ds_scoreList.getRowCount();
+    var gdsAd = nexacro.getApplication();
+    var adCode = gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+    trace("ad코드는? " + adCode);
+
+    // 유효성 검사 추가
+	for (var i = 0; i < nRow; i++) {
+		var inputValue = this.ds_scoreList.getColumn(i, "MIDDLE_TEST"); // MIDDLE_TEST 값 가져오기
+		var inputValue2 = this.ds_scoreList.getColumn(i, "FINAL_TEST"); // FINAL_TEST 값 가져오기
+		var inputValue3 = this.ds_scoreList.getColumn(i, "REPORT"); // REPORT 값 가져오기
+
+		// 숫자만 입력 가능하도록 체크 (각 열에 대해)
+		if (!/^\d*$/.test(inputValue) || !/^\d*$/.test(inputValue2) || !/^\d*$/.test(inputValue3)) {
+			alert("숫자만 입력 가능합니다. 행: " + (i + 1));
+			this.ds_scoreList.filter(""); // 필터 초기화
+			return; // 유효성 검사 실패 시 함수 종료
+		}
+
+		// 100 미만의 숫자만 허용 (각 열에 대해)
+		if (parseInt(inputValue, 10) >= 100 || parseInt(inputValue2, 10) >= 100 || parseInt(inputValue3, 10) >= 100) {
+			alert("100 미만의 숫자만 입력 가능합니다. 행: " + (i + 1));
+			this.ds_scoreList.filter(""); // 필터 초기화
+			return; // 유효성 검사 실패 시 함수 종료
+		}
+
+		// 모든 행의 작성자 설정
 		this.ds_scoreList.setColumn(i, "UPD_USR", adCode);
 		trace("작성자?? " + this.ds_scoreList.getColumn(i, "UPD_USR"));
 	}
-	this.ds_updateScore.copyData(this.ds_scoreList, true);
-	
-	this.ds_scoreList.filter("");
-	this.ds_scoreList.set_enableevent(true);
-}
+
+    this.ds_updateScore.copyData(this.ds_scoreList, true);
+    this.ds_scoreList.filter(""); // 필터 초기화
+    this.ds_scoreList.set_enableevent(true);
+};
 
 this.cmb_year_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
 {
