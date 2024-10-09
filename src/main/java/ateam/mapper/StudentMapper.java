@@ -24,6 +24,7 @@ public interface StudentMapper {
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마이페이지 수정
 	public int updatePhone(Map<String, Object> map);
 	public int updateEmail(Map<String, Object> map);
+	public Map<String, Object> selectStudent(int studentId);
 
 	
 	
@@ -60,6 +61,7 @@ public interface StudentMapper {
 	// 6.기존 수강신청 + 학과별 수강목록 조회
 	   public List<Map<String, Object>> selectedClasses(@Param("studentId") int studentId,
 	         @Param("departmentCode") int departmentCode);
+
 	   
 	
 

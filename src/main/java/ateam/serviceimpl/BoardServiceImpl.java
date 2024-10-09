@@ -41,9 +41,8 @@ public class BoardServiceImpl implements BoardService{
 
 	public Map<String, Object> selectBoardAndFile(int id){
 		BoardDTO board = selectBoard(id);
-		String fileCode = board.getFileCode();
 		
-		List<FileDTO> fileList = mapper.selectFile(fileCode);
+		List<FileDTO> fileList = mapper.selectFile(id);
 	
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("board",board);

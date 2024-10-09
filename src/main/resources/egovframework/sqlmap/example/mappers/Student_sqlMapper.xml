@@ -46,6 +46,23 @@
 				UPD_USR = #{studentId}			
 		WHERE STUDENT_ID = #{studentId}
 	</update>
+	
+	<select id="selectStudent" resultType="Map">
+		SELECT S.STUDENT_ID as studentId,
+			   S.NAME as name,
+			   S.PHONE as phone,
+	             S.EMAIL as email,
+	             S.BIRTHDAY as birthday,
+	             S.GENDER as gender,
+   			    SUBSTRING_INDEX(P.ADDRESS, '/', 1) as address, 
+			    SUBSTRING_INDEX(P.ADDRESS, '/', -1) as addressDetail, 
+	             S.STATUS as status,
+	             D.DEPARTMENT_NAME as departmentName,
+	             S.PHOTO as photo
+		FROM STUDENT S
+      		LEFT JOIN DEPARTMENT D ON S.DEPARTMENT_CODE = D.DEPARTMENT_CODE
+      	WHERE S.STUDENT_ID = #{studentId}
+	</select>
 
 
 

@@ -79,12 +79,20 @@
 
         };
 
+        this.Form_Work_onkeyup = function(obj,e)
+        {
+        	if(e.keycode==13){
+        		this.btn_Search.click();
+        	}
+        };
+
         });
         
         // Regist UI Components Event
         this.on_initEvent = function()
         {
             this.addEventHandler("onload",this.frmWork_onload,this);
+            this.addEventHandler("onkeyup",this.Form_Work_onkeyup,this);
             this.ImageViewer00.addEventHandler("onclick",this.ImageViewer00_onclick,this);
         };
         this.loadIncludeScript("Form_Work.xfdl");

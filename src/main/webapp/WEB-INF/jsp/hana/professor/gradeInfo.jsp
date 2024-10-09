@@ -182,28 +182,29 @@
 					<!-- 페이지 네비게이션 -->
 				<c:if  test="${not empty selectClassStudent}">
 
-					<div class="pagination">
-						<!-- 첫 페이지로 이동 -->
-						<a href="?page=1&selectedNo=${classCode}"
-							class="${pageHandler.firstPage ? 'disabled' : ''}">처음</a> <a
-							href="?page=${pageHandler.beginPage - 1}&selectedNo=${classCode}"
-							class="${pageHandler.firstPage ? 'disabled' : ''}">이전</a>
+				<div class="pagination">
+				    <!-- 첫 페이지로 이동 -->
+				    <a href="?page=1&selectedNo=${classCode}"
+				        class="${pageHandler.firstPage ? 'disabled' : ''}">처음</a>
+				    <a href="?page=${pageHandler.page - 1}&selectedNo=${classCode}"
+				        class="${pageHandler.firstPage ? 'disabled' : ''}">이전</a>
+				
+				    <!-- 중간 페이지 목록 (1~5 or 6~10) -->
+				    <c:forEach begin="${pageHandler.beginPage}" end="${pageHandler.endPage}" var="i">
+				        <a href="?page=${i}&selectedNo=${classCode}"
+				            class="${i == pageHandler.page ? 'active' : ''}">${i}</a>
+				    </c:forEach>
+				
+				    <!-- 다음 페이지로 이동 -->
+				    <a href="?page=${pageHandler.page + 1}&selectedNo=${classCode}"
+				        class="${pageHandler.page >= pageHandler.totalPage ? 'disabled' : ''}">다음</a>
+				
+				    <!-- 마지막 페이지로 이동 -->
+				    <a href="?page=${pageHandler.totalPage}&selectedNo=${classCode}"
+				        class="${pageHandler.page >= pageHandler.totalPage ? 'disabled' : ''}">끝</a>
+				</div>
 
-						<!-- 중간 페이지 목록 (1~5 or 6~10) -->
-						<c:forEach begin="${pageHandler.beginPage}"
-							end="${pageHandler.endPage}" var="i">
-							<a href="?page=${i}&selectedNo=${classCode}"
-								class="${i == pageHandler.page ? 'active' : ''}">${i}</a>
-						</c:forEach>
 
-						<!-- 다음 페이지로 이동 -->
-						<a href="?page=${pageHandler.endPage + 1}&selectedNo=${classCode}"
-							class="${pageHandler.endPage >= pageHandler.totalPage ? 'disabled' : ''}">다음</a>
-
-						<!-- 마지막 페이지로 이동 -->
-						<a href="?page=${pageHandler.totalPage}&selectedNo=${classCode}"
-							class="${pageHandler.endPage >= pageHandler.totalPage ? 'disabled' : ''}">끝</a>
-					</div>
 				</c:if>
 
 				</form>

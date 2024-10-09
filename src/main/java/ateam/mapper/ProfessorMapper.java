@@ -9,7 +9,7 @@ import egovframework.rte.psl.dataaccess.mapper.Mapper;
 public interface ProfessorMapper {
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인
 	public ProfessorDTO login_check(ProfessorDTO professorDTO);
-	public ProfessorDTO selectProfessor(int id);
+	public Map<String, Object> selectProfessor(int id);
 
 	
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마이페이지
