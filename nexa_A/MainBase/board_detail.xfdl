@@ -36,7 +36,7 @@
         <Button id="btn_updateBoard" taborder="12" text="수정" left="634" top="615" width="72" height="33" onclick="btn_updateBoard_onclick"/>
         <FileDownload id="btn_fileDown" taborder="13" text="파일 다운" left="850" top="500" width="90" height="95" onclick="btn_fileDown_onclick"/>
         <TextArea id="txt_Title" taborder="14" left="380" top="117" width="283" height="46"/>
-        <TextArea id="txt_Content" taborder="15" left="380" top="240" width="666" height="170" scrolltype="horizontal" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="auto auto"/>
+        <TextArea id="txt_Content" taborder="15" left="380" top="240" width="666" height="170" scrolltype="vertical" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="auto auto" scrollbarsize="10"/>
         <Button id="btn_addFile" taborder="16" text="파일 첨부" left="956" top="500" width="90" height="40" onclick="btn_addFile_onclick"/>
         <Button id="btn_deleteFile" taborder="17" text="파일 삭제" left="956" top="555" width="90" height="40" onclick="btn_deleteFile_onclick"/>
         <Button id="btn_deleteBoard" taborder="18" text="삭제" left="953" top="615" width="90" height="33" color="white" background="#ff0505" onclick="btn_deleteBoard_onclick"/>
@@ -59,6 +59,7 @@ this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	} else {
 		this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
 		this.showImagePreview(this.ds_contentFile.getColumn(0, "IMAGE"));
+		
 		this.ImageViewer00.set_visible(true);
 		
 		this.adjustTextareaHeight();
@@ -592,6 +593,12 @@ this.ImageViewer00_onload = function(obj:nexacro.ImageViewer,e:nexacro.LoadEvent
 	this.stt_Content.set_height(this.txt_Content.getOffsetHeight() + obj.imageheight + 5);
 	this.adjustTextareaHeight();
 	this.resetScroll();
+	
+	var imgviehei = this.ImageViewer00.imageheight;
+	var imgviewid = this.ImageViewer00.imagewidth;
+	
+	this.ImageViewer00.set_height(imgviehei);
+	this.ImageViewer00.set_width(imgviewid);
 };
 
 
@@ -661,6 +668,7 @@ this.btn_delContentPhoto_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 		this.btn_closeBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
 		
 		this.stt_file.set_top(this.btn_addContentPhoto.getOffsetTop());
+		this.stt_Content.set_height(this.txt_Content.height);
 		}
 	}
 };]]></Script>

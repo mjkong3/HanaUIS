@@ -68,7 +68,6 @@ this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 this.txt_content_onkeydown = function(obj:nexacro.TextArea,e:nexacro.KeyEventInfo)
 {
 	this.adjustTextareaHeight();
-	this.set_scrolltype("vertical");
 };
 
 // 텍스트의 변화에 따라 높이를 조정하는 함수

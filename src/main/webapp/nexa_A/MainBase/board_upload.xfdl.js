@@ -207,7 +207,6 @@
         this.txt_content_onkeydown = function(obj,e)
         {
         	this.adjustTextareaHeight();
-        	this.set_scrolltype("vertical");
         };
 
         // 텍스트의 변화에 따라 높이를 조정하는 함수

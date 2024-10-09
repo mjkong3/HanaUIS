@@ -32,6 +32,8 @@
         AND B.CRE_DTM LIKE CONCAT('%', #{SEARCH_WORD}, '%')    
         </if>
     </if>
+    
+    	ORDER BY B.BOARD_CODE DESC
 	</select>
 
 <resultMap id="BoardWithFiles" type="hashMap">
@@ -48,7 +50,7 @@
     </collection>
     
     <!-- IMAGE 테이블 결과 매핑 -->
-    <collection property="IMAGE" ofType="hashMap" javaType="Map">
+    <collection property="IMAGE" ofType="hashMap" javaType="Map">	
         <result property="IMAGE" column="IMAGE"/>
     </collection>
 </resultMap>

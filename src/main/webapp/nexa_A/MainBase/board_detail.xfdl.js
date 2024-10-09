@@ -153,9 +153,10 @@
 
             obj = new TextArea("txt_Content","380","240","666","170",null,null,null,null,null,null,this);
             obj.set_taborder("15");
-            obj.set_scrolltype("horizontal");
+            obj.set_scrolltype("vertical");
             obj.set_tooltiptype("hover");
             obj.set_scrollbartype("auto auto");
+            obj.set_scrollbarsize("10");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_addFile","956","500","90","40",null,null,null,null,null,null,this);
@@ -252,6 +253,7 @@
         	} else {
         		this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
         		this.showImagePreview(this.ds_contentFile.getColumn(0, "IMAGE"));
+
         		this.ImageViewer00.set_visible(true);
 
         		this.adjustTextareaHeight();
@@ -785,6 +787,12 @@
         	this.stt_Content.set_height(this.txt_Content.getOffsetHeight() + obj.imageheight + 5);
         	this.adjustTextareaHeight();
         	this.resetScroll();
+
+        	var imgviehei = this.ImageViewer00.imageheight;
+        	var imgviewid = this.ImageViewer00.imagewidth;
+
+        	this.ImageViewer00.set_height(imgviehei);
+        	this.ImageViewer00.set_width(imgviewid);
         };
 
 
@@ -854,6 +862,7 @@
         		this.btn_closeBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
 
         		this.stt_file.set_top(this.btn_addContentPhoto.getOffsetTop());
+        		this.stt_Content.set_height(this.txt_Content.height);
         		}
         	}
         };
