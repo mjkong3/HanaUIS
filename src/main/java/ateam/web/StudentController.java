@@ -53,7 +53,13 @@ public class StudentController {
 	public String myPageView(HttpSession session, Model model) {
 		StudentDTO student = (StudentDTO) session.getAttribute("student");
 		String departmentName = studentService.studentDepartment(student.getStudentId());
+		
+		int studentId= (int) session.getAttribute("studentId");
+		Map<String, Object> studentDetail = studentService.selectStudent(studentId);
+		
 		model.addAttribute("departmentName", departmentName);
+		model.addAttribute("studentDetail", studentDetail);
+		
 		return "hana/myPage";
 	}
 	

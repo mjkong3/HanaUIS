@@ -1,7 +1,5 @@
 package ateam.web;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,18 +43,36 @@ public class AdProfessorController {
 	}
 
 	// popup - onclickEvent - 작성완료 버튼 누를 시 pro_id에 따라 insert or update
-	@RequestMapping(value = "/saveAdPro.do")
-	public NexacroResult saveAdPro(@ParamDataSet(name = "ds_pro", required = false) Map<String, Object> param) {
+	@RequestMapping(value = "/insertAdPro.do")
+	public NexacroResult insertAdPro(@ParamDataSet(name = "ds_pro", required = false) Map<String, Object> param) {
 
 		NexacroResult result = new NexacroResult();
 		System.out.println("param1 = " + param);
-
-
+		try {
 			// 반환할 ds가 없으므로 service 로직만 실행
-			service.saveAdPro(param);
-			System.out.println("param2 = " + param);
-		
+			service.insertAdPro(param);
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
 		// 반환값이 없어도 null은 안된다 - 빈 nexacro 객체를 반환!
+		return result;
+	}
+
+	@RequestMapping(value = "/updateAdPro.do")
+	public NexacroResult updateAdpro(@ParamDataSet(name = "ds_pro", required = false) Map<String, Object> param) {
+
+		NexacroResult result = new NexacroResult();
+		System.out.println("param1 = " + param);
+		try {
+			service.updateAdPro(param);
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+
 		return result;
 	}
 
@@ -81,20 +97,61 @@ public class AdProfessorController {
 
 	// onclickEvent - list grd에서 체크한 그리드 삭제
 	@RequestMapping(value = "/deleteAdPro.do")
-	public NexacroResult deleteAdPro(@ParamDataSet(name = "ds_delete", required = false) List<Map<String, Object>> param) {
-		
+	public NexacroResult deleteAdPro(
+			@ParamDataSet(name = "ds_delete", required = false) List<Map<String, Object>> param) {
+
 		NexacroResult result = new NexacroResult();
 		try {
-	        // List에 담아온 교수id들을 순차적으로 보내 삭제시킨다
-			for(int i =0; i < param.size(); i++) {
-	            service.deleteAdPro(param.get(i));
-	          }
-    	}catch(Exception ee) {
-    		System.out.println(ee);
-    		result.setErrorCode(-1);
-    		result.setErrorMsg("catch 조회 오류");
-    	}
-    	
+			// List에 담아온 교수id들을 순차적으로 보내 삭제시킨다
+			for (int i = 0; i < param.size(); i++) {
+				service.deleteAdPro(param.get(i));
+			}
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+
+		return result;
+	}
+	
+	@RequestMapping(value ="/dupCheckId.do")
+	public NexacroResult dupCheckId(@ParamVariable(name = "PROFESSOR_ID", required = false) String ProId) {
+		NexacroResult result = new NexacroResult();
+		
+		try {
+			Map<String, Object> ds_vali =  new HashMap<>();
+			String checkId = service.dupCheckId(ProId);
+			System.out.println("proId는?" + ProId);
+			ds_vali.put("CHECK_ID", checkId);
+			System.out.println("들어갔나?" + ds_vali);
+			result.addDataSet("ds_vali", ds_vali);
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+		System.out.println("result는? " + result);
+		return result;
+	}
+	
+	@RequestMapping(value ="/dupCheckEm.do")
+	public NexacroResult dupCheckEm(@ParamVariable(name = "EMAIL", required = false) String email) {
+		NexacroResult result = new NexacroResult();
+		
+		try {
+			Map<String, Object> ds_vali =  new HashMap<>();
+			String CheckEm = service.dupCheckEm(email);
+			System.out.println("email은?" + CheckEm);
+			ds_vali.put("CHECK_EM", CheckEm);
+			System.out.println("들어갔나?" + ds_vali);
+			result.addDataSet("ds_vali", ds_vali);
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+		System.out.println("result는? " + result);
 		return result;
 	}
 }

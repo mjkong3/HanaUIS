@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import ateam.dto.StudentDTO;
 import ateam.mapper.AdStudentMapper;
 import ateam.service.AdStudentService;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
@@ -54,6 +56,21 @@ public class AdStudentServiceImpl extends EgovAbstractServiceImpl implements AdS
    public void deletAdStudent(Map<String, Object> param) {
       mapper.deletAdStudent(param);
       
+   }
+   @Override
+   public StudentDTO stdchecklogin(StudentDTO dto, HttpSession session) {
+	   System.out.println(dto);
+	   return mapper.stdchecklogin(dto);
+   }
+   
+   @Override
+   public void insertAdStudent(Map<String, Object> param) {
+	   mapper.insertAdStudent(param);
+   }
+
+   @Override
+   public void updateAdStudent(Map<String, Object> param) {
+	   mapper.updateAdStudent(param);
    }
 
 }
