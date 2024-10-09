@@ -34,7 +34,7 @@
 
             obj = new Dataset("classcourse_ds", this);
             obj.set_useclientlayout("true");
-            obj._setContents("<ColumnInfo><Column id=\"CLASSROOM_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"TIME_NUMBER\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_WEEK\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"PROFESSOR_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_TIME_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"STRING\" size=\"256\"/><Column id=\"SEMESTER\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_GRADE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_START\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_END\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"CLASSROOM_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"TIME_NUMBER\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_WEEK\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"PROFESSOR_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_TIME_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"STRING\" size=\"256\"/><Column id=\"CHECKS\" type=\"STRING\" size=\"256\"/><Column id=\"SEMESTER\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_GRADE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_START\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_END\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -76,19 +76,8 @@
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"93\"/><Column size=\"142\"/><Column size=\"48\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"강의실코드\"/><Cell col=\"1\" text=\"강의실\"/><Cell col=\"2\" text=\"정원\"/></Band><Band id=\"body\"><Cell text=\"bind:CLASSROOM_ID\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:CLASSROOM_NAME\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:MAX_PEOPLE\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("classtime_Grid","1288","53","502","277",null,null,null,null,null,null,this);
-            obj.set_taborder("1");
-            obj.set_binddataset("classtime_ds");
-            obj.set_autofittype("col");
-            obj.set_autosizingtype("none");
-            obj.set_selecttype("cell");
-            obj.set_autosizebandtype("body");
-            obj.set_visible("false");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"50\"/></Rows><Band id=\"head\"><Cell text=\"교시\"/><Cell col=\"1\" text=\"월요일\"/><Cell col=\"2\" text=\"화요일\"/><Cell col=\"3\" text=\"수요일\"/><Cell col=\"4\" text=\"목요일\"/><Cell col=\"5\" text=\"금요일\"/></Band><Band id=\"body\"><Cell text=\"bind:교시\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:월요일\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:화요일\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:수요일\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:목요일\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:금요일\" textAlign=\"center\"/></Band></Format></Formats>");
-            this.addChild(obj.name, obj);
-
             obj = new Grid("classcourse_grd","31","406","1019","208",null,null,null,null,null,null,this);
-            obj.set_taborder("2");
+            obj.set_taborder("1");
             obj.set_binddataset("classcourse_ds");
             obj.set_selecttype("row");
             obj.set_autofittype("col");
@@ -96,36 +85,36 @@
             this.addChild(obj.name, obj);
 
             obj = new Button("reset_btn","874","364","51","36",null,null,null,null,null,null,this);
-            obj.set_taborder("3");
+            obj.set_taborder("2");
             obj.set_text("리셋");
             this.addChild(obj.name, obj);
 
             obj = new Button("insert_btn","999","364","51","36",null,null,null,null,null,null,this);
-            obj.set_taborder("4");
+            obj.set_taborder("3");
             obj.set_text("등록");
             this.addChild(obj.name, obj);
 
             obj = new Button("apply_btn","935","364","51","36",null,null,null,null,null,null,this);
-            obj.set_taborder("5");
+            obj.set_taborder("4");
             obj.set_text("저장");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_copy","813","363","47","38",null,null,null,null,null,null,this);
-            obj.set_taborder("6");
+            obj.set_taborder("5");
             obj.set_text("추가");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_delete","750","364","46","36",null,null,null,null,null,null,this);
-            obj.set_taborder("7");
+            obj.set_taborder("6");
             obj.set_text("제거");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_search","151","380","185","24",null,null,null,null,null,null,this);
-            obj.set_taborder("8");
+            obj.set_taborder("7");
             this.addChild(obj.name, obj);
 
             obj = new Combo("cmb_course","31","380","118","25",null,null,null,null,null,null,this);
-            obj.set_taborder("9");
+            obj.set_taborder("8");
             obj.set_codecolumn("codecolumn");
             obj.set_datacolumn("datacolumn");
             var cmb_course_innerdataset = new nexacro.NormalDataset("cmb_course_innerdataset", obj);
@@ -137,7 +126,7 @@
             this.addChild(obj.name, obj);
 
             obj = new Combo("cmb_se","140","20","100","25",null,null,null,null,null,null,this);
-            obj.set_taborder("10");
+            obj.set_taborder("9");
             obj.set_innerdataset("ds_classsem");
             obj.set_codecolumn("SEMESTER");
             obj.set_datacolumn("SEMESTERN");
@@ -147,7 +136,7 @@
             this.addChild(obj.name, obj);
 
             obj = new Combo("cmb_year","31","20","100","25",null,null,null,null,null,null,this);
-            obj.set_taborder("11");
+            obj.set_taborder("10");
             obj.set_innerdataset("ds_classyear");
             obj.set_codecolumn("YEAR");
             obj.set_datacolumn("YEARN");
@@ -157,12 +146,12 @@
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_popclassplus","463","17","69","28",null,null,null,null,null,null,this);
-            obj.set_taborder("12");
+            obj.set_taborder("11");
             obj.set_text("강의실 추가");
             this.addChild(obj.name, obj);
 
             obj = new Div("Div00","540","7","537","333",null,null,null,null,null,null,this);
-            obj.set_taborder("14");
+            obj.set_taborder("13");
             obj.set_text("Div00");
             this.addChild(obj.name, obj);
 
@@ -181,8 +170,13 @@
             this.Div00.addChild(obj.name, obj);
 
             obj = new Button("btn_print","986","20","72","26",null,null,null,null,null,null,this);
-            obj.set_taborder("13");
+            obj.set_taborder("12");
             obj.set_text("인쇄");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_browser_print00","910","20","70","26",null,null,null,null,null,null,this);
+            obj.set_taborder("14");
+            obj.set_text("전체 인쇄");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -211,19 +205,21 @@
         // User Script
         this.addIncludeScript("classroom.xfdl","MainBase::autofilter.xjs");
         this.registerScript("classroom.xfdl", function() {
-
+        // 오토필터 불러오기
         this.executeIncludeScript("MainBase::autofilter.xjs"); /*include "MainBase::autofilter.xjs"*/;
         this.classroom_onload = function(obj,e)
         {
         	// 강의실 데이터 불러오기
         	this.fn_classroom();
 
+        	//오토 필터
         	var objConfig  = {
         						objGrid		: this.classcourse_grd,
         						objCombo	: this.cmb_course,
         						objEdit		: this.edt_search
         					 }
         	this.fnInitForm(obj, objConfig);
+
         };
 
         //처리콜백 함수
@@ -243,6 +239,20 @@
         			this.topnull();
         			//this.classcourse_ds.filter("");
         			this.classroom_ds_onrowposchanged();
+
+        			// gds 호출로 등록일, 등록자 넣기
+        			var gdsApp = nexacro.getApplication();
+        			var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        			var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+        			for(var i=0; i<this.classcourse_ds.rowcount; i++){
+        				this.classcourse_ds.setColumn(i, "ADMIN_CODE", adCode);
+        				this.classcourse_ds.setColumn(i, "REGDATE", regdt);
+        			}
+        			trace("아이디 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "ADMIN_CODE"));
+        			trace("일시 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "REGDATE"));
+        			//trace(this.classcourse_ds.saveXML());
+        			/*this.classcourse_ds.filter("CHECKS == null");*/
+
         			break;
         		case "SelectAdminClassroom":
         			this.cmb_year.set_index(0);
@@ -347,7 +357,7 @@
         	this.classcourse_ds.filter("CLASSROOM_ID == '" + classroom_code + "' && SEMESTER == '"+grade+"'");
 
         	// classcourse_ds의 첫 번째 행의 CLASSROOM_ID 출력
-        	console.log(this.classcourse_ds.getColumn(0, "CLASSROOM_ID"));
+        	//console.log(this.classcourse_ds.getColumn(0, "CLASSROOM_ID"));
 
         	// classcourse_ds의 모든 행을 반복
         	var courseRowCount = this.classcourse_ds.getRowCount();  // classcourse_ds의 총 행 수
@@ -459,9 +469,11 @@
         		this.alert("삭제되었지만 저장안된 부분이 있습니다. 저장해 주세요.")
         	} else{
         			if(confirm("등록하시겠습니까?")){
-        			console.log(this.classcourse_ds.getColumn());
-        			this.fn_classcoursesave();
-        			this.fn_classcouserdelete();
+        				console.log(this.classcourse_ds.getColumn());
+        				//this.classcourse_ds.filter("CHECK2 == 1");
+         				this.fn_classcouserdelete();
+        				this.fn_classcoursesave();
+
         		}
         	}
         };
@@ -513,6 +525,7 @@
             // 선택된 행의 데이터를 새로운 행으로 복사
             this.classcourse_ds.copyRow(newRow, this.classcourse_ds, selectedRow, sCol);
             this.classcourse_ds.setColumn(newRow, "CHECK", 1);  // 해당 행의 check 컬럼을 1로 설정
+        	this.classcourse_ds.setColumn(newRow, "CHECKS", 1);
         };
 
         // 삭제버튼
@@ -549,6 +562,7 @@
         {
         	var row = e.row;  // 클릭한 셀의 위치
             this.classcourse_ds.setColumn(row, "CHECK", 1);  // 해당 행의 check 컬럼을 1로 설정
+        	this.classcourse_ds.setColumn(row, "CHECKS", 1);
 
         };
         // 학기 바꾸기
@@ -612,16 +626,123 @@
         	if (this.classcourse_ds.getCaseCount("CHECK == 1") > 0) {
                 var comt = "저장 안된 부분이 있습니다. 이동하겠습니까?";
         		return comt;
-            }
+            }else if(this.classcourse_ds.getCaseCount("CHECKS == 1") > 0){
+        		var comt = "등록이 안된 부분이 있습니다. 이동하겠습니까?";
+        		return comt;
+        	}
         };
-
 
         this.btn_print_onclick = function(obj,e)
         {
             // 그리드를 프린트
             //system.print(this.classtime_Grid, false, "middle", "left", false, "landscape");
-        	system.print(this.Div00, false, "middle", "left", false, "landscape");
+        	//system.print(this.Div00, false, "middle", "left", false, "landscape");
 
+        	var htmlContent = "";
+        	var CLASSROOM_ID = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_ID");
+        	var CLASSROOM_NAME = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_NAME");
+
+
+
+        	htmlContent += this.convertGridDataToHTML(this.Div00.form.classtime_Grid, 1, CLASSROOM_ID, CLASSROOM_NAME); // 한 번만 변환
+        	//this.classtime_ds.onrowposchanged()
+
+        	// 3. HTML을 새로운 브라우저 창에 표시
+            var htmlWindow = window.open('', '', 'width=800,height=600');
+            htmlWindow.document.write(htmlContent);
+
+            // 4. 브라우저의 인쇄 기능 호출
+            htmlWindow.document.close();  // 문서 닫기
+            htmlWindow.focus();           // 창 포커스 맞추기
+            htmlWindow.print();           // 인쇄
+            htmlWindow.close();           // 창 닫기
+        };
+
+        this.btn_browser_print_onclick2 = function(obj, e) {
+
+            var rowCount = this.classroom_ds.getRowCount();
+            var htmlContent = ""; // HTML 콘텐츠 초기화
+
+            // 데이터 소스의 모든 행에 대해 반복
+            for (var r = 0; r < rowCount; r++) {
+                this.classroom_ds.set_rowposition(r); // 데이터 소스의 현재 행 설정
+                this.classroom_ds_onrowposchanged();   // 행 위치 변경 이벤트 호출
+                var CLASSROOM_ID = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_ID");
+        		var CLASSROOM_NAME = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_NAME");
+
+                // 현재 그리드 데이터를 HTML로 변환
+                htmlContent += this.convertGridDataToHTML(this.Div00.form.classtime_Grid, 1, CLASSROOM_ID, CLASSROOM_NAME); // 한 번만 변환
+
+        		// 페이지 나누기 추가
+                htmlContent += "<div style='page-break-after: always;'></div>";
+            }
+
+            // HTML을 새로운 브라우저 창에 표시
+            var htmlWindow = window.open('', '', 'width=800,height=600');
+            htmlWindow.document.write(htmlContent);
+
+            // 브라우저의 인쇄 기능 호출
+            htmlWindow.document.close();  // 문서 닫기
+            htmlWindow.focus();           // 창 포커스 맞추기
+            htmlWindow.print();           // 인쇄
+            htmlWindow.close();           // 창 닫기
+        };
+
+        // Grid 데이터를 HTML로 변환하는 함수
+        this.convertGridDataToHTML = function(grid, repeatCount, classid, classname) {
+            // HTML 시작, 스타일 추가
+            var html = `
+    <style>
+                .print-hide { display: show; }
+                .print-show { display: none; }
+                @media print {
+                    .print-show { display: block; }
+                    .print-hide { display: none; }
+                    @page { margin: 1.3cm 1.3cm; }
+                    @page :first { margin: 0 1.3cm; }
+                    html { margin: 1.3cm 0; }
+                }
+            </style>
+            `;
+
+    // 머릿글을 print-hide로 숨김 처리
+            html += "<div class='print-hide'><h2></h2></div>";
+            html += "<table border='1' style='border-collapse: collapse; width: 100%;'>";
+
+        	// 강의실 이름 추가
+        	html += "<h2>" + classid + "   " + classname + "</h2>";
+            // 그리드의 컬럼명 추가
+            html += "<tr>";
+            for (var i = 0; i < grid.getCellCount("head"); i++) {
+                html += "<th style='width: 220px; height: 50px;'>" + grid.getCellProperty("head", i, "text") + "</th>"; // 열 너비 200px, 높이 50px
+            }
+            html += "</tr>";
+
+            // 그리드의 데이터 추가
+            for (var i = 0; i < this.classtime_ds.getRowCount(); i++) {
+                html += "<tr>";
+                for (var j = 0; j < grid.getCellCount("body"); j++) {
+                    // cellText 가져오기
+                    var cellText = grid.getCellText(i, j);
+
+                    // cellText가 null 또는 빈 문자열일 경우 공백 5개로 대체
+                    if (cellText === null || cellText.trim() === "") {
+                        cellText = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; // 공백 5개
+                    } else {
+                        // &#13;&#10;를 \n으로 변환
+                        cellText = cellText.replace(/&#13;&#10;/g, '\n');
+                    }
+
+                    // 줄 바꿈을 포함한 경우에 대해 HTML에서 줄 바꿈 적용
+                    html += "<td style='white-space: pre-line; width: 220px; height: 80px; padding: 10px;'>" + cellText + "</td>"; // 각 셀의 너비 200px, 높이 50px, 패딩 추가
+                }
+                html += "</tr>";
+
+            }
+
+            html += "</table><br>";  // 각 테이블 사이에 여백 추가
+
+            return html;
         };
 
 
@@ -643,6 +764,7 @@
             this.cmb_year.addEventHandler("onitemchanged",this.cmb_year_onitemchanged,this);
             this.btn_popclassplus.addEventHandler("onclick",this.btn_popclassplus_onclick,this);
             this.btn_print.addEventHandler("onclick",this.btn_print_onclick,this);
+            this.btn_browser_print00.addEventHandler("onclick",this.btn_browser_print_onclick2,this);
             this.classroom_ds.addEventHandler("onrowposchanged",this.classroom_ds_onrowposchanged,this);
             this.classcourse_ds.addEventHandler("cancolumnchange",this.classcourse_ds_cancolumnchange,this);
         };

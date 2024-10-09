@@ -36,11 +36,13 @@
       </Layout>
     </Layouts>
     <Objects>
-      <Dataset id="ds_classroom" onrowposchanged="ds_classroom_onrowposchanged">
+      <Dataset id="ds_classroom" onrowposchanged="ds_classroom_onrowposchanged" useclientlayout="true">
         <ColumnInfo>
           <Column id="CLASSROOM_ID" type="STRING" size="256"/>
           <Column id="CLASSROOM_NAME" type="STRING" size="256"/>
           <Column id="MAX_PEOPLE" type="STRING" size="256"/>
+          <Column id="ADMIN_CODE" type="STRING" size="256"/>
+          <Column id="REGDATE" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="ds_trans">
@@ -48,6 +50,7 @@
           <Column id="CLASSROOM_ID" type="STRING" size="256"/>
           <Column id="CLASSROOM_NAME" type="STRING" size="256"/>
           <Column id="MAX_PEOPLE" type="STRING" size="256"/>
+          <Column id="ADMIN_CODE" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row/>
@@ -64,6 +67,9 @@ this.classroomadd_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 
 this.ds_classroom_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
 {
+	trace("아이디 제대로 들어갔나? " + this.ds_classroom.getColumn(this.ds_classroom.rowposition, "ADMIN_CODE"));
+	trace("일시 제대로 들어갔나? " + this.ds_classroom.getColumn(this.ds_classroom.rowposition, "REGDATE"));
+			
 	this.edt_classcode.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_ID"));
 	this.edt_classname.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_NAME"));
 	this.edt_maxpeople.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"MAX_PEOPLE"));
@@ -81,6 +87,10 @@ this.btn_insert_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		this.alert("빈 값이 존재합니다.");
 	}
 	else{
+		var gdsApp = nexacro.getApplication();
+		var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+		var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+		this.ds_trans.setColumn(0, "ADMIN_CODE", adCode);
 		this.fn_save();
 	}
 };
@@ -116,6 +126,8 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 			this.ds_classroom.addRow();
 			//this.grd_classroom.set
 			//this.grd_classroom.setCellProperty("body", this.ds_classroom.rowcount-1, "displaytype", "imagecontrol");
+			trace(this.ds_classroom.saveXML());
+			
 			break;
 		case "saveAdminClassroom":
 			this.fn_classroom();

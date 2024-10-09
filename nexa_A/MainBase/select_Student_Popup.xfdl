@@ -1,47 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="select_Student_Popup" width="1280" height="720" titletext="New Form" onload="select_Student_Popup_onload">
+  <Form id="select_Student_Popup" width="960" height="500" titletext="New Form" onload="select_Student_Popup_onload">
     <Layouts>
-      <Layout height="720" width="1280">
-        <Static id="Static00_03_01_00_00_00_01" taborder="0" left="426" top="350" width="493" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_00_00_00_00" taborder="1" left="700" top="252" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01_00_00_00_00" taborder="2" left="700" top="301" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01_00_00_00" taborder="3" left="426" top="301" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_00_00_00" taborder="4" left="700" top="203" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_00_00" taborder="5" left="700" top="154" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01_00_00" taborder="6" left="426" top="252" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01_00" taborder="7" left="426" top="203" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_01" taborder="8" left="426" top="154" width="176" height="50" background="white" border="1px solid #d3d3d4" onclick="Static00_03_01_onclick"/>
-        <Static id="Static00_03_00" taborder="9" left="700" top="105" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03" taborder="10" left="426" top="105" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00" taborder="11" left="329" top="105" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학번" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00_00" taborder="12" left="329" top="154" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이름"/>
-        <Static id="Static00_01" taborder="13" left="602" top="105" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   비밀번호"/>
-        <Static id="Static00_00_00" taborder="14" left="602" top="154" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과"/>
-        <Static id="Static00_02" taborder="15" left="329" top="203" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학년"/>
-        <Static id="Static00_01_00" taborder="16" left="602" top="203" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   핸드폰"/>
-        <Static id="Static00_00_00_00" taborder="17" left="602" top="252" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이메일"/>
-        <Static id="Static00_00_01" taborder="18" left="329" top="252" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   성별"/>
-        <ImageViewer id="ImageViewer00" taborder="19" left="83" top="105" width="177" height="236" stretch="fixaspectratio"/>
-        <Static id="Static00_00_01_00" taborder="20" left="329" top="301" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   상태"/>
-        <Static id="Static00_00_01_00_00" taborder="21" left="602" top="301" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   생년월일"/>
-        <Button id="Stu_Add_btn" taborder="22" text="수정" left="769" top="423" width="151" height="38" onclick="Stu_Add_btn_onclick"/>
-        <Static id="Static00_00_01_00_01" taborder="23" left="329" top="350" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   주소"/>
-        <Edit id="STUDENT_ID" taborder="24" left="438" top="115" width="152" height="30" readonly="true"/>
-        <Edit id="PASSWORD" taborder="25" left="711" top="115" width="195" height="30" password="true" readonly="true"/>
-        <Edit id="NAME" taborder="26" left="438" top="164" width="152" height="30" readonly="true"/>
-        <Combo id="de" taborder="27" text="" left="713" top="163" width="193" height="31" index="0" innerdataset="ds_de" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value="" readonly="true"/>
-        <Combo id="UNIV_YEAR" taborder="28" text="1학년" left="437" top="213" width="153" height="31" index="0" innerdataset="grade_type" codecolumn="code" datacolumn="data" value="1" readonly="true"/>
-        <Edit id="PHONE" taborder="29" left="711" top="213" width="195" height="30" readonly="true"/>
-        <Radio id="GENDER" taborder="30" left="440" top="260" width="150" height="36" innerdataset="ger_type" datacolumn="data" codecolumn="code" index="1" text="" value="M" direction="vertical" readonly="true"/>
-        <Edit id="EMAIL" taborder="31" left="711" top="262" width="195" height="30" readonly="true"/>
-        <Combo id="STATUS" taborder="32" text="" left="437" top="311" width="153" height="31" index="0" innerdataset="static_type_ds" codecolumn="code" datacolumn="data" value="" readonly="true"/>
-        <Calendar id="BIRTHDAY" taborder="33" left="710" top="311" width="196" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
-        <Edit id="ADDRESS" taborder="34" left="437" top="360" width="469" height="30" readonly="true"/>
-        <Button id="return_btn" taborder="35" text="되돌아가기" left="630" top="423" width="119" height="39" visible="false" onclick="return_btn_onclick"/>
-        <Button id="save_btn" taborder="36" text="저장" left="770" top="424" width="151" height="38" onclick="save_btn_onclick" visible="false"/>
-        <Edit id="edt_filename" taborder="37" left="81" top="350" width="136" height="21" visible="false" readonly="true"/>
-        <Button id="btn_addfile" taborder="38" text="등록" left="220" top="350" width="43" height="20" onclick="btn_addfile_onclick" visible="false"/>
+      <Layout height="500" width="960">
+        <Static id="Static00_03_01_00_00_00_01" taborder="0" left="401" top="327" width="493" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00_00_00" taborder="1" left="675" top="229" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00_00" taborder="2" left="675" top="278" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00" taborder="3" left="401" top="278" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00_00" taborder="4" left="675" top="180" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00" taborder="5" left="675" top="131" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00" taborder="6" left="401" top="229" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00" taborder="7" left="401" top="180" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01" taborder="8" left="401" top="131" width="176" height="50" background="white" border="1px solid #d3d3d4" onclick="Static00_03_01_onclick"/>
+        <Static id="Static00_03_00" taborder="9" left="675" top="82" width="219" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03" taborder="10" left="401" top="82" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00" taborder="11" left="304" top="82" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학번" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_00" taborder="12" left="304" top="131" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이름"/>
+        <Static id="Static00_01" taborder="13" left="577" top="82" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   비밀번호"/>
+        <Static id="Static00_00_00" taborder="14" left="577" top="131" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과"/>
+        <Static id="Static00_02" taborder="15" left="304" top="180" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학년"/>
+        <Static id="Static00_01_00" taborder="16" left="577" top="180" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   핸드폰"/>
+        <Static id="Static00_00_00_00" taborder="17" left="577" top="229" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이메일"/>
+        <Static id="Static00_00_01" taborder="18" left="304" top="229" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   성별"/>
+        <ImageViewer id="ImageViewer00" taborder="19" left="66" top="82" width="177" height="236" stretch="fixaspectratio"/>
+        <Static id="Static00_00_01_00" taborder="20" left="304" top="278" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   상태"/>
+        <Static id="Static00_00_01_00_00" taborder="21" left="577" top="278" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   생년월일"/>
+        <Button id="Stu_Add_btn" taborder="22" text="수정" left="744" top="400" width="151" height="38" onclick="Stu_Add_btn_onclick"/>
+        <Static id="Static00_00_01_00_01" taborder="23" left="304" top="327" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   주소"/>
+        <Edit id="STUDENT_ID" taborder="24" left="413" top="92" width="152" height="30" readonly="true"/>
+        <Edit id="PASSWORD" taborder="25" left="686" top="92" width="195" height="30" password="true" readonly="true"/>
+        <Edit id="NAME" taborder="26" left="413" top="141" width="152" height="30" readonly="true"/>
+        <Combo id="de" taborder="27" text="" left="688" top="140" width="193" height="31" index="0" innerdataset="ds_de" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value="" readonly="true"/>
+        <Combo id="UNIV_YEAR" taborder="28" text="1학년" left="412" top="190" width="153" height="31" index="0" innerdataset="grade_type" codecolumn="code" datacolumn="data" value="1" readonly="true"/>
+        <Edit id="PHONE" taborder="29" left="686" top="190" width="195" height="30" readonly="true"/>
+        <Radio id="GENDER" taborder="30" left="415" top="237" width="150" height="36" innerdataset="ger_type" datacolumn="data" codecolumn="code" index="1" text="" value="M" direction="vertical" readonly="true"/>
+        <Edit id="EMAIL" taborder="31" left="686" top="239" width="195" height="30" readonly="true"/>
+        <Combo id="STATUS" taborder="32" text="" left="412" top="288" width="153" height="31" index="0" innerdataset="static_type_ds" codecolumn="code" datacolumn="data" value="" readonly="true"/>
+        <Calendar id="BIRTHDAY" taborder="33" left="685" top="288" width="196" height="31" dateformat="yyyy-MM-dd" readonly="true" accessibilityenable="false"/>
+        <Edit id="ADDRESS" taborder="34" left="412" top="337" width="469" height="30" readonly="true"/>
+        <Button id="return_btn" taborder="35" text="되돌아가기" left="605" top="400" width="119" height="39" visible="false" onclick="return_btn_onclick"/>
+        <Button id="save_btn" taborder="36" text="저장" left="745" top="401" width="151" height="38" onclick="save_btn_onclick" visible="false"/>
+        <Edit id="edt_filename" taborder="37" left="64" top="327" width="136" height="21" visible="false" readonly="true"/>
+        <Button id="btn_addfile" taborder="38" text="등록" left="203" top="327" width="43" height="20" onclick="btn_addfile_onclick" visible="false"/>
+        <Button id="btn_mypage" taborder="39" text="학생페이지" left="785" top="47" width="107" height="26" onclick="btn_mypage_onclick"/>
       </Layout>
     </Layouts>
     <Bind>
@@ -71,13 +72,19 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 
    switch(svcID)
    {
-      case "saveAdStudent":
+      case "updateAdStudent":
+		 this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
          this.alert("성공적으로 수정하였습니다.");
          this.close();
          break;
+	  case "AdStudentgo":
+		 //var sessionId = application.getSession("SESSION_ID");
+		 window.open("http://localhost:8082/HanaUIS/std/notice.do"); // 세션 등록 성공 시 새탭으로 띄우기
+		 break;
+	  default:
    }
 };
-
+// 시작 시
 this.select_Student_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
    var objParam1 = this.parent.param1;
@@ -87,18 +94,29 @@ this.select_Student_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEvent
    this.ds_de.copyData(objParam2);
     /*console.log(this.select_student.getColumn(0,all));*/
 	
+	var gdsApp = nexacro.getApplication();
+	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+	var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+	trace(adCode);
+	trace(regdt);
+	this.save_ds.setColumn(0, "ADMIN_CODE", adCode);
+	this.save_ds.setColumn(0, "REGDATE", regdt);
+	trace("아이디 제대로 들어갔나? " + this.save_ds.getColumn(0, "ADMIN_CODE"));
+	trace("일시 제대로 들어갔나? " + this.save_ds.getColumn(0, "REGDATE"));
+	
 	trace(this.save_ds.saveXML());
-   
+	
+   // 미리보기 처음 실행
    setTimeout(function(){
 		trace(this.save_ds.getColumn(0,"PHOTO"));
 		this.showImagePreview(this.save_ds.getColumn(0,"PHOTO"));
 	}.bind(this), 10);
 	
-	// 데이터 되돌리기 할 때
+	// 데이터 되돌리기 할 때 데이터 등록
 	this.ds_photo.setColumn(0,"PHOTO", this.save_ds.getColumn(0,"PHOTO"));
 };
 
-// 이미지 미리보기 함수
+// 이미지 미리보기 함수 -- 수정안할 시
 this.showImagePreview = function(fileName) {
 	trace(fileName);
     var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
@@ -107,7 +125,7 @@ this.showImagePreview = function(fileName) {
 
 };
 
-
+// 수정 버튼 클릭 시 이벤트
 this.Stu_Add_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
    this.PASSWORD.set_readonly(false);
@@ -134,11 +152,11 @@ this.Stu_Add_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
    
    
 };
-
+// 업데이트 버튼
 this.fn_update_student = function()
 {
-   var strSvcId    = "saveAdStudent";
-   var strSvcUrl   = "svc::saveAdStudent.do";
+   var strSvcId    = "updateAdStudent";
+   var strSvcUrl   = "svc::updateAdStudent.do";
    var inData      = "save_ds = save_ds";
    var outData     = "";
    var strArg      = "";
@@ -148,7 +166,7 @@ this.fn_update_student = function()
    this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
 
 }
-
+// 되돌리기 버튼
 this.return_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
    this.STUDENT_ID.set_readonly(true);
@@ -177,26 +195,27 @@ this.return_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	}.bind(this), 10);
 };
 
-
+// 클릭 시 저장되는 버튼
 this.save_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-   this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
+   /*this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');*/
    this.fn_update_student();
 };
 
-
+// 버튼 클릭 시 데이터
 this.btn_addfile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);
 };
 
-
+// 이미지 확장자 체크
 this.gfnIsImageFile = function(fileTxt) {
     var imageExt = ["png", "jpg", "jpeg"];
     var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
     return imageExt.includes(extNm);
 };
 
+// 파일 넣을 때 닫을 때 이벤트
 this.FileDialog00_onclose = function(obj:nexacro.FileDialog, e:nexacro.FileDialogEventInfo) {
 	var filetype = e.virtualfiles[0].filename;
 	if(e.virtualfiles.length > 1){
@@ -224,6 +243,7 @@ this.FileDialog00_onclose = function(obj:nexacro.FileDialog, e:nexacro.FileDialo
 	}
 
 };
+// 이미지 미리보기 -- 수정 할 때 작업
 this.aftereventFunction = function(){
 	trace("이벤트 후에 실행되는 작업입니다.");
 	var filename = this.dsList.getColumn(0,"FILE_NAME");
@@ -258,7 +278,7 @@ this.showImagePreviewadd = function(fileName) {
 	
 	setTimeout(function(){
 		this.deleteFile(fileName);
-	}.bind(this), 10000);
+	}.bind(this), 10000); // 10초 후 삭제
 
 };
 
@@ -311,6 +331,8 @@ this.FileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFil
             break;
     }
 };
+
+// 에러 시 나오는 코드
 this.FileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileErrorEventInfo)
 {
     trace("errortype: "+e.errortype);
@@ -318,6 +340,29 @@ this.FileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileE
     trace("statuscode: "+e.statuscode);
 };
 
+// mypage 세션 생성 -- 콜백으로 넘어가기
+this.fn_go = function()
+{
+   var strSvcId    = "AdStudentgo";
+   var strSvcUrl   = "svc::AdStudentgo.do";
+   var inData      = "ds_mydata = ds_mydata";
+   var outData     = "";
+   var strArg      = "";
+   var callBackFnc = "fnCallback";
+   var isAsync     = false;
+   
+   this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+
+};
+
+// mypage 클릭 시 이벤트
+this.btn_mypage_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_mydata.setColumn(0,"studentid", this.save_ds.getColumn(0,"STUDENT_ID"));
+	this.ds_mydata.setColumn(0,"studentps", this.save_ds.getColumn(0,"PASSWORD"));
+	
+	this.fn_go();
+};
 ]]></Script>
     <Objects>
       <Dataset id="save_ds" useclientlayout="true">
@@ -334,6 +379,8 @@ this.FileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileE
           <Column id="STATUS" type="STRING" size="256"/>
           <Column id="DEPARTMENT_CODE" type="INT" size="256"/>
           <Column id="PHOTO" type="STRING" size="256"/>
+          <Column id="ADMIN_CODE" type="STRING" size="256"/>
+          <Column id="REGDATE" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="ger_type">
@@ -411,6 +458,15 @@ this.FileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileE
       <Dataset id="ds_photo">
         <ColumnInfo>
           <Column id="PHOTO" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_mydata">
+        <ColumnInfo>
+          <Column id="studentid" type="STRING" size="256"/>
+          <Column id="studentps" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row/>
