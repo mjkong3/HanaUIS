@@ -12,7 +12,7 @@ public interface ProfessorService {
 	public ProfessorDTO proLoginCheck(ProfessorDTO dto, HttpSession session);
     public void logout(HttpSession session);
 	
-	public ProfessorDTO selectProfessor(int id);
+	public Map<String, Object> selectProfessor(int id);
 	
 	
 	////@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마이페이지 수정

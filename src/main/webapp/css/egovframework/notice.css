@@ -4,8 +4,8 @@ body {
     background-color: #f4f4f4;
 }
 .container {
-    width: 800px;
-    height: 800px;
+    width: 900px;
+    height: 650px;
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -26,13 +26,23 @@ table {
     margin-top: 20px;
 }
 table, th, td {
+	height:40;
+	
     border: 1px solid #ddd;
+}
+table td:first-child{
+	width:50px;
+	text-align: center;
+}
+table th:last-child{
+	width:200px;
 }
 th, td {
     padding: 10px;
     text-align: left;
 }
 th {
+	text-align:center;
     background-color: #f2f2f2;
 }
 tr{

@@ -63,6 +63,11 @@ public class StudentServiceImpl implements StudentService {
        return mapper.updateEmail(param);
     }
     
+	@Override
+	public Map<String, Object> selectStudent(int studentId) {
+		return mapper.selectStudent(studentId);
+	}
+    
 
     
     
@@ -136,6 +141,7 @@ public class StudentServiceImpl implements StudentService {
 	         @Param("departmentCode") int departmentCode) {
 	      return mapper.selectedClasses(departmentCode, studentId);
 	   }
+
 
 
 

@@ -8,8 +8,8 @@ body {
 
 /* 콘텐츠 박스 */
 .container {
-    width: 800px;
-    height: 1050px;
+    width: 900px;
+    /* height: 900px; */
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -29,7 +29,7 @@ h3 {
 
 /* 테이블 스타일 */
 .timetable {
-    width: 800px;
+    width: 900px;
     padding : 20px;
     border-collapse: collapse;
     margin-bottom: 20px;

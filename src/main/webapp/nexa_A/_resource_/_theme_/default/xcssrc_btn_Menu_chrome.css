@@ -285,6 +285,14 @@ textarea::-webkit-scrollbar { display: none; }
 	text-align : center;
 	background-position-x : center;
 }
+.Grid .body .row .cell.backgroundRed.dummy.dummy.dummy
+{
+	background : #FFCEDA !important;
+}
+.Grid .body .row .cell.backgroundBlue.dummy.dummy.dummy
+{
+	background : #B0E0E6;
+}
 #nexacontainer .Button.btn_top_menu[status=mouseover]
 {
 	border : 0px none #ffffff;

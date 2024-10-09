@@ -59,4 +59,14 @@
     opacity: 0.96;                                  /* 약간의 투명도 (90%) */
     word-spacing: 5px;                             /* 단어 간격을 1px로 설정 */
 }
-]]></XCSS>
+
+
+.Grid .body .row .cell.backgroundRed{
+background : #FFCEDA !important;
+
+}
+.Grid .body .row .cell.backgroundBlue{
+background : #B0E0E6;
+
+
+}]]></XCSS>

@@ -4,6 +4,7 @@ public class ClassDTO {
 
 	private int classCode;
 	private String className;
+	private int semester;
 	private int departmentCode;
 	private int professorId;
 	private int classroomId;
@@ -37,6 +38,12 @@ public class ClassDTO {
 	}
 	public void setClassroomId(int classroomId) {
 		this.classroomId = classroomId;
+	}
+	public int getSemester() {
+		return semester;
+	}
+	public void setSemester(int semester) {
+		this.semester = semester;
 	}
 	
 	
