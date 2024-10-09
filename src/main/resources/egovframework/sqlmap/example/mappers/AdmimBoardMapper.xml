@@ -46,10 +46,15 @@
     <collection property="FILES" ofType="hashMap" javaType="ArrayList">
         <result property="FILE_NAME" column="FILE_NAME"/>
     </collection>
+    
+    <!-- IMAGE 테이블 결과 매핑 -->
+    <collection property="IMAGE" ofType="hashMap" javaType="Map">
+        <result property="IMAGE" column="IMAGE"/>
+    </collection>
 </resultMap>
 
 <select id="selectBoard" parameterType="String" resultMap="BoardWithFiles">
-    SELECT B.BOARD_CODE, B.TITLE, B.CONTENT, B.CRE_DTM, 
+    SELECT B.BOARD_CODE, B.TITLE, B.CONTENT, B.CRE_DTM, B.IMAGE,
            A.NAME AS ADMIN_NAME, 
            F.FILE_NAME
     FROM BOARD B

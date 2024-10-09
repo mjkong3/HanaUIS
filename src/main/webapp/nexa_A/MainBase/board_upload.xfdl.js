@@ -11,8 +11,6 @@
         {
             this.set_name("board_upload");
             this.set_titletext("New Form");
-            this.set_scrolltype("vertical");
-            this.set_scrollbartype("auto auto");
             if (Form == this.constructor)
             {
                 this._setFormPosition(1280,720);
@@ -25,7 +23,7 @@
 
 
             obj = new Dataset("ds_board", this);
-            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"INT\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -34,11 +32,24 @@
             this.addChild(obj.name, obj);
 
 
+            obj = new Dataset("ds_contentFile", this);
+            obj._setContents("<ColumnInfo><Column id=\"IMAGE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            this.addChild(obj.name, obj);
+
+
             obj = new FileUpTransfer("FileUpTransfer00", this);
             this.addChild(obj.name, obj);
 
 
             obj = new FileDialog("FileDialog00", this);
+            this.addChild(obj.name, obj);
+
+
+            obj = new FileDialog("FileDialog01", this);
+            this.addChild(obj.name, obj);
+
+
+            obj = new FileUpTransfer("FileUpTransfer01", this);
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
@@ -76,10 +87,10 @@
             obj.set_taborder("4");
             obj.set_textAlign("left");
             obj.set_font("16px/1.2 \"Gulim\"");
-            obj.set_scrolltype("horizontal");
+            obj.set_scrolltype("vertical");
             obj.set_readonly("false");
             obj.set_wordWrap("both");
-            obj.set_scrollbartype("default default");
+            obj.set_scrollbartype("auto auto");
             obj.set_scrollbarsize("10");
             this.addChild(obj.name, obj);
 
@@ -117,18 +128,29 @@
             obj.set_text("Static02");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("Edit00","410","137","584","46",null,null,null,null,null,null,this);
+            obj = new Edit("txt_title","410","137","584","46",null,null,null,null,null,null,this);
             obj.set_taborder("11");
             this.addChild(obj.name, obj);
 
             obj = new ImageViewer("ImageViewer00","410","450","584","5",null,null,null,null,null,null,this);
             obj.set_taborder("12");
             obj.set_visible("false");
+            obj.set_stretch("none");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_addContentPhoto","900","203","94","40",null,null,null,null,null,null,this);
+            obj = new Button("btn_addContentPhoto","796","203","94","40",null,null,null,null,null,null,this);
             obj.set_taborder("13");
             obj.set_text("본문 사진 추가");
+            this.addChild(obj.name, obj);
+
+            obj = new Edit("edt_filename","677","213","106","20",null,null,null,null,null,null,this);
+            obj.set_taborder("14");
+            obj.set_readonly("true");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_delContentPhoto","900","203","94","40",null,null,null,null,null,null,this);
+            obj.set_taborder("15");
+            obj.set_text("본문 사진 삭제");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -144,7 +166,7 @@
             this.addChild(obj.name, obj);
             obj.bind();
 
-            obj = new BindItem("item3","Edit00","value","ds_board","TITLE");
+            obj = new BindItem("item3","txt_title","value","ds_board","TITLE");
             this.addChild(obj.name, obj);
             obj.bind();
             
@@ -178,6 +200,200 @@
         };
 
         /************************************************************************
+         * 						게시물 내용 이미지 처리
+         ************************************************************************/
+
+        // 게시글
+        this.txt_content_onkeydown = function(obj,e)
+        {
+        	this.adjustTextareaHeight();
+        	this.set_scrolltype("vertical");
+        };
+
+        // 텍스트의 변화에 따라 높이를 조정하는 함수
+        this.adjustTextareaHeight = function() {
+
+        	this.set_height(720); // 폼 길이 초기화
+
+        	// 기준이 될 content tarea
+        	var contentY = this.txt_content.getOffsetBottom();  // TextArea의 하단 y 좌표
+
+        	if (this.ImageViewer00.visible) {
+        		var contimgbot = this.ImageViewer00.getOffsetBottom();
+
+        		this.ImageViewer00.set_top(contentY + 5);
+
+        		// content, file 높이 15차이 , stt, upload btn 높이 동일시
+        		this.grd_file.set_top(contimgbot + 15);  // 다른 컴포넌트를 imgviewer 하단에 배치
+        		this.stt_file.set_top(contimgbot + 15);
+        		this.btn_addFile.set_top(contimgbot + 15);
+        		this.btn_deleteFile.set_top(contimgbot + 65);
+        		this.btn_addBoard.set_top(contimgbot + 175);
+        	}
+        };
+
+        // 본문 사진 첨부
+
+        this.btn_addContentPhoto_onclick = function(obj,e)
+        {
+        	this.FileDialog01.open('contentPhoto', FileDialog.LOAD);
+        };
+
+        this.gfnIsImageFile = function(fileTxt) {
+            var imageExt = ["png", "jpg", "jpeg", "jfif"];
+            var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
+            return imageExt.includes(extNm);
+        };
+
+        // 파일 올릴 때 함수
+        this.FileDialog01_onclose = function(obj, e) {
+        	var contentfiletype = e.virtualfiles[0].filename;
+
+        	if(e.virtualfiles.length > 1){
+        		alert("파일이 두개 이상입니다.");
+        	}
+         	else if(!this.gfnIsImageFile(contentfiletype)){
+        		alert("png, "+ "jpg, "+ "jpeg, " + "jfif " + "가 아닙니다.");
+         	}
+        	else{
+        		this.addFileList2(e.virtualfiles);
+
+        		var name;
+        		for (var i = 0; i < e.virtualfiles.length; i++) {
+        			this.ds_contentFile.setColumn(0, "IMAGE", e.virtualfiles[i].filename);
+        			name = e.virtualfiles[i].filename;
+        			trace(name);
+        		}
+        		this.edt_filename.set_value(name);
+        		this.showImagePreview(name);
+        	}
+        	this.ImageViewer00.set_visible(true);
+        	this.showImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"));
+        	trace(this.ds_contentFile.saveXML());
+        };
+
+        this.showImagePreview = function(fileName) {
+            var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+            var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
+            this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
+        };
+
+        this.deleteFile = function(fileName) {
+        	trace("여기까지 왔나?");
+            var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+            var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
+
+        	var params = {
+        		filename: fileName // 파일 이름을 파라미터로 전달
+        	};
+        	var xhr = new XMLHttpRequest();
+        	xhr.open("POST", deleteUrl, true);
+        	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        	xhr.onreadystatechange = function () {
+        		if (xhr.readyState === 4) {
+        			if (xhr.status === 200) {
+        				trace("서버 응답: " + xhr.responseText);
+        			} else {
+        				trace("오류 발생: " + xhr.status);
+        			}
+        		}
+        	};
+        	xhr.send("filename=" + encodeURIComponent(fileName));
+        };
+
+        // 파일 업로드 함수
+        this.uploadFileToServer = function(vFile) {
+        	this.FileUpTransfer01.clearFileList();
+            this.FileUpTransfer01.addFile(vFile.filename, vFile);
+            this.FileUpTransfer01.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
+        }
+
+
+        this.addFileList2 = function(filelist) {
+            for (var i = 0, len = filelist.length, vFile; i < len; i++) {
+                vFile = filelist[i];
+                vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
+                vFile.addEventHandler("onerror", this.FileList_onerror, this);
+
+                // 파일을 서버에 업로드하는 함수 호출
+                this.uploadFileToServer(vFile);
+            }
+        }
+
+        this.ImageViewer00_onload = function(obj,e)
+        {
+        	trace('이미지 온로드 시작');
+        	this.fnContImg(obj, e);
+
+        	this.stt_content.set_height(this.txt_content.getOffsetHeight() + obj.imageheight + 5);
+        	this.adjustTextareaHeight();
+        	this.resetScroll();
+        };
+
+
+        this.fnContImg = function(obj, e) {
+        	// 본문 textarea의 너비 (본문이 존재하는 경우에만 적용)
+        	var textareaWidth = this.txt_content.width;
+        	console.log("기능타냐 ");
+
+        	// 실제 이미지의 원본 너비와 높이를 가져옴
+        	var imgWidth = obj.imagewidth;
+        	var imgHeight = obj.imageheight;
+
+        	console.log(imgHeight);
+
+        	// 이미지가 본문 textarea보다 가로가 크지 않도록 제한
+        	var newWidth = textareaWidth;
+        	var newHeight = (textareaWidth * imgHeight) / imgWidth;
+
+        	// 이미지가 텍스트 영역보다 크면 크기를 줄임
+        	obj.set_width(newWidth);   // 가로 크기 조정
+        	obj.set_height(newHeight); // 세로는 비율에 맞게 자동 조정
+
+        	obj.set_stretch("fit");
+
+        	// 기준이 될 content tarea
+        	var contentY = this.txt_content.getOffsetBottom();  // TextArea의 하단 y 좌표
+
+        	obj.set_top(contentY + 5);
+
+        	trace(this.ds_file.saveXML());
+        	trace(this.ds_fileInsert.saveXML());
+        };
+
+
+        // 본문 사진 삭제
+        this.btn_delContentPhoto_onclick = function(obj,e)
+        {
+        	this.deleteFile(this.ds_contentFile.getColumn(0, "IMAGE"));
+
+        	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMGAE") == "undefined") {
+        		alert("본문에 들어간 파일이 없습니다.");
+        	} else {
+        		this.edt_filename.set_value("");
+        		this.ImageViewer00.set_visible(false);
+        		this.ImageViewer00.set_image(null);
+        		this.ImageViewer00.redraw();
+
+        		// 기준이 될 content tarea
+        	var contentY = this.txt_content.getOffsetBottom();  // TextArea의 하단 y 좌표
+
+        	if (!this.ImageViewer00.visible) {
+        		var textbot = this.txt_content.getOffsetBottom();
+
+        		// content, file 높이 15차이 , stt, upload btn 높이 동일시
+        		this.grd_file.set_top(textbot + 15);  // 다른 컴포넌트를 imgviewer 하단에 배치
+        		this.stt_file.set_top(textbot + 15);
+        		this.btn_addFile.set_top(textbot + 15);
+        		this.btn_deleteFile.set_top(textbot + 65);
+        		this.btn_addBoard.set_top(textbot + 175);
+
+        		this.stt_content.set_height(this.txt_content.height);
+        		}
+        	}
+        };
+
+        /************************************************************************
          *							파일 업로드
          ************************************************************************/
 
@@ -194,13 +410,13 @@
         	// 파일 첨부 창에서 선택한 파일들을 가상에 추가
             this.addFileList(e.virtualfiles);
         	console.log(e.virtualfiles.length);
+        	trace(e.virtualfiles);
 
         	// 파일 제목들을 fileInsert_ds (FILE, BOARD db에 들어갈 ds)에 저장
         	for(var i=0;i<e.virtualfiles.length;i++){
         		var nRow = this.ds_fileInsert.addRow();
         		this.ds_fileInsert.setColumn(nRow, "FILE_NAME", e.virtualfiles[i].filename);
         	}
-
         	console.log(this.ds_fileInsert.saveXML());
         	console.log(this.ds_file.saveXML());
         };
@@ -326,7 +542,7 @@
 
             var strSvcId    = "insertBoard";
             var strSvcUrl   = "svc::insertBoard.do";
-            var inData      = "ds_board=ds_board";	// 정보를 넘길 데이터셋
+            var inData      = "ds_board=ds_board ds_contentFile=ds_contentFile";	// 정보를 넘길 데이터셋
             var outData     = "ds_board=ds_board";  // 결과를 받을 데이터셋
             var strArg      = ""
             var callBackFnc = "fnCallbackInsertFile";
@@ -386,92 +602,13 @@
 
         };
 
-
-
-
-
-        /************************************************************************
-         * 						게시물 내용 처리
-         ************************************************************************/
-
-
-        // 게시글 textarea 높이 늘리기
-        this.txt_content_onkeyup = function(obj,e)
-        {
-        	this.adjustTextareaHeight();
-        };
-
-        this.txt_content.set_scrolltype("none");  // 스크롤바 기본 비활성화
-
-        // 줄 수를 계산하는 함수
-        this.getTextLineCount = function(text) {
-            // \n으로 구분된 줄 수를 기준으로 텍스트를 나눔
-            var lines = this.txt_content.text.split("\n");
-            var totalLines = 0;
-
-            // 각 줄의 길이를 계산하여 줄 수를 증가시킴
-            for (var i = 0; i < lines.length; i++) {
-                var lineLength = lines[i].length;
-
-        		if (lineLength === 0) {
-        			totalLines += 1;
-        		} else {
-                var charsPerLine = Math.floor(this.txt_content.getOffsetWidth() / 10);  // 예시로 문자 당 10px 너비로 계산
-                totalLines += Math.ceil(lineLength / charsPerLine);  // 현재 줄에서 차지하는 줄 수 계산
-        		}
-        	}
-
-            return totalLines;
-        };
-
-        // 텍스트의 변화에 따라 높이를 조정하는 함수
-        this.adjustTextareaHeight = function() {
-            var maxLines = 8;  // 제한할 최대 줄 수
-            var text = this.txt_content.value;
-
-            // 줄 수를 계산
-            var nTextLines = this.getTextLineCount(text);
-            var lineHeight = 20;  // 폰트 크기 또는 한 줄의 높이를 하드코딩 (예: 20px)
-            var nHeight = this.txt_content.getOffsetHeight();  // 현재 TextArea 높이
-
-            // 현재 줄 수에 맞춰 높이를 조정
-            if (nTextLines >= maxLines) {
-                var newHeight = lineHeight * nTextLines + 20;  // 여유 공간을 주기 위해 +20 추가
-                this.txt_content.set_height(newHeight);
-                this.txt_content.set_scrolltype("none");  // 스크롤 비활성화
-            } else {
-                // 최대 줄 수를 넘었을 경우, TextArea 높이를 고정하고 스크롤 활성화
-                var maxHeight = lineHeight * maxLines + 20;
-                this.txt_content.set_height(maxHeight);
-                this.txt_content.set_scrolltype("vertical");  // 스크롤 활성화
-            }
-
-        	// 기준이 될 content tarea
-        	var contentY = this.txt_content.getOffsetBottom();  // TextArea의 하단 y 좌표
-
-        	// content tarea, stt 높이 동일
-        	this.stt_content.set_height(nHeight);
-
-        	// content, file 높이 15차이 , stt, upload btn 높이 동일시
-        	this.grd_file.set_top(contentY + 15);  // 다른 컴포넌트를 TextArea 하단에 배치
-        	this.stt_file.set_top(contentY + 15);
-        	this.btn_addFile.set_top(contentY + 15);
-        	this.btn_deleteFile.set_top(contentY + 65);
-        	this.btn_addBoard.set_top(contentY + 175);
-        };
-
-        this.btn_addContentPhoto_onclick = function(obj,e)
-        {
-
-        };
-
         });
         
         // Regist UI Components Event
         this.on_initEvent = function()
         {
             this.addEventHandler("onload",this.board_upload_onload,this);
-            this.addEventHandler("onkeyup",this.board_upload_onkeyup,this);
+            this.addEventHandler("onsize",this.board_upload_onsize,this);
             this.stt_boarder.addEventHandler("onclick",this.Static01_00_onclick,this);
             this.txt_content.addEventHandler("onkeyup",this.txt_content_onkeyup,this);
             this.txt_content.addEventHandler("onkeydown",this.txt_content_onkeydown,this);
@@ -483,11 +620,14 @@
             this.btn_addFile.addEventHandler("onclick",this.btn_addFile_onclick,this);
             this.btn_deleteFile.addEventHandler("onclick",this.btn_deleteFile_onclick,this);
             this.btn_addBoard.addEventHandler("onclick",this.btn_addBoard_onclick,this);
+            this.ImageViewer00.addEventHandler("onload",this.ImageViewer00_onload,this);
             this.btn_addContentPhoto.addEventHandler("onclick",this.btn_addContentPhoto_onclick,this);
+            this.btn_delContentPhoto.addEventHandler("onclick",this.btn_delContentPhoto_onclick,this);
             this.FileUpTransfer00.addEventHandler("onerror",this.FileUpTransfer00_onerror,this);
             this.FileUpTransfer00.addEventHandler("onprogress",this.FileUpTransfer00_onprogress,this);
             this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);
             this.FileDialog00.addEventHandler("onclose",this.FileDialog00_onclose,this);
+            this.FileDialog01.addEventHandler("onclose",this.FileDialog01_onclose,this);
         };
         this.loadIncludeScript("board_upload.xfdl");
         this.loadPreloadList();

@@ -3,9 +3,9 @@
 <mapper namespace="ateam.mapper.AdminUploadMapper">
 	<insert id="insertBoard" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="BOARD_CODE">
 		INSERT INTO BOARD
-			(TITLE, CONTENT, REG_DTM, CRE_DTM, CRE_USR, UPD_DTM, UPD_USR)
+			(TITLE, CONTENT, IMAGE, REG_DTM, CRE_DTM, CRE_USR, UPD_DTM, UPD_USR)
 		VALUES
-			(#{TITLE}, #{CONTENT}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{ADMIN_CODE}, CURRENT_TIMESTAMP, #{ADMIN_CODE})
+			(#{TITLE}, #{CONTENT}, #{IMAGE}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{ADMIN_CODE}, CURRENT_TIMESTAMP, #{ADMIN_CODE})
 	</insert>
 
 	<insert id="insertFile" parameterType="java.util.Map">

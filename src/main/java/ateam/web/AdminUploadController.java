@@ -20,9 +20,15 @@ public class AdminUploadController {
     private AdminUploadService service;
 	
 	@RequestMapping(value = "/insertBoard.do")
-	public NexacroResult insertBoard(@ParamDataSet(name = "ds_board", required = false) Map<String, Object> param) {
+	public NexacroResult insertBoard(@ParamDataSet(name = "ds_board", required = false) Map<String, Object> param,
+									 @ParamDataSet(name = "ds_contentFile", required = false) Map<String, Object> image) {
 		System.out.println("insertBoard controller parameter");
+		System.out.println(param);
 		NexacroResult result = new NexacroResult();
+		
+		// image에서 "IMAGE"라는 키로 저장된 값만 추출
+		String imageName = (String) image.get("IMAGE");
+		param.put("IMAGE", imageName);
 		
 		try {
     		service.insertBoard(param);

@@ -52,9 +52,14 @@ public class AdminBoardController {
 		System.out.println(ds_board);
 		
 		Object File_Name = ds_board.get("FILES");
+		Object IMAGE = ds_board.get("IMAGE");
+		
+		System.out.println(IMAGE);
 		
 		result.addDataSet("ds_board", ds_board);
 		result.addDataSet("ds_file", File_Name);
+		result.addDataSet("ds_contentFile", IMAGE);
+		System.out.println(result.getDataSets());
 		
 		return result;
 	}
