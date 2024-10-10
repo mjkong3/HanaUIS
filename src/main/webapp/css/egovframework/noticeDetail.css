@@ -5,7 +5,7 @@ body {
 }
 .container {
     width: 900px;
-    height: 630px;
+    height: 1000px;
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -40,10 +40,17 @@ th {
 }
 
 td.boardContent {
-	    height: 250px;
+    height: 250px;
 	
     white-space: pre-wrap;
     word-wrap: break-word;
+}
+td.boardImage {
+	text-align: center;
+	
+}
+td.boardImage img{
+	width:500px;
 }
 
 .back-button {

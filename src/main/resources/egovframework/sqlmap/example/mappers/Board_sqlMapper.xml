@@ -17,6 +17,7 @@
 <select id="selectBoard" parameterType="Integer" resultType="ateam.dto.BoardDTO">
    SELECT BOARD_CODE,  
           TITLE, 
+          IMAGE,
           CONTENT, 
           REG_DTM
    FROM BOARD 

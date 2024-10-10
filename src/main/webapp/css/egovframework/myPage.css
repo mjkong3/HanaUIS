@@ -88,8 +88,7 @@ a:hover {
 }
 
 img {
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width:180px;
 }
 
 @media (max-width: 768px) {
