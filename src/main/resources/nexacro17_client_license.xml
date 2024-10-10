@@ -7,13 +7,13 @@
 	</product>
 	<customer>
 		<name>TOBESOFT</name>
-		<coreCount>0</coreCount>
-		<ipAddress>0.0.0.0</ipAddress>
+		<developerCount>0</developerCount>
+		<rootDomain>0.0.0.0</rootDomain>
 		<targetPlatform>Windows,WindowsRT,macOS,iOS,Android,WindowsXP</targetPlatform>
 	</customer>
 	<date>
 		<activation>2024-10-01</activation>
 		<term unit="month">2</term>
 	</date>
-	<key>NR868ZAF2N4WCQXBGBH64VQMXTFCCZEJ1</key>
+	<key>1H3X2JP7R21TRR9BYR4KKRBREAK6Z2S31</key>
 </license>

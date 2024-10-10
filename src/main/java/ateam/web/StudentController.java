@@ -81,11 +81,11 @@ public class StudentController {
 	}
 
 	//로그인 페이지로 이동
-	@RequestMapping(value = "/login.do")
-	public String loginView() {
-		return "hana/login";
-	}
-	
+//	@RequestMapping(value = "/login.do")
+//	public String loginView() {
+//		return "hana/login";
+//	}
+//	
 	//공지사항 페이지로 이동
 	@RequestMapping(value="/notice.do")
 	public String noticeView(@RequestParam(value = "page", defaultValue = "1") int page, Model model, HttpSession session) {

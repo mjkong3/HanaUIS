@@ -29,7 +29,6 @@
 //   this.staTitle.set_fittocontents("width");
 //   
 // };
-=======
 // };
 
 this.ImageViewer00_onclick = function(obj:nexacro.ImageViewer,e:nexacro.ClickEventInfo)

@@ -31,7 +31,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 					classpath*:egovframework/spring/context-*.xml
-					classpath*:egovframework/spring/context_email.xml
+					classpath*:egovframework/spring/context-email.xml
 		</param-value>
 	</context-param>
     

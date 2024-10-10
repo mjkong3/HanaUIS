@@ -374,7 +374,7 @@
    </select>
    <!-- 수강신청 5. 수강신청한 학점 총합 보기 -->
    <select id="totalGrades" resultType="int">
-      SELECT IFNULL(SUM(CLASS_GRADE), 0) AS TOTAL_GRADES
+      SELECT COALESCE(SUM(CLASS_GRADE), 0) AS TOTAL_GRADES
       FROM ENROLLMENT A
       INNER JOIN CLASS B ON A.CLASS_CODE = B.CLASS_CODE
       WHERE YEAR(B.CLASS_START) = YEAR(CURRENT_DATE())

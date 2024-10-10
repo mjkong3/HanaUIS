@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-/* content {
-	height: 100%;
-} */
 body {
 	font-family: Arial, sans-serif;
 	background-color: #f4f4f4;
@@ -27,9 +24,6 @@ h3 {
 	padding-bottom: 10px;
 }
 
-/* form {
-	height: 500px;
-} */
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -84,7 +78,7 @@ tfoot {
 	background-color: #f2f2f2;
 }
 
-#totalCnt, #totalGrade, #totalClassCnt, #totalGrades {
+#totalCnt, #totalGrade, #totalClassCnt, #totalGrades, #remainGrade {
 	font-weight: bold;
 }
 

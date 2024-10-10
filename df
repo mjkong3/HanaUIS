@@ -229,7 +229,7 @@ A	src/main/resources/egovframework/spring/context-nexacro.xml
 A	src/main/resources/egovframework/spring/context-properties.xml
 A	src/main/resources/egovframework/spring/context-transaction.xml
 A	src/main/resources/egovframework/spring/context-validator.xml
-A	src/main/resources/egovframework/spring/context_email.xml
+A	src/main/resources/egovframework/spring/context-email.xml
 A	src/main/resources/egovframework/sqlmap/example/mappers/AdminMapper.xml
 A	src/main/resources/egovframework/sqlmap/example/mappers/Board_sqlMapper.xml
 A	src/main/resources/egovframework/sqlmap/example/mappers/Class_sqlMapper.xml
