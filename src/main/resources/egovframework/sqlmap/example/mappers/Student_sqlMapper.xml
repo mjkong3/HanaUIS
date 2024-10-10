@@ -54,8 +54,9 @@
 	             S.EMAIL as email,
 	             S.BIRTHDAY as birthday,
 	             S.GENDER as gender,
-   			    SUBSTRING_INDEX(P.ADDRESS, '/', 1) as address, 
-			    SUBSTRING_INDEX(P.ADDRESS, '/', -1) as addressDetail, 
+   			    SUBSTRING_INDEX(S.ADDRESS, '/', 1) as address, 
+			    SUBSTRING_INDEX(S.ADDRESS, '/', -1) as addressDetail, 
+			    S.ZIPCODE as zipCode,
 	             S.STATUS as status,
 	             D.DEPARTMENT_NAME as departmentName,
 	             S.PHOTO as photo

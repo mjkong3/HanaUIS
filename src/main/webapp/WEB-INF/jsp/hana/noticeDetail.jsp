@@ -62,8 +62,17 @@
 	                  </td>
 		        </tr>
 		        <tr >
-		        	<td class="boardContent" colspan="2">${board.content}</td>
+		        	<td colspan="2" class="boardImage">
+						<br>	
+		        		${board.content}
+		        		<br>
+		        		<br>
+		        		<br>
+    					<img src="${pageContext.request.contextPath}/images/egovframework/boardImage/${board.image}" />
+
+	        		</td>
 		        </tr>
+
 	        </table>
 
 	        <div class="back-button">
