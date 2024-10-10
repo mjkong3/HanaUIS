@@ -8,39 +8,58 @@
    </select>
    
    <select id="selectAdStudent" parameterType="java.util.Map" resultType="java.util.Map">
-      SELECT Student_id, Name, Status, Phone, Email, DEPARTMENT_CODE, 0 AS 'Check'
+      SELECT STUDENT_ID,
+			NAME,
+			UNIV_YEAR,
+			PHONE,
+			EMAIL,
+			DATE_FORMAT(BIRTHDAY, '%Y-%m-%d') AS BIRTHDAY,
+			GENDER,
+			ADDRESS,
+			STATUS,
+			DEPARTMENT_CODE,
+			0 AS 'Check'
       FROM STUDENT
       WHERE 1=1
-      
       <if test="DEPARTMENT_CODE != 00">
       AND DEPARTMENT_CODE = #{DEPARTMENT_CODE}
       </if>
       
       <if test="SEARCH_WORD != null">
-         <if test="SEARCH_TYPE == 'All'"> 
-            AND (Student_id LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR Name LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR Status LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR Phone LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR Email LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
+         <if test="SEARCH_TYPE == 'ALL'"> 
+            AND (STUDENT_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR STATUS LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR PHONE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR EMAIL LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
          </if>
          <if test="SEARCH_TYPE == 'Student_id'">
-            AND Student_id LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND STUDENT_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'Name'">
-            AND Name LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'Status'">
-            AND Status LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND STATUS LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'Phone'">
-            AND Phone LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND PHONE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'Email'">
-            AND Email LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND EMAIL LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
       </if>
       
+   </select>
+   
+   <select id="studCheckId" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT CASE WHEN COUNT(0) THEN 'N'
+		ELSE 'Y'
+		END as CHECK_ID
+		FROM STUDENT
+		WHERE 1=1
+		AND STUDENT_ID = #{STUDENT_ID}
+   
    </select>
    
    <select id="checkAdStudent" parameterType="java.util.Map" resultType="Integer">
@@ -64,7 +83,8 @@
                DEPARTMENT_CODE,
                PHOTO,
                CRE_DTM,
-               CRE_USR)
+               CRE_USR,
+               ZIPCODE)
                VALUES (#{STUDENT_ID},
                      SHA2(#{PASSWORD}, 256),
                      #{NAME},
@@ -78,7 +98,8 @@
                      #{DEPARTMENT_CODE},
                      #{PHOTO},
                      NOW(),
-                     #{ADMIN_CODE})
+                     #{ADMIN_CODE},
+                     #{ZIPCODE})
    
    </insert>
    
@@ -96,7 +117,8 @@
                DEPARTMENT_CODE = #{DEPARTMENT_CODE},
                PHOTO = #{PHOTO},
                UPD_DTM = NOW(),
-               UPD_USR = #{ADMIN_CODE}
+               UPD_USR = #{ADMIN_CODE},
+               ZIPCODE = #{ZIPCODE}
                where STUDENT_ID = #{STUDENT_ID}
    </update>
    
@@ -114,15 +136,16 @@
                DEPARTMENT_CODE,
                PHOTO,
                UPD_USR as ADMIN_CODE,
-               UPD_DTM as REGDATE
+               UPD_DTM as REGDATE,
+               ZIPCODE
       FROM STUDENT
       where 1=1
-      and STUDENT_ID = #{Student_id}
+      and STUDENT_ID = #{STUDENT_ID}
    </select>
    
    <delete id="deletAdStudent" parameterType="java.util.Map">
       DELETE FROM STUDENT
-      WHERE STUDENT_ID = #{Student_id}
+      WHERE STUDENT_ID = #{STUDENT_ID}
    </delete>
    
    <select id="stdchecklogin" resultType="ateam.dto.StudentDTO">

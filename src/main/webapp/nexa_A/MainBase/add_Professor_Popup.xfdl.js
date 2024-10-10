@@ -228,7 +228,7 @@
             obj.set_readonly("false");
             obj.set_text("");
             obj.set_value("");
-            obj.set_index("0");
+            obj.set_index("-1");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_Email","791","309","119","30",null,null,null,null,null,null,this);

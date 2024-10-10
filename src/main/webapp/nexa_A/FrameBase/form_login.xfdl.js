@@ -211,7 +211,7 @@
         {
         	objApp = nexacro.getApplication();
         	objApp.mainframe.VFrameSet00.TopFrame.set_visible(true);
-        	this.go("FrameBase::Form_Work.xfdl");
+        	objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::Form_Work.xfdl");
         	return;
         };
 
@@ -238,7 +238,7 @@
         		this.fn_addSession(adminCode);
         		let objApp = nexacro.getApplication();
         		objApp.mainframe.VFrameSet00.TopFrame.set_visible(true);
-        		this.go("FrameBase::Form_Work.xfdl");
+        		objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::Form_Work.xfdl");
         	}
         	else{
         		alert("인증번호를 다시 확인해주세요.");

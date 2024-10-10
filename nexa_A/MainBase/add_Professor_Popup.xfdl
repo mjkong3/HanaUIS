@@ -28,7 +28,7 @@
         <Edit id="edt_ProId" taborder="21" left="517" top="113" width="153" height="30" readonly="false" onkillfocus="edt_ProId_onkillfocus" onchanged="edt_ProId_onchanged"/>
         <Edit id="edt_ProPw" taborder="22" left="791" top="113" width="239" height="30" password="false" readonly="false" onchanged="edt_ProPw_onchanged"/>
         <Edit id="edt_ProName" taborder="23" left="517" top="162" width="153" height="30" readonly="false"/>
-        <Combo id="cmb_Dept" taborder="24" text="" left="791" top="161" width="239" height="31" index="0" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value="" readonly="false" onitemchanged="cmb_Dept_onitemchanged"/>
+        <Combo id="cmb_Dept" taborder="24" text="" left="791" top="161" width="239" height="31" index="-1" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value="" readonly="false" onitemchanged="cmb_Dept_onitemchanged"/>
         <Edit id="edt_Email" taborder="25" left="791" top="309" width="119" height="30" readonly="false" onkillfocus="edt_Email_onkillfocus"/>
         <Radio id="rdo_Gender" taborder="26" left="517" top="211" width="153" height="36" innerdataset="ds_gender" datacolumn="data" codecolumn="code" index="1" text="" value="M" direction="vertical" readonly="false"/>
         <Edit id="edt_Phone" taborder="27" left="791" top="260" width="239" height="30" readonly="false"/>
