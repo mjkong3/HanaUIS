@@ -3,7 +3,7 @@
   <Form id="add_Professor_Popup" width="1280" height="720" titletext="New Form" onload="add_Professor_Popup_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Static id="Static00_03_01_00_00_00_02_00" taborder="46" left="506" top="348" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_01_00_00_00_02_00" taborder="45" left="506" top="348" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_03_01_00_00_00_01" taborder="0" left="506" top="397" width="534" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_03_00_00_00_00" taborder="1" left="780" top="250" width="260" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_03_01_00_00_00_00" taborder="2" left="780" top="299" width="260" height="50" background="white" border="1px solid #d3d3d4"/>
@@ -35,21 +35,22 @@
         <Combo id="cmb_Status" taborder="28" text="" left="517" top="260" width="153" height="31" index="0" innerdataset="ds_status" codecolumn="code" datacolumn="data" value="" readonly="false"/>
         <Calendar id="cal_Birth" taborder="29" left="791" top="211" width="239" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
         <Edit id="edt_Adr" taborder="30" left="518" top="407" width="512" height="30" readonly="true" displaynulltext="주소검색 버튼으로 검색하세요" cssclass="edt_Adr"/>
-        <FileUpload id="FileUpload00" taborder="31" left="163" top="359" width="177" height="22" onitemchanged="FileUpload00_onitemchanged"/>
-        <Button id="btn_Add" taborder="32" text="작성완료" left="889" top="511" width="151" height="38" onclick="btn_Add_onclick"/>
-        <Static id="Static00_03_01_00_00_00_02" taborder="33" left="506" top="299" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_00_01_00_02" taborder="34" left="409" top="299" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   등록ID"/>
-        <Edit id="edt_Admin" taborder="35" left="517" top="309" width="153" height="30" readonly="true"/>
-        <Button id="btn_Reset" taborder="36" text="초기화" left="730" top="511" width="151" height="38" onclick="btn_Reset_onclick"/>
-        <Edit id="edt_Domain" taborder="38" left="910" top="309" width="119" height="30" visible="true" onkeyup="edt_Domain_onkeyup" onchanged="edt_Domain_onchanged" oneditclick="edt_Domain_oneditclick"/>
-        <Combo id="cmb_Domain" taborder="37" left="910" top="309" width="119" height="30" innerdataset="ds_domain" codecolumn="code" datacolumn="data" text="" onitemchanged="cmb_Domain_onitemchanged"/>
-        <Button id="btn_Adr" taborder="39" text="주소검색" left="690" top="354" width="80" height="38" onclick="btn_Adr_onclick"/>
-        <Static id="Static00_00_01_00_01_00" taborder="40" left="409" top="446" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   상세주소"/>
-        <Static id="Static00_03_01_00_00_00_01_00" taborder="41" left="506" top="446" width="534" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_DtlAdr" taborder="42" left="518" top="456" width="512" height="30" displaynulltext="상세주소를 입력하세요"/>
-        <WebBrowser id="wb_Adress" taborder="43" left="190" top="437" width="100" height="100" visible="false" onusernotify="wb_Adress_onusernotify"/>
-        <Edit id="edt_ZipCd" taborder="44" left="517" top="358" width="153" height="30" displaynulltext="우편번호" enable="true" readonly="true" cssclass="edt_Adr"/>
-        <Static id="Static00_00_01_00_02_00" taborder="45" left="409" top="348" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   우편번호"/>
+        <Button id="btn_Add" taborder="31" text="작성완료" left="889" top="511" width="151" height="38" onclick="btn_Add_onclick"/>
+        <Static id="Static00_03_01_00_00_00_02" taborder="32" left="506" top="299" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_00_01_00_02" taborder="33" left="409" top="299" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   등록ID"/>
+        <Edit id="edt_Admin" taborder="34" left="517" top="309" width="153" height="30" readonly="true"/>
+        <Button id="btn_Reset" taborder="35" text="초기화" left="730" top="511" width="151" height="38" onclick="btn_Reset_onclick"/>
+        <Edit id="edt_Domain" taborder="37" left="910" top="309" width="119" height="30" visible="true" onkeyup="edt_Domain_onkeyup" onchanged="edt_Domain_onchanged" oneditclick="edt_Domain_oneditclick"/>
+        <Combo id="cmb_Domain" taborder="36" left="910" top="309" width="119" height="30" innerdataset="ds_domain" codecolumn="code" datacolumn="data" text="" onitemchanged="cmb_Domain_onitemchanged"/>
+        <Button id="btn_Adr" taborder="38" text="주소검색" left="690" top="354" width="80" height="38" onclick="btn_Adr_onclick"/>
+        <Static id="Static00_00_01_00_01_00" taborder="39" left="409" top="446" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   상세주소"/>
+        <Static id="Static00_03_01_00_00_00_01_00" taborder="40" left="506" top="446" width="534" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Edit id="edt_DtlAdr" taborder="41" left="518" top="456" width="512" height="30" displaynulltext="상세주소를 입력하세요"/>
+        <WebBrowser id="wb_Adress" taborder="42" left="190" top="437" width="100" height="100" visible="false" onusernotify="wb_Adress_onusernotify"/>
+        <Edit id="edt_ZipCd" taborder="43" left="517" top="358" width="153" height="30" displaynulltext="우편번호" enable="true" readonly="true" cssclass="edt_Adr"/>
+        <Static id="Static00_00_01_00_02_00" taborder="44" left="409" top="348" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   우편번호"/>
+        <Button id="btn_addfile" taborder="46" text="등록" left="297" top="358" width="43" height="20" onclick="btn_addfile_onclick"/>
+        <Edit id="edt_filename" taborder="47" left="163" top="358" width="136" height="21" readonly="true"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[// 필요한 기능
@@ -400,7 +401,13 @@ this.fnCallback = function (svcID, errCD, errMsg)
 		}
 		break;
 		}
-};]]></Script>
+};
+// dialog 호출
+this.btn_addfile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);	
+};
+]]></Script>
     <Objects>
       <Dataset id="ds_gender">
         <ColumnInfo>
@@ -528,6 +535,8 @@ this.fnCallback = function (svcID, errCD, errMsg)
         </ColumnInfo>
       </Dataset>
       <Dataset id="ds_reDept"/>
+      <FileDialog id="FileDialog00"/>
+      <FileUpTransfer id="FileUpTransfer00"/>
     </Objects>
     <Bind>
       <BindItem id="item0" compid="edt_ProId" propid="value" datasetid="ds_pro" columnid="PROFESSOR_ID"/>
