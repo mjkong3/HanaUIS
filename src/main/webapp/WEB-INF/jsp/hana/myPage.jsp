@@ -5,6 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+ 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -31,9 +32,9 @@
 	      <c:if test="${updateStatus == 'success'}">
 	         alert('수정이 완료되었습니다.');
 	      </c:if>
-	   });
+   });
    
-// 유효성 검사
+   // 유효성 검사
    $(document).ready(function() {
       // 전화번호 유효성 검사 함수 (000-0000-0000 형식)
       function validatePhone(phone) {
@@ -124,9 +125,21 @@
                <col width="23%">
             </colgroup>
             <tr>
-               <th rowspan="9"><img
-                  src="<c:url value='/images/egovframework/logo.png'/>" alt=""
-                  width="100px" /></th>
+               <th rowspan="8" class="faceImg">
+					<c:choose>
+					    <c:when test="${not empty student.photo}">
+					        <img src="${pageContext.request.contextPath}/images/egovframework/faceShot/${student.photo}" />
+					    </c:when>
+					    
+					    <c:when test="${not empty professor.photo}">
+					        <img src="${pageContext.request.contextPath}/images/egovframework/faceShot/${professor.photo}" />
+					    </c:when>
+					    
+					    <c:otherwise>
+					        <img src="${pageContext.request.contextPath}/images/egovframework/logo.png" />
+					    </c:otherwise>
+					</c:choose>
+               </th>
             </tr>
             <!-- 학번 또는 교번 출력 -->
             <tr>
@@ -163,83 +176,80 @@
             </tr>
             <tr>
                <th>생년월일</th>
-               <td colspan="3"><c:choose>
-                     <c:when test="${not empty student}">
-                        <fmt:formatDate value="${student.birthday}"
-                           pattern="yyyy년  MM월  dd일" />
-                     </c:when>
-                     <c:when test="${not empty professor}">
-                        <fmt:formatDate value="${professorDetail.birthday}"
-                           pattern="yyyy년  MM월  dd일" />
-                     </c:when>
-                  </c:choose></td>
+               <td colspan="3">
+               		 <c:choose>
+	                     <c:when test="${not empty student}">
+	                        <fmt:formatDate value="${student.birthday}" pattern="yyyy년  MM월  dd일" />
+	                     </c:when>
+	                     <c:when test="${not empty professor}">
+	                        <fmt:formatDate value="${professorDetail.birthday}" pattern="yyyy년  MM월  dd일" />
+	                     </c:when>
+                 	 </c:choose>
+            	 </td>
             </tr>
             <tr>
                <th>이메일</th>
-               <td colspan="3"><c:choose>
-                     <c:when test="${not empty student}">
-                        <form id="emailForm"
-                           action="<c:url value='/std/updateEmail.do'/>" method="post"
-                           onsubmit="return validateForm(this);">
-                           <input type="hidden" name="studentId"
-                              value="${student.studentId}" /> <input type="text"
-                              name="email" class="inputEmail" value="${student.email}" />
-                           <button type="submit">수정</button>
-                           <div class="emailError">올바르게 입력해주세요.</div>
-                        </form>
-                     </c:when>
-
-                     <c:when test="${not empty professor}">
-                        <form id="emailForm"
-                           action="<c:url value='/pfs/updateEmail.do'/>" method="post"
-                           onsubmit="return validateForm(this);">
-                           <input type="hidden" name="professorId"
-                              value="${professorDetail.professorId}" /> <input type="text"
-                              name="email" class="inputEmail"
-                              value="${professorDetail.email}" />
-                           <button type="submit">수정</button>
-                           <div class="emailError">올바르게 입력해주세요.</div>
-                        </form>
-                     </c:when>
-                  </c:choose></td>
+               <td colspan="3">
+               		<c:choose>
+	                     <c:when test="${not empty student}">
+	                        <form id="emailForm" action="<c:url value='/std/updateEmail.do'/>" method="post" onsubmit="return validateForm(this);">
+	                           <input type="hidden" name="studentId" value="${studentDetail.studentId}" /> 
+	                           <input type="text" name="email" class="inputEmail" value="${studentDetail.email}" />
+	                           <button type="submit">수정</button>
+	                           <div class="emailError">올바르게 입력해주세요.</div>
+	                        </form>
+	                     </c:when>
+	
+	                     <c:when test="${not empty professor}">
+	                        <form id="emailForm" action="<c:url value='/pfs/updateEmail.do'/>" method="post" onsubmit="return validateForm(this);">
+	                           <input type="hidden" name="professorId" value="${professorDetail.professorId}" /> 
+	                           <input type="text" name="email" class="inputEmail" value="${professorDetail.email}" />
+	                           <button type="submit">수정</button>
+	                           <div class="emailError">올바르게 입력해주세요.</div>
+	                        </form>
+	                     </c:when>
+                  </c:choose>
+               </td>
             </tr>
             <tr>
                <th>전화번호</th>
                <td colspan="3"><c:choose>
                      <c:when test="${not empty student}">
-                        <form id="phoneForm"
-                           action="<c:url value='/std/updatePhone.do'/>" method="post">
-                           <input type="hidden" name="studentId"
-                              value="${student.studentId}" /> <input type="text"
-                              name="phone" class="inputPhone" value="${student.phone}" />
+                        <form id="phoneForm" action="<c:url value='/std/updatePhone.do'/>" method="post">
+                           <input type="hidden" name="studentId" value="${studentDetail.studentId}" /> 
+                           <input type="text" name="phone" class="inputPhone" value="${studentDetail.phone}" />
                            <button type="submit">수정</button>
                            <div class="phoneError">올바르게 입력해주세요.</div>
                         </form>
                      </c:when>
 
                      <c:when test="${not empty professor}">
-                        <form id="phoneForm"
-                           action="<c:url value='/pfs/updatePhone.do'/>" method="post">
-                           <input type="hidden" name="professorId"
-                              value="${professorDetail.professorId}" /> <input type="text"
-                              name="phone" class="inputPhone"
-                              value="${professorDetail.phone}" />
+                        <form id="phoneForm" action="<c:url value='/pfs/updatePhone.do'/>" method="post">
+                           <input type="hidden" name="professorId" value="${professorDetail.professorId}" /> 
+                           <input type="text" name="phone" class="inputPhone" value="${professorDetail.phone}" />
                            <button type="submit">수정</button>
                            <div class="phoneError">올바르게 입력해주세요.</div>
                         </form>
                      </c:when>
-                  </c:choose></td>
+                  </c:choose>
+                </td>
             </tr>
             <tr>
                <th>주소</th>
-               <td colspan="3"><c:choose>
-                     <c:when test="${not empty student}">
-                        <c:out value="${student.address}" />
-                     </c:when>
-                     <c:when test="${not empty professor}">
-                        <c:out value="${professorDetail.address}" />
-                     </c:when>
-                  </c:choose></td>
+               <td colspan="3">
+	               	<c:choose>
+	                     <c:when test="${not empty student}">
+ 	                        (<c:out value="${studentDetail.zipCode}" />)<br>
+	                        <c:out value="${studentDetail.address}" /><br>
+	                        <c:out value="${studentDetail.addressDetail}" /> 
+	                     </c:when>
+	                     <c:when test="${not empty professor}">
+ 	                        (<c:out value="${professorDetail.zipCode}" />)<br>
+	                        <c:out value="${professorDetail.address}" /><br>
+	                        <c:out value="${professorDetail.addressDetail}" /> 
+	                     </c:when>
+	                  </c:choose>
+                </td>
             </tr>
             <tr>
             	<th>사진 업로드</th>

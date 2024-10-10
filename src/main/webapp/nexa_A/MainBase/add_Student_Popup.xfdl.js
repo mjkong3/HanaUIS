@@ -33,12 +33,25 @@
 
 
             obj = new Dataset("save_ds", this);
-            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
             obj = new Dataset("grade_type", this);
             obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">1</Col><Col id=\"data\">1학년</Col></Row><Row><Col id=\"data\">2학년</Col><Col id=\"code\">2</Col></Row></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("dsList", this);
+            obj._setContents("<ColumnInfo><Column id=\"FILE_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_URL\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_ID\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_SIZE\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_PATH\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_TYPE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new FileUpTransfer("FileUpTransfer00", this);
+            this.addChild(obj.name, obj);
+
+
+            obj = new FileDialog("FileDialog00", this);
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
@@ -187,6 +200,7 @@
 
             obj = new ImageViewer("ImageViewer00","83","53","177","236",null,null,null,null,null,null,this);
             obj.set_taborder("24");
+            obj.set_stretch("fixaspectratio");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_01_00","329","249","98","50",null,null,null,null,null,null,this);
@@ -265,6 +279,16 @@
             obj = new Edit("ADDRESS","437","308","469","30",null,null,null,null,null,null,this);
             obj.set_taborder("34");
             this.addChild(obj.name, obj);
+
+            obj = new Button("btn_addfile","221","298","43","20",null,null,null,null,null,null,this);
+            obj.set_taborder("35");
+            obj.set_text("등록");
+            this.addChild(obj.name, obj);
+
+            obj = new Edit("edt_filename","82","298","136","21",null,null,null,null,null,null,this);
+            obj.set_taborder("36");
+            obj.set_readonly("true");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",1080,620,this,function(p){});
@@ -336,13 +360,15 @@
               return;
            }
 
-           switch(svcID)
-           {
-              case "saveAdStudent":
-                 this.alert("성공적으로 등록을 하였습니다.");
-                 this.close("saveAdStudent");
-                 break;
-           }
+        	switch(svcID)
+        	{
+        		case "insertAdStudent":
+        			this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
+        			this.alert("성공적으로 등록을 하였습니다.");
+        			this.close();
+        			break;
+        	}
+
         };
 
         // this.Popup_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
@@ -381,6 +407,14 @@
             // 데이터셋 복사: 부모 폼에서 넘겨받은 데이터셋을 ds_de에 복사
             this.ds_de.copyData(objParam);
 
+        	var gdsApp = nexacro.getApplication();
+        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        	var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
+        	this.save_ds.setColumn(0, "ADMIN_CODE", adCode);
+        	this.save_ds.setColumn(0, "REGDATE", regdt);
+        	trace("아이디 제대로 들어갔나? " + this.save_ds.getColumn(0, "ADMIN_CODE"));
+        	trace("일시 제대로 들어갔나? " + this.save_ds.getColumn(0, "REGDATE"));
+
         //     // 콤보박스에 데이터셋 바인딩 설정
         //     this.de.set_innerdataset(this.ds_de);
         //     this.de.set_codecolumn("DEPARTMENT_CODE");  // 콤보박스에서 사용할 코드 컬럼
@@ -409,16 +443,20 @@
             this.save_ds.setColumn(0, "DEPARTMENT_CODE", selectedDeptCode);  // 선택한 학과 코드 설정
         };
 
-
+        // 등록 시 이벤트
         this.Stu_Add_btn_onclick = function(obj,e)
         {
-           this.insertstudent();
+        	//trace(this.save_ds.getColumn(0,"PHOTO"));
+        	/*this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');*/
+            this.insertstudent();
+
         };
 
+        // 등록 트랜젝션
         this.insertstudent = function()
         {
-           var strSvcId    = "saveAdStudent";
-           var strSvcUrl   = "svc::saveAdStudent.do";
+           var strSvcId    = "insertAdStudent";
+           var strSvcUrl   = "svc::insertAdStudent.do";
            var inData      = "save_ds = save_ds";
            var outData     = "";
            var strArg      = "";
@@ -429,6 +467,160 @@
 
         };
 
+        // 필요없는 함수
+        this.FileUpload00_onitemchanged = function(obj,e)
+        {
+        	this.ImageViewer00.set_image("URL('file://" + this.FileUpload00.value + "')");
+
+
+         	var filePath = this.FileUpload00.value;
+         	var fileName = filePath.split("\\").pop();
+
+        	trace(filePath);
+
+        	//this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
+        };
+
+        // 이미지 등록 이벤트
+        this.btn_addfile_onclick = function(obj,e)
+        {
+        	this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);
+        };
+
+        // 이미지 등록 시 확장자 확인
+        this.gfnIsImageFile = function(fileTxt) {
+            var imageExt = ["png", "jpg", "jpeg"];
+            var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
+            return imageExt.includes(extNm);
+        };
+
+        // 파일 올릴 때 함수
+        this.FileDialog00_onclose = function(obj, e) {
+        	var filetype = e.virtualfiles[0].filename;
+        	if(e.virtualfiles.length > 1){
+        		alert("파일이 두개 이상입니다.");
+        	}
+         	else if(!this.gfnIsImageFile(filetype)){
+        		alert("png, "+ "jpg, "+ "jpeg" + "가 아닙니다.");
+         	}
+        	else{
+        		this.addFileList(e.virtualfiles);
+
+        		var name;
+        		for (var i = 0; i < e.virtualfiles.length; i++) {
+        			this.save_ds.setColumn(0, "PHOTO", e.virtualfiles[i].filename);
+        			name = e.virtualfiles[i].filename;
+        		}
+        		this.edt_filename.set_value(name);
+        		this.dsList.setColumn(0,"FILE_NAME", name);
+        	/*	this.showImagePreview(name);*/
+
+        		setTimeout(function(){
+        			this.aftereventFunction();
+        		}.bind(this), 100);
+
+        	}
+
+        };
+
+        // 이미지 미리보기 이벤트
+        this.aftereventFunction = function(){
+        	trace("이벤트 후에 실행되는 작업입니다.");
+        	var filename = this.dsList.getColumn(0,"FILE_NAME");
+        	trace(filename);
+        	this.showImagePreview(filename); // 이미지 미리보기 함수
+
+        }
+
+        // 파일 추가 처리 함수
+        this.addFileList = function(filelist) {
+            for (var i = 0, len = filelist.length, vFile; i < len; i++) {
+                vFile = filelist[i];
+                vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
+                vFile.addEventHandler("onerror", this.FileList_onerror, this);
+
+                // 파일을 서버에 업로드하는 함수 호출
+                this.uploadFileToServer(vFile);
+            }
+        };
+
+        // 파일 업로드 함수
+        this.uploadFileToServer = function(vFile) {
+        	this.FileUpTransfer00.clearFileList();
+            this.FileUpTransfer00.addFile(vFile.filename, vFile);
+            this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
+        };
+
+        // 이미지 미리보기 함수
+        this.showImagePreview = function(fileName) {
+            var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+            var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
+            this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
+
+        	setTimeout(function(){
+        		this.deleteFile(fileName);
+        	}.bind(this), 10000);
+
+        };
+
+        // 파일 삭제 요청 함수
+        this.deleteFile = function(fileName) {
+        	trace("여기까지 왔나?");
+            var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+            var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
+
+        	var params = {
+        		filename: fileName // 파일 이름을 파라미터로 전달
+        	};
+        	var xhr = new XMLHttpRequest();
+        	xhr.open("POST", deleteUrl, true);
+        	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        	xhr.onreadystatechange = function () {
+        		if (xhr.readyState === 4) {
+        			if (xhr.status === 200) {
+        				trace("서버 응답: " + xhr.responseText);
+        			} else {
+        				trace("오류 발생: " + xhr.status);
+        			}
+        		}
+        	};
+        	xhr.send("filename=" + encodeURIComponent(fileName));
+
+        };
+
+        // 콜백 함수 정의
+        this.callbackDeleteFile = function(svcID, errorCode, errorMsg) {
+            if (errorCode == 0) {
+                trace("파일 삭제 성공");
+            } else {
+                trace("파일 삭제 실패: " + errorMsg);
+                // 추가적인 디버깅 정보 출력
+                trace("서비스 ID: " + svcID);
+            }
+        };
+
+
+        // virtualfile의 성공 실패
+        this.FileList_onsuccess = function(obj, e) {
+            switch (e.reason) {
+                case 1:
+                    obj.getFileSize();
+                    break;
+                case 9: // 들어와졌을 때
+                    this.FileUpTransfer00.addFile(obj.filename, obj);
+        			this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/fileupload.jsp");
+                    break;
+            }
+        };
+
+        // 파일 추가 에러시 발동 함수
+        this.FileList_onerror = function(obj, e)
+        {
+            trace("errortype: "+e.errortype);
+            trace("errormsg: "+e.errormsg);
+            trace("statuscode: "+e.statuscode);
+        };
+
         });
         
         // Regist UI Components Event
@@ -436,6 +628,11 @@
         {
             this.addEventHandler("onload",this.Popup_Work_onload,this);
             this.Stu_Add_btn.addEventHandler("onclick",this.Stu_Add_btn_onclick,this);
+            this.btn_addfile.addEventHandler("onclick",this.btn_addfile_onclick,this);
+            this.FileUpTransfer00.addEventHandler("onerror",this.FileUpTransfer00_onerror,this);
+            this.FileUpTransfer00.addEventHandler("onprogress",this.FileUpTransfer00_onprogress,this);
+            this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);
+            this.FileDialog00.addEventHandler("onclose",this.FileDialog00_onclose,this);
         };
         this.loadIncludeScript("add_Student_Popup.xfdl");
         this.loadPreloadList();

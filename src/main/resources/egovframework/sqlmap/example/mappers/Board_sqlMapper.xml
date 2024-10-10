@@ -7,7 +7,7 @@
     SELECT COUNT(*) FROM BOARD;
 </select>
 <select id="boardList" parameterType="map" resultType="ateam.dto.BoardDTO">
-   SELECT BOARD_CODE, TITLE, CONTENT
+   SELECT BOARD_CODE, TITLE, CONTENT, REG_DTM 
    FROM BOARD 
    ORDER BY BOARD_CODE DESC
    LIMIT #{pageSize} OFFSET #{offset};
@@ -15,20 +15,20 @@
 
 <!-- 공지사항 상세 -->
 <select id="selectBoard" parameterType="Integer" resultType="ateam.dto.BoardDTO">
-   SELECT  BOARD_CODE,  
-         TITLE, 
-         CONTENT, 
-      
-         FILE_CODE 
-   FROM BOARD
+   SELECT BOARD_CODE,  
+          TITLE, 
+          IMAGE,
+          CONTENT, 
+          REG_DTM
+   FROM BOARD 
    WHERE BOARD_CODE = #{id}
 </select>
 
 <!-- 공지사항 파일 -->
-<select id="selectFile" parameterType="String" resultType="ateam.dto.FileDTO">
+<select id="selectFile" parameterType="int" resultType="ateam.dto.FileDTO">
    SELECT FILE_NAME
    FROM FILE
-   WHERE FILE_CODE = #{fileCode}
+   WHERE BOARD_CODE = #{boardCode}
 </select>
 
 </mapper>

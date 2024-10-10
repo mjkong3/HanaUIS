@@ -2,8 +2,77 @@
 <FDL version="2.1">
   <Form id="sample00" width="1280" height="720" titletext="New Form">
     <Layouts>
-      <Layout height="720" width="1280"/>
+      <Layout height="720" width="1280">
+        <Grid id="Depart_Grd" taborder="0" left="33" top="96" width="237" height="524" binddataset="DEPARTMENT_List">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="93"/>
+                <Column size="142"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="학과코드"/>
+                <Cell col="1" text="학과명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:DEPARTMENT_CODE" textAlign="center"/>
+                <Cell col="1" text="bind:DEPARTMENT_NAME" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="Dtl_Grid" taborder="1" left="293" top="96" width="947" height="524" binddataset="DEPARTMENT_DTL_List" oncelldblclick="Dtl_Grid_oncelldblclick" onheadclick="Dtl_Grid_onheadclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48" band="left"/>
+                <Column size="48"/>
+                <Column size="158"/>
+                <Column size="126"/>
+                <Column size="123"/>
+                <Column size="194"/>
+                <Column size="248"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:Check"/>
+                <Cell col="1" text="No"/>
+                <Cell col="2" text="학번"/>
+                <Cell col="3" text="이름"/>
+                <Cell col="4" text="상태"/>
+                <Cell col="5" text="번호"/>
+                <Cell col="6" text="이메일"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:Check"/>
+                <Cell col="1" text="expr:currow + 1" textAlign="center"/>
+                <Cell col="2" text="bind:Student_id"/>
+                <Cell col="3" text="bind:Name"/>
+                <Cell col="4" text="bind:Status"/>
+                <Cell col="5" text="bind:Phone"/>
+                <Cell col="6" text="bind:Email"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Combo id="Search_Cmb" taborder="2" left="33" top="30" width="237" height="46" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="All"/>
+        <Button id="Select_btn" taborder="3" text="조회" left="1026" top="30" width="68" height="46" onclick="Select_btn_onclick"/>
+        <Edit id="Edit00" taborder="4" left="293" top="30" width="697" height="46"/>
+        <Button id="plus_btn" taborder="5" text="등록" left="1116" top="30" width="64" height="46" onclick="plus_btn_onclick"/>
+        <Button id="delete_btn" taborder="6" text="삭제" left="1200" top="30" width="66" height="46" onclick="delete_btn_onclick" visible="true"/>
+      </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="Search_Cmb" propid="value" datasetid="Search" columnid="SEARCH_TYPE"/>
+      <BindItem id="item1" compid="Edit00" propid="value" datasetid="Search" columnid="SEARCH_WORD"/>
+    </Bind>
   </Form>
 </FDL>

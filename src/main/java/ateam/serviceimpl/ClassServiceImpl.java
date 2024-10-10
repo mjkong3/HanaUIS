@@ -1,5 +1,7 @@
 package ateam.serviceimpl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,18 +20,31 @@ public class ClassServiceImpl implements ClassService{
 	@Autowired
 	public ClassMapper mapper;
 	
+	
+	
+	
+	
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 접속교수의 강의 목록
 	//접속한 교수의 강의 목록을 반환
 	@Override
 	public List<ClassDTO> selectClassList(int id) {
 		return mapper.selectClassList(id);
 	}
+	
+	
+	
+	
 
-	//시간표 반환
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 시간표 반환
 	@Override
 	public List<Map<String, Object>> selectSchedule(Map<String, Object> id) {
 		return mapper.selectSchedule(id);
 	}
 
+	
+	
+	
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 강의 정보
 	//강의 정보 반환
 	@Override
 	public  Map<String, Object> selectClass(int classCode) {
@@ -47,37 +62,36 @@ public class ClassServiceImpl implements ClassService{
 	public List<Map<String, Object>> allClass(Map<String, Object> map) {
 		return mapper.allClass(map);
 	}
-
-	//성적을 수정
 	@Override
-	public int updateGrade(Map<String, Object> paramMap) {
-		return mapper.updateGrade(paramMap);
+	public int countAllClass(Map<String, Object> map) {
+		return mapper.countAllClass(map);
 	}
-
-	//해당 강의를 수강하는 학생 목록을 조회
-	@Override
-	public List<Map<String, Object>> selectClassStudent(int no) {
-		return mapper.selectClassStudent(no);
-	}
-    //페이징
-    //강의를 수강하는 총 학생 수를 반환
-    @Override
-    public int getTotalStudents(int no) {
-       return mapper.getTotalStudents(no);
-    }
+	
 
 	//강의의 강의 개요를 수정
 	@Override
 	public int updateClassInfo(Map<String, Object> map) {
 		return mapper.updateClassInfo(map);
 	}
-    
-    //강의 이름 조회
-    @Override
-    public String getClassName(int no) {
-       return mapper.getClassName(no);
-    }
-    
+
+
+
+	
+	
+	
+
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적 정보
+	// 성적을 수정
+	@Override
+	public int updateGrade(Map<String, Object> paramMap) {
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter fomatter = DateTimeFormatter.ofPattern("yymmddhhmm");
+		String date = now.format(fomatter);
+
+		paramMap.put("date", date);
+		System.out.println(date + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		return mapper.updateGrade(paramMap);
+	}
 
 	// 강의를 듣는 학생 정보를 조회
 	@Override
@@ -93,19 +107,38 @@ public class ClassServiceImpl implements ClassService{
 		return mapper.selectClassGrade(paramMap);
 	}
 
+		
+		
+		
+		
+		
+   //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 학생 정보
+	//해당 강의를 수강하는 학생 목록을 조회
 	@Override
-	public int getTotalStudentsBySearchKeyword(int classCode, String searchType, String searchKeyword) {
+	public List<Map<String, Object>> selectClassStudent(int no) {
+		return mapper.selectClassStudent(no);
+	}
+    //페이징
+
+
+	@Override
+	public int getTotalStudentsBySearchKeyword(int classCode, String searchType, String searchKeyword, String departmentCode) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("classCode", classCode);
 		params.put("searchType", searchType);
-		params.put("searchKeyword", "%" + searchKeyword + "%");
+		params.put("searchKeyword", searchKeyword );
+		params.put("departmentCode", departmentCode);
+		
+		System.out.println("#####################################");
+		System.out.println(params);
+		
 		return mapper.getTotalStudentsBySearchKeyword(params);
 
 	}
 
 	@Override
 	public List<Map<String, Object>> searchClassStudentByKeyword(int classCode, String searchType, String searchKeyword,
-			int page, int i) {
+			int page, int i, String departmentCode){
 		int offset = Math.max((page - 1) * i, 0);
 
 		Map<String, Object> param = new HashMap<>();
@@ -114,6 +147,8 @@ public class ClassServiceImpl implements ClassService{
 		param.put("searchKeyword", searchKeyword);
 		param.put("i", i);
 		param.put("offset", offset);
+		param.put("departmentCode", departmentCode);
+
 
 		return mapper.searchClassStudentByKeyword(param);
 	}
@@ -132,7 +167,7 @@ public class ClassServiceImpl implements ClassService{
 
 	@Override
 	public List<Map<String, Object>> searchStudentByKeyword(int classCode, String searchType, String searchKeyword,
-			int page, int i) {
+			int page, int i, String departmentCode) {
 		int offset = Math.max((page - 1) * i, 0);
 
 		Map<String, Object> param = new HashMap<>();
@@ -141,15 +176,18 @@ public class ClassServiceImpl implements ClassService{
 		param.put("searchKeyword", searchKeyword);
 		param.put("i", i);
 		param.put("offset", offset);
+		param.put("departmentCode", departmentCode);
 
 		return mapper.searchStudentByKeyword(param);
 	}
 
-	@Override
-	public int countAllClass(Map<String, Object> map) {
-		return mapper.countAllClass(map);
-	}
 
+	
+	
+	
+	
+	
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 차트
 	@Override
 	public Map<String, Integer> totalScoreChart(int no) {
 		return mapper.totalScoreChart(no);
@@ -169,11 +207,19 @@ public class ClassServiceImpl implements ClassService{
 	public Map<String, Integer> reportScoreChart(int no) {
 		return mapper.reportScoreChart(no);
 	}
+	
+    //강의를 수강하는 총 학생 수를 반환
+    @Override
+    public int getTotalStudents(int no) {
+       return mapper.getTotalStudents(no);
+    }
+    
+    //강의 이름 조회
+    @Override
+    public String getClassName(int no) {
+       return mapper.getClassName(no);
+    }
 
-	@Override
-	public Map<String, Integer> getGradeStats(int no) {
-		return mapper.getGradeStats(no);
-	}
 
 
 

@@ -16,5 +16,5 @@ public interface BoardMapper {
 
 	public int getBoardCount();
 	
-	public List<FileDTO> selectFile(String fileCode);
+	public List<FileDTO> selectFile(int BoardCode);
 }

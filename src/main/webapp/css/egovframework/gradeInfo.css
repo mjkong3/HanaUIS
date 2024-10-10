@@ -7,8 +7,8 @@ body {
 }
 
 .container {
-    width: 800px;
-    height: 900px;
+    width: 900px;
+    height: 820px;
     background: white;
     padding: 20px;
     border-radius: 8px;
@@ -45,7 +45,7 @@ h3 {
 }
 
 .search-container select{
-	width: 70px;
+	width: 100px;
 	height: 30px;
 }
 .search-container input{

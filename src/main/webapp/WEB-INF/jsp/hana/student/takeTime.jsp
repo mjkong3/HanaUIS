@@ -3,6 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -202,7 +204,7 @@
 									<c:forEach var="statusList" items="${statusList}">
 										<tr>
 											<td>${statusList.STATUS_TYPE}</td>
-											<td>${statusList.REGDATE}</td>
+											<td><fmt:formatDate value="${statusList.REG_DTM}" pattern="yyyy-MM-dd"/></td>
 											<td>${statusList.REASON}</td>
 											<td>${statusList.APPROVED}</td>
 										</tr>

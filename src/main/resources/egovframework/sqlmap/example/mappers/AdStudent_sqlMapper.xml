@@ -61,7 +61,10 @@
                GENDER,
                ADDRESS,
                STATUS,
-               DEPARTMENT_CODE)
+               DEPARTMENT_CODE,
+               PHOTO,
+               CRE_DTM,
+               CRE_USR)
                VALUES (#{STUDENT_ID},
                      SHA2(#{PASSWORD}, 256),
                      #{NAME},
@@ -72,7 +75,10 @@
                      #{GENDER},
                      #{ADDRESS},
                      #{STATUS},
-                     #{DEPARTMENT_CODE})
+                     #{DEPARTMENT_CODE},
+                     #{PHOTO},
+                     NOW(),
+                     #{ADMIN_CODE})
    
    </insert>
    
@@ -87,9 +93,11 @@
                GENDER = #{GENDER},
                ADDRESS = #{ADDRESS},
                STATUS = #{STATUS},
-               DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+               DEPARTMENT_CODE = #{DEPARTMENT_CODE},
+               PHOTO = #{PHOTO},
+               UPD_DTM = NOW(),
+               UPD_USR = #{ADMIN_CODE}
                where STUDENT_ID = #{STUDENT_ID}
-               
    </update>
    
    <select id="selectAdStudentdtl" parameterType="hashMap" resultType="hashMap">
@@ -99,11 +107,14 @@
                UNIV_YEAR,
                PHONE,
                EMAIL,
-               BIRTHDAY,
+               DATE_FORMAT(BIRTHDAY, '%Y-%m-%d') AS BIRTHDAY,
                GENDER,
                ADDRESS,
                STATUS,
-               DEPARTMENT_CODE
+               DEPARTMENT_CODE,
+               PHOTO,
+               UPD_USR as ADMIN_CODE,
+               UPD_DTM as REGDATE
       FROM STUDENT
       where 1=1
       and STUDENT_ID = #{Student_id}
@@ -113,4 +124,20 @@
       DELETE FROM STUDENT
       WHERE STUDENT_ID = #{Student_id}
    </delete>
+   
+   <select id="stdchecklogin" resultType="ateam.dto.StudentDTO">
+		SELECT STUDENT_ID,
+				NAME,
+				PHONE,
+				EMAIL,
+				BIRTHDAY,
+				GENDER,
+				ADDRESS,
+				STATUS,
+				DEPARTMENT_CODE,
+				PHOTO
+		FROM STUDENT
+		WHERE STUDENT_ID = #{studentId}
+			AND PASSWORD = #{password}
+	</select>
 </mapper>

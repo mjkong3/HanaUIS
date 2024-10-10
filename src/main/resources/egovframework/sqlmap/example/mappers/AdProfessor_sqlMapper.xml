@@ -6,7 +6,7 @@
 	<!-- list grd에 목록 생성 -->
 	<select id="selectAdProList" parameterType="java.util.Map" resultType="java.util.Map">
 	
-		SELECT PROFESSOR_ID, NAME, PHONE, EMAIL, GENDER, ADDRESS, STATUS, ADMIN_CODE, DEPARTMENT_CODE, REGDATE, 0 AS 'CHECK'
+		SELECT PROFESSOR_ID, NAME, PHONE, EMAIL, GENDER, ADDRESS, STATUS, DEPARTMENT_CODE, CRE_USR, CRE_DTM, UPD_USR, UPD_DTM, 0 AS 'CHECK'
 		FROM PROFESSOR
 		WHERE 1=1
 		
@@ -18,9 +18,8 @@
 				OR EMAIL LIKE CONCAT('%', #{SEARCH_WORD}, '%')
 				OR ADDRESS LIKE CONCAT('%', #{SEARCH_WORD}, '%')
 				OR STATUS LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-				OR GENDER LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-				OR ADMIN_CODE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-				OR REGDATE LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
+				OR GENDER LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
+				
 			</if>
 			<if test="SEARCH_TYPE == 'PROFESSOR_ID'">
 				AND PROFESSOR_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
@@ -43,27 +42,12 @@
 			<if test="SEARCH_TYPE == 'GENDER'">
 				AND GENDER LIKE CONCAT('%', #{SEARCH_WORD}, '%')
 			</if>
-			<if test="SEARCH_TYPE == 'ADMIN_CODE'">
-				AND ADMIN_CODE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-			</if>
-			<if test="SEARCH_TYPE == 'REGDATE'">
-				AND REGDATE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-			</if>
 		</if>
 		<if test="DEPARTMENT_CODE != 0">
 			AND DEPARTMENT_CODE = #{DEPARTMENT_CODE}
 		</if>
 	</select>
-	
-	<!-- pro_id를 통해 기등록 - update / 미등록 - insert -->
-	<select id="checkAdPro" parameterType="java.util.Map" resultType="Integer">
-		
-		SELECT COUNT(1)
-		FROM PROFESSOR
-		WHERE PROFESSOR_ID = #{PROFESSOR_ID}
-	
-	</select>
-	
+
 	<!-- 미등록시 insert문 실행 -->
 	<insert id="insertAdPro" parameterType="java.util.Map">
 		
@@ -77,10 +61,13 @@
 			GENDER,
 			ADDRESS,
 			STATUS,
-			REGDATE,
-			ADMIN_CODE,
 			DEPARTMENT_CODE,
-			PHOTO)
+			PHOTO,
+			CRE_USR,
+			CRE_DTM,
+			UPD_USR,
+			UPD_DTM,
+			ZIPCODE)
 					 VALUES(
 							#{PROFESSOR_ID},
 							SHA2(#{PASSWORD}, 256),
@@ -91,10 +78,13 @@
 							#{GENDER},
 							#{ADDRESS},
 							#{STATUS},
-							#{REGDATE},
-							#{ADMIN_CODE},
 							#{DEPARTMENT_CODE},
-							#{PHOTO}
+							#{PHOTO},
+							#{CRE_USR},
+							SYSDATE(),
+							#{UPD_USR},
+							SYSDATE(),
+							#{ZIPCODE}
 							)
 	
 	</insert>
@@ -111,21 +101,37 @@
 					GENDER = #{GENDER},
 					ADDRESS = #{ADDRESS},
 					STATUS = #{STATUS},
-					REGDATE = #{REGDATE},
-					ADMIN_CODE = #{ADMIN_CODE},
 					DEPARTMENT_CODE = #{DEPARTMENT_CODE},
-					PHOTO = #{PHOTO}
-					WHERE PROFESSOR_ID = #{PROFESSOR_ID}
+					PHOTO = #{PHOTO},
+					UPD_USR = #{UPD_USR},
+					UPD_DTM = SYSDATE(),
+					ZIPCODE = #{ZIPCODE}
+					WHERE 
+					PROFESSOR_ID = #{PROFESSOR_ID}
 	
 	</update>
 	
 	<!-- 상세보기용 교수정보 select -->
 	<select id="selectAdProInfo" parameterType="java.util.Map" resultType="java.util.Map">
-		
-		SELECT PROFESSOR_ID, PASSWORD, NAME, PHONE, EMAIL, GENDER, ADDRESS, BIRTHDAY, STATUS, ADMIN_CODE, DEPARTMENT_CODE, REGDATE, PHOTO
-		FROM PROFESSOR
-		WHERE 1=1
-		AND PROFESSOR_ID = #{ProId}
+	
+		SELECT 
+        	PROFESSOR_ID,
+        	IFNULL(PASSWORD, '') AS PASSWORD,
+        	IFNULL(NAME, '') AS NAME,
+        	IFNULL(PHONE, '') AS PHONE,
+        	IFNULL(EMAIL, '') AS EMAIL,
+        	IFNULL(GENDER, '') AS GENDER,
+        	IFNULL(ADDRESS, '') AS ADDRESS,
+        	IFNULL(BIRTHDAY, '1980-01-01') AS BIRTHDAY,
+        	IFNULL(STATUS, '') AS STATUS,
+        	IFNULL(DEPARTMENT_CODE, '') AS DEPARTMENT_CODE,
+        	IFNULL(PHOTO, '') AS PHOTO,
+        	IFNULL(UPD_DTM, '') AS UPD_DTM, 
+        	IFNULL(UPD_USR, 'SYSTEM') AS UPD_USR,
+        	IFNULL(ZIPCODE, '') AS ZIPCODE
+    	FROM PROFESSOR
+    	WHERE 1=1
+    	AND PROFESSOR_ID = #{ProId}
 	
 	</select>
 	
@@ -136,4 +142,22 @@
       WHERE PROFESSOR_ID = #{PROFESSOR_ID}
    
    </delete>
+   
+   <!-- 아이디 중복체크 -->
+   <select id="dupCheckId" parameterType="java.util.Map" resultType="INTEGER">
+		
+		SELECT COUNT(1)
+		FROM PROFESSOR
+		WHERE PROFESSOR_ID = #{proId}
+		
+   </select>
+   
+  	<select id="dupCheckEm" parameterType="java.util.Map" resultType="INTEGER">
+  	
+  		SELECT COUNT(1)
+  		FROM PROFESSOR
+  		WHERE EMAIL = #{EMAIL}
+  		AND PROFESSOR_ID != #{PROFESSOR_ID}
+  		
+  	</select>
 </mapper>

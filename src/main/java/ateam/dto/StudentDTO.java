@@ -13,11 +13,10 @@ public class StudentDTO {
 	private Date birthday;
 	private String address;
 	private String status;
-	private String regDate;
-	private int departmentCode;
+	private String photo;
+	private String departmentName;
 	private String password;
 
-	private String departmentName;
 	
 
 	public int getStudentId() {
@@ -76,13 +75,6 @@ public class StudentDTO {
 		this.gender = gender;
 	}
 
-	public String getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
 
 	public String getAddress() {
 		return address;
@@ -92,13 +84,6 @@ public class StudentDTO {
 		this.address = address;
 	}
 
-	public int getDepartmentCode() {
-		return departmentCode;
-	}
-
-	public void setDepartmentCode(int departmentCode) {
-		this.departmentCode = departmentCode;
-	}
 
 
 
@@ -125,6 +110,14 @@ public class StudentDTO {
 
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 }

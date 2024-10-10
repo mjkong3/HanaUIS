@@ -10,9 +10,11 @@ public interface AdProfessorMapper {
 	
 	List<Map<String, Object>> selectAdProList(Map<String, Object> param);
 	
-	int checkAdPro(Map<String, Object> param);
-	
 	void insertAdPro(Map<String, Object> param);
+	
+	int dupCheckId(String ProId);
+	
+	int dupCheckEm(Map<String, Object> param);
 	
 	void updateAdPro(Map<String, Object> param);
 	

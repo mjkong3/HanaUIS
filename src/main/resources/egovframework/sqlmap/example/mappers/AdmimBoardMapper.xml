@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ateam.mapper.AdminBoardMapper">
+
+<select id = "selectBoardList" parameterType="hashMap" resultType="hashMap">
+	
+		SELECT B.BOARD_CODE as BOARD_CODE, B.TITLE as TITLE, B.CRE_DTM as CRE_DTM, B.CRE_USR, A.NAME AS NAME 
+		FROM BOARD B
+			INNER JOIN ADMIN A
+			ON B.CRE_USR = A.ADMIN_CODE
+		WHERE 1=1
+		
+	<if test="SEARCH_WORD != null">
+        <if test="SEARCH_TYPE == 'ALL'">
+        AND (
+            B.BOARD_CODE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR B.TITLE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR B.CRE_DTM LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR A.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+        )
+        </if>
+        <if test="SEARCH_TYPE == 'BOARD_CODE'">
+        AND B.BOARD_CODE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+        </if>
+        <if test="SEARCH_TYPE == 'TITLE'">
+        AND B.TITLE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+        </if>
+        <if test="SEARCH_TYPE == 'NAME'">
+        AND A.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+        </if>
+        <if test="SEARCH_TYPE == 'CRE_DTM'">
+        AND B.CRE_DTM LIKE CONCAT('%', #{SEARCH_WORD}, '%')    
+        </if>
+    </if>
+    
+    	ORDER BY B.BOARD_CODE DESC
+	</select>
+
+<resultMap id="BoardWithFiles" type="hashMap">
+    <!-- BOARD 테이블의 결과 매핑 -->
+    <id property="BOARD_CODE" column="BOARD_CODE"/>
+    <result property="TITLE" column="TITLE"/>
+    <result property="CONTENT" column="CONTENT"/>
+    <result property="CRE_DTM" column="CRE_DTM"/>
+    <result property="ADMIN_NAME" column="ADMIN_NAME"/>
+    
+    <!-- FILE 테이블의 결과 매핑 -->
+    <collection property="FILES" ofType="hashMap" javaType="ArrayList">
+        <result property="FILE_NAME" column="FILE_NAME"/>
+    </collection>
+    
+    <!-- IMAGE 테이블 결과 매핑 -->
+    <collection property="IMAGE" ofType="hashMap" javaType="Map">	
+        <result property="IMAGE" column="IMAGE"/>
+    </collection>
+</resultMap>
+
+<select id="selectBoard" parameterType="String" resultMap="BoardWithFiles">
+    SELECT B.BOARD_CODE, B.TITLE, B.CONTENT, B.CRE_DTM, B.IMAGE,
+           A.NAME AS ADMIN_NAME, 
+           F.FILE_NAME
+    FROM BOARD B
+    LEFT JOIN ADMIN A ON B.CRE_USR = A.ADMIN_CODE
+    LEFT JOIN FILE F ON B.BOARD_CODE = F.BOARD_CODE
+    WHERE B.BOARD_CODE = #{id}
+    
+</select>
+
+</mapper>

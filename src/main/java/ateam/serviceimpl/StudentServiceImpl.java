@@ -28,6 +28,8 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	public StudentMapper mapper;
 
+	
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인
 	// 학생 로그인 (이름 대신 StudentDTO 전체 반환)
     public StudentDTO loginCheck(StudentDTO dto, HttpSession session) {
         StudentDTO studentDTO = loginDao.loginCheck(dto);
@@ -36,12 +38,40 @@ public class StudentServiceImpl implements StudentService {
         }
         return studentDTO;
     }
+	@Override
+	public String studentDepartment(int studentId) {
+		return mapper.studentDepartment(studentId);
+	}
 
     //로그아웃
     public void logout(HttpSession session) {
         session.invalidate(); // 세션 초기화
     }
+    
+    
+    
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마이페이지 수정
+	//연락처 수정
+    @Override
+    public int updatePhone(Map<String, Object> param) {
+       return mapper.updatePhone(param);
+    }
 
+    //이메일 수정
+    @Override
+    public int updateEmail(Map<String, Object> param) {
+       return mapper.updateEmail(param);
+    }
+    
+	@Override
+	public Map<String, Object> selectStudent(int studentId) {
+		return mapper.selectStudent(studentId);
+	}
+    
+
+    
+    
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 휴복학 신청
 	// 학생 휴학/복학 신청 & 정보 조회하기
 	public StudentDTO stuStatus(int studentId) {
 		// DB에서 학생 상태를 조회하여 반환
@@ -54,8 +84,6 @@ public class StudentServiceImpl implements StudentService {
 		return mapper.statusList(studentId);
 	}
 
-
-
 	 // 학색 휴학/복학 신규정보 기입
 	@Override
 	public void insertStatus(Map<String, Object> map) {
@@ -63,6 +91,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적조회
 	@Override
 	public List<Map<String, Object>> myGradeList(Map<String, Object> map) {
 		return mapper.myGradeList(map);
@@ -73,8 +102,14 @@ public class StudentServiceImpl implements StudentService {
 		List<Map<String, Object>> totalGrade = mapper.myTotalGradeList(studentId);
 		return totalGrade;
 	}
+	@Override
+	public int countAllClass(Map<String, Object> map) {
+		return mapper.countAllClass(map);
+	}
 	
 	
+	
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 수강신청
 	// 수업신청 1.수강목록 조회
 	@Override
 	public List<Map<String, Object>> selectClass(int studentId) {
@@ -107,33 +142,16 @@ public class StudentServiceImpl implements StudentService {
 	      return mapper.selectedClasses(departmentCode, studentId);
 	   }
 
-	@Override
-	public int updatePhone(String studentId, String phone) {
-	      Map<String, Object> map = new HashMap<>();
-	      map.put("studentId", studentId);
-	      map.put("phone", phone);
-	      return mapper.updatePhone(map);		
-	}
-
-	@Override
-	public int updateEmail(String studentId, String email) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("studentId", studentId);
-		map.put("email", email);
-	      return mapper.updateEmail(map);		
-	}
-
-	@Override
-	public String studentDepartment(int studentId) {
-		return mapper.studentDepartment(studentId);
-	}
-
-	@Override
-	public int countAllClass(Map<String, Object> map) {
-		return mapper.countAllClass(map);
-	}
 
 
+
+
+
+
+
+
+
+    
 
 
 

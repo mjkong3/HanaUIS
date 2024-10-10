@@ -17,22 +17,19 @@
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
-            obj = new Dataset("ds_date", this);
-            obj._setContents("<ColumnInfo><Column id=\"regDate\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"regDate\">2011-01-01</Col></Row></Rows>");
+            obj = new Dataset("test11", this);
+            obj._setContents("<ColumnInfo><Column id=\"Column0\" type=\"STRING\" size=\"256\"/><Column id=\"Column1\" type=\"STRING\" size=\"256\"/><Column id=\"Column2\" type=\"STRING\" size=\"256\"/><Column id=\"Column3\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Button("Button00","390","43","120","50",null,null,null,null,null,null,this);
+            obj = new WebBrowser("WebBrowser00","308","140","142","80",null,null,null,null,null,null,this);
             obj.set_taborder("0");
-            obj.set_text("Button00");
+            obj.set_visible("false");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("Calendar00","406","92","208","82",null,null,null,null,null,null,this);
+            obj = new Button("Button00","125","149","120","50",null,null,null,null,null,null,this);
             obj.set_taborder("1");
-            this.addChild(obj.name, obj);
-
-            obj = new TextArea("TextArea00","56","68","294","152",null,null,null,null,null,null,this);
-            obj.set_taborder("2");
+            obj.set_text("Button00");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -41,9 +38,7 @@
             this.addLayout(obj.name, obj);
             
             // BindItem Information
-            obj = new BindItem("item0","Calendar00","value","ds_date","regDate");
-            this.addChild(obj.name, obj);
-            obj.bind();
+
             
             // TriggerItem Information
 
@@ -57,15 +52,14 @@
         // User Script
         this.registerScript("test11.xfdl", function() {
 
-        this.Button00_onclick = function(obj,e)
+        this.test11_onload = function(obj,e)
         {
-        	Application.gdsSession.set_item("regDate", this.ds_date.getColumn(0, "regDate"));
-        	trace(gdsSession.get_id(0));
+
         };
 
-        this.TextArea00_onchanged = function(obj,e)
+        this.Button00_onclick = function(obj,e)
         {
-
+        	this.WebBrowser00.set_url("http://localhost:8082/HanaUIS/postcode.jsp");
         };
 
         });
@@ -73,8 +67,8 @@
         // Regist UI Components Event
         this.on_initEvent = function()
         {
+            this.addEventHandler("onload",this.test11_onload,this);
             this.Button00.addEventHandler("onclick",this.Button00_onclick,this);
-            this.TextArea00.addEventHandler("onchanged",this.TextArea00_onchanged,this);
         };
         this.loadIncludeScript("test11.xfdl");
         this.loadPreloadList();

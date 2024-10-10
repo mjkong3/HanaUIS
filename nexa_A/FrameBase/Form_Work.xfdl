@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="Form_Work" width="1080" height="650" titletext="Form_Work" onload="frmWork_onload">
+  <Form id="Form_Work" width="1080" height="650" titletext="Form_Work" onload="frmWork_onload" onkeyup="Form_Work_onkeyup">
     <Layouts>
       <Layout width="1080" height="650" screenid="Desktop_screen">
         <ImageViewer id="ImageViewer00" taborder="0" left="70" top="0" width="930" height="559" image="url('image::KakaoTalk_20240905_092944347.png')" border="10px solid white" onclick="ImageViewer00_onclick"/>
@@ -34,6 +34,13 @@
 this.ImageViewer00_onclick = function(obj:nexacro.ImageViewer,e:nexacro.ClickEventInfo)
 {
 	
+};
+
+this.Form_Work_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	if(e.keycode==13){
+		this.btn_Search.click();
+	}
 };
 ]]></Script>
   </Form>

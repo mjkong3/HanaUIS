@@ -7,19 +7,12 @@ public class BoardDTO {
 
 	private int boardCode;
 	private String title;
+	private String image;
 	private String content;
-	private Date regdate;
+	private Date regDtm;
 	private int adminCode;
-	private String fileCode;
-	private File fileName;
 	
 
-	public File getFileName() {
-		return fileName;
-	}
-	public void setFileName(File fileName) {
-		this.fileName = fileName;
-	}
 	public int getBoardCode() {
 		return boardCode;
 	}
@@ -39,24 +32,23 @@ public class BoardDTO {
 		this.content = content;
 	}
 
-
-	public Date getRegdate() {
-		return regdate;
-	}
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
-	}
 	public int getAdminCode() {
 		return adminCode;
 	}
 	public void setAdminCode(int adminCode) {
 		this.adminCode = adminCode;
 	}
-	public String getFileCode() {
-		return fileCode;
+	public Date getRegDtm() {
+		return regDtm;
 	}
-	public void setFileCode(String fileCode) {
-		this.fileCode = fileCode;
+	public void setRegDtm(Date regDtm) {
+		this.regDtm = regDtm;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

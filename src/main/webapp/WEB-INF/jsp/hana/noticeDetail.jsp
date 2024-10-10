@@ -51,7 +51,7 @@
 		        </tr>
 		        <tr>
 		        	<th>작성일</th>
-		        	<td name="date"><fmt:formatDate value="${board.regdate}" pattern="yyyy년  MM월  dd일"/></td>
+		        	<td name="date"><fmt:formatDate value="${board.regDtm}" pattern="yyyy년  MM월  dd일"/></td>
 		        </tr>
 		        <tr>
 		        	 <th>첨부 파일</th>
@@ -62,8 +62,17 @@
 	                  </td>
 		        </tr>
 		        <tr >
-		        	<td class="boardContent" colspan="2">${board.content}</td>
+		        	<td colspan="2" class="boardImage">
+						<br>	
+		        		${board.content}
+		        		<br>
+		        		<br>
+		        		<br>
+    					<img src="${pageContext.request.contextPath}/images/egovframework/boardImage/${board.image}" />
+
+	        		</td>
 		        </tr>
+
 	        </table>
 
 	        <div class="back-button">

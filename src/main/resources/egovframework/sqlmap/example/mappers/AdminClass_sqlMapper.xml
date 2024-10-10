@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="ateam.mapper.AdminClassroomMapper">
+	
+	<select id="SelectAdminClassroom" resultType="java.util.Map">
+		SELECT CLASSROOM_ID, CLASSROOM_NAME, MAX_PEOPLE
+		from CLASSROOM;
+	</select>
+	
+	<select id="SelectAdminclassyear" resultType="java.util.Map">
+		SELECT DISTINCT YEAR(CLASS_START) as YEAR, CONCAT(YEAR(CLASS_START), "년") AS YEARN
+		FROM CLASS
+		order by YEAR desc;
+	</select>
+	
+	<select id="SelectAdminclasssem" resultType="java.util.Map">
+		SELECT DISTINCT	SEMESTER as SEMESTER, CONCAT(SEMESTER, "학기") as SEMESTERN
+		FROM CLASS
+		order by SEMESTER desc;
+	</select>
+	
+	<select id="SelectAdminClasstime" parameterType="String" resultType="java.util.Map">
+		WITH TIME_TABLE AS (
+		    SELECT 1 AS TIME_NUMBER
+		    UNION ALL
+		    SELECT 2 AS TIME_NUMBER
+		    UNION ALL
+		    SELECT 3 AS TIME_NUMBER
+		    UNION ALL
+		    SELECT 4 AS TIME_NUMBER
+		    UNION ALL
+		    SELECT 5 AS TIME_NUMBER
+		)
+		SELECT 
+		    t.TIME_NUMBER AS 교시,
+		    MAX(CASE WHEN c.CLASS_WEEK = 1 THEN concat(a.CLASS_NAME, '&#13;&#10;', IFNULL(p.NAME, '')) ELSE '' END) AS 월요일,
+		    MAX(CASE WHEN c.CLASS_WEEK = 2 THEN concat(a.CLASS_NAME, '&#13;&#10;', IFNULL(p.NAME, '')) ELSE '' END) AS 화요일,
+		    MAX(CASE WHEN c.CLASS_WEEK = 3 THEN concat(a.CLASS_NAME, '&#13;&#10;', IFNULL(p.NAME, '')) ELSE '' END) AS 수요일,
+		    MAX(CASE WHEN c.CLASS_WEEK = 4 THEN concat(a.CLASS_NAME, '&#13;&#10;', IFNULL(p.NAME, '')) ELSE '' END) AS 목요일,
+		    MAX(CASE WHEN c.CLASS_WEEK = 5 THEN concat(a.CLASS_NAME, '&#13;&#10;', IFNULL(p.NAME, '')) ELSE '' END) AS 금요일
+
+		FROM TIME_TABLE t
+		LEFT JOIN CLASS_TIME c
+		    ON t.TIME_NUMBER = c.TIME_NUMBER
+		LEFT JOIN CLASS a
+		    ON a.CLASS_CODE = c.CLASS_CODE
+		    AND a.CLASSROOM_ID = #{param}
+		LEFT JOIN PROFESSOR p 
+			ON a.PROFESSOR_ID = p.PROFESSOR_ID
+		GROUP BY t.TIME_NUMBER
+		ORDER BY t.TIME_NUMBER ASC;
+	</select>
+	
+	<select id="SelectAdminClasstimeid" parameterType="String" resultType="java.util.Map">
+		WITH TIME_TABLE AS (
+		    SELECT 1 AS TIME_NUMBER
+		    UNION ALL
+		    SELECT 2 AS TIME_NUMBER
+		    UNION ALL
+		    SELECT 3 AS TIME_NUMBER
+		    UNION ALL
+		    SELECT 4 AS TIME_NUMBER
+		    UNION ALL
+		    SELECT 5 AS TIME_NUMBER
+		)
+		SELECT 
+		    t.TIME_NUMBER AS 교시,
+		        MAX(CASE WHEN c.CLASS_WEEK = 1 THEN concat(a.CLASS_CODE) ELSE '' END) AS 월요일,
+			    MAX(CASE WHEN c.CLASS_WEEK = 2 THEN concat(a.CLASS_CODE) ELSE '' END) AS 화요일,
+			    MAX(CASE WHEN c.CLASS_WEEK = 3 THEN concat(a.CLASS_CODE) ELSE '' END) AS 수요일,
+			    MAX(CASE WHEN c.CLASS_WEEK = 4 THEN concat(a.CLASS_CODE) ELSE '' END) AS 목요일,
+			    MAX(CASE WHEN c.CLASS_WEEK = 5 THEN concat(a.CLASS_CODE) ELSE '' END) AS 금요일
+		FROM TIME_TABLE t
+		LEFT JOIN CLASS_TIME c
+		    ON t.TIME_NUMBER = c.TIME_NUMBER
+		LEFT JOIN CLASS a
+		    ON a.CLASS_CODE = c.CLASS_CODE
+		    AND a.CLASSROOM_ID = #{param}
+		LEFT JOIN PROFESSOR p 
+			ON a.PROFESSOR_ID = p.PROFESSOR_ID
+		GROUP BY t.TIME_NUMBER
+		ORDER BY t.TIME_NUMBER ASC;
+	</select>
+	
+	<select id="SelectAdminClasscourse" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT c.CLASS_TIME_CODE as CLASS_TIME_CODE,
+			   a.CLASSROOM_ID as CLASSROOM_ID, 
+		       a.CLASS_NAME as CLASS_NAME, 
+		       a.PROFESSOR_ID as PROFESSOR_ID, 
+		       b.CLASSROOM_NAME as CLASSROOM_NAME, 
+		       a.DEPARTMENT_CODE as DEPARTMENT_CODE, 
+		       c.TIME_NUMBER as TIME_NUMBER, 
+		       c.CLASS_WEEK as CLASS_WEEK,
+		       a.CLASS_CODE as CLASS_CODE,
+		       p.NAME as PROFESSOR_NAME,
+		       a.SEMESTER as SEMESTER,
+		       a.CLASS_GRADE as CLASS_GRADE,
+		       a.CLASS_START as CLASS_START,
+		       a.CLASS_END as CLASS_END,
+		       a.CRE_USR as ADMIN_CODE,
+		       a.UPD_DTM as REGDATE,
+		       0 AS 'CHECK',
+		       0 AS 'CHECKS'
+		FROM CLASS a
+		LEFT JOIN CLASSROOM b
+		    ON a.CLASSROOM_ID = b.CLASSROOM_ID
+		LEFT JOIN CLASS_TIME c
+		    ON a.CLASS_CODE = c.CLASS_CODE
+		LEFT JOIN PROFESSOR p
+			ON p.PROFESSOR_ID = a.PROFESSOR_ID
+		WHERE YEAR(a.CLASS_START)= #{YEAR}
+				and a.SEMESTER = #{SEMESTER};
+	</select>
+
+	<select id="SelectAdminclasstime" parameterType="java.util.Map" resultType="Integer">
+		SELECT COUNT(CLASS_TIME_CODE)  
+		FROM CLASS_TIME
+		WHERE CLASS_TIME_CODE = #{CLASS_TIME_CODE}
+	</select>
+	
+	<update id="updateAdminClasscourse" parameterType="java.util.Map">
+		UPDATE CLASS
+		SET CLASSROOM_ID = #{CLASSROOM_ID}, 
+			UPD_DTM = NOW(),
+			UPD_USR = #{ADMIN_CODE}
+		WHERE CLASS_CODE = #{CLASS_CODE};
+	</update>
+	
+	<insert id="insertAdminClasscourse" parameterType="java.util.Map">
+		INSERT INTO CLASS_TIME(
+			<if test="CLASS_TIME_CODE != null">
+				CLASS_TIME_CODE,
+			</if>
+			CLASS_CODE, 
+			CLASS_WEEK, 
+			TIME_NUMBER,
+			CRE_DTM,
+			CRE_USR
+			)
+				VALUES (
+				<if test="CLASS_TIME_CODE != null">
+					#{CLASS_TIME_CODE},
+				</if>
+				#{CLASS_CODE}, 
+				#{CLASS_WEEK}, 
+				#{TIME_NUMBER},
+				NOW(),
+				#{ADMIN_CODE})
+	</insert>
+	
+	<update id="updateAdminClasscourse2" parameterType="java.util.Map">
+		UPDATE CLASS_TIME
+		SET CLASS_CODE = #{CLASS_CODE},
+			CLASS_WEEK = #{CLASS_WEEK},
+			TIME_NUMBER = #{TIME_NUMBER},
+			UPD_DTM = NOW(),
+			UPD_USR = #{ADMIN_CODE}
+		WHERE CLASS_TIME_CODE = #{CLASS_TIME_CODE};
+	</update>
+	
+	<delete id="deleteAdminClasscourse" parameterType="java.util.Map">
+		DELETE from CLASS_TIME
+		WHERE CLASS_TIME_CODE = #{CLASS_TIME_CODE};
+	</delete>
+	
+	<select id="checkAdminclassroom" parameterType="java.util.Map" resultType="Integer">
+		SELECT COUNT(CLASSROOM_ID)  
+		FROM CLASSROOM
+		WHERE CLASSROOM_ID = #{CLASSROOM_ID}
+	</select>
+	
+	<insert id="insertAdminclassroom" parameterType="java.util.Map">
+		INSERT INTO CLASSROOM (CLASSROOM_ID, CLASSROOM_NAME, MAX_PEOPLE, CRE_DTM, CRE_USR)
+			VALUES(#{CLASSROOM_ID}, #{CLASSROOM_NAME}, #{MAX_PEOPLE}, NOW(), #{ADMIN_CODE})
+	</insert>
+	
+	<update id="updateAdminclassroom" parameterType="java.util.Map">
+		UPDATE CLASSROOM SET CLASSROOM_NAME = #{CLASSROOM_NAME}, MAX_PEOPLE = #{MAX_PEOPLE}, UPD_DTM = NOW(), UPD_USR = #{ADMIN_CODE}
+		WHERE CLASSROOM_ID = #{CLASSROOM_ID}
+	</update>
+	
+	<delete id="deleteAdminClassroom" parameterType="java.util.Map">
+		DELETE from CLASSROOM
+		WHERE CLASSROOM_ID = #{CLASSROOM_ID};
+	</delete>
+	
+</mapper>

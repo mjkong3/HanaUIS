@@ -43,7 +43,8 @@
 
 
             obj = new Dataset("student_dtl_list", this);
-            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/></ColumnInfo>");
+            obj.set_useclientlayout("true");
+            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"PASSWORD\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"256\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"INT\" size=\"256\"/><Column id=\"PHOTO\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -55,12 +56,14 @@
             obj = new Grid("Depart_Grd","33","96","237","524",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_binddataset("DEPARTMENT_List");
+            obj.set_autofittype("col");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"93\"/><Column size=\"142\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"학과코드\"/><Cell col=\"1\" text=\"학과명\"/></Band><Band id=\"body\"><Cell text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:DEPARTMENT_NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Grid("Dtl_Grid","293","96","947","524",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("DEPARTMENT_DTL_List");
+            obj.set_autofittype("col");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"48\"/><Column size=\"158\"/><Column size=\"126\"/><Column size=\"123\"/><Column size=\"194\"/><Column size=\"248\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"No\"/><Cell col=\"2\" text=\"학번\"/><Cell col=\"3\" text=\"이름\"/><Cell col=\"4\" text=\"상태\"/><Cell col=\"5\" text=\"번호\"/><Cell col=\"6\" text=\"이메일\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"expr:currow + 1\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:Student_id\"/><Cell col=\"3\" text=\"bind:Name\"/><Cell col=\"4\" text=\"bind:Status\"/><Cell col=\"5\" text=\"bind:Phone\"/><Cell col=\"6\" text=\"bind:Email\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
@@ -73,21 +76,21 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Button("Select_btn","1026","30","68","46",null,null,null,null,null,null,this);
+            obj = new Button("Select_btn","1000","30","68","46",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_text("조회");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("Edit00","293","30","697","46",null,null,null,null,null,null,this);
+            obj = new Edit("Edit00","293","30","687","46",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             this.addChild(obj.name, obj);
 
-            obj = new Button("plus_btn","1116","30","64","46",null,null,null,null,null,null,this);
+            obj = new Button("plus_btn","1090","30","64","46",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_text("등록");
             this.addChild(obj.name, obj);
 
-            obj = new Button("delete_btn","1200","30","66","46",null,null,null,null,null,null,this);
+            obj = new Button("delete_btn","1174","30","66","46",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("삭제");
             obj.set_visible("true");
@@ -187,8 +190,8 @@
            popup.set_resizable(true);
            popup.set_openalign("center middle");
            popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
-           popup.style.set_overlaycolor("#6666664C");
-           popup.form.style.set_border("1 solid #4c5a6f");
+        //    popup.style.set_overlaycolor("#6666664C");
+        //    popup.form.style.set_border("1 solid #4c5a6f");
         }
 
         // 팝업콜백 함수
