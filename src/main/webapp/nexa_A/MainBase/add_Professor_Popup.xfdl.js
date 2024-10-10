@@ -234,7 +234,7 @@
             obj.set_displaynulltext("학과를 선택하세요");
             obj.set_text("");
             obj.set_value("");
-            obj.set_index("-1");
+            obj.set_index("0");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_Email","791","309","119","30",null,null,null,null,null,null,this);
