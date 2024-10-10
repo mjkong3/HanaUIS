@@ -47,16 +47,7 @@
 			AND DEPARTMENT_CODE = #{DEPARTMENT_CODE}
 		</if>
 	</select>
-	
-	<!-- pro_id를 통해 기등록 - update / 미등록 - insert -->
-	<select id="checkAdPro" parameterType="java.util.Map" resultType="Integer">
-		
-		SELECT COUNT(1)
-		FROM PROFESSOR
-		WHERE PROFESSOR_ID = #{PROFESSOR_ID}
-	
-	</select>
-	
+
 	<!-- 미등록시 insert문 실행 -->
 	<insert id="insertAdPro" parameterType="java.util.Map">
 		
@@ -115,7 +106,8 @@
 					UPD_USR = #{UPD_USR},
 					UPD_DTM = SYSDATE(),
 					ZIPCODE = #{ZIPCODE}
-					WHERE PROFESSOR_ID = #{PROFESSOR_ID}
+					WHERE 
+					PROFESSOR_ID = #{PROFESSOR_ID}
 	
 	</update>
 	
@@ -164,7 +156,8 @@
   	
   		SELECT COUNT(1)
   		FROM PROFESSOR
-  		WHERE EMAIL = #{email}
+  		WHERE EMAIL = #{EMAIL}
+  		AND PROFESSOR_ID != #{PROFESSOR_ID}
   		
   	</select>
 </mapper>

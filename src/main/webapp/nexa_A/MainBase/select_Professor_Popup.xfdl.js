@@ -29,7 +29,7 @@
 
 
             obj = new Dataset("ds_dept", this);
-            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"name\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -56,6 +56,11 @@
 
             obj = new Dataset("ds_reAdr", this);
             obj._setContents("");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_vali", this);
+            obj._setContents("<ColumnInfo><Column id=\"CHECK_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK_EM\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
@@ -197,7 +202,7 @@
 
             obj = new Edit("edt_ProId","517","113","153","30",null,null,null,null,null,null,this);
             obj.set_taborder("21");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_ProPw","789","113","239","30",null,null,null,null,null,null,this);
@@ -265,6 +270,7 @@
             obj.set_taborder("30");
             obj.set_readonly("true");
             obj.set_cssclass("edt_Adr");
+            obj.set_displaynulltext("주소검색 버튼으로 검색하세요");
             this.addChild(obj.name, obj);
 
             obj = new FileUpload("FileUpload00","163","359","177","22",null,null,null,null,null,null,this);
@@ -328,6 +334,7 @@
 
             obj = new Edit("edt_DtlAdr","516","456","512","30",null,null,null,null,null,null,this);
             obj.set_taborder("42");
+            obj.set_displaynulltext("상세주소를 입력하세요");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_01_00_02_00","409","348","98","50",null,null,null,null,null,null,this);
@@ -347,6 +354,7 @@
             obj.set_taborder("45");
             obj.set_readonly("true");
             obj.set_cssclass("edt_Adr");
+            obj.set_displaynulltext("우편번호");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_Adr","690","354","80","38",null,null,null,null,null,null,this);
@@ -437,6 +445,8 @@
         // 3. 수정완료 - update문 실행시키기 + EMAIL / ADDR 합쳐서 넣기
         // 4. 초기화버튼
         // 5. 기타기능 - 이메일 + 주소검색
+        // 6. 유효성검사
+        // 7. 콜백함수
 
         // 1. 화면호출
         this.select_Professor_Popup_onload = function(obj,e)
@@ -504,7 +514,7 @@
         	this.btn_Adr.set_enable(true);
         };
 
-        // 3. 작성완료 - update문 실행
+        // 3. 작성완료 - update문 실행 + null check
 
         this.btn_Add_onclick = function(obj,e)
         {
@@ -519,7 +529,29 @@
         	var rAddr = this.ds_address.getColumn(0, "REMAINADDR");
         	this.ds_pro.setColumn(0, "ADDRESS", fAddr + "/" + rAddr);
         	this.ds_pro.setColumn(0, "ZIPCODE", this.ds_address.getColumn(0, "ZIPCODE"));
-        	this.fn_updatePro();
+
+        	// pw null 검사
+        	var proPw = this.ds_pro.getColumn(0, "PASSWORD");
+        	if (proPw == null || proPw == '' || proPw == 'undefined'){
+        		alert("비밀번호를 입력하세요");
+        		return;
+        	}
+
+        	// 이름 null 검사
+        	var name = this.ds_pro.getColumn(0, "NAME");
+        	if (name == null || name == '' || name == 'undefined'){
+        		alert("이름을 입력하세요");
+        		return;
+        	}
+
+        	// dept null 검사 - 통과시 email 정규식
+        	var dept = this.cmb_Dept.value;
+        	if (dept == 0){
+        		alert("학과를 선택해주세요");
+        	} else {
+        		// 이메일 정규식 호출
+        		this.fn_valiEmChk();
+        	}
 
         };
 
@@ -555,7 +587,6 @@
         // readOnly 제어함수
         this.fn_setReadOnly = function (isReadonly)
         {
-        	this.edt_ProId.set_readonly(isReadonly);
         	this.edt_ProPw.set_readonly(isReadonly);
         	this.edt_ProName.set_readonly(isReadonly);
         	this.cmb_Dept.set_readonly(isReadonly);
@@ -563,6 +594,7 @@
         	this.cal_Birth.set_readonly(isReadonly);
         	this.edt_Phone.set_readonly(isReadonly);
         	this.cmb_Status.set_readonly(isReadonly);
+        	this.edt_EmailPt.set_readonly(isReadonly);
         	this.edt_DomainPt.set_readonly(isReadonly);
         	this.edt_DtlAdr.set_readonly(isReadonly);
         };
@@ -582,18 +614,9 @@
         	trace("아이디 제대로 들어갔나? " + this.ds_pro.getColumn(0, "UPD_USR"));
         };
 
-        this.fnCallback = function (svcID, errCD, errMsg)
-        {
-        	if (svcID == "updatePro" && errCD == 0) {
-        		trace("수정완료");
-        		alert("수정이 완료되었습니다");
-        		this.close("success");
 
-        	}
-        };
-
-        // 4. 기타기능 - 이메일 + 주소검색
-        // 4-1) 이메일
+        // 5. 기타기능 - 이메일 + 주소검색
+        // 5-1) 이메일
         // 이메일 입력파트 - @없이 작성시 맨 앞에 @ 추가
         this.edt_DomainPt_onchanged = function(obj,e)
         {
@@ -615,7 +638,7 @@
         	}
         };
 
-        // 4-2) 주소검색
+        // 5-2) 주소검색
         // 주소검색 버튼
         this.btn_Adr_onclick = function(obj,e)
         {
@@ -645,6 +668,96 @@
         	trace(this.ds_address.getColumn(0, "FULLADDR"));
         };
 
+        // 6. 유효성 검사
+        // 정규식 - email, phone, pw
+        // null체크 - pw, 학과, 이름
+        // 중복검사 - email
+        // 6-1) 비밀번호 정규식
+        this.edt_ProPw_onchanged = function(obj,e)
+        {
+            var password = obj.value;
+            var regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{4,}$/;
+        		if (!regex.test(password)) {
+        			alert("비밀번호는 최소 4자 이상이며, 특수문자가 포함되어야 합니다.");
+        			obj.set_value("");
+        			obj.setFocus();
+        		} else {
+        			trace("비밀번호가 유효합니다.");
+        		}
+        };
+
+        // 6-2) 이메일 정규식
+        this.fn_valiEmChk = function ()
+        {
+        	var email = this.ds_pro.getColumn(0, "EMAIL");
+        	var regem = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        	if (!regem.test(email)) {
+        		alert("유효한 이메일 주소를 입력하세요.");
+        		this.edt_Email.set_value("");
+        		this.edt_Email.setFocus();
+        	} else {
+        		trace("이메일값좀 보자1 " + email);
+        		this.fn_dupEmChk();
+        	}
+        };
+
+        // 6-3) 이메일 중복체크
+        this.fn_dupEmChk = function ()
+        	{
+        		var strSvcId    = "dupCheckEm";
+        		var strSvcUrl   = "svc::dupCheckEm.do";
+        		var inData      = "ds_pro=ds_pro";
+        		var outData     = "ds_vali=ds_vali";
+        		var strArg      = ""
+        		var callBackFnc = "fnCallback";
+        		var isAsync     = true;
+
+        		this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        	};
+
+        // 6-4) 연락처 정규식
+        this.fn_valiPhChk = function ()
+        {
+        	var phone = this.ds_pro.getColumn(0, "PHONE");
+        	var regph = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
+        	if(!regph.test(phone)){
+        		alert("연락처는 다음과 같이 입력해주세요 : 01x-xxxx-xxxx");
+        		this.edt_Phone.set_value("");
+        		this.edt_Phone.setFocus();
+        	} else {
+        		this.fn_updatePro();
+        	}
+        };
+
+        // 7. 콜백함수
+        this.fnCallback = function (svcID, errCD, errMsg)
+        {
+        	if(errCD == -1) {
+        		alert(errMsg);
+        		return
+        	}
+
+        	switch(svcID) {
+        	// 등록버튼
+        	case "updatePro":
+        		trace("수정완료")
+        		alert("수정이 완료되었습니다!");
+        		this.close("success");
+        		break;
+        	// 이메일 중복체크
+        	case "dupCheckEm":
+        		var chkEm = this.ds_vali.getColumn(0, "CHECK_EM");
+        		trace("이메일값?" + chkEm);
+        		if (chkEm == "Y") {
+        			// 연락처 유효성 정규식
+        			this.fn_valiPhChk();
+        		} else {
+        			alert("중복된 email 입니다");
+        		}
+        		break;
+        		}
+        };
         });
         
         // Regist UI Components Event
@@ -652,6 +765,7 @@
         {
             this.addEventHandler("onload",this.select_Professor_Popup_onload,this);
             this.Static00_01_00.addEventHandler("onclick",this.Static00_01_00_onclick,this);
+            this.edt_ProPw.addEventHandler("onchanged",this.edt_ProPw_onchanged,this);
             this.FileUpload00.addEventHandler("onitemchanged",this.FileUpload00_onitemchanged,this);
             this.btn_Add.addEventHandler("onclick",this.btn_Add_onclick,this);
             this.btn_Update.addEventHandler("onclick",this.btn_Update_onclick,this);
