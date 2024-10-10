@@ -127,3 +127,8 @@
 	background : white;
 	color : black;
 }
+.Combo.cmb_readonly[status=readonly]
+{
+	background : white;
+	color : black;
+}

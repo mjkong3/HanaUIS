@@ -17,5 +17,5 @@ public interface AdProfessorService {
 	
 	String dupCheckId(String ProId);
 	
-	String dupCheckEm(String email);
+	String dupCheckEm(Map<String, Object>param);
 }

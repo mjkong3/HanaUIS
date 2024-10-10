@@ -166,7 +166,7 @@
         	var inData      = "";
         	var outData     = "ds_dept = ds_dept";
         	var strArg      = "";
-        	var callBackFnc = "fnCallBack";
+        	var callBackFnc = "fnCallback";
         	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
@@ -213,7 +213,7 @@
         	var inData      = "ds_search = ds_search";
         	var outData     = "ds_list = ds_list";
         	var strArg      = "";
-        	var callBackFnc = "fnCallBack";
+        	var callBackFnc = "fnCallback";
         	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
@@ -296,7 +296,7 @@
         	var inData      = "ds_delete = ds_delete";
         	var outData     = "";
         	var strArg      = "";
-        	var callBackFnc = "fnCallBack";
+        	var callBackFnc = "fnCallback";
         	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
@@ -328,7 +328,7 @@
         	var inData      = "";
         	var outData     = "ds_pro=ds_list";
         	var strArg      = "PROFESSOR_ID="+proId;
-        	var callBackFnc = "fnCallBack";
+        	var callBackFnc = "fnCallback";
         	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
@@ -353,7 +353,7 @@
         }
 
         // 6-1) 콜백함수 - 트랜잭션
-        this.fnCallBack = function (svcID, errCD, errMsg)
+        this.fnCallback = function (svcID, errCD, errMsg)
         {
         	if(errCD == -1)
         	{
@@ -390,7 +390,7 @@
         		// ds_dept에 row 추가 후 onrowpos이벤트 실행
         		this.ds_dept.set_rowposition(0); // 첫번째 행 수동 설정
         		this.onRowKey = true; // onrow 이벤트 트리거(on)
-        		this.ds_dept_onrowposchanged(this.ds_dept, null); // 이벤트 수동호출
+        		this.ds_dept_onrowposchanged(this.ds_dept, null); // 이벤트 강제호출
         		break;
 
         		// grd 더블클릭으로 상세보기 검색 후
@@ -429,7 +429,7 @@
         	}
         };
 
-        // 6-2) 콜백함수 - 팝업호출 / 등록 및 삭제 후 list 최신화
+        // 6-2) 콜백함수 - 팝업호출 / 등록 및 수정 후 list 최신화
         this.fn_popupCallback = function (popID, rVal)
         {
         	switch(popID) {
