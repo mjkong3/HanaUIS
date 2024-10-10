@@ -336,3 +336,8 @@ textarea::-webkit-scrollbar { display: none; }
 	background : white;
 	color : black;
 }
+#nexacontainer .Combo.cmb_readonly[status=readonly]
+{
+	background : white;
+	color : black;
+}

@@ -60,6 +60,11 @@
             obj = new Dataset("ds_vali", this);
             obj._setContents("<ColumnInfo><Column id=\"CHECK_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK_EM\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_reDept", this);
+            obj._setContents("");
+            this.addChild(obj.name, obj);
             
             // UI Components Initialize
             obj = new Static("Static00_03_01_00_00_00_02_00","506","348","176","50",null,null,null,null,null,null,this);
@@ -226,6 +231,7 @@
             obj.set_codecolumn("DEPARTMENT_CODE");
             obj.set_datacolumn("DEPARTMENT_NAME");
             obj.set_readonly("false");
+            obj.set_displaynulltext("학과를 선택하세요");
             obj.set_text("");
             obj.set_value("");
             obj.set_index("-1");
@@ -233,7 +239,9 @@
 
             obj = new Edit("edt_Email","791","309","119","30",null,null,null,null,null,null,this);
             obj.set_taborder("25");
-            obj.set_readonly("false");
+            obj.set_readonly("true");
+            obj.set_cssclass("edt_Adr");
+            obj.set_displaynulltext("교번이 필요합니다");
             this.addChild(obj.name, obj);
 
             obj = new Radio("rdo_Gender","517","211","153","36",null,null,null,null,null,null,this);
@@ -452,6 +460,7 @@
         // 3. 초기화버튼
         // 4. 기타기능 - 이메일 + 주소검색
         // 5. 유효성 검사
+        // 6. 콜백함수
 
         // 1. 화면호출
         this.add_Professor_Popup_onload = function(obj,e)
@@ -489,7 +498,7 @@
         	this.ds_reAdr.copyData(this.ds_address);
         };
 
-        // 2. 등록 - 작성완료 btn 누를 시 insert문 실행
+        // 2. 등록 - 작성완료 btn 누를 시 insert문 실행 + null check
         this.btn_Add_onclick = function(obj,e)
         {
         	// 이메일 파트 합치기
@@ -505,13 +514,40 @@
         	trace("우편주소는?" + this.ds_pro.getColumn(0, "ZIPCODE"));
         	this.ds_pro.setColumn(0, "ADDRESS", fAddr + "/" + rAddr);
 
-        	// 학과 선택 했는지?
+        	// id null 검사
+        	var proId = this.ds_pro.getColumn(0, "PROFESSOR_ID");
+        	if (proId == null || proId == '' || proId == 'undefined'){
+        		alert("아이디를 입력하세요");
+        		return;
+        	}
+        	// pw null 검사
+        	var proPw = this.ds_pro.getColumn(0, "PASSWORD");
+        	if (proPw == null || proPw == '' || proPw == 'undefined'){
+        		alert("비밀번호를 입력하세요");
+        		return;
+        	}
+        	// 우편번호 null 검사
+        	var zipCd = this.ds_pro.getColumn(0, "ZIPCODE");
+        	if (zipCd == null || zipCd == '' || zipCd == 'undefined'){
+        		alert("주소를 입력하세요");
+        		return;
+        	}
+        	// 이름 null 검사
+        	var name = this.ds_pro.getColumn(0, "NAME");
+        	if (name == null || name == '' || name == 'undefined'){
+        		alert("이름을 입력하세요");
+        		return;
+        	}
+
+        	// dept null 검사 - 통과시 email 정규식
         	var dept = this.cmb_Dept.value;
         	if (dept == 0){
         		alert("학과를 선택해주세요");
         	} else {
-        		this.fn_valiCheck();
+        		// 이메일 정규식 호출
+        		this.fn_valiEmChk();
         	}
+
         };
 
         // 교수정보 입력 함수
@@ -547,6 +583,8 @@
         	// 초기 ds 다시 가져오기
         	this.ds_pro.copyData(this.ds_resetPro);
         	this.ds_address.copyData(this.ds_reAdr);
+        	// 이메일 다시 잠그기
+        	this.edt_Email.set_readonly(true);
         };
 
         // 4. 기타기능 - 이메일 + 주소검색
@@ -629,9 +667,10 @@
         };
 
         // 5. 유효성 검사
-
-        // 5-1) 이메일 - 정규식 + 중복확인
-
+        // 정규식 - email, phone, pw, id
+        // null체크 - id, pw, 학과, 주소, 이름
+        // 중복검사 - id, email
+        // 5-1) id 정규식
         this.edt_ProId_onchanged = function(obj,e)
         {
         	var proId = obj.value;
@@ -645,12 +684,13 @@
         		obj.set_value("");
         		obj.setFocus();
         	} else {
-        	trace("실행되었나?");
-        	this.fn_dupIdChk(proId);
+        		trace("실행되었나?");
+        		this.fn_dupIdChk(proId);
         	}
 
         };
 
+        // 5-2) 아이디 중복체크
         this.fn_dupIdChk = function (proId){
 
         	var strSvcId    = "dupCheckId";
@@ -665,68 +705,104 @@
 
         }
 
-        // 콜백함수
-        this.fnCallback = function (svcID, errCD, errMsg)
-        {
-        	// 콜백이 호출 되는가?
-        	trace("콜백 실행됨");
-        	// 삭제후 검색
-        	if(svcID == "insertPro" && errCD == 0){
-        		trace("등록완료")
-        		alert("등록에 성공하였습니다!");
-        		this.close("success");
-        	} else {
-        		trace(errMsg);
-        	}
-        	if(svcID == "dupCheckId" && errCD == 0) {
-        		trace("전체값은? " + this.ds_vali.saveXML());
-        		var chkId = this.ds_vali.getColumn(0, "CHECK_ID")
-        		trace("값은? " + chkId);
-        		if (chkId == "Y"){
-        			alert("사용가능한 교번입니다");
-        			} else {
-        				alert("중복된 교번입니다");
-        				}
-        			}else{
-        			trace(errMsg);
-        			}
-        };
-        // 5-2) 비밀번호 유효성 검사
+
+        // 5-3) 비밀번호 정규식
         this.edt_ProPw_onchanged = function(obj,e)
         {
             var password = obj.value;
             var regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{4,}$/;
+        		if (!regex.test(password)) {
+        			alert("비밀번호는 최소 4자 이상이며, 특수문자가 포함되어야 합니다.");
+        			obj.set_value("");
+        			obj.setFocus();
+        		} else {
+        			trace("비밀번호가 유효합니다.");
+        		}
+        	};
 
-            if (!regex.test(password)) {
-                alert("비밀번호는 최소 4자 이상이며, 특수문자가 포함되어야 합니다.");
-                obj.set_value("");
-                obj.setFocus();
-            } else {
-                trace("비밀번호가 유효합니다.");
-            }
-        };
-
-        // 5-3) email + 연락처 정규식
-        this.fn_valiCheck = function ()
+        // 5-4) 이메일 정규식
+        this.fn_valiEmChk = function ()
         {
         	var email = this.ds_pro.getColumn(0, "EMAIL");
         	var regem = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        	var phone = this.ds_pro.getColumn(0, "PHONE");
-        	var regph = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
+
         	if (!regem.test(email)) {
-                alert("유효한 이메일 주소를 입력하세요.");
+        		alert("유효한 이메일 주소를 입력하세요.");
         		this.edt_Email.set_value("");
         		this.edt_Email.setFocus();
-        			}else if(!regph.test(phone)){
-        				alert("연락처는 다음과 같이 입력해주세요 : 01x-xxxx-xxxx");
-        				this.edt_Phone.set_value("");
-        				this.edt_Phone.setFocus();
-        			}
-        	if(regem.test(email) && regph.test(phone)){
+        	} else {
+        		trace("이메일값좀 보자1 " + email);
+        		this.fn_dupEmChk();
+        	}
+        };
+        // 5-5) 이메일 중복체크
+        this.fn_dupEmChk = function ()
+        	{
+        		var strSvcId    = "dupCheckEm";
+        		var strSvcUrl   = "svc::dupCheckEm.do";
+        		var inData      = "ds_pro=ds_pro";
+        		var outData     = "ds_vali=ds_vali";
+        		var strArg      = "";
+        		var callBackFnc = "fnCallback";
+        		var isAsync     = true;
+
+        		this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        	};
+
+        // 5-6) 연락처 정규식
+        this.fn_valiPhChk = function ()
+        {
+        	var phone = this.ds_pro.getColumn(0, "PHONE");
+        	var regph = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
+        	if(!regph.test(phone)){
+        		alert("연락처는 다음과 같이 입력해주세요 : 01x-xxxx-xxxx");
+        		this.edt_Phone.set_value("");
+        		this.edt_Phone.setFocus();
+        	} else {
         		this.fn_insertPro();
         	}
         };
 
+        // 6. 콜백함수
+        this.fnCallback = function (svcID, errCD, errMsg)
+        {
+        	if(errCD == -1) {
+        		alert(errMsg);
+        		return
+        	}
+
+        	switch(svcID) {
+        	// 등록버튼
+        	case "insertPro":
+        		trace("등록완료")
+        		alert("등록에 성공하였습니다!");
+        		this.close("success");
+        		break;
+        	// id중복체크
+        	case "dupCheckId":
+        		trace("전체값은? " + this.ds_vali.saveXML());
+        		var chkId = this.ds_vali.getColumn(0, "CHECK_ID");
+        		trace("값은? " + chkId);
+        		if (chkId == "Y"){
+        			trace("사용가능한 교번입니다");
+        			this.edt_Email.set_readonly(false);
+        		} else {
+        			alert("중복된 교번입니다");
+        		}
+        		break;
+        	// 이메일 중복체크
+        	case "dupCheckEm":
+        		var chkEm = this.ds_vali.getColumn(0, "CHECK_EM");
+        		trace("이메일값?" + chkEm);
+        		if (chkEm == "Y") {
+        			// 연락처 유효성 정규식
+        			this.fn_valiPhChk();
+        		} else {
+        			alert("중복된 email 입니다");
+        		}
+        		break;
+        		}
+        };
         });
         
         // Regist UI Components Event

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ateam.mapper.AdScoreMapper">
+
+<select id = "selectScDept" parameterType="String" resultType="Map">
+SELECT  DISTINCT D.DEPARTMENT_CODE 
+	 ,  D.DEPARTMENT_NAME
+<!-- 	 ,  p.NAME 
+	 ,  p.PROFESSOR_ID  -->
+FROM CLASS C
+JOIN DEPARTMENT D
+ON C.DEPARTMENT_CODE  = D.DEPARTMENT_CODE 
+JOIN PROFESSOR p
+ON C.PROFESSOR_ID = p.PROFESSOR_ID
+ORDER BY D.DEPARTMENT_CODE ASC;
+</select>
+
+
+<select id="searchScClass" parameterType="Map" resultType="Map">
+SELECT C.CLASS_CODE
+	 , C.CLASS_NAME
+	 , p.NAME
+	 , YEAR(C.CLASS_START) AS CLASS_START
+	 , C.SEMESTER
+FROM CLASS C
+JOIN DEPARTMENT D
+ON C.DEPARTMENT_CODE = D.DEPARTMENT_CODE 
+JOIN PROFESSOR p
+ON C.PROFESSOR_ID = p.PROFESSOR_ID
+WHERE D.DEPARTMENT_CODE = #{DEPARTMENT_CODE}	
+ORDER BY D.DEPARTMENT_CODE ASC;
+
+<!--  (
+    (CLASS_START BETWEEN CONCAT(SUBSTRING_INDEX(#{YEARSEMESTER}, '-', 1), '-01-01') AND CONCAT(SUBSTRING_INDEX(#{YEARSEMESTER}, '-', 1), '-06-30') AND SUBSTRING_INDEX(#{YEARSEMESTER}, '-', -1) = "1")
+    OR
+    (CLASS_START BETWEEN CONCAT(SUBSTRING_INDEX(#{YEARSEMESTER}, '-', 1), '-07-01') AND CONCAT(SUBSTRING_INDEX(#{YEARSEMESTER}, '-', 1), '-12-31') AND SUBSTRING_INDEX(#{YEARSEMESTER}, '-', -1) = "2")
+  )  AND -->
+
+</select>
+
+<select id="selectScStudent" parameterType="Map" resultType="Map">
+
+SELECT S.STUDENT_ID
+	 , S.NAME
+	 , E.MIDDLE_TEST
+	 , E.FINAL_TEST
+	 , E.REPORT
+	 , E.SCORE
+	 , E.GRADE
+	 , 0 AS 'CHECK'
+	 , C.CLASS_CODE
+	 , IFNULL(E.UPD_USR, '') AS UPD_USR
+	 , IFNULL(E.UPD_DTM, '') AS UPD_DTM
+FROM CLASS C
+LEFT JOIN ENROLLMENT E
+ON E.CLASS_CODE =C.CLASS_CODE 
+LEFT JOIN STUDENT S
+ON S.STUDENT_ID = E.STUDENT_ID 
+WHERE YEAR(C.CLASS_START) = #{YEAR} 
+  AND C.CLASS_CODE = #{CLASS_CODE}
+  AND E.SEMESTER = #{SEMESTER}
+ORDER BY S.NAME  ASC;
+
+</select>
+
+<update id ="updateScore" parameterType="Map">
+ UPDATE ENROLLMENT
+	      SET MIDDLE_TEST = #{MIDDLE_TEST}, 
+	      FINAL_TEST = #{FINAL_TEST}, 
+	      REPORT = #{REPORT}, 
+	      SCORE = #{score},
+	      GRADE = #{grade},
+      	  UPD_DTM = SYSDATE(),
+		  UPD_USR = #{UPD_USR} 	
+	   WHERE STUDENT_ID = #{STUDENT_ID} 
+	         AND CLASS_CODE = #{CLASS_CODE}
+</update>
+
+</mapper>
+

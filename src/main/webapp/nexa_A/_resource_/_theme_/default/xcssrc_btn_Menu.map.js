@@ -65,6 +65,24 @@
             						}
             					}
             				]
+            			},
+            			"Combo" :
+            			{
+            				"class" :
+            				[
+            					{
+            						"cmb_readonly" :
+            						{
+            							"self" :
+            							{
+            								"readonly" :
+            								{
+            									"color" : nexacro.ColorObject("black")
+            								}
+            							}
+            						}
+            					}
+            				]
             			}
 		},
 		{

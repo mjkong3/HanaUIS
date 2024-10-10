@@ -7,6 +7,7 @@ public class BoardDTO {
 
 	private int boardCode;
 	private String title;
+	private String image;
 	private String content;
 	private Date regDtm;
 	private int adminCode;
@@ -42,6 +43,12 @@ public class BoardDTO {
 	}
 	public void setRegDtm(Date regDtm) {
 		this.regDtm = regDtm;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

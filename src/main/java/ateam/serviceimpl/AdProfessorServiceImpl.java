@@ -24,14 +24,7 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 
 	@Override
 	public void insertAdPro(Map<String, Object> param) {
-		// TODO Auto-generated method stub
-//		int checkId = 0;
-//		int checkEm = 0;
-//		checkId = mapper.dupCheckId(param);
-//		checkEm = mapper.dupCheckEm(param);
-//		if (checkId == 0 && checkEm == 0) {
 			mapper.insertAdPro(param);
-//	}
 	}
 	
 	@Override
@@ -68,10 +61,10 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 	}
 
 	@Override
-	public String dupCheckEm(String email) {
+	public String dupCheckEm(Map<String, Object>param) {
 		
 		String checkEm;
-		int check = mapper.dupCheckEm(email);
+		int check = mapper.dupCheckEm(param);
 		if (check > 0 ) {
 			checkEm = "N";
 		} else {

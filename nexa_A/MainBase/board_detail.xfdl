@@ -4,15 +4,15 @@
     <Layouts>
       <Layout height="720" width="1280">
         <Static id="stt_boardTop" taborder="0" text="공지사항" left="563" top="16" width="155" height="74" font="30pt &quot;gulim&quot;,&quot;한컴 고딕&quot;"/>
-        <Static id="Static01" taborder="1" text="제목" left="174" top="134" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="Static01_00" taborder="2" text="작성자" left="174" top="194" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="Static01_01" taborder="3" text="내용" left="174" top="257" width="172" height="197" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="Static01_00_00" taborder="4" text="첨부파일" left="174" top="460" width="172" height="93" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none" onclick="Static01_00_onclick"/>
-        <Grid id="grd_file" taborder="5" left="377" top="464" width="453" height="94" binddataset="ds_file">
+        <Static id="Static01" taborder="1" text="제목" left="175" top="114" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="Static01_00" taborder="2" text="작성자" left="175" top="174" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="stt_Content" taborder="3" text="내용" left="175" top="240" width="172" height="170" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="stt_file" taborder="4" text="첨부파일" left="175" top="443" width="172" height="150" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none" onclick="Static01_00_onclick"/>
+        <Grid id="grd_file" taborder="5" left="380" top="500" width="450" height="95" binddataset="ds_file">
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="449"/>
+                <Column size="447"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -27,34 +27,44 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="btn_closeBoard" taborder="6" text="닫기" left="714" top="617" width="72" height="33" onclick="btn_closeBoard_onclick"/>
-        <Static id="stt_uploader" taborder="7" left="400" top="200" width="250" height="40"/>
-        <Static id="Static01_00_01" taborder="8" text="게시일" left="660" top="137" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Button id="btn_closeBoard" taborder="6" text="닫기" left="714" top="615" width="72" height="33" onclick="btn_closeBoard_onclick"/>
+        <Static id="stt_uploader" taborder="7" left="400" top="180" width="250" height="40"/>
+        <Static id="Static01_00_01" taborder="8" text="게시일" left="660" top="117" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
         <Static id="stt_regDate" taborder="9" left="1305" top="153" width="145" height="40" text="" textAlign="center"/>
-        <Static id="Static01_00_01_00" taborder="10" text="게시번호" left="660" top="197" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="stt_boardCode" taborder="11" left="898" top="203" width="145" height="40"/>
-        <Button id="btn_updateBoard" taborder="12" text="수정" left="634" top="617" width="72" height="33" onclick="btn_updateBoard_onclick"/>
-        <FileDownload id="btn_fileDown" taborder="13" text="파일 다운" left="845" top="482" width="58" height="48" onclick="btn_fileDown_onclick"/>
-        <TextArea id="txt_Title" taborder="14" left="377" top="137" width="283" height="46"/>
-        <TextArea id="txt_Content" taborder="15" left="377" top="270" width="666" height="160"/>
-        <Button id="btn_addFile" taborder="16" text="파일 첨부" left="916" top="482" width="57" height="48" onclick="btn_addFile_onclick"/>
-        <Button id="btn_deleteFile" taborder="17" text="파일 삭제" left="983" top="482" width="60" height="48" onclick="btn_deleteFile_onclick"/>
-        <Button id="btn_deleteBoard" taborder="18" text="삭제" left="971" top="617" width="72" height="33" color="white" background="#ff0505" onclick="btn_deleteBoard_onclick"/>
-        <Calendar id="cal_Dtm" taborder="19" left="890" top="140" width="153" height="47"/>
+        <Static id="Static01_00_01_00" taborder="10" text="게시번호" left="660" top="177" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="stt_boardCode" taborder="11" left="898" top="183" width="145" height="40"/>
+        <Button id="btn_updateBoard" taborder="12" text="수정" left="634" top="615" width="72" height="33" onclick="btn_updateBoard_onclick"/>
+        <FileDownload id="btn_fileDown" taborder="13" text="파일 다운" left="850" top="500" width="90" height="95" onclick="btn_fileDown_onclick"/>
+        <TextArea id="txt_Title" taborder="14" left="380" top="117" width="283" height="46"/>
+        <TextArea id="txt_Content" taborder="15" left="380" top="240" width="666" height="170" scrolltype="vertical" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="auto auto" scrollbarsize="10"/>
+        <Button id="btn_addFile" taborder="16" text="파일 첨부" left="956" top="500" width="90" height="40" onclick="btn_addFile_onclick"/>
+        <Button id="btn_deleteFile" taborder="17" text="파일 삭제" left="956" top="555" width="90" height="40" onclick="btn_deleteFile_onclick"/>
+        <Button id="btn_deleteBoard" taborder="18" text="삭제" left="953" top="615" width="90" height="33" color="white" background="#ff0505" onclick="btn_deleteBoard_onclick"/>
+        <Calendar id="cal_Dtm" taborder="19" left="890" top="120" width="153" height="47"/>
+        <Button id="btn_addContentPhoto" taborder="20" text="본문 파일 삽입" left="850" top="443" width="90" height="35" onclick="btn_addContentPhoto_onclick"/>
+        <ImageViewer id="ImageViewer00" taborder="21" left="380" top="425" width="666" height="10" visible="false" onload="ImageViewer00_onload" stretch="none"/>
+        <Button id="btn_delContentPhoto" taborder="22" text="본문 파일 삭제" left="956" top="443" width="90" height="35" onclick="btn_delContentPhoto_onclick"/>
+        <Edit id="edt_filename" taborder="23" left="380" top="450" width="450" height="20" readonly="true"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[/*
-	파일 데이터셋 ds_file 추가가 어떤 부분에 들어가야 할지 바꿔줘야 함
-	//var nRowIdx = this.ds_file.addRow();
-    //this.ds_file.setColumn(nRowIdx, 0, obj.filename);
-*/
-
-
+    <Script type="xscript5.1"><![CDATA[
+// 화면 온로드
 this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.fnOnload();
 	
 	this.ds_copyCat.copyData(this.ds_board, true);
+	
+	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMAGE") == "undefined") {
+	} else {
+		this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
+		this.showImagePreview(this.ds_contentFile.getColumn(0, "IMAGE"));
+		
+		this.ImageViewer00.set_visible(true);
+		
+		this.adjustTextareaHeight();
+	}
+	
 };
 
 /************************************************************************
@@ -64,7 +74,7 @@ this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 // 호출
 this.fnOnload = function(obj, e) {
 	
-	var BOARD_CODE = this.parent.BOARD_CODE;  // 부모창에서 넘어온 board_code 값 받기
+	var BOARD_CODE = this.parent.BOARD_CODE;  // 부모창에서 넘어온 board_code 값 받기	
 	var CRE_USR = this.parent.NAME;
     trace("Received board_code: " + BOARD_CODE);  // board_code 값 확인 (콘솔에 출력)
 	trace("Received CRE_USR: " + CRE_USR);  // CRE_USR 값 확인 (콘솔에 출력)
@@ -77,6 +87,8 @@ this.fnOnload = function(obj, e) {
 	console.log(this.ds_file.saveXML());
 	
 	trace(this.ds_board.getColumn(0,"TITLE"));
+	
+	trace(this.ds_contentFile.saveXML());
 };
 	
 // 전자정부 프레임워크로 board_code 전달하는 함수
@@ -84,7 +96,7 @@ this.fnSendBoardCode = function(BOARD_CODE) {
     var strSvcId    = "selectBoard";
     var strSvcUrl   = "svc::selectBoard.do";
     var inData      = "";
-    var outData     = "ds_board=ds_board ds_file=ds_file";  // 결과를 받을 데이터셋
+    var outData     = "ds_board=ds_board ds_file=ds_file ds_contentFile=ds_contentFile";  // 결과를 받을 데이터셋
     var strArg      = "id=" + BOARD_CODE;    // board_code 값을 서버로 전달
     var callBackFnc = "fnCallback";
     var isAsync     = false;
@@ -322,6 +334,10 @@ this.FileUpTransfer00_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.Fi
 			alert("내용을 입력해주세요.");
 			return;
 	}
+	
+	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+	this.ds_board.setColumn(0, "CRE_USR", adCode);
+	trace("코드 제대로 들어갔나? " + this.ds_board.getColumn(0, "CRE_USR"));
 
     var strSvcId    = "updateBoard";
     var strSvcUrl   = "svc::updateBoard.do";
@@ -412,13 +428,16 @@ this.fnCallDeleteBoard = function(svcID, errorCode, errorMsg) {
 
 };
 
-/*
+
 // 변경사항 감지
 this.btn_closeBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	if (this.ds_copyCat == this.ds_board)
+	var origin = this.ds_board.saveXML();
+	var copy = this.ds_copyCat.saveXML();
+
+	if (this.origin === this.copy)
 	{
-		this.close
+		this.close();
 	} else {
 		var onChanged = this.confirm("변경 된 사항이 있습니다.");
 		if (!onChanged) {
@@ -426,8 +445,233 @@ this.btn_closeBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventIn
 		}
 	}
 };
-*/
-]]></Script>
+
+
+/************************************************************************
+ * 							본문 이미지 첨부
+ ************************************************************************/
+
+// 게시글 textarea 높이 늘리기
+this.txt_Content_onkeydown = function(obj:nexacro.TextArea,e:nexacro.KeyEventInfo)
+{
+	this.set_scrolltype("vertical");
+};
+
+// 텍스트의 변화에 따라 높이를 조정하는 함수
+this.adjustTextareaHeight = function() {
+
+	this.set_height(720); // 폼 길이 초기화
+	
+	// 기준이 될 content tarea
+	var contentY = this.txt_Content.getOffsetBottom();  // TextArea의 하단 y 좌표	
+	
+	if (this.ImageViewer00.visible) {	
+		var contimgbot = this.ImageViewer00.getOffsetBottom();
+		
+		this.ImageViewer00.set_top(contentY + 5);
+		
+		// 이미지뷰어 아래 컴포넌트들 이미지 위치 아래로 변경
+		this.edt_filename.set_top(contimgbot + 22.5);
+		this.btn_addContentPhoto.set_top(contimgbot + 15.5);
+		this.btn_delContentPhoto.set_top(contimgbot + 15.5);
+		
+		this.grd_file.set_top(contimgbot + 52.5);
+		this.btn_fileDown.set_top(this.grd_file.getOffsetTop());
+		this.btn_addFile.set_top(this.grd_file.getOffsetTop());
+		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 55);
+		
+		this.btn_updateBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
+		this.btn_deleteBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
+		this.btn_closeBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
+		
+		this.stt_file.set_top(this.btn_addContentPhoto.getOffsetTop());
+	}
+};
+
+// 본문 사진 첨부
+
+this.btn_addContentPhoto_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.FileDialog01.open('contentPhoto', FileDialog.LOAD);
+};
+
+// 파일 확장자 제한 함수
+this.gfnIsImageFile = function(fileTxt) {
+    var imageExt = ["png", "jpg", "jpeg", "jfif"];
+    var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
+    return imageExt.includes(extNm);
+};
+
+// 파일 올릴 때 함수
+this.FileDialog01_onclose = function(obj:nexacro.FileDialog, e:nexacro.FileDialogEventInfo) {
+	var contentfiletype = e.virtualfiles[0].filename;
+	
+	if(e.virtualfiles.length > 1){
+		alert("파일이 두개 이상입니다.");
+	}
+ 	else if(!this.gfnIsImageFile(contentfiletype)){
+		alert("png, "+ "jpg, "+ "jpeg, " + "jfif " + "가 아닙니다.");
+ 	}
+	else{
+		this.addFileList2(e.virtualfiles);
+
+		var name;
+		for (var i = 0; i < e.virtualfiles.length; i++) {    
+			this.ds_contentFile.setColumn(0, "IMAGE", e.virtualfiles[i].filename);
+			name = e.virtualfiles[i].filename;
+			trace(name);
+		}
+		this.edt_filename.set_value(name);
+		this.showImagePreview(name);
+	}
+	this.ImageViewer00.set_visible(true);
+	//this.showImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"));
+	trace(this.ds_contentFile.saveXML());	
+	
+	this.adjustTextareaHeight();
+};
+
+this.showImagePreview = function(fileName) {
+    var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+    var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
+	
+	// 기존 이미지 초기화
+	this.ImageViewer00.set_image(null);
+    this.ImageViewer00.redraw(); // 이미지 뷰어를 다시 그리기 (필요 시)
+	
+    this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
+};
+
+this.deleteFile = function(fileName) {
+	trace("여기까지 왔나?");
+	trace("");
+    var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+    var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
+	
+	var params = {
+		filename: fileName // 파일 이름을 파라미터로 전달
+	};
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", deleteUrl, true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.onreadystatechange = function () {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+				trace("서버 응답: " + xhr.responseText);
+			} else {
+				trace("오류 발생: " + xhr.status);
+			}
+		}
+	};
+	xhr.send("filename=" + encodeURIComponent(fileName));
+};
+
+// 파일 업로드 함수
+this.uploadFileToServer = function(vFile) {
+	this.FileUpTransfer01.clearFileList();
+    this.FileUpTransfer01.addFile(vFile.filename, vFile);
+    this.FileUpTransfer01.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
+}
+
+
+this.addFileList2 = function(filelist) {
+    for (var i = 0, len = filelist.length, vFile; i < len; i++) {
+        vFile = filelist[i];
+        vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
+        vFile.addEventHandler("onerror", this.FileList_onerror, this);
+		
+        // 파일을 서버에 업로드하는 함수 호출
+        this.uploadFileToServer(vFile);
+    }
+} 
+
+this.ImageViewer00_onload = function(obj:nexacro.ImageViewer,e:nexacro.LoadEventInfo)
+{
+	trace('이미지 온로드 시작');	
+	this.fnContImg(obj, e);
+	
+	this.stt_Content.set_height(this.txt_Content.getOffsetHeight() + obj.imageheight + 5);
+	this.adjustTextareaHeight();
+	this.resetScroll();
+	
+	var imgviehei = this.ImageViewer00.imageheight;
+	var imgviewid = this.ImageViewer00.imagewidth;
+	
+	this.ImageViewer00.set_height(imgviehei);
+	this.ImageViewer00.set_width(imgviewid);
+};
+
+
+this.fnContImg = function(obj, e) {
+	// 본문 textarea의 너비 (본문이 존재하는 경우에만 적용)
+	var textareaWidth = this.txt_Content.width;
+	console.log("기능타냐 ");
+	
+	// 실제 이미지의 원본 너비와 높이를 가져옴
+	var imgWidth = obj.imagewidth;
+	var imgHeight = obj.imageheight;
+	
+	console.log(imgHeight);
+
+	// 이미지가 본문 textarea보다 가로가 크지 않도록 제한
+	var newWidth = textareaWidth;
+	var newHeight = (textareaWidth * imgHeight) / imgWidth;
+	
+	// 이미지가 텍스트 영역보다 크면 크기를 줄임
+	obj.set_width(newWidth);   // 가로 크기 조정
+	obj.set_height(newHeight); // 세로는 비율에 맞게 자동 조정
+	
+	obj.set_stretch("fit");
+	
+	// 기준이 될 content tarea
+	var contentY = this.txt_Content.getOffsetBottom();  // TextArea의 하단 y 좌표
+	
+	obj.set_top(contentY + 5);
+	
+	trace(this.ds_file.saveXML());
+};
+
+
+// 본문 사진 삭제
+this.btn_delContentPhoto_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	trace(this.ds_contentFile.saveXML());
+	
+	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMAGE") == "undefined") {
+		alert("본문에 들어간 파일이 없습니다.");
+	} else {
+		this.deleteFile(this.ds_contentFile.getColumn(0, "IMAGE"));
+		
+		this.edt_filename.set_value("");
+		this.ImageViewer00.set_visible(false);
+		this.ImageViewer00.set_image(null);
+		this.ImageViewer00.redraw();
+		
+		// 기준이 될 content tarea
+	var contentY = this.txt_Content.getOffsetBottom();  // TextArea의 하단 y 좌표	
+	
+	if (!this.ImageViewer00.visible) {	
+		var textbot = this.txt_Content.getOffsetBottom();
+		
+		// 기존 위치로 컴포넌트 배치
+		this.edt_filename.set_top(textbot + 40);  // 다른 컴포넌트를 imgviewer 하단에 배치
+		this.btn_addContentPhoto.set_top(this.edt_filename.getOffsetTop()-7);
+		this.btn_delContentPhoto.set_top(this.edt_filename.getOffsetTop()-7);
+		
+		this.grd_file.set_top(this.edt_filename.getOffsetBottom() + 30);
+		this.btn_fileDown.set_top(this.grd_file.getOffsetTop());
+		this.btn_addFile.set_top(this.grd_file.getOffsetTop());
+		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 55);
+		
+		this.btn_updateBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
+		this.btn_deleteBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
+		this.btn_closeBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
+		
+		this.stt_file.set_top(this.btn_addContentPhoto.getOffsetTop());
+		this.stt_Content.set_height(this.txt_Content.height);
+		}
+	}
+};]]></Script>
     <Objects>
       <Dataset id="ds_board">
         <ColumnInfo>
@@ -448,6 +692,16 @@ this.btn_closeBoard_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventIn
       <FileUpTransfer id="FileUpTransfer00" onsuccess="FileUpTransfer00_onsuccess" onprogress="FileUpTransfer00_onprogress" onerror="FileUpTransfer00_onerror"/>
       <FileDialog id="FileDialog00" onclose="FileDialog00_onclose"/>
       <Dataset id="ds_copyCat"/>
+      <FileDialog id="FileDialog01" onclose="FileDialog01_onclose"/>
+      <FileUpTransfer id="FileUpTransfer01"/>
+      <Dataset id="ds_contentFile">
+        <ColumnInfo>
+          <Column id="IMAGE" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
     </Objects>
     <Bind>
       <BindItem id="item1" compid="stt_regDate" propid="text" datasetid="ds_board" columnid="CRE_DTM"/>
