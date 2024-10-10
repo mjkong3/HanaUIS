@@ -251,6 +251,17 @@
 	                  </c:choose>
                 </td>
             </tr>
+            <tr>
+            	<th>사진 업로드</th>
+               	<td colspan="3"><c:choose>
+                     <c:when test="${not empty student}">
+                     	<input type="file"/>
+                     </c:when>
+                     <c:when test="${not empty professor}">
+                     	<input type="file"/>
+                     </c:when>
+                  </c:choose></td>
+            </tr>
          </table>
       </div>
    </div>
