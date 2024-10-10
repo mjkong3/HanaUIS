@@ -73,4 +73,10 @@ public class AdStudentServiceImpl extends EgovAbstractServiceImpl implements AdS
 	   mapper.updateAdStudent(param);
    }
 
+@Override
+public Map<String, Object> studCheckId(String STUDENT_ID) {
+	// TODO Auto-generated method stub
+	return mapper.studCheckId(STUDENT_ID);
+}
+
 }
