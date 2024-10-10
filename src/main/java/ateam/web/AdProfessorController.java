@@ -136,12 +136,12 @@ public class AdProfessorController {
 	}
 	
 	@RequestMapping(value ="/dupCheckEm.do")
-	public NexacroResult dupCheckEm(@ParamVariable(name = "EMAIL", required = false) String email) {
+	public NexacroResult dupCheckEm(@ParamDataSet(name = "ds_pro", required = false) Map<String, Object> param) {
 		NexacroResult result = new NexacroResult();
-		
+		System.out.println("왔냐? : " + param);
 		try {
 			Map<String, Object> ds_vali =  new HashMap<>();
-			String CheckEm = service.dupCheckEm(email);
+			String CheckEm = service.dupCheckEm(param);
 			System.out.println("email은?" + CheckEm);
 			ds_vali.put("CHECK_EM", CheckEm);
 			System.out.println("들어갔나?" + ds_vali);
