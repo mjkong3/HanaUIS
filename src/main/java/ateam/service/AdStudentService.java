@@ -25,4 +25,6 @@ public interface AdStudentService {
 
    void updateAdStudent(Map<String, Object> param);
 
+   Map<String, Object> studCheckId(String STUDENT_ID);
+
 }
