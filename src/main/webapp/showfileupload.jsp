@@ -18,8 +18,8 @@ response.setHeader("Access-Control-Allow-Origin", "*");
 response.setHeader("Access-Control-Allow-Credentials", "true");	
 
    File file ;
-   int maxFileSize = 5000 * 1024;
-   int maxMemSize = 5000 * 1024;
+   int maxFileSize = 500000 * 1024;
+   int maxMemSize = 50000 * 1024;
    ServletContext context = pageContext.getServletContext();
    String filePath = "C:\\showfile\\";//context.getInitParameter("file-upload");
 

@@ -28,7 +28,7 @@
           </Formats>
         </Grid>
         <Button id="btn_closeBoard" taborder="6" text="닫기" left="714" top="615" width="72" height="33" onclick="btn_closeBoard_onclick"/>
-        <Static id="stt_uploader" taborder="7" left="400" top="180" width="250" height="40"/>
+        <Static id="stt_uploader" taborder="7" left="390" top="180" width="250" height="40"/>
         <Static id="Static01_00_01" taborder="8" text="게시일" left="660" top="117" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
         <Static id="stt_regDate" taborder="9" left="1305" top="153" width="145" height="40" text="" textAlign="center"/>
         <Static id="Static01_00_01_00" taborder="10" text="게시번호" left="660" top="177" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
@@ -57,8 +57,11 @@ this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	
 	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMAGE") == "undefined") {
 	} else {
-		this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
-		this.showImagePreview(this.ds_contentFile.getColumn(0, "IMAGE"));
+		setTimeout(function(){
+			trace(this.ds_contentFile.getColumn(0,"IMAGE") + "@@@@@@@@@@@@@@@@@@@@@");
+			this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
+			this.showFirstImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"));
+		}.bind(this), 100);
 		
 		this.ImageViewer00.set_visible(true);
 		
@@ -512,39 +515,48 @@ this.FileDialog01_onclose = function(obj:nexacro.FileDialog, e:nexacro.FileDialo
  	else if(!this.gfnIsImageFile(contentfiletype)){
 		alert("png, "+ "jpg, "+ "jpeg, " + "jfif " + "가 아닙니다.");
  	}
-	else{
-		this.addFileList2(e.virtualfiles);
-
-		var name;
-		for (var i = 0; i < e.virtualfiles.length; i++) {    
-			this.ds_contentFile.setColumn(0, "IMAGE", e.virtualfiles[i].filename);
-			name = e.virtualfiles[i].filename;
-			trace(name);
-		}
-		this.edt_filename.set_value(name);
-		this.showImagePreview(name);
-	}
+	
+	this.addFileList2(e.virtualfiles);
+	var name = e.virtualfiles[0].filename;
+	this.ds_contentFile.setColumn(0, "IMAGE", e.virtualfiles[0].filename);
+	name = e.virtualfiles[0].filename;
+	trace(name);
+	
+	this.edt_filename.set_value(name);
+	
 	this.ImageViewer00.set_visible(true);
-	//this.showImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"));
+	
+	setTimeout(function(){
+		this.addFileList2(e.virtualfiles);
+		this.showImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"));
+	}.bind(this), 500); // 500ms 뒤 실행
 	trace(this.ds_contentFile.saveXML());	
 	
 	this.adjustTextareaHeight();
 };
 
+// 이미지 미리보기 함수 -- onload 시
+this.showFirstImagePreview = function(fileName) {
+	trace(fileName);
+    var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+    var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName; // 업로드한 파일 경로
+    this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
+
+};
+
+// 이미지 미리보기 함수 -- 수정 시
 this.showImagePreview = function(fileName) {
     var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
     var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
-	
-	// 기존 이미지 초기화
-	this.ImageViewer00.set_image(null);
-    this.ImageViewer00.redraw(); // 이미지 뷰어를 다시 그리기 (필요 시)
-	
     this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
+	
+	setTimeout(function(){
+ 		this.deleteFile(fileName);
+ 	}.bind(this), 5000); // 5초 후 삭제
 };
 
 this.deleteFile = function(fileName) {
 	trace("여기까지 왔나?");
-	trace("");
     var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
     var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
 	
@@ -678,6 +690,7 @@ this.btn_delContentPhoto_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
           <Column id="TITLE" type="STRING" size="256"/>
           <Column id="CRE_USR" type="STRING" size="256"/>
           <Column id="CONTENT" type="STRING" size="256"/>
+          <Column id="IMAGE" type="STRING" size="256"/>
           <Column id="CRE_DTM" type="STRING" size="256"/>
           <Column id="BOARD_CODE" type="STRING" size="256"/>
           <Column id="FILE_CODE" type="STRING" size="256"/>
