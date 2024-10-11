@@ -199,6 +199,7 @@
 
             obj = new ImageViewer("ImageViewer00","163","103","177","236",null,null,null,null,null,null,this);
             obj.set_taborder("17");
+            obj.set_stretch("fit");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_01_00","409","250","98","50",null,null,null,null,null,null,this);
@@ -476,6 +477,7 @@
         // 4. 기타기능 - 이메일 + 주소검색
         // 5. 유효성 검사
         // 6. 콜백함수
+        // 7. 파일업로드
 
         // 1. 화면호출
         this.add_Professor_Popup_onload = function(obj,e)
@@ -820,6 +822,8 @@
         		}
         };
 
+        // 7. 파일업로드
+
         // dialog 호출
         this.btn_addfile_onclick = function(obj,e)
         {
@@ -859,7 +863,7 @@
         			this.ds_file.setColumn(0,"FILE_NAME", name);
 
         			setTimeout(function(){
-        				this.aftereventFunction();
+        				this.showImagePreview(name);
         			}.bind(this), 100);
 
         		}else{
@@ -919,16 +923,17 @@
 
         // 이미지 미리보기 함수
         this.showImagePreview = function(fileName) {
+        	trace(fileName);
             var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
             var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
             this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
 
         	// 이미지가 없을 때 나오는 text
-        	if(this.ds_pro.getColumn(0, "PHOTO") == null || this.ds_pro.getColumn(0, "PHOTO") == "" || this.ds_pro.getColumn(0, "PHOTO") == "undefined"){
-        		this.ImageViewer00.set_text("500KB 이하");
-        	}else {
-        		this.ImageViewer00.set_text("");
-        	}
+        // 	if(this.ds_pro.getColumn(0, "PHOTO") == null || this.ds_pro.getColumn(0, "PHOTO") == "" || this.ds_pro.getColumn(0, "PHOTO") == "undefined"){
+        // 		this.ImageViewer00.set_text("500KB 이하");
+        // 	}else {
+        // 		this.ImageViewer00.set_text("");
+        // 	}
         	// 이미지가 뜬 이후 10초간 미리보기 폴더에 유지 - 이후 삭제
         	setTimeout(function(){
         		this.deleteFile(fileName);
@@ -988,8 +993,6 @@
             this.wb_Adress.addEventHandler("onusernotify",this.wb_Adress_onusernotify,this);
             this.btn_addfile.addEventHandler("onclick",this.btn_addfile_onclick,this);
             this.FileDialog00.addEventHandler("onclose",this.FileDialog00_onclose,this);
-            this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);
-            this.FileUpTransfer00.addEventHandler("onerror",this.FileUpTransfer00_onerror,this);
         };
         this.loadIncludeScript("add_Professor_Popup.xfdl");
         this.loadPreloadList();

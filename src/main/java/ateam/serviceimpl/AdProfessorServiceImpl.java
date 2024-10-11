@@ -3,9 +3,13 @@ package ateam.serviceimpl;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ateam.dto.ProfessorDTO;
 import ateam.mapper.AdProfessorMapper;
 import ateam.service.AdProfessorService;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
@@ -15,6 +19,9 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 
 	@Autowired
 	private AdProfessorMapper mapper;
+	
+	@Inject
+	LoginDAO loginDao;
 	
 	@Override
 	public List<Map<String, Object>> selectAdProList(Map<String, Object> param) {
@@ -71,6 +78,16 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 			checkEm = "Y";
 		}
 		return checkEm;
+	}
+
+	@Override
+	public ProfessorDTO proLoginCheck(ProfessorDTO dto, HttpSession session) {
+		ProfessorDTO professorDTO = mapper.proLoginCheck(dto);
+		if (professorDTO != null) {
+			session.setAttribute("professorId", dto.getProfessorId());
+		}
+		return professorDTO;
+		
 	}
 	
 

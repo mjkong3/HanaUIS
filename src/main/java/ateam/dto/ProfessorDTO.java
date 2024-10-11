@@ -16,6 +16,7 @@ public class ProfessorDTO {
 	private String status;
 	private String address;
 	private String photo;
+	private String zipcode;
 	
 	
 	public String getPhone() {
@@ -84,5 +85,11 @@ public class ProfessorDTO {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	
 }

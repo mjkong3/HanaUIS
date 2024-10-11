@@ -54,7 +54,8 @@ public class StudentController {
 		StudentDTO student = (StudentDTO) session.getAttribute("student");
 		String departmentName = studentService.studentDepartment(student.getStudentId());
 		
-		int studentId= (int) session.getAttribute("studentId");
+		int studentId= student.getStudentId();
+				//session.getAttribute("studentId");
 		Map<String, Object> studentDetail = studentService.selectStudent(studentId);
 		
 		model.addAttribute("departmentName", departmentName);

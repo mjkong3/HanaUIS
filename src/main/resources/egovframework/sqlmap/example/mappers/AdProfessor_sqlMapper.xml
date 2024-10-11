@@ -160,4 +160,24 @@
   		AND PROFESSOR_ID != #{PROFESSOR_ID}
   		
   	</select>
+  	
+  	<select id="proLoginCheck" resultType="ateam.dto.ProfessorDTO">
+  	
+  		SELECT PROFESSOR_ID, 
+				NAME,
+				PHONE,
+				EMAIL,
+				BIRTHDAY,
+				GENDER,
+				ADDRESS,
+				STATUS,
+				DEPARTMENT_CODE,
+				PHOTO,
+				ZIPCODE
+		FROM PROFESSOR
+		WHERE PROFESSOR_ID = #{professorId}
+		AND PASSWORD = #{password}
+  	
+  	</select>
+  	
 </mapper>

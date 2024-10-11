@@ -21,7 +21,7 @@
         <Static id="Static00_01_00" taborder="14" left="682" top="299" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이메일" onclick="Static00_01_00_onclick"/>
         <Static id="Static00_00_00_00" taborder="15" left="682" top="250" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   연락처"/>
         <Static id="Static00_00_01" taborder="16" left="409" top="201" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   성별"/>
-        <ImageViewer id="ImageViewer00" taborder="17" left="163" top="103" width="177" height="236"/>
+        <ImageViewer id="ImageViewer00" taborder="17" left="163" top="103" width="177" height="236" stretch="fit"/>
         <Static id="Static00_00_01_00" taborder="18" left="409" top="250" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   재직여부"/>
         <Static id="Static00_00_01_00_00" taborder="19" left="682" top="201" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   생년월일"/>
         <Static id="Static00_00_01_00_01" taborder="20" left="409" top="397" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   주소"/>
@@ -60,6 +60,7 @@
 // 4. 기타기능 - 이메일 + 주소검색
 // 5. 유효성 검사
 // 6. 콜백함수
+// 7. 파일업로드
 
 // 1. 화면호출
 this.add_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
@@ -404,6 +405,8 @@ this.fnCallback = function (svcID, errCD, errMsg)
 		}
 };
 
+// 7. 파일업로드
+
 // dialog 호출
 this.btn_addfile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -443,7 +446,7 @@ this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialog
 			this.ds_file.setColumn(0,"FILE_NAME", name);
 
 			setTimeout(function(){
-				this.aftereventFunction();
+				this.showImagePreview(name);
 			}.bind(this), 100);
 	
 		}else{
@@ -503,16 +506,17 @@ this.uploadFileToServer = function(vFile) {
 
 // 이미지 미리보기 함수
 this.showImagePreview = function(fileName) {
+	trace(fileName);
     var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
     var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
     this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
 	
 	// 이미지가 없을 때 나오는 text
-	if(this.ds_pro.getColumn(0, "PHOTO") == null || this.ds_pro.getColumn(0, "PHOTO") == "" || this.ds_pro.getColumn(0, "PHOTO") == "undefined"){
-		this.ImageViewer00.set_text("500KB 이하");
-	}else {
-		this.ImageViewer00.set_text("");
-	}
+// 	if(this.ds_pro.getColumn(0, "PHOTO") == null || this.ds_pro.getColumn(0, "PHOTO") == "" || this.ds_pro.getColumn(0, "PHOTO") == "undefined"){
+// 		this.ImageViewer00.set_text("500KB 이하");
+// 	}else {
+// 		this.ImageViewer00.set_text("");
+// 	}
 	// 이미지가 뜬 이후 10초간 미리보기 폴더에 유지 - 이후 삭제
 	setTimeout(function(){
 		this.deleteFile(fileName);
@@ -678,7 +682,7 @@ this.deleteFile = function(fileName) {
       </Dataset>
       <Dataset id="ds_reDept"/>
       <FileDialog id="FileDialog00" onclose="FileDialog00_onclose"/>
-      <FileUpTransfer id="FileUpTransfer00" onsuccess="FileUpTransfer00_onsuccess" onerror="FileUpTransfer00_onerror"/>
+      <FileUpTransfer id="FileUpTransfer00"/>
       <Dataset id="ds_file">
         <ColumnInfo>
           <Column id="FILE_NAME" type="STRING" size="256"/>
