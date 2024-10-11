@@ -3,7 +3,6 @@
 <mapper namespace="ateam.mapper.AdminMapper">
 
 	<select id = "selectCodeMst" parameterType="hashMap" resultType="hashMap">
-	
 	SELECT CODE
 	, CODE_NM
 	FROM CMMN_CD_MST_GJM
