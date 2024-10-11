@@ -69,7 +69,8 @@
 	        <table class="table table-hover mt-4">
 	            <thead class="thead-dark">
 	                <tr>
-	                    <th>강의 코드</th>
+	                    <th>코드</th>
+	                    <th>학기</th>
 	                    <th>강의명</th>
 	                    <th>교수명</th>
 	                    <th>학과</th>
@@ -83,6 +84,7 @@
 					<c:forEach var="selectClass" items="${classList}">
 						<tr>
 							<td>${selectClass.classCode}</td>
+							<td>${selectClass.semester}학기</td>
 							<td>${selectClass.className}</td>
 							<td>${selectClass.professorName}</td>
 							<td>${selectClass.departmentName}</td>

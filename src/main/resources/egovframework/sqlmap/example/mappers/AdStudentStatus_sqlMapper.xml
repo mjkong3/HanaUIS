@@ -29,6 +29,7 @@
 		 			 AND S.NAME LIKE CONCAT('%', #{SEARCH_WORD},'%')
 				 </if>
 			</if>
+		ORDER BY SS.STATUS_CODE DESC
 	</select >
 	
    <select id="statusDetail" parameterType="java.util.Map" resultType="java.util.Map">
