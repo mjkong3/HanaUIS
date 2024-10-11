@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nexacro.uiadapter17.spring.core.annotation.ParamDataSet;
+import com.nexacro.uiadapter17.spring.core.annotation.ParamVariable;
 import com.nexacro.uiadapter17.spring.core.data.NexacroResult;
 
 import ateam.dto.ProfessorDTO;
@@ -40,12 +41,12 @@ public class AdStudentController {
           //Map<String, Object> welcome = service.welcome(param);
           System.out.println("dkdkdkddkefewa"+ DEPARTMENT_List);
           
-            Map<String, Object> allDept = new HashMap<>();
-            allDept.put("DEPARTMENT_CODE", "00");  // 학과 코드 공백 (전체 의미)
-            allDept.put("DEPARTMENT_NAME", "전체학과");  // 학과 이름 "전체학과"로 설정
+//            Map<String, Object> allDept = new HashMap<>();
+//            allDept.put("DEPARTMENT_CODE", "00");  // 학과 코드 공백 (전체 의미)
+//            allDept.put("DEPARTMENT_NAME", "전체학과");  // 학과 이름 "전체학과"로 설정
             
             // "전체학과"를 리스트의 첫 번째 행에 추가
-            DEPARTMENT_List.add(0, allDept);
+//            DEPARTMENT_List.add(0, allDept);
 
             // 조회된 데이터를 넥사크로 데이터셋에 추가
             result.addDataSet("DEPARTMENT_List", DEPARTMENT_List);
@@ -103,6 +104,27 @@ public class AdStudentController {
        
        return result;
     }
+   
+   @RequestMapping(value = "/studCheckId.do")
+   public NexacroResult studCheckId(@ParamVariable(name = "STUDENT_ID", required = false) String STUDENT_ID) {
+      System.out.println(STUDENT_ID);
+      NexacroResult result = new NexacroResult();
+
+      try {
+         Map<String, Object> ds_vali = service.studCheckId(STUDENT_ID);
+         //Map<String, Object> welcome = service.welcome(param);
+         System.out.println("dkdkdkddkefewa"+ ds_vali);
+
+         result.addDataSet("ds_vali", ds_vali);
+         
+      }catch(Exception ee) {
+         System.out.println(ee);
+         result.setErrorCode(-1);
+         result.setErrorMsg("catch 조회 오류");
+      }
+      
+      return result;
+   }
    
    @RequestMapping(value = "/insertAdStudent.do")
     public NexacroResult insertAdStudent(@ParamDataSet(name = "save_ds", required = false) Map<String, Object> param) {

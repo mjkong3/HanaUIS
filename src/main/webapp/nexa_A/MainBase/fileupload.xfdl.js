@@ -90,6 +90,7 @@
         {
         	trace("Selected files: " + e.virtualfiles.length);  // 파일이 선택되었는지 확인
         	this.addFileList(e.virtualfiles);
+        	trace(e.virtualfiles[0].filesize);
         	this.FileUpTransfer00.upload('http://localhost:8082/AdminFileUpload');
         };
 
@@ -111,9 +112,11 @@
         	{
         		case 1:
         			obj.getFileSize();
+        			trace("dejfnej"+e.filesize);
         			break;
         		case 9:
         			var nRowIdx = this.Dataset00.addRow();
+        			trace("efnwkjfwnekjfnewkjfnewkjfn"+e.filesize);
         			this.Dataset00.setColumn(nRowIdx, 0, obj.filename);
         			this.Dataset00.setColumn(nRowIdx, 1, this.cutFileSize(e.filesize));
         			this.FileUpTransfer00.addFile(obj.filename, obj);
@@ -163,7 +166,7 @@
         this.Button01_onclick = function(obj,e)
         {
         	this.TextArea00.set_value("");
-        	this.FileUpTransfer00.upload('http://localhost:8082/hanaUIS/nexa_A/AdminFileUpload');
+        	this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/showfileupload.jsp");
         };
 
         this.FileUpTransfer00_onprogress = function(obj,e)

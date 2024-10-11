@@ -65,10 +65,23 @@
             obj = new Dataset("ds_reDept", this);
             obj._setContents("");
             this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_file", this);
+            obj._setContents("<ColumnInfo><Column id=\"FILE_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_SIZE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new FileDialog("FileDialog00", this);
+            this.addChild(obj.name, obj);
+
+
+            obj = new FileUpTransfer("FileUpTransfer00", this);
+            this.addChild(obj.name, obj);
             
             // UI Components Initialize
             obj = new Static("Static00_03_01_00_00_00_02_00","506","348","176","50",null,null,null,null,null,null,this);
-            obj.set_taborder("46");
+            obj.set_taborder("45");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
@@ -186,6 +199,7 @@
 
             obj = new ImageViewer("ImageViewer00","163","103","177","236",null,null,null,null,null,null,this);
             obj.set_taborder("17");
+            obj.set_stretch("fit");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_01_00","409","250","98","50",null,null,null,null,null,null,this);
@@ -285,45 +299,41 @@
             obj.set_cssclass("edt_Adr");
             this.addChild(obj.name, obj);
 
-            obj = new FileUpload("FileUpload00","163","359","177","22",null,null,null,null,null,null,this);
-            obj.set_taborder("31");
-            this.addChild(obj.name, obj);
-
             obj = new Button("btn_Add","889","511","151","38",null,null,null,null,null,null,this);
-            obj.set_taborder("32");
+            obj.set_taborder("31");
             obj.set_text("작성완료");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_01_00_00_00_02","506","299","176","50",null,null,null,null,null,null,this);
-            obj.set_taborder("33");
+            obj.set_taborder("32");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_01_00_02","409","299","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("34");
+            obj.set_taborder("33");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   등록ID");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_Admin","517","309","153","30",null,null,null,null,null,null,this);
-            obj.set_taborder("35");
+            obj.set_taborder("34");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_Reset","730","511","151","38",null,null,null,null,null,null,this);
-            obj.set_taborder("36");
+            obj.set_taborder("35");
             obj.set_text("초기화");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_Domain","910","309","119","30",null,null,null,null,null,null,this);
-            obj.set_taborder("38");
+            obj.set_taborder("37");
             obj.set_visible("true");
             this.addChild(obj.name, obj);
 
             obj = new Combo("cmb_Domain","910","309","119","30",null,null,null,null,null,null,this);
-            obj.set_taborder("37");
+            obj.set_taborder("36");
             obj.set_innerdataset("ds_domain");
             obj.set_codecolumn("code");
             obj.set_datacolumn("data");
@@ -331,35 +341,35 @@
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_Adr","690","354","80","38",null,null,null,null,null,null,this);
-            obj.set_taborder("39");
+            obj.set_taborder("38");
             obj.set_text("주소검색");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_01_00_01_00","409","446","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("40");
+            obj.set_taborder("39");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   상세주소");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_01_00_00_00_01_00","506","446","534","50",null,null,null,null,null,null,this);
-            obj.set_taborder("41");
+            obj.set_taborder("40");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_DtlAdr","518","456","512","30",null,null,null,null,null,null,this);
-            obj.set_taborder("42");
+            obj.set_taborder("41");
             obj.set_displaynulltext("상세주소를 입력하세요");
             this.addChild(obj.name, obj);
 
             obj = new WebBrowser("wb_Adress","190","437","100","100",null,null,null,null,null,null,this);
-            obj.set_taborder("43");
+            obj.set_taborder("42");
             obj.set_visible("false");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_ZipCd","517","358","153","30",null,null,null,null,null,null,this);
-            obj.set_taborder("44");
+            obj.set_taborder("43");
             obj.set_displaynulltext("우편번호");
             obj.set_enable("true");
             obj.set_readonly("true");
@@ -367,10 +377,20 @@
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_01_00_02_00","409","348","98","50",null,null,null,null,null,null,this);
-            obj.set_taborder("45");
+            obj.set_taborder("44");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   우편번호");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_addfile","297","358","43","20",null,null,null,null,null,null,this);
+            obj.set_taborder("46");
+            obj.set_text("등록");
+            this.addChild(obj.name, obj);
+
+            obj = new Edit("edt_filename","163","358","136","21",null,null,null,null,null,null,this);
+            obj.set_taborder("47");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -388,10 +408,6 @@
             obj.bind();
 
             obj = new BindItem("item2","edt_ProName","value","ds_pro","NAME");
-            this.addChild(obj.name, obj);
-            obj.bind();
-
-            obj = new BindItem("item3","ImageViewer00","text","ds_pro","PHOTO");
             this.addChild(obj.name, obj);
             obj.bind();
 
@@ -461,6 +477,7 @@
         // 4. 기타기능 - 이메일 + 주소검색
         // 5. 유효성 검사
         // 6. 콜백함수
+        // 7. 파일업로드
 
         // 1. 화면호출
         this.add_Professor_Popup_onload = function(obj,e)
@@ -775,6 +792,7 @@
         	// 등록버튼
         	case "insertPro":
         		trace("등록완료")
+        		this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
         		alert("등록에 성공하였습니다!");
         		this.close("success");
         		break;
@@ -803,6 +821,156 @@
         		break;
         		}
         };
+
+        // 7. 파일업로드
+
+        // dialog 호출
+        this.btn_addfile_onclick = function(obj,e)
+        {
+        	this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);
+        };
+
+
+        // 파일 트랜스퍼 및 미리보기 넣는 이벤트 - 유효성
+        this.FileDialog00_onclose = function(obj,e)
+        {
+        	var filetype = e.virtualfiles[0].filename;
+
+        	if(e.virtualfiles.length > 1){
+        		alert("파일이 두개 이상입니다.");
+        	}
+         	else if(!this.gfnIsImageFile(filetype)){
+        		alert("png, "+ "jpg, "+ "jpeg" + "가 아닙니다.");
+         	}
+        	else{
+        		// 파일 추가시 사이즈 체크용 함수
+        		this.addFileList(e.virtualfiles);
+        		trace(this.ds_file.getColumn(0, "FILE_SIZE"));
+
+
+        		if(this.ds_file.getColumn(0, "FILE_SIZE") < 500000){
+        			var name;
+        			for (var i = 0; i < e.virtualfiles.length; i++) {
+        				this.ds_pro.setColumn(0, "PHOTO", e.virtualfiles[i].filename);
+
+        				name = e.virtualfiles[i].filename;
+
+        				// 파일을 서버에 업로드하는 함수 호출
+        				this.uploadFileToServer(e.virtualfiles[i]);
+
+        			}
+        			this.edt_filename.set_value(name);
+        			this.ds_file.setColumn(0,"FILE_NAME", name);
+
+        			setTimeout(function(){
+        				this.showImagePreview(name);
+        			}.bind(this), 100);
+
+        		}else{
+        			alert("용량이 너무 큽니다. 500KB이하로 해주세요.");
+        			var fileName = e.virtualfiles[0].filename;
+        			this.ds_file.clearData();
+        			this.ds_file.addRow();
+
+        			setTimeout(function(){
+        				this.deleteFile(fileName);
+        			}.bind(this), 100);
+        		}
+        	}
+        };
+
+        // 파일 추가시 이벤트 호출 함수 - 커스텀이벤트로 사이즈 체크
+        this.addFileList = function(filelist) {
+            for (var i = 0, len = filelist.length, vFile; i < len; i++) {
+                vFile = filelist[i];
+        		trace(vFile.filesize);
+                vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
+                vFile.addEventHandler("onerror", this.FileList_onerror, this);
+        		trace("여기는 오지");
+
+        		vFile.open(null, 1);
+            }
+        };
+
+
+        // 커스텀 이벤트 발동 - 사이즈 체크
+        this.FileList_onsuccess = function(obj, e) {
+            switch (e.reason) {
+                case 1:
+                    obj.getFileSize();
+                    break;
+                case 9: // 들어와졌을 때
+                    this.FileUpTransfer00.addFile(obj.filename, obj);
+        			this.ds_file.setColumn(0, "FILE_SIZE", e.filesize);
+                    break;
+            }
+        };
+
+        // 커스텀 이벤트 발동 - 실패용 이벤트
+        this.FileList_onerror = function(obj, e)
+        {
+            trace("errortype: "+e.errortype);
+            trace("errormsg: "+e.errormsg);
+            trace("statuscode: "+e.statuscode);
+        };
+
+        // 파일 업로드 함수 - 트랜스퍼에 추가
+        this.uploadFileToServer = function(vFile) {
+        	this.FileUpTransfer00.clearFileList();
+            this.FileUpTransfer00.addFile(vFile.filename, vFile);
+            this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
+        };
+
+        // 이미지 미리보기 함수
+        this.showImagePreview = function(fileName) {
+        	trace(fileName);
+            var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+            var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
+            this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
+
+        	// 이미지가 없을 때 나오는 text
+        // 	if(this.ds_pro.getColumn(0, "PHOTO") == null || this.ds_pro.getColumn(0, "PHOTO") == "" || this.ds_pro.getColumn(0, "PHOTO") == "undefined"){
+        // 		this.ImageViewer00.set_text("500KB 이하");
+        // 	}else {
+        // 		this.ImageViewer00.set_text("");
+        // 	}
+        	// 이미지가 뜬 이후 10초간 미리보기 폴더에 유지 - 이후 삭제
+        	setTimeout(function(){
+        		this.deleteFile(fileName);
+        	}.bind(this), 10000);
+
+        };
+
+        // 이미지 등록 시 확장자 확인
+        this.gfnIsImageFile = function(fileTxt) {
+            var imageExt = ["png", "jpg", "jpeg"];
+            var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
+            return imageExt.includes(extNm);
+        };
+
+        // 미리보기 폴더에서 파일 삭제 함수
+        this.deleteFile = function(fileName) {
+        	trace("여기까지 왔나?");
+            var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+            var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
+
+        	var params = {
+        		filename: fileName // 파일 이름을 파라미터로 전달
+        	};
+        	var xhr = new XMLHttpRequest();
+        	xhr.open("POST", deleteUrl, true);
+        	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        	xhr.onreadystatechange = function () {
+        		if (xhr.readyState === 4) {
+        			if (xhr.status === 200) {
+        				trace("서버 응답: " + xhr.responseText);
+        			} else {
+        				trace("오류 발생: " + xhr.status);
+        			}
+        		}
+        	};
+        	xhr.send("filename=" + encodeURIComponent(fileName));
+        };
         });
         
         // Regist UI Components Event
@@ -815,7 +983,6 @@
             this.edt_ProPw.addEventHandler("onchanged",this.edt_ProPw_onchanged,this);
             this.cmb_Dept.addEventHandler("onitemchanged",this.cmb_Dept_onitemchanged,this);
             this.edt_Email.addEventHandler("onkillfocus",this.edt_Email_onkillfocus,this);
-            this.FileUpload00.addEventHandler("onitemchanged",this.FileUpload00_onitemchanged,this);
             this.btn_Add.addEventHandler("onclick",this.btn_Add_onclick,this);
             this.btn_Reset.addEventHandler("onclick",this.btn_Reset_onclick,this);
             this.edt_Domain.addEventHandler("onkeyup",this.edt_Domain_onkeyup,this);
@@ -824,6 +991,8 @@
             this.cmb_Domain.addEventHandler("onitemchanged",this.cmb_Domain_onitemchanged,this);
             this.btn_Adr.addEventHandler("onclick",this.btn_Adr_onclick,this);
             this.wb_Adress.addEventHandler("onusernotify",this.wb_Adress_onusernotify,this);
+            this.btn_addfile.addEventHandler("onclick",this.btn_addfile_onclick,this);
+            this.FileDialog00.addEventHandler("onclose",this.FileDialog00_onclose,this);
         };
         this.loadIncludeScript("add_Professor_Popup.xfdl");
         this.loadPreloadList();

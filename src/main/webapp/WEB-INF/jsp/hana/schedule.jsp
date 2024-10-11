@@ -38,46 +38,64 @@
         <div class="container">
         <h3>시간표</h3>
         
-        <table class="timetable">
-            <thead>
-                <tr>
-                    <th>시간/요일</th>
-                    <th>월요일</th>
-                    <th>화요일</th>
-                    <th>수요일</th>
-                    <th>목요일</th>
-                    <th>금요일</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- 시간대와 요일별 시간표를 동적으로 생성 -->
-                <c:forEach var="hour" begin="9" end="15" step="1">
-                    <tr>
-                    	
-                        <td>${hour-8} 교시 <br>
-                        	${hour}:00 - ${hour+1}:00
-                        </td>
-
-                        <!-- 동적으로 스케줄 생성 -->
-           			  	<c:forEach var="day" begin="1" end="5">
-             	 		<td>
-			                <c:forEach var="schedule" items="${timetable}">
-			                    <c:if test="${schedule.weekDay == day && schedule.classHour == hour-8}">
-			                        <div class="class-info">
-			                            <strong>${schedule.subject}</strong>
-			                            <br/>
-			                            ${schedule.professor}
-			                            <br/>
-			                            ${schedule.location}
-			                        </div>
-			                    </c:if>
+            <c:choose>
+		       <c:when test="${student.status == '재학중' or professor.status == '재직중'}">
+			       
+        
+			        <table class="timetable">
+			            <thead>
+			                <tr>
+			                    <th>시간/요일</th>
+			                    <th>월요일</th>
+			                    <th>화요일</th>
+			                    <th>수요일</th>
+			                    <th>목요일</th>
+			                    <th>금요일</th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			            
+			                <!-- 시간대와 요일별 시간표를 동적으로 생성 -->
+			                <c:forEach var="hour" begin="9" end="15" step="1">
+			                    <tr>
+			                    	
+			                        <td>${hour-8} 교시 <br>
+			                        	${hour}:00 - ${hour+1}:00
+			                        </td>
+			
+			                        <!-- 동적으로 스케줄 생성 -->
+			           			  	<c:forEach var="day" begin="1" end="5">
+			             	 		<td>
+						                <c:forEach var="schedule" items="${timetable}">
+						                    <c:if test="${schedule.weekDay == day && schedule.classHour == hour-8}">
+						                        <div class="class-info">
+						                            <strong>${schedule.subject}</strong>
+						                            <br/>
+						                            ${schedule.professor}
+						                            <br/>
+						                            ${schedule.location}
+						                        </div>
+						                    </c:if>
+						                </c:forEach>
+						            </td>
+						           </c:forEach>
+						           
+						           
+			                    </tr>
 			                </c:forEach>
-			            </td>
-			           </c:forEach>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+			                
+			                
+			            </tbody>
+			        </table>
+   	        	</c:when>
+   	        	
+ 	        	<c:otherwise>
+            		<h4>이용이 불가능합니다.</h4>
+        		</c:otherwise>
+        		
+           	</c:choose>
+           	
+           	
         </div>
 
     </div>
