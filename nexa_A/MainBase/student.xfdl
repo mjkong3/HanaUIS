@@ -19,7 +19,7 @@
                 <Cell col="1" text="학과명"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:DEPARTMENT_CODE" textAlign="center"/>
+                <Cell text="bind:DEPARTMENT_CODE" textAlign="center" displaytype="mask" maskeditformat="00"/>
                 <Cell col="1" text="bind:DEPARTMENT_NAME" textAlign="center"/>
               </Band>
             </Format>
@@ -30,12 +30,16 @@
             <Format id="default">
               <Columns>
                 <Column size="48" band="left"/>
+                <Column size="20"/>
+                <Column size="41"/>
+                <Column size="55"/>
+                <Column size="54"/>
+                <Column size="45"/>
+                <Column size="52"/>
                 <Column size="48"/>
-                <Column size="158"/>
-                <Column size="126"/>
-                <Column size="123"/>
-                <Column size="194"/>
-                <Column size="248"/>
+                <Column size="48"/>
+                <Column size="48"/>
+                <Column size="48"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -45,19 +49,27 @@
                 <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:Check"/>
                 <Cell col="1" text="No"/>
                 <Cell col="2" text="학번"/>
-                <Cell col="3" text="이름"/>
-                <Cell col="4" text="상태"/>
-                <Cell col="5" text="번호"/>
-                <Cell col="6" text="이메일"/>
+                <Cell col="3" text="성명"/>
+                <Cell col="4" text="연락처"/>
+                <Cell col="5" text="이메일"/>
+                <Cell col="6" text="생년월일"/>
+                <Cell col="7" text="성별"/>
+                <Cell col="8" text="주소"/>
+                <Cell col="9" text="상태여부"/>
+                <Cell col="10" text="학과"/>
               </Band>
               <Band id="body">
                 <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:Check"/>
                 <Cell col="1" text="expr:currow + 1" textAlign="center"/>
-                <Cell col="2" text="bind:Student_id"/>
-                <Cell col="3" text="bind:Name"/>
-                <Cell col="4" text="bind:Status"/>
-                <Cell col="5" text="bind:Phone"/>
-                <Cell col="6" text="bind:Email"/>
+                <Cell col="2" text="bind:STUDENT_ID"/>
+                <Cell col="3" text="bind:NAME"/>
+                <Cell col="4" text="bind:PHONE"/>
+                <Cell col="5" text="bind:EMAIL"/>
+                <Cell col="6" text="bind:BIRTHDAY"/>
+                <Cell col="7" text="bind:GENDER"/>
+                <Cell col="8" text="bind:ADDRESS"/>
+                <Cell col="9" text="bind:STATUS"/>
+                <Cell col="10" text="bind:DEPARTMENT_CODE"/>
               </Band>
             </Format>
           </Formats>
@@ -76,8 +88,10 @@ this.Form_Code_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
    this.Search.setColumn(0,"SEARCH_TYPE","All");
    
    // 학과 호출
+   
+   this.onRowKey = false; // onrow 이벤트 트리거(off)
+   // 학과 호출
    this.select_Depart();
-
 };
 
 // 엔터키 검색
@@ -101,6 +115,17 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
    console.log("svcID = " + svcID);
     
    switch(svcID) {
+   case "selectDepartment":
+	  this.DEPARTMENT_List.insertRow(0); // 맨 앞에 row 생성
+		this.DEPARTMENT_List.setColumn(0, "DEPARTMENT_CODE", 0);
+		this.DEPARTMENT_List.setColumn(0, "DEPARTMENT_NAME", "전체학과");
+		// trace("학과ds 내용확인 " + this.DEPARTMENT_List.saveXML());
+		
+		// ds_dept에 row 추가 후 onrowpos이벤트 실행
+		this.DEPARTMENT_List.set_rowposition(0); // 첫번째 행 수동 설정
+		this.onRowKey = true; // onrow 이벤트 트리거(on)
+		this.DEPARTMENT_List_onrowposchanged(this.DEPARTMENT_List, null); // 이벤트 수동호출
+		break;
    case "deleteAdStudent":
       this.alert("삭제되었습니다.");
       this.fnSearch();
@@ -108,7 +133,15 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
    case "saveAdStudent":
       this.fnSearch();
       break;
-   default:
+   case "selectAdStudentdtl":
+	  var objParam = {param1:this.student_dtl_list,
+               param2:this.DEPARTMENT_List};
+	  console.log(this.student_dtl_list.getColumn(0,"GENDER"));
+      var surl = "MainBase::select_Student_Popup.xfdl"
+      this.showPopup(objParam, surl);
+      break;
+	default:
+		break;
    }
 };
 // 시작 학과 호출
@@ -163,7 +196,7 @@ this.plus_btn_onclick = function(obj, e) {
     // 팝업으로 넘길 파라미터 (데이터셋 전체와 선택된 학과의 코드)
     var objParam = { 
         param1: this.DEPARTMENT_List,            // 데이터셋 전체
-        selectedDeptCode: selectedDepartmentCode // 선택한 학과의 DEPARTMENT_CODE
+        selectedDepartmentCode: selectedDepartmentCode // 선택한 학과의 DEPARTMENT_CODE
     };
     
     // 팝업 창 경로 설정
@@ -183,9 +216,10 @@ this.Select_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 // 그리드 선택 -- 데이터 셋 레벨에 따라서
 this.DEPARTMENT_List_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
 {
-   this.Search.setColumn(0,"DEPARTMENT_CODE",obj.getColumn(obj.rowposition,"DEPARTMENT_CODE"));
-   
-   this.fnSearch();
+	if (this.onRowKey == true){
+	this.Search.setColumn(0,"DEPARTMENT_CODE",obj.getColumn(obj.rowposition,"DEPARTMENT_CODE"));
+	this.fnSearch();
+	}
 };
 
 // 조회 검색
@@ -209,20 +243,16 @@ this.fnSearch = function()
 
 };
 
+// 학생 팝업
 this.Dtl_Grid_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
    this.fn_student_dtl();
    
-   var objParam = {param1:this.student_dtl_list,
-               param2:this.DEPARTMENT_List};
-   console.log(this.student_dtl_list.getColumn(0,"GENDER"));
-   var surl = "MainBase::select_Student_Popup.xfdl"
-   this.showPopup(objParam, surl);
 };
 
 this.DEPARTMENT_DTL_List_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
 {
-   this.DTL_onrow_ds.setColumn(0,"Student_id",obj.getColumn(obj.rowposition, "Student_id"));
+   this.DTL_onrow_ds.setColumn(0,"STUDENT_ID",obj.getColumn(obj.rowposition, "STUDENT_ID"));
    
    /*console.log(this.DTL_onrow_ds.getColumn(0,"Student_id"));*/
 };
@@ -235,7 +265,7 @@ this.fn_student_dtl = function()
    var outData     = "student_dtl_list=student_dtl_list";
    var strArg      = "";
    var callBackFnc = "fnCallback";
-   var isAsync     = false;
+   var isAsync     = true;
    
    this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
 
@@ -351,7 +381,7 @@ this.fn_delete = function()
    var outData     = "";
    var strArg      = "";
    var callBackFnc = "fnCallback";
-   var isAsync     = false;
+   var isAsync     = true;
    
    this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
 
@@ -380,28 +410,48 @@ this.delete_btn_onclick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)
         </ColumnInfo>
         <Rows>
           <Row>
-            <Col id="code">All</Col>
+            <Col id="code">ALL</Col>
             <Col id="data">전체</Col>
           </Row>
           <Row>
-            <Col id="code">Student_id</Col>
+            <Col id="code">STUDENT_ID</Col>
             <Col id="data">학번</Col>
           </Row>
           <Row>
-            <Col id="code">Name</Col>
+            <Col id="code">NAME</Col>
             <Col id="data">이름</Col>
           </Row>
           <Row>
-            <Col id="code">Status</Col>
-            <Col id="data">상태</Col>
+            <Col id="code">UNIV_YEAR</Col>
+            <Col id="data">학년</Col>
           </Row>
           <Row>
-            <Col id="code">Phone</Col>
+            <Col id="code">PHONE</Col>
             <Col id="data">번호</Col>
           </Row>
           <Row>
-            <Col id="code">Email</Col>
+            <Col id="code">EMAIL</Col>
             <Col id="data">이메일</Col>
+          </Row>
+          <Row>
+            <Col id="code">BIRTHDAY</Col>
+            <Col id="data">생년월일</Col>
+          </Row>
+          <Row>
+            <Col id="code">GENDER</Col>
+            <Col id="data">성별</Col>
+          </Row>
+          <Row>
+            <Col id="code">ADDRESS</Col>
+            <Col id="data">주소</Col>
+          </Row>
+          <Row>
+            <Col id="code">STATUS</Col>
+            <Col id="data">상태</Col>
+          </Row>
+          <Row>
+            <Col id="code">DEPARTMENT_CODE</Col>
+            <Col id="data">학번코드</Col>
           </Row>
         </Rows>
       </Dataset>
@@ -423,17 +473,21 @@ this.delete_btn_onclick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)
       </Dataset>
       <Dataset id="DEPARTMENT_DTL_List" onrowposchanged="DEPARTMENT_DTL_List_onrowposchanged">
         <ColumnInfo>
-          <Column id="Student_id" type="STRING" size="256"/>
-          <Column id="Name" type="STRING" size="256"/>
-          <Column id="Status" type="STRING" size="256"/>
-          <Column id="Phone" type="STRING" size="256"/>
-          <Column id="Email" type="STRING" size="256"/>
-          <Column id="Check" type="INT" size="10"/>
+          <Column id="STUDENT_ID" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
+          <Column id="UNIV_YEAR" type="STRING" size="256"/>
+          <Column id="PHONE" type="STRING" size="256"/>
+          <Column id="EMAIL" type="STRING" size="256"/>
+          <Column id="BIRTHDAY" type="INT" size="10"/>
+          <Column id="GENDER" type="STRING" size="256"/>
+          <Column id="ADDRESS" type="STRING" size="256"/>
+          <Column id="STATUS" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_CODE" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="DTL_onrow_ds">
         <ColumnInfo>
-          <Column id="Student_id" type="STRING" size="256"/>
+          <Column id="STUDENT_ID" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row/>
@@ -455,6 +509,9 @@ this.delete_btn_onclick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)
           <Column id="PHOTO" type="STRING" size="256"/>
           <Column id="ADMIN_CODE" type="STRING" size="256"/>
           <Column id="REGDATE" type="STRING" size="256"/>
+          <Column id="EMAIL_PART" type="STRING" size="256"/>
+          <Column id="DOMAIN_PART" type="STRING" size="256"/>
+          <Column id="ZIPCODE" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="dlt_ds">

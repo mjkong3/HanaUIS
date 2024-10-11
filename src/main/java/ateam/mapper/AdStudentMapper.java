@@ -23,7 +23,9 @@ public interface AdStudentMapper {
 
    void deletAdStudent(Map<String, Object> param);
 
-StudentDTO stdchecklogin(StudentDTO dto);
+   StudentDTO stdchecklogin(StudentDTO dto);
+
+   Map<String, Object> studCheckId(String STUDENT_ID);
    
    
 

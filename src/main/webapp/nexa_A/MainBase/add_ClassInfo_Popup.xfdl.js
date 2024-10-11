@@ -216,6 +216,9 @@
 
             obj = new TextArea("txt_ClsInfo","330","315","569","255",null,null,null,null,null,null,this);
             obj.set_taborder("21");
+            obj.set_wordWrap("english");
+            obj.set_scrollbartype("auto auto");
+            obj.set_scrolltype("vertical");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_01_00_00_00_00_00_00","330","277","569","39",null,null,null,null,null,null,this);
