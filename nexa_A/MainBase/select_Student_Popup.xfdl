@@ -114,7 +114,19 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 		 //var sessionId = application.getSession("SESSION_ID");
 		 window.open("http://localhost:8082/HanaUIS/std/notice.do"); // 세션 등록 성공 시 새탭으로 띄우기
 		 break;
+	  // 이메일 중복체크
+		case "stuCheckEm":
+			var chkEm = this.ds_vali.getColumn(0, "CHECK_EM");
+			trace("이메일값?" + chkEm);
+			if (chkEm == "Y") {
+				// 연락처 유효성 정규식
+				this.fn_valiPhChk();
+			} else {
+				alert("중복된 email 입니다");
+			}
+			break;
 	  default:
+		  break;
    }
 };
 // 시작 시
@@ -221,6 +233,7 @@ this.Stu_Add_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
    
    this.edt_filename.set_visible(true);
    this.btn_addfile.set_visible(true);
+   this.btn_mypage.set_enable(false);
    
    trace(this.save_ds.getColumn(0,"PHOTO"));
    
@@ -263,6 +276,7 @@ this.return_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
    
    this.Stu_Add_btn.set_visible(true);
    this.save_btn.set_visible(false);
+   this.btn_mypage.set_enable(true);
    
    this.edt_filename.set_visible(false);
    this.btn_addfile.set_visible(false);
@@ -300,31 +314,56 @@ this.save_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	if (dept == 0){
 		alert("학과를 선택해주세요");
 	} else {
-		this.fn_valiCheck();
+		this.fn_valiEmChk();
 	}
 	
 	
-   this.fn_update_student();
+   //this.fn_update_student();
 };
 
-this.fn_valiCheck = function ()
+// 5-4) 이메일 정규식
+this.fn_valiEmChk = function ()
 {
 	var email = this.save_ds.getColumn(0, "EMAIL");
 	var regem = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		
+	if (!regem.test(email)) {
+		alert("유효한 이메일 주소를 입력하세요.");
+		this.edt_Email.set_value("");
+		this.edt_Email.setFocus();
+	} else {
+		trace("이메일값좀 보자1 " + email);
+		this.fn_dupEmChk();
+	}
+};
+
+// 5-5) 이메일 중복체크	
+this.fn_dupEmChk = function ()
+{
+	var strSvcId    = "stuCheckEm";
+	var strSvcUrl   = "svc::stuCheckEm.do";
+	var inData      = "save_ds=save_ds";
+	var outData     = "ds_vali=ds_vali";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	var isAsync     = true;	
+	
+	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+};
+
+
+// 5-6) 연락처 정규식
+this.fn_valiPhChk = function ()
+{
 	var phone = this.save_ds.getColumn(0, "PHONE");
 	var regph = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
-	if (!regem.test(email)) {
-        alert("유효한 이메일 주소를 입력하세요.");
-		this.edt_email.set_value("");
-		this.edt_email.setFocus();
-			}else if(!regph.test(phone)){
-				alert("연락처는 다음과 같이 입력해주세요 : 01x-xxxx-xxxx");
-				this.edt_phone.set_value("");
-				this.edt_phone.setFocus();
-			}
-	if(regem.test(email) && regph.test(phone)){
+	if(!regph.test(phone)){
+		alert("연락처는 다음과 같이 입력해주세요 : 01x-xxxx-xxxx");
+		this.edt_phone.set_value("");
+		this.edt_phone.setFocus();
+	} else {
 		this.fn_update_student();
-	}
+	}	
 };
 
 //password check
@@ -390,6 +429,9 @@ this.edt_Domain_oneditclick = function(obj:nexacro.Edit,e:nexacro.EditClickEvent
 	}
 	
 };
+
+
+
 
 
 

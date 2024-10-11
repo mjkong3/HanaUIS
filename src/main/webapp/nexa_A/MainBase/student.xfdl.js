@@ -18,7 +18,7 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("Search_Type", this);
-            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">ALL</Col><Col id=\"data\">전체</Col></Row><Row><Col id=\"code\">STUDENT_ID</Col><Col id=\"data\">학번</Col></Row><Row><Col id=\"code\">NAME</Col><Col id=\"data\">이름</Col></Row><Row><Col id=\"code\">UNIV_YEAR</Col><Col id=\"data\">학년</Col></Row><Row><Col id=\"code\">PHONE</Col><Col id=\"data\">번호</Col></Row><Row><Col id=\"code\">EMAIL</Col><Col id=\"data\">이메일</Col></Row><Row><Col id=\"code\">BIRTHDAY</Col><Col id=\"data\">생년월일</Col></Row><Row><Col id=\"code\">GENDER</Col><Col id=\"data\">성별</Col></Row><Row><Col id=\"code\">ADDRESS</Col><Col id=\"data\">주소</Col></Row><Row><Col id=\"code\">STATUS</Col><Col id=\"data\">상태</Col></Row><Row><Col id=\"code\">DEPARTMENT_CODE</Col><Col id=\"data\">학번코드</Col></Row></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">ALL</Col><Col id=\"data\">전체</Col></Row><Row><Col id=\"code\">STUDENT_ID</Col><Col id=\"data\">학번</Col></Row><Row><Col id=\"code\">NAME</Col><Col id=\"data\">이름</Col></Row><Row><Col id=\"code\">UNIV_YEAR</Col><Col id=\"data\">학년</Col></Row><Row><Col id=\"code\">PHONE</Col><Col id=\"data\">번호</Col></Row><Row><Col id=\"code\">EMAIL</Col><Col id=\"data\">이메일</Col></Row><Row><Col id=\"code\">BIRTHDAY</Col><Col id=\"data\">생년월일</Col></Row><Row><Col id=\"code\">GENDER</Col><Col id=\"data\">성별</Col></Row><Row><Col id=\"code\">ADDRESS</Col><Col id=\"data\">주소</Col></Row><Row><Col id=\"code\">STATUS</Col><Col id=\"data\">상태</Col></Row></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -72,7 +72,8 @@
             obj.set_innerdataset("Search_Type");
             obj.set_datacolumn("data");
             obj.set_codecolumn("code");
-            obj.set_value("All");
+            obj.set_text("전체");
+            obj.set_value("ALL");
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
@@ -126,6 +127,7 @@
         this.Form_Code_onload = function(obj,e)
         {
            this.Search.setColumn(0,"SEARCH_TYPE","All");
+           this.Search_Cmb.set_index(0);
 
            // 학과 호출
 

@@ -184,7 +184,7 @@
                   </Format>
                 </Formats>
               </Grid>
-              <Static id="stc_classroom" taborder="1" left="20" top="11" width="137" height="29"/>
+              <Static id="stc_classroom" taborder="1" left="20" top="11" width="137" height="29" onclick="Div00_stc_classroom_onclick"/>
             </Layout>
           </Layouts>
         </Div>
@@ -377,7 +377,6 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 	{
 		case "SelectAdminClasscourse":
 			//console.log(this.classcourse_ds.saveXML());
-			this.topnull();
 			//this.classcourse_ds.filter("");
 			this.classroom_ds_onrowposchanged();
 			
@@ -393,7 +392,7 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 			trace("일시 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "REGDATE"));
 			//trace(this.classcourse_ds.saveXML());
 			/*this.classcourse_ds.filter("CHECKS == null");*/
-		
+			this.topnull();
 			break;
 		case "SelectAdminClassroom":
 			this.cmb_year.set_index(0);
@@ -468,7 +467,7 @@ this.classroom_ds_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro
 	var CLASSROOM_ID = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_ID");
 	var CLASSROOM_NAME = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_NAME");
 	var grade = this.cmb_se.value;
-	this.Div00.form.stc_classroom.set_text(CLASSROOM_NAME+"  "+CLASSROOM_ID);
+	this.Div00.form.stc_classroom.set_text(CLASSROOM_ID+"  "+CLASSROOM_NAME);
 	// 요일을 나타내는 숫자를 요일 컬럼 ID로 변환하는 함수
 	function getDayColumnId(dayNumber) {
 		switch(dayNumber) {
@@ -884,9 +883,7 @@ this.convertGridDataToHTML = function(grid, repeatCount, classid, classname) {
     html += "</table><br>";  // 각 테이블 사이에 여백 추가
     
     return html;
-};
-
-]]></Script>
+};]]></Script>
     <Bind>
       <BindItem id="item0" compid="cmb_year" propid="value" datasetid="ds_insrtcourse" columnid="YEAR"/>
       <BindItem id="item1" compid="cmb_se" propid="value" datasetid="ds_insrtcourse" columnid="SEMESTER"/>

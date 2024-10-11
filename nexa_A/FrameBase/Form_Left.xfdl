@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="Form_Left" width="180" height="600" titletext="Form_Left" onload="Form_Left_onload">
+  <Form id="Form_Left" width="200" height="600" titletext="Form_Left" onload="Form_Left_onload">
     <Layouts>
-      <Layout width="180" height="600" screenid="Desktop_screen">
-        <Grid id="gridLeftMenu" taborder="0" left="0" top="50" width="100%" binddataset="dsLeft" treeinitstatus="collapse,null" treeusecheckbox="false" oncellclick="gridLeftMenu_oncellclick" visible="true" bottom="0" treeusebutton="noclick" treeuseimage="true">
+      <Layout width="200" height="600" screenid="Desktop_screen">
+        <Grid id="gridLeftMenu" taborder="0" left="0" top="50" width="100%" binddataset="dsLeft" treeinitstatus="collapse,null" treeusecheckbox="false" oncellclick="gridLeftMenu_oncellclick" visible="false" bottom="0" treeusebutton="noclick" treeuseimage="true">
           <Formats>
             <Format id="default">
               <Columns>
@@ -18,7 +18,8 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="Static00" taborder="1" text="Menu" left="0" top="0" height="50" right="0" textAlign="center" font="36px/normal &quot;Gulim&quot;"/>
+        <Button id="btn_logout" taborder="1" text="로그아웃" left="0" top="0" width="192" height="20" onclick="btn_logout_onclick" border="1px none darkblue, 1px solid darkblue, 1px solid darkblue, 1px none darkblue"/>
+        <Static id="stc_admin" taborder="2" left="0" top="20" width="192" height="30" textAlign="center" border="1px solid darkblue"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -93,6 +94,28 @@ this.fnOpenMenu = function (sMenuId)
 
 };
 
+
+this.btn_logout_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(confirm("로그아웃 하시겠습니까?")){
+		var gdsAd = nexacro.getApplication();
+		gdsAd.gds_adminInfo.clearData();
+		gdsAd.gds_adminInfo.addRow();
+//  		gdsAd.gds_adminInfo.setColumn(0, "ADMIN_CODE", null);
+//  		gdsAd.gds_adminInfo.setColumn(0, "REGDATE", null);
+//  		gdsAd.gds_adminInfo.setColumn(0, "NAME", null);
+		
+		this.stc_admin.set_text("");
+			
+		var objApp = nexacro.getApplication();
+		objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::form_login.xfdl");
+		objApp.mainframe.VFrameSet00.TopFrame.set_visible(false);
+		objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(false);
+		
+		trace(gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE"));
+		trace(gdsAd.gds_adminInfo.getColumn(0, "NAME"));
+	}
+};
 ]]></Script>
     <Objects>
       <Dataset id="dsLeft">

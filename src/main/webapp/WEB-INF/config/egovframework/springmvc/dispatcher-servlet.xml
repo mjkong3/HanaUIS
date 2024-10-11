@@ -14,7 +14,7 @@
 	</context:component-scan>
 	
     <mvc:annotation-driven/>
-	<import resource="classpath:/egovframework/spring/context_email.xml" />
+	<import resource="classpath:/egovframework/spring/context-email.xml" />
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	   <!-- 파일 업로드 최대 크기 설정 -->

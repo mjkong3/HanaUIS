@@ -126,6 +126,27 @@ public class AdStudentController {
       return result;
    }
    
+   @RequestMapping(value = "/stuCheckEm.do")
+   public NexacroResult stuCheckEm(@ParamDataSet(name = "save_ds", required = false) Map<String, Object> param) {
+      System.out.println(param);
+      NexacroResult result = new NexacroResult();
+
+      try {
+         Map<String, Object> ds_vali = service.stuCheckEm(param);
+         //Map<String, Object> welcome = service.welcome(param);
+         System.out.println("dkdkdkddkefewa"+ ds_vali);
+
+         result.addDataSet("ds_vali", ds_vali);
+         
+      }catch(Exception ee) {
+         System.out.println(ee);
+         result.setErrorCode(-1);
+         result.setErrorMsg("catch 조회 오류");
+      }
+      
+      return result;
+   }
+   
    @RequestMapping(value = "/insertAdStudent.do")
     public NexacroResult insertAdStudent(@ParamDataSet(name = "save_ds", required = false) Map<String, Object> param) {
       NexacroResult result = new NexacroResult();
