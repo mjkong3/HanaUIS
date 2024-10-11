@@ -69,7 +69,8 @@
 	        <table class="table table-hover mt-4">
 	            <thead class="thead-dark">
 	                <tr>
-	                    <th>강의 코드</th>
+	                    <th>코드</th>
+	                    <th>학기</th>
 	                    <th>강의명</th>
 	                    <th>교수명</th>
 	                    <th>학과</th>
@@ -80,9 +81,12 @@
 	                </tr>
 	            </thead>
 	            <tbody>
+                    <c:if test="${not empty classList}">
+	            
 					<c:forEach var="selectClass" items="${classList}">
 						<tr>
 							<td>${selectClass.classCode}</td>
+							<td>${selectClass.semester}학기</td>
 							<td>${selectClass.className}</td>
 							<td>${selectClass.professorName}</td>
 							<td>${selectClass.departmentName}</td>
@@ -91,6 +95,12 @@
 							<td><a href="javascript:fn_classDetail('${selectClass.classCode}')">상세보기</a></td>
 						</tr>
 					</c:forEach>
+					</c:if>
+					<c:if test="${empty classList}">
+						<tr>
+                           <td colspan="8" >개설된 강의가 없습니다.</td>
+						</tr>
+					</c:if>
 	            </tbody>
 	        </table>
 	        

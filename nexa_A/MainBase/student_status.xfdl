@@ -3,7 +3,7 @@
   <Form id="student_status" width="1280" height="720" titletext="New Form" onload="student_status_onload" enable="true">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="grd_applicationList" taborder="0" left="27" top="129" width="492" height="433" binddataset="ds_StudentList" autofittype="col" onheadclick="grd_applicationList_onheadclick" oncellclick="cell_student_onclick">
+        <Grid id="grd_applicationList" taborder="0" left="50" top="100" width="594" height="433" binddataset="ds_StudentList" autofittype="col" onheadclick="grd_applicationList_onheadclick" oncellclick="cell_student_onclick">
           <Formats>
             <Format id="default">
               <Columns>
@@ -37,35 +37,35 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="Static00_00" taborder="2" left="535" top="129" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학번" font="12px/normal &quot;Gulim&quot;" onclick="Static00_00_onclick"/>
-        <Static id="Static00_03" taborder="3" left="632" top="129" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_StdId" taborder="4" left="644" top="139" width="153" height="31" readonly="true" onkeyup="edt_StdId_onkeyup"/>
-        <Static id="Static00_00_00" taborder="5" left="535" top="226" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청유형" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00_03_00" taborder="6" left="632" top="226" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_00_00_00" taborder="7" left="535" top="275" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   휴학희망일" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00_03_00_00" taborder="8" left="632" top="275" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_00_00_00_00" taborder="9" left="807" top="275" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   복학희망일" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00_03_00_00_00" taborder="10" left="904" top="275" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_03_00_00_00_00" taborder="11" left="904" top="226" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_00_00_00_00_00" taborder="12" left="807" top="226" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청일자" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00_03_00_00_00_00_00" taborder="13" left="904" top="129" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_Name" taborder="14" left="916" top="139" width="153" height="31" readonly="true"/>
-        <Static id="Static00_00_00_00_00_00_00" taborder="15" left="807" top="129" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이름" font="12px/normal &quot;Gulim&quot;" onclick="Static00_00_00_00_00_00_00_onclick"/>
-        <Static id="Static00_00_00_00_00_00_01" taborder="16" left="807" top="178" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학적상태" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00_03_00_00_00_00_01" taborder="17" left="904" top="178" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_StdStatus" taborder="18" left="916" top="188" width="153" height="31" readonly="true"/>
-        <Static id="Static00_03_00_00_00_00_01_00" taborder="19" left="632" top="178" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_00_00_00_00_00_01_00" taborder="20" left="535" top="178" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00_03_00_00_00_00_01_00_00" taborder="21" left="632" top="324" width="448" height="188" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_00_00_00_00_00_01_00_00" taborder="22" left="535" top="324" width="98" height="187" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청사유" font="12px/normal &quot;Gulim&quot;"/>
-        <TextArea id="ta_Reasen" taborder="23" left="644" top="335" width="425" height="165" onchanged="Reasen_onchanged" readonly="true"/>
-        <Calendar id="cal_LeaveDate" taborder="24" left="644" top="285" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
-        <Calendar id="cal_RegDate" taborder="25" left="916" top="236" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
-        <Calendar id="cal_RetuenDate" taborder="26" left="916" top="285" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
-        <Static id="Static00_00_00_00_01" taborder="27" left="535" top="510" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   승인여부" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00_03_00_00_01" taborder="28" left="632" top="510" width="448" height="50" background="white" border="1px solid #d3d3d4" text=""/>
-        <Button id="btn_Save" taborder="29" text="저장" left="940" top="516" width="60" height="38" onclick="btn_Save_onclick"/>
-        <Radio id="rdo_approved" taborder="30" left="643" top="522" width="273" height="27" onitemchanged="rdo_approved_onitemchanged" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" index="0" text="미확인" value="N">
+        <Static id="Static00_00" taborder="2" left="658" top="100" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학번" font="12px/normal &quot;Gulim&quot;" onclick="Static00_00_onclick"/>
+        <Static id="Static00_03" taborder="3" left="755" top="100" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Edit id="edt_StdId" taborder="4" left="767" top="110" width="153" height="31" readonly="true" onkeyup="edt_StdId_onkeyup"/>
+        <Static id="Static00_00_00" taborder="5" left="658" top="197" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청유형" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_03_00" taborder="6" left="755" top="197" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_00_00_00" taborder="7" left="658" top="246" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   휴학희망일" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_03_00_00" taborder="8" left="755" top="246" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_00_00_00_00" taborder="9" left="930" top="246" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   복학희망일" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_03_00_00_00" taborder="10" left="1027" top="246" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_03_00_00_00_00" taborder="11" left="1027" top="197" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_00_00_00_00_00" taborder="12" left="930" top="197" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청일자" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_03_00_00_00_00_00" taborder="13" left="1027" top="100" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Edit id="edt_Name" taborder="14" left="1039" top="110" width="153" height="31" readonly="true"/>
+        <Static id="Static00_00_00_00_00_00_00" taborder="15" left="930" top="100" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이름" font="12px/normal &quot;Gulim&quot;" onclick="Static00_00_00_00_00_00_00_onclick"/>
+        <Static id="Static00_00_00_00_00_00_01" taborder="16" left="930" top="149" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학적상태" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_03_00_00_00_00_01" taborder="17" left="1027" top="149" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Edit id="edt_StdStatus" taborder="18" left="1039" top="159" width="153" height="31" readonly="true"/>
+        <Static id="Static00_03_00_00_00_00_01_00" taborder="19" left="755" top="149" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_00_00_00_00_00_01_00" taborder="20" left="658" top="149" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_03_00_00_00_00_01_00_00" taborder="21" left="755" top="295" width="448" height="188" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_00_00_00_00_00_01_00_00" taborder="22" left="658" top="295" width="98" height="187" background="#e7e7e8" border="1px solid #d3d3d4" text="   신청사유" font="12px/normal &quot;Gulim&quot;"/>
+        <TextArea id="ta_Reasen" taborder="23" left="767" top="306" width="425" height="165" onchanged="Reasen_onchanged" readonly="true"/>
+        <Calendar id="cal_LeaveDate" taborder="24" left="767" top="256" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
+        <Calendar id="cal_RegDate" taborder="25" left="1039" top="207" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
+        <Calendar id="cal_RetuenDate" taborder="26" left="1039" top="256" width="153" height="31" dateformat="yyyy-MM-dd" readonly="true"/>
+        <Static id="Static00_00_00_00_01" taborder="27" left="658" top="481" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   승인여부" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_03_00_00_01" taborder="28" left="755" top="481" width="448" height="50" background="white" border="1px solid #d3d3d4" text=""/>
+        <Button id="btn_Save" taborder="29" text="저장" left="1009" top="70" width="94" height="24" onclick="btn_Save_onclick"/>
+        <Radio id="rdo_approved" taborder="30" left="766" top="493" width="273" height="27" onitemchanged="rdo_approved_onitemchanged" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" index="0" text="미확인" value="N">
           <Dataset id="innerdataset">
             <ColumnInfo>
               <Column id="codecolumn" size="256"/>
@@ -87,14 +87,14 @@
             </Rows>
           </Dataset>
         </Radio>
-        <Combo id="cmb_Search" taborder="1" left="202" top="84" width="138" height="36" onitemchanged="cmb_Search_onitemchanged" index="-1" value="ALL" innerdataset="ds_SearchType" codecolumn="SEARCH_TYPE" datacolumn="data"/>
-        <Edit id="edt_search" taborder="31" left="352" top="84" width="167" height="36"/>
-        <Button id="btn_Search" taborder="32" text="검색" left="535" top="84" width="94" height="36" onclick="btn_Search_onclick"/>
-        <Combo id="cmb_Search00" left="27" top="84" width="156" height="36" taborder="33" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" text="" value="" index="-1"/>
-        <Button id="btn_Create" taborder="34" text="생성" left="986" top="84" width="94" height="36" onclick="btn_Create_onclick"/>
-        <Button id="btn_Delete" taborder="35" text="삭제" left="1010" top="516" width="60" height="38" onclick="btn_Delete_onclick" enable="true"/>
-        <Combo id="cmb_Dept" taborder="36" text="Combo00" left="644" top="188" width="153" height="31" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" readonly="true"/>
-        <Combo id="cmb_StatusType" taborder="37" text="" left="644" top="235" width="153" height="31" onitemchanged="Combo00_onitemchanged" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" readonly="true">
+        <Combo id="cmb_Search" taborder="1" left="225" top="70" width="145" height="24" onitemchanged="cmb_Search_onitemchanged" index="-1" value="ALL" innerdataset="ds_SearchType" codecolumn="SEARCH_TYPE" datacolumn="data"/>
+        <Edit id="edt_search" taborder="31" left="375" top="70" width="167" height="24"/>
+        <Button id="btn_Search" taborder="32" text="검색" left="550" top="70" width="94" height="24" onclick="btn_Search_onclick"/>
+        <Combo id="cmb_Search00" left="50" top="70" width="170" height="24" taborder="33" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" text="" value="" index="-1"/>
+        <Button id="btn_Create" taborder="34" text="추가" left="909" top="70" width="94" height="24" onclick="btn_Create_onclick"/>
+        <Button id="btn_Delete" taborder="35" text="삭제" left="1108" top="70" width="94" height="24" onclick="btn_Delete_onclick" enable="true"/>
+        <Combo id="cmb_Dept" taborder="36" text="Combo00" left="767" top="159" width="153" height="31" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" readonly="true"/>
+        <Combo id="cmb_StatusType" taborder="37" text="" left="767" top="206" width="153" height="31" onitemchanged="Combo00_onitemchanged" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" readonly="true">
           <Dataset id="innerdataset">
             <ColumnInfo>
               <Column id="codecolumn" size="256"/>
@@ -102,17 +102,21 @@
             </ColumnInfo>
             <Rows>
               <Row>
-                <Col id="codecolumn">복학</Col>
+                <Col id="codecolumn">휴학</Col>
                 <Col id="datacolumn">휴학</Col>
               </Row>
               <Row>
-                <Col id="codecolumn">휴학</Col>
+                <Col id="codecolumn">군 휴학</Col>
+                <Col id="datacolumn">군 휴학</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">복학</Col>
                 <Col id="datacolumn">복학</Col>
               </Row>
             </Rows>
           </Dataset>
         </Combo>
-        <Static id="Static00" taborder="38" text="휴/복학 신청 관리" left="30" top="17" width="360" height="57" font="34px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00" taborder="38" text="휴/복학 신청 관리" left="50" top="9" width="360" height="51" font="30px/normal &quot;Gulim&quot;"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -212,7 +216,7 @@ this.student_status_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo){
 this.fn_departmentList = function() {
 
    var strSvcId    = "departmentList";
-   var strSvcUrl   = "svc::statusApprovedDelete.do";//컨트롤러 경로
+   var strSvcUrl   = "svc::selectAdDept.do";//컨트롤러 경로
    var inData      = "";
    var outData     = "ds_dept = ds_dept";
    var strArg      = "";               //리퀘스트 문자 파라미터
@@ -444,11 +448,11 @@ this.edt_StdId_onkeyup = function(obj:nexacro.Edit,e:nexacro.KeyEventInfo)
 this.Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
 {
 	var status = this.ds_StudentDetail.getColumn(0,"STATUS_TYPE");
-	if(status == "휴학"){
-		this.cal_LeaveDate.set_readonly(true);
+	if(status == "휴학" || status == "군 휴학"){
+		this.cal_LeaveDate.set_readonly(false);
 	}
 	if(status == "복학"){
-		this.cal_LeaveDate.set_readonly(false);
+		this.cal_LeaveDate.set_readonly(true);
 	}
 };
 

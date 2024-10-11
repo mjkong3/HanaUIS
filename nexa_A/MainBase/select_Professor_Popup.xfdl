@@ -20,12 +20,12 @@
         <Static id="Static00_01_00" taborder="14" left="681" top="299" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이메일" onclick="Static00_01_00_onclick"/>
         <Static id="Static00_00_00_00" taborder="15" left="681" top="250" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   연락처"/>
         <Static id="Static00_00_01" taborder="16" left="409" top="201" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   성별"/>
-        <ImageViewer id="ImageViewer00" taborder="17" left="163" top="103" width="177" height="236"/>
+        <ImageViewer id="ImageViewer00" taborder="17" left="163" top="103" width="177" height="236" stretch="fit"/>
         <Static id="Static00_00_01_00" taborder="18" left="409" top="250" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   재직여부"/>
         <Static id="Static00_00_01_00_00" taborder="19" left="681" top="201" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   생년월일"/>
         <Static id="Static00_00_01_00_01" taborder="20" left="409" top="397" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   주소"/>
-        <Edit id="edt_ProId" taborder="21" left="517" top="113" width="153" height="30" readonly="false"/>
-        <Edit id="edt_ProPw" taborder="22" left="789" top="113" width="239" height="30" password="false" readonly="false"/>
+        <Edit id="edt_ProId" taborder="21" left="517" top="113" width="153" height="30" readonly="true"/>
+        <Edit id="edt_ProPw" taborder="22" left="789" top="113" width="239" height="30" password="false" readonly="false" onchanged="edt_ProPw_onchanged"/>
         <Edit id="edt_ProName" taborder="23" left="517" top="162" width="153" height="30" readonly="false"/>
         <Combo id="cmb_Dept" taborder="24" text="" left="789" top="162" width="239" height="31" index="0" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value="" readonly="false"/>
         <Edit id="edt_EmailPt" taborder="25" left="789" top="309" width="119" height="30" readonly="false"/>
@@ -33,23 +33,25 @@
         <Edit id="edt_Phone" taborder="27" left="789" top="260" width="239" height="30" readonly="false"/>
         <Combo id="cmb_Status" taborder="28" text="" left="517" top="260" width="153" height="31" index="0" innerdataset="ds_status" codecolumn="code" datacolumn="data" value="" readonly="false"/>
         <Calendar id="cal_Birth" taborder="29" left="789" top="211" width="239" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
-        <Edit id="edt_Adr" taborder="30" left="516" top="407" width="512" height="30" readonly="true" cssclass="edt_Adr"/>
-        <FileUpload id="FileUpload00" taborder="31" left="163" top="359" width="177" height="22" onitemchanged="FileUpload00_onitemchanged"/>
-        <Button id="btn_Add" taborder="32" text="작성완료" left="889" top="511" width="151" height="38" onclick="btn_Add_onclick"/>
-        <Static id="Static00_03_01_00_00_00_02" taborder="33" left="506" top="299" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Static id="Static00_00_01_00_02" taborder="34" left="409" top="299" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   등록ID"/>
-        <Edit id="edt_Admin" taborder="35" left="517" top="309" width="153" height="30" readonly="true"/>
-        <Button id="btn_Update" taborder="36" text="수정" left="889" top="511" width="151" height="38" onclick="btn_Update_onclick"/>
-        <Button id="btn_Retrun" taborder="37" text="되돌아가기" left="730" top="511" width="151" height="38" onclick="btn_Retrun_onclick"/>
-        <Edit id="edt_DomainPt" taborder="38" left="907" top="309" width="119" height="30" onchanged="edt_DomainPt_onchanged" oneditclick="edt_DomainPt_oneditclick"/>
-        <WebBrowser id="wb_Adress" taborder="39" left="190" top="450" width="100" height="100" visible="false" onusernotify="wb_Adress_onusernotify"/>
-        <Static id="Static00_00_01_00_01_00" taborder="40" left="409" top="446" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   상세주소"/>
-        <Static id="Static00_03_01_00_00_00_01_00" taborder="41" left="506" top="446" width="532" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_DtlAdr" taborder="42" left="516" top="456" width="512" height="30"/>
-        <Static id="Static00_00_01_00_02_00" taborder="43" left="409" top="348" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   우편번호"/>
-        <Static id="Static00_03_01_00_00_00_02_00" taborder="44" left="506" top="348" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
-        <Edit id="edt_ZipCode" taborder="45" left="518" top="358" width="153" height="31" readonly="true" cssclass="edt_Adr"/>
-        <Button id="btn_Adr" taborder="46" text="주소검색" left="690" top="354" width="80" height="38" onclick="btn_Adr_onclick"/>
+        <Edit id="edt_Adr" taborder="30" left="516" top="407" width="512" height="30" readonly="true" cssclass="edt_Adr" displaynulltext="주소검색 버튼으로 검색하세요"/>
+        <Button id="btn_Add" taborder="31" text="작성완료" left="889" top="511" width="151" height="38" onclick="btn_Add_onclick"/>
+        <Static id="Static00_03_01_00_00_00_02" taborder="32" left="506" top="299" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Static id="Static00_00_01_00_02" taborder="33" left="409" top="299" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   등록ID"/>
+        <Edit id="edt_Admin" taborder="34" left="517" top="309" width="153" height="30" readonly="true"/>
+        <Button id="btn_Update" taborder="35" text="수정" left="889" top="511" width="151" height="38" onclick="btn_Update_onclick"/>
+        <Button id="btn_Retrun" taborder="36" text="되돌아가기" left="730" top="511" width="151" height="38" onclick="btn_Retrun_onclick"/>
+        <Edit id="edt_DomainPt" taborder="37" left="907" top="309" width="119" height="30" onchanged="edt_DomainPt_onchanged" oneditclick="edt_DomainPt_oneditclick"/>
+        <WebBrowser id="wb_Adress" taborder="38" left="190" top="450" width="100" height="100" visible="false" onusernotify="wb_Adress_onusernotify"/>
+        <Static id="Static00_00_01_00_01_00" taborder="39" left="409" top="446" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   상세주소"/>
+        <Static id="Static00_03_01_00_00_00_01_00" taborder="40" left="506" top="446" width="532" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Edit id="edt_DtlAdr" taborder="41" left="516" top="456" width="512" height="30" displaynulltext="상세주소를 입력하세요"/>
+        <Static id="Static00_00_01_00_02_00" taborder="42" left="409" top="348" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   우편번호"/>
+        <Static id="Static00_03_01_00_00_00_02_00" taborder="43" left="506" top="348" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
+        <Edit id="edt_ZipCode" taborder="44" left="518" top="358" width="153" height="31" readonly="true" cssclass="edt_Adr" displaynulltext="우편번호"/>
+        <Button id="btn_Adr" taborder="45" text="주소검색" left="690" top="354" width="80" height="38" onclick="btn_Adr_onclick"/>
+        <Button id="btn_addfile" taborder="46" text="등록" left="297" top="358" width="43" height="20" onclick="btn_addfile_onclick"/>
+        <Edit id="edt_filename" taborder="47" left="163" top="358" width="136" height="21" readonly="true"/>
+        <Button id="btn_mypage" taborder="48" text="교수페이지" left="931" top="73" width="107" height="26" onclick="btn_mypage_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -86,15 +88,15 @@
             <Col id="data">남성</Col>
           </Row>
           <Row>
-            <Col id="code">W</Col>
+            <Col id="code">F</Col>
             <Col id="data">여성</Col>
           </Row>
         </Rows>
       </Dataset>
       <Dataset id="ds_dept">
         <ColumnInfo>
-          <Column id="code" type="STRING" size="256"/>
-          <Column id="name" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_CODE" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_NAME" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row/>
@@ -135,9 +137,34 @@
         </Rows>
       </Dataset>
       <Dataset id="ds_reAdr"/>
+      <Dataset id="ds_vali">
+        <ColumnInfo>
+          <Column id="CHECK_ID" type="STRING" size="256"/>
+          <Column id="CHECK_EM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileUpTransfer id="FileUpTransfer00"/>
+      <FileDialog id="FileDialog00" onclose="FileDialog00_onclose"/>
+      <Dataset id="ds_file">
+        <ColumnInfo>
+          <Column id="FILE_NAME" type="STRING" size="256"/>
+          <Column id="FILE_SIZE" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="ds_mydata">
+        <ColumnInfo>
+          <Column id="PROFESSOR_ID" type="STRING" size="256"/>
+          <Column id="PASSWORD" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
     </Objects>
     <Bind>
-      <BindItem id="item0" compid="ImageViewer00" propid="text" datasetid="ds_list" columnid="PHOTO"/>
       <BindItem id="item1" compid="edt_ProId" propid="value" datasetid="ds_pro" columnid="PROFESSOR_ID"/>
       <BindItem id="item2" compid="edt_ProPw" propid="value" datasetid="ds_pro" columnid="PASSWORD"/>
       <BindItem id="item3" compid="edt_ProName" propid="value" datasetid="ds_pro" columnid="NAME"/>
@@ -159,6 +186,9 @@
 // 3. 수정완료 - update문 실행시키기 + EMAIL / ADDR 합쳐서 넣기
 // 4. 초기화버튼
 // 5. 기타기능 - 이메일 + 주소검색
+// 6. 유효성검사
+// 7. 콜백함수
+// 8. 파일업로드
 
 // 1. 화면호출
 this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
@@ -187,7 +217,7 @@ this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
 	this.ds_pro.addColumn("DOMAIN_PART", "STRING");
 	this.ds_pro.setColumn(0, "EMAIL_PART", ePart);
 	this.ds_pro.setColumn(0, "DOMAIN_PART", "@" + dPart);
-
+	
 	
 	// 주소값 받아오기
 	var addr = this.ds_pro.getColumn(0, "ADDRESS");
@@ -214,6 +244,29 @@ this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
 	this.fn_setReadOnly(true);
 	this.btn_Adr.set_enable(false);
 	this.btn_Retrun.set_visible(false);
+	
+	// 미리보기 처음 실행
+	setTimeout(function(){
+			trace(this.ds_pro.getColumn(0,"PHOTO"));
+			this.showImagePreviewAdd(this.ds_pro.getColumn(0,"PHOTO"));
+		}.bind(this), 10);
+	
+};
+
+// 이미지 미리보기 함수 -- 수정안할 시
+this.showImagePreviewAdd = function(fileName) {
+	trace(fileName);
+    var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+    var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName; // 업로드한 파일 경로
+    this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
+	
+	// 이미지가 없을 때 나오는 text
+	if(this.ds_pro.getColumn(0, "PHOTO") == null || this.ds_pro.getColumn(0, "PHOTO") == "" || this.ds_pro.getColumn(0, "PHOTO") == "undefined"){
+		this.ImageViewer00.set_text("500KB 이하");
+	}else {
+		this.ImageViewer00.set_text("");
+	}
+	
 };
 
 // 2. 수정버튼 - readonly 해제(입력필드 제공)
@@ -224,9 +277,10 @@ this.btn_Update_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	this.btn_Update.set_visible(false);
 	this.btn_Retrun.set_visible(true);
 	this.btn_Adr.set_enable(true);
+	this.btn_mypage.set_enable(false);
 };
 
-// 3. 작성완료 - update문 실행
+// 3. 작성완료 - update문 실행 + null check
 
 this.btn_Add_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -241,7 +295,29 @@ this.btn_Add_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	var rAddr = this.ds_address.getColumn(0, "REMAINADDR");
 	this.ds_pro.setColumn(0, "ADDRESS", fAddr + "/" + rAddr);
 	this.ds_pro.setColumn(0, "ZIPCODE", this.ds_address.getColumn(0, "ZIPCODE"));
-	this.fn_updatePro();
+	
+	// pw null 검사
+	var proPw = this.ds_pro.getColumn(0, "PASSWORD");
+	if (proPw == null || proPw == '' || proPw == 'undefined'){
+		alert("비밀번호를 입력하세요");
+		return;
+	}
+	
+	// 이름 null 검사
+	var name = this.ds_pro.getColumn(0, "NAME");
+	if (name == null || name == '' || name == 'undefined'){
+		alert("이름을 입력하세요");
+		return;
+	}
+	
+	// dept null 검사 - 통과시 email 정규식
+	var dept = this.cmb_Dept.value;
+	if (dept == 0){
+		alert("학과를 선택해주세요");
+	} else {
+		// 이메일 정규식 호출
+		this.fn_valiEmChk();
+	}
 	
 };
 
@@ -268,16 +344,22 @@ this.btn_Retrun_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	trace("set컬럼 가능한지2" + this.ds_pro.saveXML());
 	this.fn_getGds();
 	
+	this.btn_mypage.set_enable(true);
 	this.fn_setReadOnly(true);
 	this.btn_Retrun.set_visible(false);
 	this.btn_Update.set_visible(true);
 	this.btn_Adr.set_enable(false);
+	
+	// 재업로드
+	setTimeout(function(){
+			trace(this.ds_pro.getColumn(0,"PHOTO"));
+			this.showImagePreviewAdd(this.ds_pro.getColumn(0,"PHOTO"));
+		}.bind(this), 10);
 };
 
 // readOnly 제어함수
 this.fn_setReadOnly = function (isReadonly)
 {
-	this.edt_ProId.set_readonly(isReadonly);
 	this.edt_ProPw.set_readonly(isReadonly);
 	this.edt_ProName.set_readonly(isReadonly);
 	this.cmb_Dept.set_readonly(isReadonly);
@@ -285,6 +367,7 @@ this.fn_setReadOnly = function (isReadonly)
 	this.cal_Birth.set_readonly(isReadonly);
 	this.edt_Phone.set_readonly(isReadonly);
 	this.cmb_Status.set_readonly(isReadonly);
+	this.edt_EmailPt.set_readonly(isReadonly);
 	this.edt_DomainPt.set_readonly(isReadonly);
 	this.edt_DtlAdr.set_readonly(isReadonly);
 };
@@ -304,18 +387,9 @@ this.fn_getGds = function ()
 	trace("아이디 제대로 들어갔나? " + this.ds_pro.getColumn(0, "UPD_USR"));
 };
 
-this.fnCallback = function (svcID, errCD, errMsg)
-{
-	if (svcID == "updatePro" && errCD == 0) {
-		trace("수정완료");
-		alert("수정이 완료되었습니다");
-		this.close("success");
-		
-	}
-};
 
-// 4. 기타기능 - 이메일 + 주소검색
-// 4-1) 이메일 
+// 5. 기타기능 - 이메일 + 주소검색
+// 5-1) 이메일 
 // 이메일 입력파트 - @없이 작성시 맨 앞에 @ 추가
 this.edt_DomainPt_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 {
@@ -324,7 +398,7 @@ this.edt_DomainPt_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInf
 	if(cVal.indexOf("@") !== 0){
 		obj.set_value("@" + cVal.replace("@", ""));
 	}
-
+	
 };
 
 // 이메일 입력파트 - 공백일 경우 @를 맨 앞에 추가한 후 커서를 그 뒤로
@@ -337,7 +411,7 @@ this.edt_DomainPt_oneditclick = function(obj:nexacro.Edit,e:nexacro.EditClickEve
 	}
 };
 
-// 4-2) 주소검색
+// 5-2) 주소검색
 // 주소검색 버튼
 this.btn_Adr_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
@@ -351,7 +425,7 @@ this.wb_Adress_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserN
 	var receivedData = e.userdata;
 	trace("받아온 값은? = " + receivedData);
     var dataObj = JSON.parse(receivedData);
-
+	
     // 우편번호, 도로명 주소, 지번 주소, 참고 주소 ds에 넣기
     this.ds_address.setColumn(0, "ZIPCODE", dataObj.zonecode);
     this.ds_address.setColumn(0, "MAINADDR", dataObj.selectedAddress);
@@ -366,6 +440,275 @@ this.wb_Adress_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserN
 	this.ds_address.setColumn(0, "FULLADDR", mAddr + "" + eAddr);
 	trace(this.ds_address.getColumn(0, "FULLADDR"));
 };
-]]></Script>
+
+// 6. 유효성 검사
+// 정규식 - email, phone, pw
+// null체크 - pw, 학과, 이름
+// 중복검사 - email
+// 6-1) 비밀번호 정규식
+this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+    var password = obj.value;
+    var regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{4,}$/;
+		if (!regex.test(password)) {
+			alert("비밀번호는 최소 4자 이상이며, 특수문자가 포함되어야 합니다.");
+			obj.set_value("");
+			obj.setFocus();
+		} else {
+			trace("비밀번호가 유효합니다.");
+		}		
+	};
+	
+	// 6-2) 이메일 정규식
+	this.fn_valiEmChk = function ()
+	{
+		var email = this.ds_pro.getColumn(0, "EMAIL");
+		var regem = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		
+		if (!regem.test(email)) {
+			alert("유효한 이메일 주소를 입력하세요.");
+			this.edt_Email.set_value("");
+			this.edt_Email.setFocus();
+		} else {
+			trace("이메일값좀 보자1 " + email);
+			this.fn_dupEmChk();
+		}
+	};
+	
+	// 6-3) 이메일 중복체크
+	this.fn_dupEmChk = function ()
+	{
+		var strSvcId    = "dupCheckEm";
+		var strSvcUrl   = "svc::dupCheckEm.do";
+		var inData      = "ds_pro=ds_pro";
+		var outData     = "ds_vali=ds_vali";
+		var strArg      = ""
+		var callBackFnc = "fnCallback";
+		var isAsync     = true;	
+		
+		this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+	};
+	
+	// 6-4) 연락처 정규식
+	this.fn_valiPhChk = function ()
+	{
+		var phone = this.ds_pro.getColumn(0, "PHONE");
+		var regph = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
+		if(!regph.test(phone)){
+			alert("연락처는 다음과 같이 입력해주세요 : 01x-xxxx-xxxx");
+			this.edt_Phone.set_value("");
+			this.edt_Phone.setFocus();
+		} else {
+			this.fn_updatePro();
+		}	
+	};
+	
+	// 7. 콜백함수
+	this.fnCallback = function (svcID, errCD, errMsg)
+	{
+		if(errCD == -1) {
+			alert(errMsg);
+			return
+		}
+		
+		switch(svcID) {
+			// 등록버튼
+		case "updatePro":
+			trace("수정완료")
+			this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
+			alert("수정이 완료되었습니다!");
+			this.close("success");
+			break;
+			// 이메일 중복체크
+		case "dupCheckEm":
+			var chkEm = this.ds_vali.getColumn(0, "CHECK_EM");
+			trace("이메일값?" + chkEm);
+			if (chkEm == "Y") {
+				// 연락처 유효성 정규식
+				this.fn_valiPhChk();
+			} else {
+				alert("중복된 email 입니다");
+			}
+			break;
+		case "AdProMypage":
+			window.open("http://localhost:8082/HanaUIS/std/notice.do"); // 세션 등록 성공 시 새탭으로 띄우기
+		 break;
+		
+		}
+	};
+	
+	// 8. 파일업로드
+	
+	// dialog 호출
+	this.btn_addfile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+	{
+		this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);	
+	};
+	
+	
+	// 파일 트랜스퍼 및 미리보기 넣는 이벤트 - 유효성
+	this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+	{
+		var filetype = e.virtualfiles[0].filename;
+		
+		if(e.virtualfiles.length > 1){
+			alert("파일이 두개 이상입니다.");
+		}
+		else if(!this.gfnIsImageFile(filetype)){
+			alert("png, "+ "jpg, "+ "jpeg" + "가 아닙니다.");
+		}
+		else{
+			// 파일 추가시 사이즈 체크용 함수
+			this.addFileList(e.virtualfiles);
+			trace(this.ds_file.getColumn(0, "FILE_SIZE"));
+			
+			
+			if(this.ds_file.getColumn(0, "FILE_SIZE") < 500000){
+				var name;
+				for (var i = 0; i < e.virtualfiles.length; i++) {    
+					this.ds_pro.setColumn(0, "PHOTO", e.virtualfiles[i].filename);
+					
+					name = e.virtualfiles[i].filename;
+					
+					// 파일을 서버에 업로드하는 함수 호출
+					this.uploadFileToServer(e.virtualfiles[i]);
+					
+				}
+				this.edt_filename.set_value(name);
+				this.ds_file.setColumn(0,"FILE_NAME", name);
+				
+				setTimeout(function(){
+						this.showImagePreview(name);
+					}.bind(this), 100);
+				
+			}else{
+				alert("용량이 너무 큽니다. 500KB이하로 해주세요.");
+				var fileName = e.virtualfiles[0].filename;
+				this.ds_file.clearData();
+				this.ds_file.addRow();
+				
+				setTimeout(function(){
+						this.deleteFile(fileName);
+					}.bind(this), 100);
+			}
+		}	
+	};	
+	
+	// 파일 추가시 이벤트 호출 함수 - 커스텀이벤트로 사이즈 체크
+	this.addFileList = function(filelist) {
+		for (var i = 0, len = filelist.length, vFile; i < len; i++) {
+			vFile = filelist[i];
+			trace(vFile.filesize);
+			vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
+			vFile.addEventHandler("onerror", this.FileList_onerror, this);
+			trace("여기는 오지");
+			
+			vFile.open(null, 1);
+		}
+	};
+	
+	
+	// 커스텀 이벤트 발동 - 사이즈 체크
+	this.FileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileEventInfo) {
+		switch (e.reason) {
+        case 1:
+            obj.getFileSize();
+            break;
+        case 9: // 들어와졌을 때
+            this.FileUpTransfer00.addFile(obj.filename, obj);
+			this.ds_file.setColumn(0, "FILE_SIZE", e.filesize);
+            break;
+		}
+	};
+	
+	// 커스텀 이벤트 발동 - 실패용 이벤트
+	this.FileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileErrorEventInfo)
+	{
+		trace("errortype: "+e.errortype);
+		trace("errormsg: "+e.errormsg);
+		trace("statuscode: "+e.statuscode);
+	};
+	
+	// 파일 업로드 함수 - 트랜스퍼에 추가
+	this.uploadFileToServer = function(vFile) {
+		this.FileUpTransfer00.clearFileList();
+		this.FileUpTransfer00.addFile(vFile.filename, vFile);
+		this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
+	};
+	
+	// 이미지 미리보기 함수
+	this.showImagePreview = function(fileName) {
+		trace(fileName);
+		var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+		var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
+		this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
+		
+		// 이미지가 없을 때 나오는 text
+		if(this.ds_pro.getColumn(0, "PHOTO") == null || this.ds_pro.getColumn(0, "PHOTO") == "" || this.ds_pro.getColumn(0, "PHOTO") == "undefined"){
+			this.ImageViewer00.set_text("500KB 이하");
+		}else {
+			this.ImageViewer00.set_text("");
+		}
+		// 이미지가 뜬 이후 10초간 미리보기 폴더에 유지 - 이후 삭제
+		setTimeout(function(){
+				this.deleteFile(fileName);
+			}.bind(this), 10000);
+		
+	};
+	
+	// 이미지 등록 시 확장자 확인
+	this.gfnIsImageFile = function(fileTxt) {
+		var imageExt = ["png", "jpg", "jpeg"];
+		var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
+		return imageExt.includes(extNm);
+	};
+	
+	// 미리보기 폴더에서 파일 삭제 함수
+	this.deleteFile = function(fileName) {
+		trace("여기까지 왔나?");
+		var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+		var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
+		
+		var params = {
+			filename: fileName // 파일 이름을 파라미터로 전달
+		};
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", deleteUrl, true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					trace("서버 응답: " + xhr.responseText);
+				} else {
+					trace("오류 발생: " + xhr.status);
+				}
+			}
+		};
+		xhr.send("filename=" + encodeURIComponent(fileName));
+	};
+
+// 9. 마이페이지
+this.btn_mypage_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_mydata.setColumn(0,"PROFESSOR_ID", this.ds_pro.getColumn(0, "PROFESSOR_ID"));
+	this.ds_mydata.setColumn(0,"PASSWORD", this.ds_pro.getColumn(0, "PASSWORD"));
+	
+	this.fn_go();	
+};
+
+// 마이페이지 연결 함수
+this.fn_go = function()
+{
+   var strSvcId    = "AdProMypage";
+   var strSvcUrl   = "svc::AdProMypage.do";
+   var inData      = "ds_mydata=ds_mydata";
+   var outData     = "";
+   var strArg      = "";
+   var callBackFnc = "fnCallback";
+   var isAsync     = true;
+   
+   this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+
+};]]></Script>
   </Form>
 </FDL>

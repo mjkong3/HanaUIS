@@ -5,6 +5,7 @@
 	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2 강의 정보 -->
 	<select id="allClass" parameterType="HashMap" resultType ="HashMap">
 		SELECT C.CLASS_CODE AS classCode,
+			C.SEMESTER AS semester,
 			C.CLASS_NAME AS className,
 			C.CLASS_START AS classStart,
 			C.CLASS_END AS classEnd,
@@ -14,10 +15,10 @@
 			C.CLASS_TYPE AS classType,
 			C.CLASS_INFO AS classInfo
 		FROM CLASS C
-			INNER JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID 
-			INNER JOIN PROFESSOR P ON P.PROFESSOR_ID = C.PROFESSOR_ID 
-			INNER JOIN DEPARTMENT D ON D.DEPARTMENT_CODE = C.DEPARTMENT_CODE 
-	 	WHERE 1=1
+			LEFT JOIN CLASSROOM CR ON C.CLASSROOM_ID = CR.CLASSROOM_ID 
+			LEFT JOIN PROFESSOR P ON P.PROFESSOR_ID = C.PROFESSOR_ID 
+			LEFT JOIN DEPARTMENT D ON D.DEPARTMENT_CODE = C.DEPARTMENT_CODE 
+	 	WHERE YEAR(SYSDATE()) LIKE YEAR(C.CLASS_START)
 			<if test="departmentCode != 'ALL' and departmentCode !='' and departmentCode != NULL">
 				AND C.DEPARTMENT_CODE = #{departmentCode}
 			</if>
@@ -27,7 +28,7 @@
 	 <select id="countAllClass" parameterType="HashMap" resultType="int">
 		   SELECT COUNT(*)
 		   FROM CLASS C
-		   WHERE 1=1
+		   WHERE YEAR(SYSDATE()) LIKE YEAR(C.CLASS_START)
 	   <if
 	      test="departmentCode != 'ALL' and departmentCode != '' and departmentCode != NULL">
 			AND C.DEPARTMENT_CODE = #{departmentCode}
@@ -172,7 +173,7 @@
 				INNER JOIN CLASS C ON E.CLASS_CODE = C.CLASS_CODE
 			WHERE E.CLASS_CODE = #{classCode}
 			<if test="searchType == 'id'">
-				AND S.STUDENT_ID CONCAT('%', #{searchKeyword}, '%')
+				AND S.STUDENT_ID LIKE CONCAT('%', #{searchKeyword}, '%')
 			</if>
 			<if test="searchType == 'name'">
 				AND S.NAME LIKE CONCAT('%', #{searchKeyword}, '%')

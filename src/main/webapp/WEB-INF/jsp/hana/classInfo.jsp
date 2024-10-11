@@ -3,6 +3,8 @@
 <%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="ui"     uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -92,6 +94,10 @@
                 <th>강의 시간표</th>
                 <td>
                     <table class="schedule-table">
+                    <fmt:formatDate value="${classInfo.classStart}" pattern="yyyy년  MM월  dd일"/>
+                    		~
+                    <fmt:formatDate value="${classInfo.classEnd}" pattern="yyyy년  MM월  dd일"/>
+                    
 				        <c:forEach var="schedule" items="${timetable}">
 				            <tr>
 				                <td>

@@ -15,6 +15,8 @@ public class ProfessorDTO {
 	private String gender;
 	private String status;
 	private String address;
+	private String photo;
+	private String zipcode;
 	
 	
 	public String getPhone() {
@@ -77,5 +79,17 @@ public class ProfessorDTO {
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
-
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	
 }

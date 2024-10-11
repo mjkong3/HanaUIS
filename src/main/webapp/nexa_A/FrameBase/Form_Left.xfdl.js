@@ -13,7 +13,7 @@
             this.set_titletext("Form_Left");
             if (Form == this.constructor)
             {
-                this._setFormPosition(180,600);
+                this._setFormPosition(200,600);
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
@@ -27,21 +27,26 @@
             obj.set_binddataset("dsLeft");
             obj.set_treeinitstatus("collapse,null");
             obj.set_treeusecheckbox("false");
-            obj.set_visible("true");
+            obj.set_visible("false");
             obj.set_treeusebutton("noclick");
             obj.set_treeuseimage("true");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"190\"/></Columns><Rows><Row size=\"40\"/></Rows><Band id=\"body\"><Cell displaytype=\"treeitemcontrol\" edittype=\"tree\" treelevel=\"bind:MENU_LEVEL\" treestartlevel=\"1\" text=\"bind:MENU_NM\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00","0","0",null,"50","0",null,null,null,null,null,this);
+            obj = new Button("btn_logout","0","0","192","20",null,null,null,null,null,null,this);
             obj.set_taborder("1");
-            obj.set_text("Menu");
+            obj.set_text("로그아웃");
+            obj.set_border("1px none darkblue, 1px solid darkblue, 1px solid darkblue, 1px none darkblue");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("stc_admin","0","20","192","30",null,null,null,null,null,null,this);
+            obj.set_taborder("2");
             obj.set_textAlign("center");
-            obj.set_font("36px/normal \"Gulim\"");
+            obj.set_border("1px solid darkblue");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
-            obj = new Layout("default","Desktop_screen",180,600,this,function(p){});
+            obj = new Layout("default","Desktop_screen",200,600,this,function(p){});
             this.addLayout(obj.name, obj);
             
             // BindItem Information
@@ -131,6 +136,28 @@
         };
 
 
+        this.btn_logout_onclick = function(obj,e)
+        {
+        	if(confirm("로그아웃 하시겠습니까?")){
+        		var gdsAd = nexacro.getApplication();
+        		gdsAd.gds_adminInfo.clearData();
+        		gdsAd.gds_adminInfo.addRow();
+        //  		gdsAd.gds_adminInfo.setColumn(0, "ADMIN_CODE", null);
+        //  		gdsAd.gds_adminInfo.setColumn(0, "REGDATE", null);
+        //  		gdsAd.gds_adminInfo.setColumn(0, "NAME", null);
+
+        		this.stc_admin.set_text("");
+
+        		var objApp = nexacro.getApplication();
+        		objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::form_login.xfdl");
+        		objApp.mainframe.VFrameSet00.TopFrame.set_visible(false);
+        		objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(false);
+
+        		trace(gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE"));
+        		trace(gdsAd.gds_adminInfo.getColumn(0, "NAME"));
+        	}
+        };
+
         });
         
         // Regist UI Components Event
@@ -138,6 +165,7 @@
         {
             this.addEventHandler("onload",this.Form_Left_onload,this);
             this.gridLeftMenu.addEventHandler("oncellclick",this.gridLeftMenu_oncellclick,this);
+            this.btn_logout.addEventHandler("onclick",this.btn_logout_onclick,this);
         };
         this.loadIncludeScript("Form_Left.xfdl");
         this.loadPreloadList();

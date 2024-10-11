@@ -211,7 +211,8 @@
         {
         	objApp = nexacro.getApplication();
         	objApp.mainframe.VFrameSet00.TopFrame.set_visible(true);
-        	this.go("FrameBase::Form_Work.xfdl");
+        	objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(true);
+        	objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::Form_Work.xfdl");
         	return;
         };
 
@@ -238,7 +239,13 @@
         		this.fn_addSession(adminCode);
         		let objApp = nexacro.getApplication();
         		objApp.mainframe.VFrameSet00.TopFrame.set_visible(true);
-        		this.go("FrameBase::Form_Work.xfdl");
+        		objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(true);
+        		objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::Form_Work.xfdl");
+
+
+        		var LeftFrame = objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.form;
+        		LeftFrame.stc_admin.set_text("환영합니다 "+gdsAd.gds_adminInfo.getColumn(0, "NAME")+"관리자님");
+
         	}
         	else{
         		alert("인증번호를 다시 확인해주세요.");

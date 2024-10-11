@@ -43,6 +43,7 @@ h3 {
 }
 
 .schedule-table {
+	margin-top:10px;
     width: 100%;
     border-collapse: collapse;
 }

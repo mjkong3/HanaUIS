@@ -3,9 +3,13 @@ package ateam.serviceimpl;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ateam.dto.ProfessorDTO;
 import ateam.mapper.AdProfessorMapper;
 import ateam.service.AdProfessorService;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
@@ -16,6 +20,9 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 	@Autowired
 	private AdProfessorMapper mapper;
 	
+	@Inject
+	LoginDAO loginDao;
+	
 	@Override
 	public List<Map<String, Object>> selectAdProList(Map<String, Object> param) {
 		// TODO Auto-generated method stub
@@ -24,14 +31,7 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 
 	@Override
 	public void insertAdPro(Map<String, Object> param) {
-		// TODO Auto-generated method stub
-//		int checkId = 0;
-//		int checkEm = 0;
-//		checkId = mapper.dupCheckId(param);
-//		checkEm = mapper.dupCheckEm(param);
-//		if (checkId == 0 && checkEm == 0) {
 			mapper.insertAdPro(param);
-//	}
 	}
 	
 	@Override
@@ -68,16 +68,26 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 	}
 
 	@Override
-	public String dupCheckEm(String email) {
+	public String dupCheckEm(Map<String, Object>param) {
 		
 		String checkEm;
-		int check = mapper.dupCheckEm(email);
+		int check = mapper.dupCheckEm(param);
 		if (check > 0 ) {
 			checkEm = "N";
 		} else {
 			checkEm = "Y";
 		}
 		return checkEm;
+	}
+
+	@Override
+	public ProfessorDTO proLoginCheck(ProfessorDTO dto, HttpSession session) {
+		ProfessorDTO professorDTO = mapper.proLoginCheck(dto);
+		if (professorDTO != null) {
+			session.setAttribute("professorId", dto.getProfessorId());
+		}
+		return professorDTO;
+		
 	}
 	
 

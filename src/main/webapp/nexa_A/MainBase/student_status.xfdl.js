@@ -48,14 +48,14 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Grid("grd_applicationList","27","129","492","433",null,null,null,null,null,null,this);
+            obj = new Grid("grd_applicationList","50","100","594","433",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_binddataset("ds_StudentList");
             obj.set_autofittype("col");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"43\"/><Column size=\"156\"/><Column size=\"80\"/><Column size=\"62\"/><Column size=\"69\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"No\" tooltiptext=\"expr:\"/><Cell col=\"1\" text=\"신청일\" calendardateformat=\"yyyy-MM-dd\"/><Cell col=\"2\" text=\"학번\"/><Cell col=\"3\" text=\"신청유형\"/><Cell col=\"4\" text=\"승인여부\"/><Cell col=\"5\" text=\"이름\"/></Band><Band id=\"body\" cssclass=\"expr:APPROVED==&apos;C&apos;?&apos;aaa&apos;:&apos;bbb&apos;\"><Cell text=\"expr:currow + 1 \" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:REG_DTM\" calendardateformat=\"yyyy-MM-dd\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:STUDENT_ID\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:STATUS_TYPE\" textAlign=\"center\"/><Cell col=\"4\" textAlign=\"center\" text=\"bind:APPROVED\" cssclass=\"expr:APPROVED==&apos;미확인&apos;?&apos;backgroundRed&apos;:&apos;&apos;\"/><Cell col=\"5\" text=\"bind:NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00","535","129","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00","658","100","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -63,18 +63,18 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03","632","129","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03","755","100","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_StdId","644","139","153","31",null,null,null,null,null,null,this);
+            obj = new Edit("edt_StdId","767","110","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00","535","226","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00","658","197","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -82,13 +82,13 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00","632","226","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00","755","197","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00_00","535","275","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00_00","658","246","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("7");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -96,13 +96,13 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00","632","275","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00","755","246","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("8");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00_00_00","807","275","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00_00_00","930","246","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("9");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -110,19 +110,19 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00_00","904","275","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00_00","1027","246","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("10");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00_00_00","904","226","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00_00_00","1027","197","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("11");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00_00_00_00","807","226","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00_00_00_00","930","197","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("12");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -130,18 +130,18 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00_00_00_00","904","129","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00_00_00_00","1027","100","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("13");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_Name","916","139","153","31",null,null,null,null,null,null,this);
+            obj = new Edit("edt_Name","1039","110","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("14");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00_00_00_00_00","807","129","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00_00_00_00_00","930","100","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("15");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -149,7 +149,7 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00_00_00_00_01","807","178","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00_00_00_00_01","930","149","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("16");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -157,24 +157,24 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00_00_00_01","904","178","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00_00_00_01","1027","149","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("17");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_StdStatus","916","188","153","31",null,null,null,null,null,null,this);
+            obj = new Edit("edt_StdStatus","1039","159","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("18");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00_00_00_01_00","632","178","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00_00_00_01_00","755","149","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("19");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00_00_00_00_01_00","535","178","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00_00_00_00_01_00","658","149","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("20");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -182,13 +182,13 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00_00_00_01_00_00","632","324","448","188",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00_00_00_01_00_00","755","295","448","188",null,null,null,null,null,null,this);
             obj.set_taborder("21");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00_00_00_00_01_00_00","535","324","98","187",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00_00_00_00_01_00_00","658","295","98","187",null,null,null,null,null,null,this);
             obj.set_taborder("22");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -196,30 +196,30 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new TextArea("ta_Reasen","644","335","425","165",null,null,null,null,null,null,this);
+            obj = new TextArea("ta_Reasen","767","306","425","165",null,null,null,null,null,null,this);
             obj.set_taborder("23");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_LeaveDate","644","285","153","31",null,null,null,null,null,null,this);
+            obj = new Calendar("cal_LeaveDate","767","256","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("24");
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_RegDate","916","236","153","31",null,null,null,null,null,null,this);
+            obj = new Calendar("cal_RegDate","1039","207","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("25");
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_RetuenDate","916","285","153","31",null,null,null,null,null,null,this);
+            obj = new Calendar("cal_RetuenDate","1039","256","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("26");
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00_00_01","535","510","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00_00_01","658","481","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("27");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -227,19 +227,19 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00_01","632","510","448","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00_01","755","481","448","50",null,null,null,null,null,null,this);
             obj.set_taborder("28");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Save","940","516","60","38",null,null,null,null,null,null,this);
+            obj = new Button("btn_Save","1009","70","94","24",null,null,null,null,null,null,this);
             obj.set_taborder("29");
             obj.set_text("저장");
             this.addChild(obj.name, obj);
 
-            obj = new Radio("rdo_approved","643","522","273","27",null,null,null,null,null,null,this);
+            obj = new Radio("rdo_approved","766","493","273","27",null,null,null,null,null,null,this);
             obj.set_taborder("30");
             obj.set_codecolumn("codecolumn");
             obj.set_datacolumn("datacolumn");
@@ -252,7 +252,7 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Search","202","84","138","36",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_Search","225","70","145","24",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_innerdataset("ds_SearchType");
             obj.set_codecolumn("SEARCH_TYPE");
@@ -261,16 +261,16 @@
             obj.set_index("-1");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_search","352","84","167","36",null,null,null,null,null,null,this);
+            obj = new Edit("edt_search","375","70","167","24",null,null,null,null,null,null,this);
             obj.set_taborder("31");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Search","535","84","94","36",null,null,null,null,null,null,this);
+            obj = new Button("btn_Search","550","70","94","24",null,null,null,null,null,null,this);
             obj.set_taborder("32");
             obj.set_text("검색");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Search00","27","84","156","36",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_Search00","50","70","170","24",null,null,null,null,null,null,this);
             obj.set_taborder("33");
             obj.set_innerdataset("ds_dept");
             obj.set_codecolumn("DEPARTMENT_CODE");
@@ -280,18 +280,18 @@
             obj.set_index("-1");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Create","986","84","94","36",null,null,null,null,null,null,this);
+            obj = new Button("btn_Create","909","70","94","24",null,null,null,null,null,null,this);
             obj.set_taborder("34");
-            obj.set_text("생성");
+            obj.set_text("추가");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Delete","1010","516","60","38",null,null,null,null,null,null,this);
+            obj = new Button("btn_Delete","1108","70","94","24",null,null,null,null,null,null,this);
             obj.set_taborder("35");
             obj.set_text("삭제");
             obj.set_enable("true");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Dept","644","188","153","31",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_Dept","767","159","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("36");
             obj.set_innerdataset("ds_dept");
             obj.set_codecolumn("DEPARTMENT_CODE");
@@ -300,21 +300,21 @@
             obj.set_text("Combo00");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_StatusType","644","235","153","31",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_StatusType","767","206","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("37");
             obj.set_codecolumn("codecolumn");
             obj.set_datacolumn("datacolumn");
             obj.set_readonly("true");
             var cmb_StatusType_innerdataset = new nexacro.NormalDataset("cmb_StatusType_innerdataset", obj);
-            cmb_StatusType_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">복학</Col><Col id=\"datacolumn\">휴학</Col></Row><Row><Col id=\"codecolumn\">휴학</Col><Col id=\"datacolumn\">복학</Col></Row></Rows>");
+            cmb_StatusType_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">휴학</Col><Col id=\"datacolumn\">휴학</Col></Row><Row><Col id=\"codecolumn\">군 휴학</Col><Col id=\"datacolumn\">군 휴학</Col></Row><Row><Col id=\"codecolumn\">복학</Col><Col id=\"datacolumn\">복학</Col></Row></Rows>");
             obj.set_innerdataset(cmb_StatusType_innerdataset);
             obj.set_text("");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00","30","17","360","57",null,null,null,null,null,null,this);
+            obj = new Static("Static00","50","9","360","51",null,null,null,null,null,null,this);
             obj.set_taborder("38");
             obj.set_text("휴/복학 신청 관리");
-            obj.set_font("34px/normal \"Gulim\"");
+            obj.set_font("30px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -400,7 +400,7 @@
         this.fn_departmentList = function() {
 
            var strSvcId    = "departmentList";
-           var strSvcUrl   = "svc::statusApprovedDelete.do";//컨트롤러 경로
+           var strSvcUrl   = "svc::selectAdDept.do";//컨트롤러 경로
            var inData      = "";
            var outData     = "ds_dept = ds_dept";
            var strArg      = "";               //리퀘스트 문자 파라미터
@@ -632,11 +632,11 @@
         this.Combo00_onitemchanged = function(obj,e)
         {
         	var status = this.ds_StudentDetail.getColumn(0,"STATUS_TYPE");
-        	if(status == "휴학"){
-        		this.cal_LeaveDate.set_readonly(true);
+        	if(status == "휴학" || status == "군 휴학"){
+        		this.cal_LeaveDate.set_readonly(false);
         	}
         	if(status == "복학"){
-        		this.cal_LeaveDate.set_readonly(false);
+        		this.cal_LeaveDate.set_readonly(true);
         	}
         };
 
