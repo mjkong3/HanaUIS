@@ -30,4 +30,7 @@ public interface AdSignClassMapper {
 	
 	// 수강신청한 강의 보기 (팝업) 
 	List<Map<String, Object>> confirmedClasses(String param);
+	
+	// 수강신청 하기 (팝업)
+	public void insertClasses(Map<String, Object> param);
 }

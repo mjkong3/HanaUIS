@@ -3,6 +3,7 @@ package ateam.mapper;
 import java.util.List;
 import java.util.Map;
 
+import ateam.dto.ProfessorDTO;
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 
 @Mapper
@@ -21,6 +22,8 @@ public interface AdProfessorMapper {
 	Map<String, Object> selectAdProInfo(String ProId);
 	
 	void deleteAdPro(Map<String, Object> param);
+
+	ProfessorDTO proLoginCheck(ProfessorDTO dto);
 
 	
 }

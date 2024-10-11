@@ -1,6 +1,7 @@
 package ateam.web;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,10 +108,11 @@ public class ProfessorController {
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
 		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
 		model.addAttribute("professorClass", classList);
+		System.out.println("@@@@@@@@@@@@!#!@#@!#!@#@!#");
 
-		int professorId = (int) session.getAttribute("professorId");
+		int professorId = (int)session.getAttribute("professorId");
+		System.out.println(professorId);
 		Map<String, Object> professorDetail = professorService.selectProfessor(professorId);
-
 		model.addAttribute("professor", professor);
 		model.addAttribute("professorDetail", professorDetail);
 

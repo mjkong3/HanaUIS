@@ -306,7 +306,7 @@
             obj.set_datacolumn("datacolumn");
             obj.set_readonly("true");
             var cmb_StatusType_innerdataset = new nexacro.NormalDataset("cmb_StatusType_innerdataset", obj);
-            cmb_StatusType_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">복학</Col><Col id=\"datacolumn\">휴학</Col></Row><Row><Col id=\"codecolumn\">휴학</Col><Col id=\"datacolumn\">복학</Col></Row></Rows>");
+            cmb_StatusType_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">휴학</Col><Col id=\"datacolumn\">휴학</Col></Row><Row><Col id=\"codecolumn\">군 휴학</Col><Col id=\"datacolumn\">군 휴학</Col></Row><Row><Col id=\"codecolumn\">복학</Col><Col id=\"datacolumn\">복학</Col></Row></Rows>");
             obj.set_innerdataset(cmb_StatusType_innerdataset);
             obj.set_text("");
             this.addChild(obj.name, obj);
@@ -400,7 +400,7 @@
         this.fn_departmentList = function() {
 
            var strSvcId    = "departmentList";
-           var strSvcUrl   = "svc::statusApprovedDelete.do";//컨트롤러 경로
+           var strSvcUrl   = "svc::selectAdDept.do";//컨트롤러 경로
            var inData      = "";
            var outData     = "ds_dept = ds_dept";
            var strArg      = "";               //리퀘스트 문자 파라미터
@@ -632,11 +632,11 @@
         this.Combo00_onitemchanged = function(obj,e)
         {
         	var status = this.ds_StudentDetail.getColumn(0,"STATUS_TYPE");
-        	if(status == "휴학"){
-        		this.cal_LeaveDate.set_readonly(true);
+        	if(status == "휴학" || status == "군 휴학"){
+        		this.cal_LeaveDate.set_readonly(false);
         	}
         	if(status == "복학"){
-        		this.cal_LeaveDate.set_readonly(false);
+        		this.cal_LeaveDate.set_readonly(true);
         	}
         };
 

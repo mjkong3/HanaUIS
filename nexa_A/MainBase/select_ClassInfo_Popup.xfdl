@@ -26,7 +26,7 @@
         <Button id="btn_Update" taborder="19" text="수정" left="759" top="601" width="151" height="38" onclick="btn_Update_onclick"/>
         <Calendar id="cal_LastDay" taborder="20" left="701" top="189" width="195" height="31" dateformat="yyyy-MM-dd" readonly="false" visible="true"/>
         <Calendar id="cal_FirstDay" taborder="21" left="427" top="189" width="153" height="31" dateformat="yyyy-MM-dd" readonly="false"/>
-        <TextArea id="txt_ClsInfo" taborder="22" left="330" top="315" width="569" height="255" scrolltype="both" scrollbartype="auto auto"/>
+        <TextArea id="txt_ClsInfo" taborder="22" left="330" top="315" width="569" height="255" scrolltype="vertical" scrollbartype="auto auto" wordWrap="english"/>
         <Static id="Static00_03_01_00_00_00_00_00_00" taborder="23" left="330" top="277" width="569" height="39" text="강의 상세" textAlign="center"/>
         <Combo id="cmb_ClsType" taborder="24" left="701" top="141" width="195" height="30" codecolumn="CLASS_TYPE" datacolumn="CLASS_TYPE" innerdataset="ds_clstype"/>
         <Combo id="cmb_ClsGrade" taborder="25" left="427" top="141" width="153" height="30" codecolumn="CLASS_GRADE" datacolumn="DATA" innerdataset="ds_clsgrade"/>

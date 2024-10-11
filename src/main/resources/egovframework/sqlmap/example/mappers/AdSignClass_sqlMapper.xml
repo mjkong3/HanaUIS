@@ -219,6 +219,30 @@
 						 END
 		AND A.STUDENT_ID = #{param};
 	</select>
+	
+	<!-- 수강신청 -->
+	<insert id="insertClasses" parameterType="java.util.Map">
+		INSERT INTO ENROLLMENT 
+		(
+			CLASS_CODE,
+			STUDENT_ID,
+			SEMESTER,
+			REG_DTM,
+			CRE_DTM,
+			CRE_USR
+		) VALUES 
+		(
+			#{CLASS_CODE},
+			#{STUDENT_ID},
+			CASE
+				WHEN MONTH(NOW()) BETWEEN 2 AND 6 THEN 1
+				ELSE 2
+			END,
+			SYSDATE(),
+			SYSDATE(),
+			#{STUDENT_ID}
+		)
+	</insert>
 
 
 </mapper>
