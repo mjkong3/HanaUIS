@@ -236,7 +236,6 @@
         	{
         		case "SelectAdminClasscourse":
         			//console.log(this.classcourse_ds.saveXML());
-        			this.topnull();
         			//this.classcourse_ds.filter("");
         			this.classroom_ds_onrowposchanged();
 
@@ -252,7 +251,7 @@
         			trace("일시 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "REGDATE"));
         			//trace(this.classcourse_ds.saveXML());
         			/*this.classcourse_ds.filter("CHECKS == null");*/
-
+        			this.topnull();
         			break;
         		case "SelectAdminClassroom":
         			this.cmb_year.set_index(0);
@@ -327,7 +326,7 @@
         	var CLASSROOM_ID = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_ID");
         	var CLASSROOM_NAME = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_NAME");
         	var grade = this.cmb_se.value;
-        	this.Div00.form.stc_classroom.set_text(CLASSROOM_NAME+"  "+CLASSROOM_ID);
+        	this.Div00.form.stc_classroom.set_text(CLASSROOM_ID+"  "+CLASSROOM_NAME);
         	// 요일을 나타내는 숫자를 요일 컬럼 ID로 변환하는 함수
         	function getDayColumnId(dayNumber) {
         		switch(dayNumber) {
@@ -744,8 +743,6 @@
 
             return html;
         };
-
-
         });
         
         // Regist UI Components Event
@@ -763,6 +760,7 @@
             this.cmb_se.addEventHandler("onitemchanged",this.cmb_se_onitemchanged,this);
             this.cmb_year.addEventHandler("onitemchanged",this.cmb_year_onitemchanged,this);
             this.btn_popclassplus.addEventHandler("onclick",this.btn_popclassplus_onclick,this);
+            this.Div00.form.stc_classroom.addEventHandler("onclick",this.Div00_stc_classroom_onclick,this);
             this.btn_print.addEventHandler("onclick",this.btn_print_onclick,this);
             this.btn_browser_print00.addEventHandler("onclick",this.btn_browser_print_onclick2,this);
             this.classroom_ds.addEventHandler("onrowposchanged",this.classroom_ds_onrowposchanged,this);

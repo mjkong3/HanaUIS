@@ -125,11 +125,20 @@
                <col width="23%">
             </colgroup>
             <tr>
-               <th rowspan="8">
-               		<c:choose>
-               			<c:when test="${not empty student.photo}"><img src=""/></c:when>
-               			<c:when test="${empty student.photo}"><img src="<c:url value='/images/egovframework/logo.png'/>" alt="" width="100px" /></c:when>
-               		</c:choose>
+               <th rowspan="8" class="faceImg">
+					<c:choose>
+					    <c:when test="${not empty student.photo}">
+					        <img src="${pageContext.request.contextPath}/images/egovframework/faceShot/${student.photo}" />
+					    </c:when>
+					    
+					    <c:when test="${not empty professor.photo}">
+					        <img src="${pageContext.request.contextPath}/images/egovframework/faceShot/${professor.photo}" />
+					    </c:when>
+					    
+					    <c:otherwise>
+					        <img src="${pageContext.request.contextPath}/images/egovframework/logo.png" />
+					    </c:otherwise>
+					</c:choose>
                </th>
             </tr>
             <!-- 학번 또는 교번 출력 -->
@@ -241,6 +250,17 @@
 	                     </c:when>
 	                  </c:choose>
                 </td>
+            </tr>
+            <tr>
+            	<th>사진 업로드</th>
+               	<td colspan="3"><c:choose>
+                     <c:when test="${not empty student}">
+                     	<input type="file"/>
+                     </c:when>
+                     <c:when test="${not empty professor}">
+                     	<input type="file"/>
+                     </c:when>
+                  </c:choose></td>
             </tr>
          </table>
       </div>

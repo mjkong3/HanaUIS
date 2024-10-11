@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ateam.mapper.AdSignClassMapper">
+
+	<!-- 수강신청한 강의 데이터 불러오기 / 검색 -->
+	<!-- list grd에 목록 생성 -->
+	<select id="selectAdSignClass" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT A.ENROLLMENT_CODE,
+		A.STUDENT_ID,
+		B.NAME,
+		D.DEPARTMENT_CODE,
+		D.DEPARTMENT_NAME,
+		C.CLASS_NAME,
+		C.CLASS_TYPE,
+		YEAR(C.CLASS_START) AS
+		YEAR,
+		C.CLASS_START,
+		C.CLASS_END,
+		A.STUDENT_YEAR,
+		A.SEMESTER,
+		E.NAME AS
+		PROFESSOR_NAME,
+		0 AS 'CHECK'
+		FROM ENROLLMENT A
+		INNER JOIN STUDENT B
+		ON
+		A.STUDENT_ID =
+		B.STUDENT_ID
+		INNER JOIN CLASS C
+		ON A.CLASS_CODE =
+		C.CLASS_CODE
+		INNER JOIN
+		DEPARTMENT D
+		ON C.DEPARTMENT_CODE =
+		D.DEPARTMENT_CODE
+		LEFT JOIN
+		PROFESSOR E
+		ON C.PROFESSOR_ID =
+		E.PROFESSOR_ID
+		WHERE 1 = 1
+		<if test="SEARCH_WORD != null">
+			<if test="SEARCH_TYPE == 'ALL'">
+				AND (A.STUDENT_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				OR B.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				OR D.DEPARTMENT_CODE
+				LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				OR D.DEPARTMENT_NAME LIKE
+				CONCAT('%', #{SEARCH_WORD}, '%')
+				OR C.CLASS_NAME LIKE CONCAT('%',
+				#{SEARCH_WORD}, '%')
+				OR C.CLASS_TYPE LIKE CONCAT('%', #{SEARCH_WORD},
+				'%')
+				OR C.CLASS_START LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				OR
+				C.CLASS_END LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				OR A.STUDENT_YEAR
+				LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				OR A.SEMESTER LIKE CONCAT('%',
+				#{SEARCH_WORD}, '%')
+				OR E.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
+			</if>
+			<if test="SEARCH_TYPE == 'STUDENT_ID'">
+				AND A.STUDENT_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+			</if>
+			<if test="SEARCH_TYPE == 'NAME'">
+				AND B.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+			</if>
+			<if test="SEARCH_TYPE == 'CLASS_NAME'">
+				AND C.CLASS_NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+			</if>
+			<if test="SEARCH_TYPE == 'CLASS_TYPE'">
+				AND C.CLASS_TYPE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+			</if>
+			<if test="SEARCH_TYPE == 'PROFESSOR_NAME'">
+				AND E.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+			</if>
+		</if>
+		<if test="DEPARTMENT_CODE != 0">
+			AND D.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+		</if>
+		<if test="YEAR != null and YEAR != ''">
+			AND YEAR(C.CLASS_START) = #{YEAR}
+		</if>
+		<if test="SEMESTER != null and SEMESTER != ''">
+			AND A.SEMESTER = #{SEMESTER}
+		</if>
+	</select>
+
+	<!-- list grd에 체크된 값들 삭제처리 -->
+	<delete id="deleteAdSignClass" parameterType="java.util.Map">
+		DELETE FROM
+		ENROLLMENT
+		WHERE ENROLLMENT_CODE = #{ENROLLMENT_CODE};
+	</delete>
+
+
+
+	<!-- 학과별 조회 수정하기 -->
+	<select id="selectDeptList" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT A.DEPARTMENT_CODE,
+		A.DEPARTMENT_NAME,
+		B.CLASS_NAME,
+		COUNT(C.STUDENT_ID) AS PEOPLE,
+		D.MAX_PEOPLE
+		FROM DEPARTMENT A
+		INNER JOIN
+		CLASS B
+		ON A.DEPARTMENT_CODE =
+		B.DEPARTMENT_CODE
+		INNER JOIN ENROLLMENT C
+		ON B.CLASS_CODE =
+		C.CLASS_CODE
+		INNER JOIN CLASSROOM D ON B.CLASSROOM_ID
+		= D.CLASSROOM_ID
+		WHERE YEAR(B.CLASS_START) = YEAR(CURRENT_DATE())
+		AND
+		C.SEMESTER = CASE
+		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+		ELSE 2
+		END
+		GROUP BY A.DEPARTMENT_NAME,
+		B.CLASS_NAME,
+		D.MAX_PEOPLE;
+	</select>
+
+	<!-- <팝업> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+
+	<!-- 재학 중인 학생들 불러오기 -->
+	<select id="selectDeptUserList" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT A.NAME,
+		A.STUDENT_ID,
+		A.DEPARTMENT_CODE,
+		B.DEPARTMENT_NAME
+		FROM STUDENT A
+		INNER JOIN DEPARTMENT B
+		ON
+		A.DEPARTMENT_CODE =
+		B.DEPARTMENT_CODE
+		WHERE A.STATUS = '재학중';
+	</select>
+
+	<!-- 모든 수강목록 리스트 조회 -->
+	<select id="selectClassFullList" parameterType="java.util.Map"
+		resultType="java.util.Map">
+		SELECT A.CLASS_CODE,
+		C.DEPARTMENT_NAME,
+		A.CLASS_NAME,
+		A.CLASS_TYPE,
+		B.NAME
+		AS PROFESSOR_NAME,
+		A.CLASS_START,
+		A.CLASS_END,
+		COUNT(E.STUDENT_ID) AS
+		PEOPLE,
+		D.MAX_PEOPLE,
+		A.CLASS_GRADE,
+		0 AS 'CHECK'
+		FROM CLASS A
+		LEFT JOIN PROFESSOR B
+		ON
+		A.PROFESSOR_ID = B.PROFESSOR_ID
+		LEFT JOIN DEPARTMENT C
+		ON
+		A.DEPARTMENT_CODE = C.DEPARTMENT_CODE
+		INNER JOIN CLASSROOM D
+		ON
+		A.CLASSROOM_ID = D.CLASSROOM_ID
+		LEFT JOIN ENROLLMENT E
+		ON A.CLASS_CODE =
+		E.CLASS_CODE
+		WHERE 1 = 1
+		AND YEAR(A.CLASS_START) = YEAR(CURRENT_DATE())
+		AND A.SEMESTER = CASE WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN
+		1
+		ELSE 2
+		END
+		GROUP BY C.DEPARTMENT_NAME,
+		A.CLASS_NAME,
+		A.CLASS_TYPE,
+		B.NAME,
+		A.CLASS_START,
+		A.CLASS_END,
+		D.MAX_PEOPLE;
+	</select>
+
+	<!-- 수강신청한 학점 총합 보기 -->
+	<select id="totalGrades" parameterType="String" resultType="java.util.Map">
+		SELECT IFNULL(SUM(C.CLASS_GRADE), 0) AS TOTAL_GRADES
+		FROM STUDENT A
+		LEFT JOIN ENROLLMENT B ON A.STUDENT_ID = B.STUDENT_ID
+		INNER JOIN CLASS C ON B.CLASS_CODE = C.CLASS_CODE
+		WHERE YEAR(C.CLASS_START) = YEAR(CURRENT_DATE())
+		AND C.SEMESTER = CASE
+				WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+				ELSE 2
+				END
+		AND A.STUDENT_ID = #{param};
+	</select>
+	
+	<!-- 수강신청한 강의들 목록 보기 -->
+	<select id="confirmedClasses" parameterType="String" resultType="java.util.Map">
+		SELECT C.DEPARTMENT_NAME,
+			   B.CLASS_NAME,
+			   B.CLASS_TYPE,
+			   B.CLASS_GRADE,
+			   B.CLASS_CODE
+		FROM ENROLLMENT A
+		INNER JOIN CLASS B
+		ON A.CLASS_CODE = B.CLASS_CODE
+		INNER JOIN DEPARTMENT C
+		ON B.DEPARTMENT_CODE = C.DEPARTMENT_CODE
+		WHERE YEAR(B.CLASS_START) = YEAR(CURRENT_DATE())
+		AND B.SEMESTER = CASE
+						 WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
+						 ELSE 2
+						 END
+		AND A.STUDENT_ID = #{param};
+	</select>
+	
+	<!-- 수강신청 -->
+	<insert id="insertClasses" parameterType="java.util.Map">
+		INSERT INTO ENROLLMENT 
+		(
+			CLASS_CODE,
+			STUDENT_ID,
+			SEMESTER,
+			REG_DTM,
+			CRE_DTM,
+			CRE_USR
+		) VALUES 
+		(
+			#{CLASS_CODE},
+			#{STUDENT_ID},
+			CASE
+				WHEN MONTH(NOW()) BETWEEN 2 AND 6 THEN 1
+				ELSE 2
+			END,
+			SYSDATE(),
+			SYSDATE(),
+			#{STUDENT_ID}
+		)
+	</insert>
+
+
+</mapper>

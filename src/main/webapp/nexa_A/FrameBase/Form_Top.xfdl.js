@@ -139,7 +139,8 @@
         this.btnTopMenu_onclick = function(obj,e)
         {
         	objApp = nexacro.getApplication();
-        	objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(true);
+        	var LeftFrame = objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.form;
+        	LeftFrame.gridLeftMenu.set_visible(true);
 
         	//버튼 Id에서 메뉴 id값을 추출
         	//ex) btn_000001 -> 000001
@@ -154,9 +155,11 @@
         this.ImageViewer00_onclick = function(obj,e)
         {
         	var objApp = nexacro.getApplication();
-        	objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(false);
+        	var LeftFrame = objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.form;
+        	LeftFrame.gridLeftMenu.set_visible(false);
         	objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::Form_Work.xfdl");
         };
+
 
         });
         

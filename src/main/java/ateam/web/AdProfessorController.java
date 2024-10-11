@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,8 @@ import com.nexacro.uiadapter17.spring.core.annotation.ParamDataSet;
 import com.nexacro.uiadapter17.spring.core.annotation.ParamVariable;
 import com.nexacro.uiadapter17.spring.core.data.NexacroResult;
 
+import ateam.dto.ProfessorDTO;
+import ateam.dto.StudentDTO;
 import ateam.service.AdProfessorService;
 
 @Controller
@@ -136,12 +141,12 @@ public class AdProfessorController {
 	}
 	
 	@RequestMapping(value ="/dupCheckEm.do")
-	public NexacroResult dupCheckEm(@ParamVariable(name = "EMAIL", required = false) String email) {
+	public NexacroResult dupCheckEm(@ParamDataSet(name = "ds_pro", required = false) Map<String, Object> param) {
 		NexacroResult result = new NexacroResult();
-		
+		System.out.println("왔냐? : " + param);
 		try {
 			Map<String, Object> ds_vali =  new HashMap<>();
-			String CheckEm = service.dupCheckEm(email);
+			String CheckEm = service.dupCheckEm(param);
 			System.out.println("email은?" + CheckEm);
 			ds_vali.put("CHECK_EM", CheckEm);
 			System.out.println("들어갔나?" + ds_vali);
@@ -154,4 +159,48 @@ public class AdProfessorController {
 		System.out.println("result는? " + result);
 		return result;
 	}
+	
+	   @RequestMapping(value = "/AdProMypage.do")
+	   public NexacroResult AdProMypage(@ParamDataSet(name = "ds_mydata", required = false) Map<String, Object> param,
+			   HttpServletRequest request, ProfessorDTO dto) {
+	     NexacroResult result = new NexacroResult();
+	      System.out.println(param);
+	      HttpSession session = request.getSession();
+	      // 기존 세션 삭제
+	      session.invalidate();
+	      Object proId = param.get("PROFESSOR_ID");
+	      int id = 0;
+	      if (proId instanceof Integer) {
+	          id = (Integer) proId;
+	      } else if (proId instanceof String) {
+	          id = Integer.parseInt((String) proId);  // String인 경우 변환
+	      }
+	      String ps = (String) param.get("PASSWORD");
+	      System.out.println("@@@@@@@"+id + ps);
+	   // 얻은 값 설정
+	   		dto.setProfessorId(id);
+	   		dto.setPassword(ps);
+	   		
+	   		ProfessorDTO professorDTO = service.proLoginCheck(dto, request.getSession());
+	   		System.out.println("!!!!!!!!!!!!!!"+dto);
+	   		System.out.println(professorDTO.getProfessorId());
+	   		System.out.println(professorDTO.getPhone());
+	   		System.out.println(professorDTO.getAddress());
+	   		
+	      try {
+	    	  
+	    	  session = request.getSession();
+
+	    	  session.setAttribute("professor", professorDTO); // 임시 사용자 정보 세션 저장
+	    	  session.setMaxInactiveInterval(1800); // 로그인 세션 만료 시간 = 30분
+
+	    	  
+	    	  
+	      }catch(Exception ee) {
+	         System.out.println(ee);
+	      }
+	      System.out.println("뭘 리턴하지? " + result);
+	      return result;
+	      
+	   }	
 }
