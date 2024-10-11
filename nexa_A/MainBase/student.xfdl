@@ -3,7 +3,7 @@
   <Form id="Form_Code" width="1280" height="720" titletext="New Form" onload="Form_Code_onload" onkeyup="Form_Code_onkeyup">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="Depart_Grd" taborder="0" left="33" top="96" width="237" height="524" binddataset="DEPARTMENT_List" autofittype="col">
+        <Grid id="Depart_Grd" taborder="0" left="24" top="100" width="276" height="524" binddataset="DEPARTMENT_List" autofittype="col">
           <Formats>
             <Format id="default">
               <Columns>
@@ -25,21 +25,21 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="Dtl_Grid" taborder="1" left="293" top="96" width="947" height="524" binddataset="DEPARTMENT_DTL_List" oncelldblclick="Dtl_Grid_oncelldblclick" onheadclick="Dtl_Grid_onheadclick" autofittype="col">
+        <Grid id="Dtl_Grid" taborder="1" left="303" top="100" width="947" height="524" binddataset="DEPARTMENT_DTL_List" oncelldblclick="Dtl_Grid_oncelldblclick" onheadclick="Dtl_Grid_onheadclick" autofittype="col">
           <Formats>
             <Format id="default">
               <Columns>
                 <Column size="48" band="left"/>
-                <Column size="20"/>
-                <Column size="41"/>
-                <Column size="55"/>
-                <Column size="54"/>
-                <Column size="45"/>
-                <Column size="52"/>
-                <Column size="48"/>
-                <Column size="48"/>
-                <Column size="48"/>
-                <Column size="48"/>
+                <Column size="31"/>
+                <Column size="64"/>
+                <Column size="65"/>
+                <Column size="86"/>
+                <Column size="160"/>
+                <Column size="80"/>
+                <Column size="44"/>
+                <Column size="187"/>
+                <Column size="58"/>
+                <Column size="43"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -61,24 +61,25 @@
               <Band id="body">
                 <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:Check"/>
                 <Cell col="1" text="expr:currow + 1" textAlign="center"/>
-                <Cell col="2" text="bind:STUDENT_ID"/>
-                <Cell col="3" text="bind:NAME"/>
+                <Cell col="2" text="bind:STUDENT_ID" textAlign="center"/>
+                <Cell col="3" text="bind:NAME" textAlign="center"/>
                 <Cell col="4" text="bind:PHONE"/>
                 <Cell col="5" text="bind:EMAIL"/>
-                <Cell col="6" text="bind:BIRTHDAY"/>
-                <Cell col="7" text="bind:GENDER"/>
+                <Cell col="6" text="bind:BIRTHDAY" textAlign="center"/>
+                <Cell col="7" text="bind:GENDER" textAlign="center"/>
                 <Cell col="8" text="bind:ADDRESS"/>
-                <Cell col="9" text="bind:STATUS"/>
-                <Cell col="10" text="bind:DEPARTMENT_CODE"/>
+                <Cell col="9" text="bind:STATUS" textAlign="center"/>
+                <Cell col="10" text="bind:DEPARTMENT_CODE" textAlign="center"/>
               </Band>
             </Format>
           </Formats>
         </Grid>
-        <Combo id="Search_Cmb" taborder="2" left="33" top="30" width="237" height="46" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="ALL" text="전체"/>
-        <Button id="Select_btn" taborder="3" text="조회" left="1000" top="30" width="68" height="46" onclick="Select_btn_onclick"/>
-        <Edit id="Edit00" taborder="4" left="293" top="30" width="687" height="46"/>
-        <Button id="plus_btn" taborder="5" text="등록" left="1090" top="30" width="64" height="46" onclick="plus_btn_onclick"/>
-        <Button id="delete_btn" taborder="6" text="삭제" left="1174" top="30" width="66" height="46" onclick="delete_btn_onclick" visible="true"/>
+        <Combo id="Search_Cmb" taborder="2" left="24" top="70" width="116" height="26" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="ALL" text="전체"/>
+        <Button id="Select_btn" taborder="3" text="조회" left="303" top="70" width="68" height="25" onclick="Select_btn_onclick"/>
+        <Edit id="Edit00" taborder="4" left="147" top="70" width="153" height="26"/>
+        <Button id="plus_btn" taborder="5" text="등록" left="1116" top="70" width="64" height="25" onclick="plus_btn_onclick"/>
+        <Button id="delete_btn" taborder="6" text="삭제" left="1184" top="70" width="66" height="25" onclick="delete_btn_onclick" visible="true"/>
+        <Static id="Static00" taborder="7" text="학생 조회" left="25" top="10" width="125" height="50" onclick="Static00_onclick" usedecorate="true" font="28px/normal &quot;Gulim&quot;,&quot;HY견고딕&quot;"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[

@@ -3,12 +3,12 @@
   <Form id="classInfo" width="1280" height="720" titletext="New Form" onload="classInfo_onload">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="grd_Depart" left="33" top="96" width="237" height="524" taborder="0" autofittype="col" binddataset="ds_dept">
+        <Grid id="grd_Depart" left="51" top="100" width="187" height="519" taborder="0" autofittype="none" binddataset="ds_dept">
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="80"/>
-                <Column size="80"/>
+                <Column size="69"/>
+                <Column size="115"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -25,22 +25,22 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="grd_List" left="293" top="96" width="947" height="524" taborder="1" autofittype="col" binddataset="ds_list" onheadclick="grd_List_onheadclick" oncelldblclick="grd_List_oncelldblclick">
+        <Grid id="grd_List" left="251" top="100" width="947" height="520" taborder="1" autofittype="none" binddataset="ds_list" onheadclick="grd_List_onheadclick" oncelldblclick="grd_List_oncelldblclick">
           <Formats>
             <Format id="default">
               <Columns>
                 <Column size="48" band="left"/>
                 <Column size="48"/>
+                <Column size="70"/>
+                <Column size="99"/>
+                <Column size="120"/>
+                <Column size="118"/>
+                <Column size="48"/>
+                <Column size="71"/>
+                <Column size="78"/>
                 <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
-                <Column size="80"/>
+                <Column size="90"/>
+                <Column size="58"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -77,13 +77,14 @@
             </Format>
           </Formats>
         </Grid>
-        <Combo id="cmb_Search" left="33" top="30" width="237" height="46" taborder="2" innerdataset="ds_cmb" codecolumn="code" datacolumn="data"/>
-        <Button id="btn_Search" left="986" top="30" width="68" height="46" taborder="3" text="조회" onclick="btn_Search_onclick"/>
-        <Edit id="edt_Search" left="293" top="30" width="627" height="46" taborder="4"/>
-        <Button id="btn_Add" left="1081" top="30" width="64" height="46" taborder="5" text="등록" onclick="btn_Add_onclick"/>
-        <Button id="btn_Delete" taborder="6" text="삭제" left="1176" top="30" width="64" height="46" onclick="btn_Delete_onclick"/>
-        <Static id="sta_RowCnt" taborder="7" text="" left="1152" top="621" width="88" height="28" background="white" textAlign="right" font="bold 14px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00" taborder="8" text="총계 :" left="1157" top="621" width="56" height="28" font="14px/normal &quot;Gulim&quot;"/>
+        <Combo id="cmb_Search" left="50" top="70" width="187" height="24" taborder="2" innerdataset="ds_cmb" codecolumn="code" datacolumn="data"/>
+        <Button id="btn_Search" left="656" top="70" width="68" height="24" taborder="3" text="조회" onclick="btn_Search_onclick"/>
+        <Edit id="edt_Search" left="252" top="70" width="395" height="24" taborder="4"/>
+        <Button id="btn_Add" left="730" top="70" width="64" height="24" taborder="5" text="등록" onclick="btn_Add_onclick"/>
+        <Button id="btn_Delete" taborder="6" text="삭제" left="800" top="70" width="64" height="24" onclick="btn_Delete_onclick"/>
+        <Static id="sta_RowCnt" taborder="7" text="" left="294" top="626" width="33" height="28" background="white" textAlign="right" font="bold 14px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00" taborder="8" text="총계 :" left="252" top="626" width="56" height="28" font="14px/normal &quot;Gulim&quot;"/>
+        <Static id="stt_board" taborder="9" text="강의 조회" left="51" top="10" width="191" height="49" font="30px/normal &quot;Gulim&quot;" onclick="stt_board_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -566,6 +567,8 @@ this.professor_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
 		this.btn_Search.click();
 	}
 };
+
+
 ]]></Script>
   </Form>
 </FDL>
