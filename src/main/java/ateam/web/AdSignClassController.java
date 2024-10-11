@@ -140,6 +140,22 @@ public class AdSignClassController {
 		return result;
 	}
 	
-	
+	// 수강신청하기
+	@RequestMapping(value = "/insertAdSignClass.do")
+	public NexacroResult insertAdSign(@ParamDataSet(name = "ds_enroll", required = false) List<Map<String, Object>> param) {
+		System.out.println("수강신청하기 팝업  확인" + param);
+		NexacroResult result = new NexacroResult();
+		try {
+			for(int i = 0; i < param.size(); i++) {
+				adSignClassService.insertClasses(param.get(i));
+			}
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+		System.out.println("수강신청 과정 완료" + result);
+		return result;
+	}
 	
 }

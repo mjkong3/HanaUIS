@@ -63,10 +63,10 @@
             obj.set_taborder("1");
             obj.set_autofittype("col");
             obj.set_binddataset("ds_list");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"60\"/><Column size=\"60\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"60\"/><Column size=\"60\"/><Column size=\"60\"/><Column size=\"60\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"성명\"/><Cell col=\"3\" text=\"학과명\"/><Cell col=\"4\" text=\"강의명\"/><Cell col=\"5\" text=\"전공이수\"/><Cell col=\"6\" text=\"담당교수\"/><Cell col=\"7\" text=\"개강일\"/><Cell col=\"8\" text=\"종강일\"/></Band><Band id=\"body\"><Cell edittype=\"checkbox\" displaytype=\"checkboxcontrol\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:DEPARTMENT_NAME\"/><Cell col=\"4\" text=\"bind:CLASS_NAME\"/><Cell col=\"5\" text=\"bind:CLASS_TYPE\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:PROFESSOR_NAME\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:CLASS_START\" textAlign=\"center\" displaytype=\"date\"/><Cell col=\"8\" text=\"bind:CLASS_END\" textAlign=\"center\" displaytype=\"date\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"60\"/><Column size=\"60\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"60\"/><Column size=\"60\"/><Column size=\"60\"/><Column size=\"60\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"학생 이름\"/><Cell col=\"3\" text=\"학과명\"/><Cell col=\"4\" text=\"강의명\"/><Cell col=\"5\" text=\"전공이수\"/><Cell col=\"6\" text=\"담당교수\"/><Cell col=\"7\" text=\"개강일\"/><Cell col=\"8\" text=\"종강일\"/></Band><Band id=\"body\"><Cell edittype=\"checkbox\" displaytype=\"checkboxcontrol\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:DEPARTMENT_NAME\"/><Cell col=\"4\" text=\"bind:CLASS_NAME\"/><Cell col=\"5\" text=\"bind:CLASS_TYPE\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:PROFESSOR_NAME\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:CLASS_START\" textAlign=\"center\" displaytype=\"date\"/><Cell col=\"8\" text=\"bind:CLASS_END\" textAlign=\"center\" displaytype=\"date\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Search","630","30","120","46",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_Search","450","30","120","46",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_innerdataset("ds_cmb");
             obj.set_codecolumn("code");
@@ -78,7 +78,7 @@
             obj.set_text("수강 조회");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_Search","780","30","310","46",null,null,null,null,null,null,this);
+            obj = new Edit("edt_Search","590","30","500","46",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             obj.set_displaynulltext("검색어 입력");
             this.addChild(obj.name, obj);
@@ -93,7 +93,7 @@
             obj.set_text("수강 삭제");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_year","330","30","120","46",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_year","170","30","120","46",null,null,null,null,null,null,this);
             obj.set_taborder("7");
             obj.set_codecolumn("YEAR");
             obj.set_datacolumn("YEAR_NAME");
@@ -103,7 +103,7 @@
             obj.set_index("-1");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_semester","480","30","120","46",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_semester","310","30","120","46",null,null,null,null,null,null,this);
             obj.set_taborder("8");
             obj.set_codecolumn("SEMESTER");
             obj.set_datacolumn("SEMESTER_NUM");
@@ -118,9 +118,9 @@
             obj.set_text("새로고침");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00","35","23","310","60",null,null,null,null,null,null,this);
+            obj = new Static("Static00","35","23","125","60",null,null,null,null,null,null,this);
             obj.set_taborder("10");
-            obj.set_text("신청된 수강신청 목록");
+            obj.set_text("수강신청");
             obj.set_usedecorate("true");
             obj.set_font("28px/normal \"Gulim\",\"HY견고딕\"");
             this.addChild(obj.name, obj);

@@ -105,8 +105,9 @@
         		/*
         		var objCombo = obj.config.objCombo;
         		var objEdit	 = obj.config.objEdit;
+        		&& SEMESTER == '"+ this.cmb_se.value +"'
         		*/
-        		sFilterstr = "String("+obj.config.objCombo.code +").indexOf('"+obj.config.objEdit.strFilter+"') > -1 && SEMESTER == '"+ this.cmb_se.value +"' || CLASSROOM_ID == null || CLASS_WEEK == null || TIME_NUMBER == null";
+        		sFilterstr = "String("+obj.config.objCombo.code +").indexOf('"+obj.config.objEdit.strFilter+"') > -1 || CLASSROOM_ID == null || CLASS_WEEK == null || TIME_NUMBER == null";
         		//trace(sFilterstr);
         	}
 
