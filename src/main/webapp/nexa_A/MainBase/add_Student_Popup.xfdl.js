@@ -818,6 +818,7 @@
 
         // 이미지 등록 시 확장자 확인
         this.gfnIsImageFile = function(fileTxt) {
+        trace("여기 오나?");
             var imageExt = ["png", "jpg", "jpeg"];
             var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
             return imageExt.includes(extNm);
