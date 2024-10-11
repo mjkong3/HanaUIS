@@ -46,8 +46,7 @@
         <Edit id="edt_filename" taborder="22" left="380" top="450" width="450" height="20" readonly="true"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[
-// 화면 온로드
+    <Script type="xscript5.1"><![CDATA[// 화면 온로드
 this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.fnOnload();

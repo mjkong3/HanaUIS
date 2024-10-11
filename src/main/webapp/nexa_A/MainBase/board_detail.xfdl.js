@@ -233,7 +233,6 @@
         
         // User Script
         this.registerScript("board_detail.xfdl", function() {
-
         // 화면 온로드
         this.board_upload_onload = function(obj,e)
         {
