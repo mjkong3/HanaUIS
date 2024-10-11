@@ -267,10 +267,9 @@
         	this.addFileList2(e.virtualfiles);
         	var name = e.virtualfiles[0].filename;
         	this.ds_contentFile.setColumn(0, "IMAGE", e.virtualfiles[0].filename);
-        	name = e.virtualfiles[0].filename;
+        	trace(name + "@@@@@@@@@@@@@@@@@@@@@@");
 
         	this.edt_filename.set_value(name);
-        	trace(name + "@@@@@@@@@@@@@@@@@@@@@@");
 
             this.ImageViewer00.set_visible(true);    // 본문 이미지 보이기
 
@@ -359,6 +358,7 @@
         	console.log("기능타냐 ");
 
         	obj.set_stretch("none");
+
         	// 실제 이미지의 원본 너비와 높이를 가져옴
         	var imgWidth = obj.imagewidth;
         	var imgHeight = obj.imageheight;

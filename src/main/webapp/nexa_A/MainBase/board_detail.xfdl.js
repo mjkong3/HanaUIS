@@ -257,6 +257,9 @@
         			this.showFirstImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"))	;
         		}.bind(this), 100);
 
+        		trace("@@daslkfa;skdfajskdjfl;aksjdlk;fjal;sdjf");
+        		console.log(this.ds_contentFile.getColumn(0, "IMAGE"));
+
         		this.ImageViewer00.set_visible(true);
 
         		this.adjustTextareaHeight();
@@ -552,6 +555,11 @@
         		console.log("BOARD 테이블 수정 완료");
 
         		this.fnUpdateFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
+
+        		// JSP를 통해 POST 방식으로 로컬 폴더(D:/upload/)로 업로드)
+        		this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp'); // 본문 이미지 제외 모두
+        		this.FileUpTransfer01.upload('http://localhost:8082/HanaUIS/fileupload.jsp'); // 본문 이미지 한장
+
             } else {
                 alert("게시글 저장 중 오류 발생: " + errorMsg);
             }
@@ -627,18 +635,10 @@
         // 변경사항 감지
         this.btn_closeBoard_onclick = function(obj,e)
         {
-        	var origin = this.ds_board.saveXML();
-        	var copy = this.ds_copyCat.saveXML();
-
-        	if (this.origin === this.copy)
-        	{
-        		this.close();
-        	} else {
-        		var onChanged = this.confirm("변경 된 사항이 있습니다.");
-        		if (!onChanged) {
+        	var onChanged = this.confirm("변경 사항은 저장되지 않습니다. 창을 닫으시겠습니까?");
+        		if (onChanged) {
         			this.close();
         		}
-        	}
         };
 
 
@@ -703,25 +703,29 @@
 
         	if(e.virtualfiles.length > 1){
         		alert("파일이 두개 이상입니다.");
+        		return;
         	}
+
          	else if(!this.gfnIsImageFile(contentfiletype)){
         		alert("png, "+ "jpg, "+ "jpeg, " + "jfif " + "가 아닙니다.");
+        		return;
          	}
+        	this.btn_delContentPhoto_onclick;
 
         	this.addFileList2(e.virtualfiles);
         	var name = e.virtualfiles[0].filename;
-        	this.ds_contentFile.setColumn(0, "IMAGE", e.virtualfiles[0].filename);
-        	name = e.virtualfiles[0].filename;
-        	trace(name);
+        	this.ds_contentFile.setColumn(0, "IMAGE", name);
 
         	this.edt_filename.set_value(name);
 
-        	this.ImageViewer00.set_visible(true);
+        	this.ImageViewer00.set_visible(true); //본문 이미지 보이기
 
         	setTimeout(function(){
         		this.addFileList2(e.virtualfiles);
+        		this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
         		this.showImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"));
         	}.bind(this), 500); // 500ms 뒤 실행
+
         	trace(this.ds_contentFile.saveXML());
 
         	this.adjustTextareaHeight();
@@ -738,6 +742,8 @@
 
         // 이미지 미리보기 함수 -- 수정 시
         this.showImagePreview = function(fileName) {
+        	trace("이미지 미리보기 진입했지롱");
+        	trace(fileName + "@@@@@@@@@@22changed");
             var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
             var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
             this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
@@ -770,14 +776,7 @@
         	xhr.send("filename=" + encodeURIComponent(fileName));
         };
 
-        // 파일 업로드 함수
-        this.uploadFileToServer = function(vFile) {
-        	this.FileUpTransfer01.clearFileList();
-            this.FileUpTransfer01.addFile(vFile.filename, vFile);
-            this.FileUpTransfer01.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
-        }
-
-
+        //파일 리스트를 받기
         this.addFileList2 = function(filelist) {
             for (var i = 0, len = filelist.length, vFile; i < len; i++) {
                 vFile = filelist[i];
@@ -789,10 +788,19 @@
             }
         }
 
+        // 파일 업로드 함수
+        this.uploadFileToServer = function(vFile) {
+        	this.FileUpTransfer01.clearFileList();
+            this.FileUpTransfer01.addFile(vFile.filename, vFile);
+            this.FileUpTransfer01.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
+        }
+
         this.ImageViewer00_onload = function(obj,e)
         {
         	trace('이미지 온로드 시작');
         	this.fnContImg(obj, e);
+
+
 
         	this.stt_Content.set_height(this.txt_Content.getOffsetHeight() + obj.imageheight + 5);
         	this.adjustTextareaHeight();
@@ -803,6 +811,8 @@
 
         	this.ImageViewer00.set_height(imgviehei);
         	this.ImageViewer00.set_width(imgviewid);
+
+
         };
 
 
@@ -810,6 +820,8 @@
         	// 본문 textarea의 너비 (본문이 존재하는 경우에만 적용)
         	var textareaWidth = this.txt_Content.width;
         	console.log("기능타냐 ");
+
+        	obj.set_stretch("none");
 
         	// 실제 이미지의 원본 너비와 높이를 가져옴
         	var imgWidth = obj.imagewidth;
@@ -839,7 +851,7 @@
         // 본문 사진 삭제
         this.btn_delContentPhoto_onclick = function(obj,e)
         {
-        	trace(this.ds_contentFile.saveXML());
+        	this.deleteFile(this.ds_contentFile.getColumn(0, "IMAGE"));
 
         	this.resetScroll();
 
@@ -851,7 +863,6 @@
         		this.edt_filename.set_value("");
         		this.ImageViewer00.set_visible(false);
         		this.ImageViewer00.set_image(null);
-        		this.ImageViewer00.redraw();
 
         		// 기준이 될 content tarea
         	var contentY = this.txt_Content.getOffsetBottom();  // TextArea의 하단 y 좌표
