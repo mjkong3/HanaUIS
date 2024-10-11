@@ -4,7 +4,7 @@
     String fileName = request.getParameter("filename"); // 'filename'으로 요청된 파일 이름
     //String filePath = "C:\\showfile\\" + fileName; // 파일 경로 설정
     String type = request.getParameter("type"); // 타입 받기
-    System.out.println(type);
+    System.out.println("Type: " + type);
     
     String filePath;
     if (type == null) {
@@ -12,12 +12,12 @@
     } else {
         filePath = "C:\\showfile\\" + fileName; // 업로드 경로
     }
-    
+    	
     File file = new File(filePath);
 
     // 파일이 존재하는지 확인
     if (file.exists() && !file.isDirectory()) {
-        response.setContentType("image/png"); // 이미지 유형 설정 (필요에 따라 변경)
+        response.setContentType("image/jpg"); // 이미지 유형 설정 (필요에 따라 변경)
         FileInputStream inStream = new FileInputStream(file);
         OutputStream outStream = response.getOutputStream(); // OutputStream 가져오기
 

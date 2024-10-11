@@ -11,12 +11,14 @@
 <%
 //http://www.tutorialspoint.com/jsp/jsp_file_uploading.htm
 //https://www.chromestatus.com/feature/5629709824032768
+// CORS 설정 , 서버 요청 헤더, 메소드, 유효 시간, 접근 도메인, 쿠키 설정 허용
 response.setHeader("Access-Control-Allow-Headers", "accept, cache-control, content-type, expires, if-modified-since, pragma, x-requested-with");
 response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS, HEAD") ;
 response.setHeader("Access-Control-Max-Age", "3600");
 response.setHeader("Access-Control-Allow-Origin", "*");
 response.setHeader("Access-Control-Allow-Credentials", "true");	
 
+	// 파일 객체 선언, 파일 최대 크기 설정, 
    File file ;
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
