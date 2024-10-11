@@ -26,6 +26,8 @@ public interface AdStudentMapper {
    StudentDTO stdchecklogin(StudentDTO dto);
 
    Map<String, Object> studCheckId(String STUDENT_ID);
+
+   Map<String, Object> stuCheckEm(Map<String, Object> param);
    
    
 

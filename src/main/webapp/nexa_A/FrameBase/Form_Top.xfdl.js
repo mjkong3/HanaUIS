@@ -38,11 +38,6 @@
             obj.set_background("#004aad");
             obj.set_positionstep("1");
             this.addChild(obj.name, obj);
-
-            obj = new Button("btn_logout","1180","0","100","40",null,null,null,null,null,null,this);
-            obj.set_taborder("2");
-            obj.set_text("로그아웃");
-            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","Desktop_screen",1280,100,this,function(p){});
@@ -144,7 +139,8 @@
         this.btnTopMenu_onclick = function(obj,e)
         {
         	objApp = nexacro.getApplication();
-        	objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(true);
+        	var LeftFrame = objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.form;
+        	LeftFrame.gridLeftMenu.set_visible(true);
 
         	//버튼 Id에서 메뉴 id값을 추출
         	//ex) btn_000001 -> 000001
@@ -159,24 +155,11 @@
         this.ImageViewer00_onclick = function(obj,e)
         {
         	var objApp = nexacro.getApplication();
-        	objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(false);
+        	var LeftFrame = objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.form;
+        	LeftFrame.gridLeftMenu.set_visible(false);
         	objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::Form_Work.xfdl");
         };
 
-        this.btn_logout_onclick = function(obj,e)
-        {
-        	var gdsAd = nexacro.getApplication();
-        	gdsAd.gds_adminInfo.clearData();
-        	gdsAd.gds_adminInfo.addRow();
-        // 		gdsAd.gds_adminInfo.setColumn(0, "ADMIN_CODE", "");
-        // 		gdsAd.gds_adminInfo.setColumn(0, "REGDATE", "");
-        // 		gdsAd.gds_adminInfo.setColumn(0, "NAME", "");
-
-        	var objApp = nexacro.getApplication();
-        	objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::form_login.xfdl");
-        	objApp.mainframe.VFrameSet00.TopFrame.set_visible(false);
-        	objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(false);
-        };
 
         });
         
@@ -185,7 +168,6 @@
         {
             this.addEventHandler("onload",this.Form_Top_onload,this);
             this.Log.addEventHandler("onclick",this.ImageViewer00_onclick,this);
-            this.btn_logout.addEventHandler("onclick",this.btn_logout_onclick,this);
         };
         this.loadIncludeScript("Form_Top.xfdl");
         this.loadPreloadList();

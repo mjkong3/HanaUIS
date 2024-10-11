@@ -74,7 +74,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Combo id="Search_Cmb" taborder="2" left="33" top="30" width="237" height="46" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="All"/>
+        <Combo id="Search_Cmb" taborder="2" left="33" top="30" width="237" height="46" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="ALL" text="전체"/>
         <Button id="Select_btn" taborder="3" text="조회" left="1000" top="30" width="68" height="46" onclick="Select_btn_onclick"/>
         <Edit id="Edit00" taborder="4" left="293" top="30" width="687" height="46"/>
         <Button id="plus_btn" taborder="5" text="등록" left="1090" top="30" width="64" height="46" onclick="plus_btn_onclick"/>
@@ -86,6 +86,7 @@
 this.Form_Code_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
    this.Search.setColumn(0,"SEARCH_TYPE","All");
+   this.Search_Cmb.set_index(0);
    
    // 학과 호출
    
@@ -448,10 +449,6 @@ this.delete_btn_onclick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)
           <Row>
             <Col id="code">STATUS</Col>
             <Col id="data">상태</Col>
-          </Row>
-          <Row>
-            <Col id="code">DEPARTMENT_CODE</Col>
-            <Col id="data">학번코드</Col>
           </Row>
         </Rows>
       </Dataset>
