@@ -13,7 +13,7 @@
             this.set_titletext("New Form");
             if (Form == this.constructor)
             {
-                this._setFormPosition(1080,620);
+                this._setFormPosition(1280,720);
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
@@ -62,7 +62,7 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Combo("cmb_year","473","26","167","34",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_year","460","50","167","26",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_innerdataset("ds_year");
             obj.set_codecolumn("YEAR");
@@ -72,21 +72,21 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_class","471","70","559","160",null,null,null,null,null,null,this);
+            obj = new Grid("grd_class","460","80","605","160",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("ds_class");
             obj.set_autofittype("col");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"47\"/><Column size=\"71\"/><Column size=\"71\"/><Column size=\"71\"/><Column size=\"48\"/><Column size=\"48\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"NO\"/><Cell col=\"1\" text=\"강의코드\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"2\" text=\"강의명\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"3\" text=\"담당교수\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"4\" text=\"년도\"/><Cell col=\"5\" text=\"학기\"/></Band><Band id=\"body\"><Cell text=\"expr:currow+1\"/><Cell col=\"1\" text=\"bind:CLASS_CODE\"/><Cell col=\"2\" text=\"bind:CLASS_NAME\"/><Cell col=\"3\" text=\"bind:NAME\"/><Cell col=\"4\" text=\"bind:CLASS_START\"/><Cell col=\"5\" text=\"bind:SEMESTER\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"47\"/><Column size=\"71\"/><Column size=\"161\"/><Column size=\"71\"/><Column size=\"64\"/><Column size=\"48\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"NO\"/><Cell col=\"1\" text=\"강의코드\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"2\" text=\"강의명\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"3\" text=\"담당교수\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"4\" text=\"년도\"/><Cell col=\"5\" text=\"학기\"/></Band><Band id=\"body\"><Cell text=\"expr:currow+1\"/><Cell col=\"1\" text=\"bind:CLASS_CODE\"/><Cell col=\"2\" text=\"bind:CLASS_NAME\"/><Cell col=\"3\" text=\"bind:NAME\"/><Cell col=\"4\" text=\"bind:CLASS_START\"/><Cell col=\"5\" text=\"bind:SEMESTER\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_dept","30","70","310","160",null,null,null,null,null,null,this);
+            obj = new Grid("grd_dept","50","80","400","160",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_autofittype("none");
             obj.set_binddataset("ds_dept");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"105\"/><Column size=\"203\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"코드번호\"/><Cell col=\"1\" text=\"학과명\"/></Band><Band id=\"body\"><Cell text=\"bind:DEPARTMENT_CODE\"/><Cell col=\"1\" text=\"bind:DEPARTMENT_NAME\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"133\"/><Column size=\"265\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"코드번호\"/><Cell col=\"1\" text=\"학과명\"/></Band><Band id=\"body\"><Cell text=\"bind:DEPARTMENT_CODE\"/><Cell col=\"1\" text=\"bind:DEPARTMENT_NAME\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_searchType","367","246","100","34",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_searchType","50","250","100","26",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_codecolumn("codecolumn");
             obj.set_datacolumn("datacolumn");
@@ -98,33 +98,33 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_searchKeyword","471","246","171","34",null,null,null,null,null,null,this);
+            obj = new Edit("edt_searchKeyword","154","250","171","26",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_searchStd","649","246","63","34",null,null,null,null,null,null,this);
+            obj = new Button("btn_searchStd","332","250","63","26",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_text("조회");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_scoreList","30","287","1010","303",null,null,null,null,null,null,this);
+            obj = new Grid("grd_scoreList","50","280","1015","280",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_binddataset("ds_scoreList");
             obj.set_autofittype("col");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"수정\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"이름\"/><Cell col=\"3\" text=\"중간\"/><Cell col=\"4\" text=\"기말\"/><Cell col=\"5\" text=\"과제\"/><Cell col=\"6\" text=\"총점\"/><Cell col=\"7\" text=\"등급\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\"/><Cell col=\"2\" text=\"bind:NAME\"/><Cell col=\"3\" text=\"bind:MIDDLE_TEST\" displaytype=\"normal\" edittype=\"normal\"/><Cell col=\"4\" text=\"bind:FINAL_TEST\" edittype=\"normal\"/><Cell col=\"5\" text=\"bind:REPORT\" edittype=\"normal\"/><Cell col=\"6\" text=\"bind:SCORE\"/><Cell col=\"7\" text=\"bind:GRADE\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_resetStd","722","246","63","34",null,null,null,null,null,null,this);
+            obj = new Button("btn_resetStd","405","250","63","26",null,null,null,null,null,null,this);
             obj.set_taborder("7");
             obj.set_text("전체보기");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_update","988","246","51","34",null,null,null,null,null,null,this);
+            obj = new Button("btn_update","1014","250","51","26",null,null,null,null,null,null,this);
             obj.set_taborder("8");
             obj.set_text("수정");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_semester","875","26","155","34",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_semester","637","50","155","26",null,null,null,null,null,null,this);
             obj.set_taborder("9");
             obj.set_codecolumn("codecolumn");
             obj.set_datacolumn("datacolumn");
@@ -135,9 +135,15 @@
             obj.set_value("0");
             obj.set_index("0");
             this.addChild(obj.name, obj);
+
+            obj = new Static("stt_board","49","10","191","50",null,null,null,null,null,null,this);
+            obj.set_taborder("10");
+            obj.set_text("성적 관리");
+            obj.set_font("30px/normal \"Gulim\"");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
-            obj = new Layout("default","",1080,620,this,function(p){});
+            obj = new Layout("default","",1280,720,this,function(p){});
             this.addLayout(obj.name, obj);
             
             // BindItem Information
@@ -474,6 +480,7 @@
             this.btn_resetStd.addEventHandler("onclick",this.btn_resetStd_onclick,this);
             this.btn_update.addEventHandler("onclick",this.btn_update_onclick,this);
             this.cmb_semester.addEventHandler("onitemchanged",this.cmb_semester_onitemchanged,this);
+            this.stt_board.addEventHandler("onclick",this.stt_board_onclick,this);
             this.ds_dept.addEventHandler("onrowposchanged",this.ds_dept_onrowposchanged,this);
         };
         this.loadIncludeScript("score_list.xfdl");

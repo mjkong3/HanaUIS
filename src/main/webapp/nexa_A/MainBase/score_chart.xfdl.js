@@ -48,8 +48,8 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Div("Div00","170","75","1060","55",null,null,null,null,null,null,this);
-            obj.set_taborder("2");
+            obj = new Div("Div00","90","70","1060","55",null,null,null,null,null,null,this);
+            obj.set_taborder("1");
             obj.set_background("#004AAD");
             obj.set_border("0px none darkcyan");
             this.addChild(obj.name, obj);
@@ -131,7 +131,7 @@
             obj.set_color("WHITE");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new BasicChart("cht_Score","150","150","1080","470",null,null,null,null,null,null,this);
+            obj = new BasicChart("cht_Score","49","140","1101","440",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_binddataset("ds_chart");
             obj.set_visible("true");
@@ -260,11 +260,10 @@
             obj.set_categorycolumn("bind:등급");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00","120","20","230","55",null,null,null,null,null,null,this);
-            obj.set_taborder("1");
-            obj.set_text("성 적 통 계");
-            obj.set_textAlign("center");
-            obj.set_font("30px/normal \"HY헤드라인M\"");
+            obj = new Static("stt_board","49","10","191","50",null,null,null,null,null,null,this);
+            obj.set_taborder("2");
+            obj.set_text("성적 통계");
+            obj.set_font("30px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -454,6 +453,8 @@
 
            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
+
+
         });
         
         // Regist UI Components Event
@@ -465,6 +466,7 @@
             this.Div00.form.cmb_Semester.addEventHandler("onitemchanged",this.Div00_cmb_Semester_onitemchanged,this);
             this.Div00.form.cmb_Year.addEventHandler("onitemchanged",this.Div00_cmb_Year_onitemchanged,this);
             this.Div00.form.btn_Search.addEventHandler("onclick",this.Div00_btn_Search_onclick,this);
+            this.stt_board.addEventHandler("onclick",this.stt_board_onclick,this);
         };
         this.loadIncludeScript("score_chart.xfdl");
         this.loadPreloadList();

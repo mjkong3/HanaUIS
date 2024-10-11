@@ -81,6 +81,8 @@
 	                </tr>
 	            </thead>
 	            <tbody>
+                    <c:if test="${not empty classList}">
+	            
 					<c:forEach var="selectClass" items="${classList}">
 						<tr>
 							<td>${selectClass.classCode}</td>
@@ -93,6 +95,12 @@
 							<td><a href="javascript:fn_classDetail('${selectClass.classCode}')">상세보기</a></td>
 						</tr>
 					</c:forEach>
+					</c:if>
+					<c:if test="${empty classList}">
+						<tr>
+                           <td colspan="8" >개설된 강의가 없습니다.</td>
+						</tr>
+					</c:if>
 	            </tbody>
 	        </table>
 	        
