@@ -83,6 +83,42 @@
             						}
             					}
             				]
+            			},
+            			"cell" :
+            			{
+            				"parent" :
+            				{
+            					"row" :
+            					{
+            						"parent" :
+            						{
+            							"head" :
+            							{
+            								"parent" :
+            								{
+            									"Grid" :
+            									{
+            										"class" :
+            										[
+            											{
+            												"ATEAM" :
+            												{
+            													"self" :
+            													{
+            														"enabled" :
+            														{
+            															"color" : nexacro.ColorObject("#ffffff")
+            														}
+            													}
+            												}
+            											}
+            										]
+            									}
+            								}
+            							}
+            						}
+            					}
+            				}
             			}
 		},
 		{
