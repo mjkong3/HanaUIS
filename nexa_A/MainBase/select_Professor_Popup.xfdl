@@ -88,7 +88,7 @@
             <Col id="data">남성</Col>
           </Row>
           <Row>
-            <Col id="code">W</Col>
+            <Col id="code">F</Col>
             <Col id="data">여성</Col>
           </Row>
         </Rows>
