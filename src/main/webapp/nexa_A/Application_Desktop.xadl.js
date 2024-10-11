@@ -39,7 +39,7 @@
             	return;
         
             // frame
-            var mainframe = this.createMainFrame("mainframe","0","0","1280","720",null,null,this);
+            var mainframe = this.createMainFrame("mainframe","0","0","1280","1000",null,null,this);
             mainframe.set_showtitlebar("true");
             mainframe.set_showstatusbar("true");
             mainframe.set_titletext("TopLeftFrame");

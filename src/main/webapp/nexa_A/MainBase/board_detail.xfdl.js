@@ -119,14 +119,8 @@
             obj.set_border("0px none, 1px solid, 0px none, 0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_regDate","1305","153","145","40",null,null,null,null,null,null,this);
-            obj.set_taborder("9");
-            obj.set_text("");
-            obj.set_textAlign("center");
-            this.addChild(obj.name, obj);
-
             obj = new Static("Static01_00_01_00","660","177","172","53",null,null,null,null,null,null,this);
-            obj.set_taborder("10");
+            obj.set_taborder("9");
             obj.set_text("게시번호");
             obj.set_textAlign("center");
             obj.set_font("20pt \"Arial\"");
@@ -134,25 +128,25 @@
             this.addChild(obj.name, obj);
 
             obj = new Static("stt_boardCode","898","183","145","40",null,null,null,null,null,null,this);
-            obj.set_taborder("11");
+            obj.set_taborder("10");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_updateBoard","634","615","72","33",null,null,null,null,null,null,this);
-            obj.set_taborder("12");
+            obj.set_taborder("11");
             obj.set_text("수정");
             this.addChild(obj.name, obj);
 
             obj = new FileDownload("btn_fileDown","850","500","90","95",null,null,null,null,null,null,this);
-            obj.set_taborder("13");
+            obj.set_taborder("12");
             obj.set_text("파일 다운");
             this.addChild(obj.name, obj);
 
             obj = new TextArea("txt_Title","380","117","283","46",null,null,null,null,null,null,this);
-            obj.set_taborder("14");
+            obj.set_taborder("13");
             this.addChild(obj.name, obj);
 
             obj = new TextArea("txt_Content","380","240","666","170",null,null,null,null,null,null,this);
-            obj.set_taborder("15");
+            obj.set_taborder("14");
             obj.set_scrolltype("vertical");
             obj.set_tooltiptype("hover");
             obj.set_scrollbartype("auto auto");
@@ -162,44 +156,44 @@
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_addFile","956","500","90","40",null,null,null,null,null,null,this);
-            obj.set_taborder("16");
+            obj.set_taborder("15");
             obj.set_text("파일 첨부");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_deleteFile","956","555","90","40",null,null,null,null,null,null,this);
-            obj.set_taborder("17");
+            obj.set_taborder("16");
             obj.set_text("파일 삭제");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_deleteBoard","953","615","90","33",null,null,null,null,null,null,this);
-            obj.set_taborder("18");
+            obj.set_taborder("17");
             obj.set_text("삭제");
             obj.set_color("white");
             obj.set_background("#ff0505");
             this.addChild(obj.name, obj);
 
             obj = new Calendar("cal_Dtm","890","120","153","47",null,null,null,null,null,null,this);
-            obj.set_taborder("19");
+            obj.set_taborder("18");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_addContentPhoto","850","443","90","35",null,null,null,null,null,null,this);
-            obj.set_taborder("20");
+            obj.set_taborder("19");
             obj.set_text("본문 파일 삽입");
             this.addChild(obj.name, obj);
 
             obj = new ImageViewer("ImageViewer00","380","425","666","10",null,null,null,null,null,null,this);
-            obj.set_taborder("21");
+            obj.set_taborder("20");
             obj.set_visible("false");
             obj.set_stretch("none");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_delContentPhoto","956","443","90","35",null,null,null,null,null,null,this);
-            obj.set_taborder("22");
+            obj.set_taborder("21");
             obj.set_text("본문 파일 삭제");
             this.addChild(obj.name, obj);
 
             obj = new Edit("edt_filename","380","450","450","20",null,null,null,null,null,null,this);
-            obj.set_taborder("23");
+            obj.set_taborder("22");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
             // Layout Functions
@@ -208,10 +202,6 @@
             this.addLayout(obj.name, obj);
             
             // BindItem Information
-            obj = new BindItem("item1","stt_regDate","text","ds_board","CRE_DTM");
-            this.addChild(obj.name, obj);
-            obj.bind();
-
             obj = new BindItem("item2","stt_uploader","text","ds_board","ADMIN_NAME");
             this.addChild(obj.name, obj);
             obj.bind();
@@ -630,7 +620,7 @@
         	var origin = this.ds_board.saveXML();
         	var copy = this.ds_copyCat.saveXML();
 
-        	if (this.origin === this.copy)
+        	if (origin === copy)
         	{
         		this.close();
         	} else {

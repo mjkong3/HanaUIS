@@ -435,6 +435,13 @@ this.grd_List_onheadclick = function(obj:nexacro.Grid, e:nexacro.GridClickEventI
     // 체크박스 컬럼 헤더 셀 클릭 시 전체 선택/해제
     if (obj.getCellProperty("head", e.cell, "displaytype") == "checkboxcontrol") {
 		
+		if (this.edt_ProId_4.value == "undefined" || this.edt_ProId_4.value == null) {
+            // 데이터가 없으면 체크박스를 클릭할 수 없도록 알림
+            this.alert("수강신청할 학생을 선택해주세요.");
+            return 
+        }
+		else {
+		
 		// 체크박스의 현재 상태를 확인
 		var chkVal = obj.getCellProperty("head", 0, "text");
 		
@@ -455,6 +462,7 @@ this.grd_List_onheadclick = function(obj:nexacro.Grid, e:nexacro.GridClickEventI
 			}
 			// 체크된 경우의 trace 코드
 			// trace("체크박스가 선택되었습니다.");
+		}
 		}
     } else {
         // 정렬 기능 실행

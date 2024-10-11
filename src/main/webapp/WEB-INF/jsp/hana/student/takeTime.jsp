@@ -11,8 +11,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- 학생 상태 value 설정  -->
-<c:set value="${student.status == '재학'}" var="leave" />
-<c:set value="${student.status == '휴학'}" var="back" />
+<c:set value="${student.status == '재학중'}" var="leave" />
+<c:set value="${student.status == '휴학중'}" var="back" />
 <title><c:if test="${leave}">휴학 신청</c:if> <c:if test="${back}">복학 신청</c:if>
 </title>
 <link type="text/css" rel="stylesheet"
