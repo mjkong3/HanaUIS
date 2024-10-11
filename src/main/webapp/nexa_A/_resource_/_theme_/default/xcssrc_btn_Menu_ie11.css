@@ -279,11 +279,16 @@ input::-ms-clear,input::-ms-reveal
 	text-align : center;
 	background-position-x : center;
 }
+.Grid.ATEAM .head .row .cell
+{
+	background : #16408D;
+	color : #ffffff;
+}
 .Grid .body .row .cell.backgroundRed.dummy.dummy.dummy
 {
 	background : #FFCEDA !important;
 }
-.Grid .body .row .cell.backgroundBlue.dummy.dummy.dummy
+.Grid .body.row.dummy.cell.dummy.backgroundBlue.dummy
 {
 	background : #B0E0E6;
 }

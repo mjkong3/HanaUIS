@@ -3,7 +3,7 @@
   <Form id="classroom" width="1280" height="720" titletext="New Form" onload="classroom_onload" onbeforeclose="classroom_onbeforeclose">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="class_Grd" taborder="0" left="31" top="50" width="502" height="277" binddataset="classroom_ds" autofittype="col" scrollbartype="none">
+        <Grid id="class_Grd" taborder="0" left="31" top="50" width="502" height="277" binddataset="classroom_ds" autofittype="col" scrollbartype="none" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -28,7 +28,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="classcourse_grd" taborder="1" left="31" top="406" width="1019" height="208" binddataset="classcourse_ds" selecttype="row" ondropdown="classcourse_grd_ondropdown" autofittype="col">
+        <Grid id="classcourse_grd" taborder="1" left="31" top="406" width="1019" height="208" binddataset="classcourse_ds" selecttype="row" ondropdown="classcourse_grd_ondropdown" autofittype="col" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -150,7 +150,7 @@
         <Div id="Div00" taborder="13" text="Div00" left="540" top="7" width="537" height="333">
           <Layouts>
             <Layout>
-              <Grid id="classtime_Grid" taborder="0" left="18" top="42" width="502" height="277" binddataset="classtime_ds" autofittype="col" autosizingtype="none" selecttype="cell" autosizebandtype="body">
+              <Grid id="classtime_Grid" taborder="0" left="18" top="42" width="502" height="277" binddataset="classtime_ds" autofittype="col" autosizingtype="none" selecttype="cell" autosizebandtype="body" cssclass="ATEAM">
                 <Formats>
                   <Format id="default">
                     <Columns>

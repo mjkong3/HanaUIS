@@ -3,7 +3,7 @@
   <Form id="sign_for_class" width="1720" height="720" titletext="New Form" onload="sign_for_class_onload">
     <Layouts>
       <Layout height="720" width="1720">
-        <Grid id="grd_Depart" left="33" top="96" width="450" height="554" taborder="0" autofittype="col" binddataset="ds_dept">
+        <Grid id="grd_Depart" left="33" top="96" width="450" height="554" taborder="0" autofittype="col" binddataset="ds_dept" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -34,7 +34,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="grd_List" left="513" top="96" width="957" height="554" taborder="1" autofittype="col" binddataset="ds_list" oncelldblclick="grd_List_oncelldblclick" onheadclick="grd_List_onheadclick">
+        <Grid id="grd_List" left="513" top="96" width="957" height="554" taborder="1" autofittype="col" binddataset="ds_list" oncelldblclick="grd_List_oncelldblclick" onheadclick="grd_List_onheadclick" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>

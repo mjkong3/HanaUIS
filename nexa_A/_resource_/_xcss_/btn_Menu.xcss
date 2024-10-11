@@ -61,15 +61,6 @@
 }
 
 
-.Grid .body .row .cell.backgroundRed{
-background : #FFCEDA !important;
-
-}
-.Grid .body .row .cell.backgroundBlue{
-background : #B0E0E6;
-
-
-}
 .Edit.edt_Adr[status=readonly]
 {
     background: white;
@@ -84,4 +75,16 @@ color : black;
 
 }
 
+.Grid.ATEAM .head .row .cell
+{
+  background: #16408D;
+  color: #ffffff;
+}.Grid .body .row .cell.backgroundRed
+{
+background: #FFCEDA !important;
+}
+.Grid .body.row.cell.backgroundBlue
+{
+background : #B0E0E6;
+}
 ]]></XCSS>
