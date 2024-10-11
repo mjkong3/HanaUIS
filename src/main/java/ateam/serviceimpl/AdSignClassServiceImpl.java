@@ -42,7 +42,6 @@ public class AdSignClassServiceImpl extends EgovAbstractServiceImpl implements A
 		return mapper.selectDeptUserList();
 	}
 
-	
 	// 모든 수강목록 리스트 조회(팝업)
 	@Override
 	public List<Map<String, Object>> selectClassFullList(Map<String, Object> param) {
@@ -59,6 +58,12 @@ public class AdSignClassServiceImpl extends EgovAbstractServiceImpl implements A
 	@Override
 	public List<Map<String, Object>> confirmedClasses(String param) {
 		return mapper.confirmedClasses(param);
+	}
+
+	// 수강신청 하기 (팝업
+	@Override
+	public void insertClasses(Map<String, Object> param) {
+		mapper.insertClasses(param);
 	}
 
 }
