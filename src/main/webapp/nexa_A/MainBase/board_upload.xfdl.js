@@ -120,7 +120,7 @@
 
             obj = new Button("btn_addBoard","594","624","72","33",null,null,null,null,null,null,this);
             obj.set_taborder("9");
-            obj.set_text("게시");
+            obj.set_text("수정");
             this.addChild(obj.name, obj);
 
             obj = new Static("stt_uploader","420","200","181","40",null,null,null,null,null,null,this);

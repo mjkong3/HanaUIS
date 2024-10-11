@@ -30,21 +30,20 @@
         <Button id="btn_closeBoard" taborder="6" text="닫기" left="714" top="615" width="72" height="33" onclick="btn_closeBoard_onclick"/>
         <Static id="stt_uploader" taborder="7" left="390" top="180" width="250" height="40"/>
         <Static id="Static01_00_01" taborder="8" text="게시일" left="660" top="117" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="stt_regDate" taborder="9" left="1305" top="153" width="145" height="40" text="" textAlign="center"/>
-        <Static id="Static01_00_01_00" taborder="10" text="게시번호" left="660" top="177" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="stt_boardCode" taborder="11" left="898" top="183" width="145" height="40"/>
-        <Button id="btn_updateBoard" taborder="12" text="수정" left="634" top="615" width="72" height="33" onclick="btn_updateBoard_onclick"/>
-        <FileDownload id="btn_fileDown" taborder="13" text="파일 다운" left="850" top="500" width="90" height="95" onclick="btn_fileDown_onclick"/>
-        <TextArea id="txt_Title" taborder="14" left="380" top="117" width="283" height="46"/>
-        <TextArea id="txt_Content" taborder="15" left="380" top="240" width="666" height="170" scrolltype="vertical" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="auto auto" scrollbarsize="10" font="16px/normal &quot;Gulim&quot;" wordWrap="english"/>
-        <Button id="btn_addFile" taborder="16" text="파일 첨부" left="956" top="500" width="90" height="40" onclick="btn_addFile_onclick"/>
-        <Button id="btn_deleteFile" taborder="17" text="파일 삭제" left="956" top="555" width="90" height="40" onclick="btn_deleteFile_onclick"/>
-        <Button id="btn_deleteBoard" taborder="18" text="삭제" left="953" top="615" width="90" height="33" color="white" background="#ff0505" onclick="btn_deleteBoard_onclick"/>
-        <Calendar id="cal_Dtm" taborder="19" left="890" top="120" width="153" height="47"/>
-        <Button id="btn_addContentPhoto" taborder="20" text="본문 파일 삽입" left="850" top="443" width="90" height="35" onclick="btn_addContentPhoto_onclick"/>
-        <ImageViewer id="ImageViewer00" taborder="21" left="380" top="425" width="666" height="10" visible="false" onload="ImageViewer00_onload" stretch="none"/>
-        <Button id="btn_delContentPhoto" taborder="22" text="본문 파일 삭제" left="956" top="443" width="90" height="35" onclick="btn_delContentPhoto_onclick"/>
-        <Edit id="edt_filename" taborder="23" left="380" top="450" width="450" height="20" readonly="true"/>
+        <Static id="Static01_00_01_00" taborder="9" text="게시번호" left="660" top="177" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
+        <Static id="stt_boardCode" taborder="10" left="898" top="183" width="145" height="40"/>
+        <Button id="btn_updateBoard" taborder="11" text="수정" left="634" top="615" width="72" height="33" onclick="btn_updateBoard_onclick"/>
+        <FileDownload id="btn_fileDown" taborder="12" text="파일 다운" left="850" top="500" width="90" height="95" onclick="btn_fileDown_onclick"/>
+        <TextArea id="txt_Title" taborder="13" left="380" top="117" width="283" height="46"/>
+        <TextArea id="txt_Content" taborder="14" left="380" top="240" width="666" height="170" scrolltype="vertical" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="auto auto" scrollbarsize="10" font="16px/normal &quot;Gulim&quot;" wordWrap="english"/>
+        <Button id="btn_addFile" taborder="15" text="파일 첨부" left="956" top="500" width="90" height="40" onclick="btn_addFile_onclick"/>
+        <Button id="btn_deleteFile" taborder="16" text="파일 삭제" left="956" top="555" width="90" height="40" onclick="btn_deleteFile_onclick"/>
+        <Button id="btn_deleteBoard" taborder="17" text="삭제" left="953" top="615" width="90" height="33" color="white" background="#ff0505" onclick="btn_deleteBoard_onclick"/>
+        <Calendar id="cal_Dtm" taborder="18" left="890" top="120" width="153" height="47"/>
+        <Button id="btn_addContentPhoto" taborder="19" text="본문 파일 삽입" left="850" top="443" width="90" height="35" onclick="btn_addContentPhoto_onclick"/>
+        <ImageViewer id="ImageViewer00" taborder="20" left="380" top="425" width="666" height="10" visible="false" onload="ImageViewer00_onload" stretch="none"/>
+        <Button id="btn_delContentPhoto" taborder="21" text="본문 파일 삭제" left="956" top="443" width="90" height="35" onclick="btn_delContentPhoto_onclick"/>
+        <Edit id="edt_filename" taborder="22" left="380" top="450" width="450" height="20" readonly="true"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -726,7 +725,6 @@ this.btn_delContentPhoto_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
       </Dataset>
     </Objects>
     <Bind>
-      <BindItem id="item1" compid="stt_regDate" propid="text" datasetid="ds_board" columnid="CRE_DTM"/>
       <BindItem id="item2" compid="stt_uploader" propid="text" datasetid="ds_board" columnid="ADMIN_NAME"/>
       <BindItem id="item3" compid="stt_boardCode" propid="text" datasetid="ds_board" columnid="BOARD_CODE"/>
       <BindItem id="item5" compid="txt_Title" propid="value" datasetid="ds_board" columnid="TITLE"/>

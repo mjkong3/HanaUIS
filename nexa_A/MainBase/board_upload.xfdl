@@ -33,7 +33,7 @@
         </Grid>
         <Button id="btn_addFile" taborder="7" text="파일 첨부" left="900" top="465" width="94" height="40" onclick="btn_addFile_onclick"/>
         <Button id="btn_deleteFile" taborder="8" text="파일 삭제" left="900" top="520" width="94" height="40" onclick="btn_deleteFile_onclick"/>
-        <Button id="btn_addBoard" taborder="9" text="게시" left="594" top="624" width="72" height="33" onclick="btn_addBoard_onclick"/>
+        <Button id="btn_addBoard" taborder="9" text="수정" left="594" top="624" width="72" height="33" onclick="btn_addBoard_onclick"/>
         <Static id="stt_uploader" taborder="10" text="name" left="420" top="200" width="181" height="40"/>
         <Edit id="txt_title" taborder="11" left="410" top="137" width="584" height="46" onsetfocus="txt_title_onsetfocus"/>
         <ImageViewer id="ImageViewer00" taborder="12" left="410" top="450" width="584" height="5" visible="false" onload="ImageViewer00_onload" stretch="none" fittocontents="none"/>
