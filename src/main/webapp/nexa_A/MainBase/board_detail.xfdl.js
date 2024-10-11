@@ -58,10 +58,10 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Static("stt_boardTop","563","16","155","74",null,null,null,null,null,null,this);
+            obj = new Static("stt_boardTop","563","16","167","74",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_text("공지사항");
-            obj.set_font("30pt \"gulim\",\"한컴 고딕\"");
+            obj.set_font("30pt/normal \"HY견고딕\"");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static01","175","114","172","53",null,null,null,null,null,null,this);
@@ -157,6 +157,8 @@
             obj.set_tooltiptype("hover");
             obj.set_scrollbartype("auto auto");
             obj.set_scrollbarsize("10");
+            obj.set_font("16px/normal \"Gulim\"");
+            obj.set_wordWrap("english");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_addFile","956","500","90","40",null,null,null,null,null,null,this);
@@ -247,14 +249,12 @@
         {
         	this.fnOnload();
 
-        	this.ds_copyCat.copyData(this.ds_board, true);
-
         	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMAGE") == "undefined") {
         	} else {
         		setTimeout(function(){
         			trace(this.ds_contentFile.getColumn(0,"IMAGE") + "@@@@@@@@@@@@@@@@@@@@@");
         			this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
-        			this.showFirstImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"));
+        			this.showFirstImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"))	;
         		}.bind(this), 100);
 
         		this.ImageViewer00.set_visible(true);
@@ -307,8 +307,6 @@
 
         this.Form_onload = function(obj, e)
         {
-        	//var deletedate = this.ds_file.getColumn(0, "REGDATE");
-
             this.FileDownTransfer00 = new FileDownTransfer();
             this.addChild("FileDownTransfer00", this.FileDownTransfer00);
 
@@ -599,8 +597,8 @@
             var inData      = "ds_copyCat = ds_copyCat";  // 넘어가는 데이터셋
             var outData     = "";  // 결과를 받을 데이터셋
             var strArg      = ""
-            var callBackFnc = "fnCallbackDeletBoard";
-            var isAsync     = false;
+            var callBackFnc = "fnCallbackDeleteBoard";
+            var isAsync     = isAsync;
 
             this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         }
@@ -615,7 +613,7 @@
         	}
         };
 
-        this.fnCallDeleteBoard = function(svcID, errorCode, errorMsg) {
+        this.fnCallbackDeleteBoard = function(svcID, errorCode, errorMsg) {
         	if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
         		alert("게시글이 삭제 되었습니다");
         		this.close;
@@ -842,6 +840,8 @@
         this.btn_delContentPhoto_onclick = function(obj,e)
         {
         	trace(this.ds_contentFile.saveXML());
+
+        	this.resetScroll();
 
         	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMAGE") == "undefined") {
         		alert("본문에 들어간 파일이 없습니다.");

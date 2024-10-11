@@ -53,10 +53,10 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Static("stt_top","495","10","264","74",null,null,null,null,null,null,this);
+            obj = new Static("stt_top","495","10","255","74",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_text("공지사항 등록");
-            obj.set_font("30pt \"gulim\",\"한컴 고딕\"");
+            obj.set_font("30pt/normal \"HY견고딕\"");
             this.addChild(obj.name, obj);
 
             obj = new Static("stt_title","174","137","172","46",null,null,null,null,null,null,this);
@@ -89,7 +89,7 @@
             obj.set_font("16px/1.2 \"Gulim\"");
             obj.set_scrolltype("vertical");
             obj.set_readonly("false");
-            obj.set_wordWrap("both");
+            obj.set_wordWrap("english");
             obj.set_scrollbartype("auto auto");
             obj.set_scrollbarsize("10");
             this.addChild(obj.name, obj);
@@ -201,8 +201,6 @@
         	trace("코드 제대로 들어갔나? " + this.ds_board.getColumn(0, "ADMIN_CODE"));
 
         	trace(this.ds_board.saveXML);
-
-
         };
 
         /************************************************************************
@@ -242,7 +240,6 @@
 
         this.btn_addContentPhoto_onclick = function(obj,e)
         {
-
         	this.FileDialog01.open('contentPhoto', FileDialog.LOAD);
         };
 
@@ -395,6 +392,8 @@
         this.btn_delContentPhoto_onclick = function(obj,e)
         {
         	this.deleteFile(this.ds_contentFile.getColumn(0, "IMAGE"));
+
+        	this.resetScroll();
 
         	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMGAE") == "undefined") {
         		alert("본문에 들어간 파일이 없습니다.");
@@ -648,7 +647,6 @@
         	console.log(this.ImageViewer00.height);
         	console.log(this.ImageViewer00.imageheight);
         };
-
         });
         
         // Regist UI Components Event
@@ -657,7 +655,6 @@
             this.addEventHandler("onload",this.board_upload_onload,this);
             this.addEventHandler("onsize",this.board_upload_onsize,this);
             this.stt_boarder.addEventHandler("onclick",this.Static01_00_onclick,this);
-            this.txt_content.addEventHandler("onkeyup",this.txt_content_onkeyup,this);
             this.txt_content.addEventHandler("onkeydown",this.txt_content_onkeydown,this);
             this.stt_file.addEventHandler("onclick",this.Static01_00_onclick,this);
             this.grd_file.addEventHandler("onclick",this.grd_file_onclick,this);
