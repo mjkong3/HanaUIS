@@ -86,6 +86,26 @@
 {
 	text-align : center;
 }
+.Button.btnLogin
+{
+	border-radius : 5px;
+	color : #ffffff;
+	cursor : pointer;
+	font : bold 16px Arial, sans-serif;
+	background : #16408d;
+}
+.Static.sta_WF_DetailLabel
+{
+	border : 1px solid #bdc2c9;
+	background : #e7eaee;
+	font : 13px "Verdana","Malgun Gothic";
+}
+.Static.sta_WF_DetailArea
+{
+	border : 1px solid #ffffff;
+	background : #ffffff;
+	border-radius : 15px;
+}
 .Grid.ATEAM .head .row .cell
 {
 	background : #16408D;
@@ -127,6 +147,22 @@
 	opacity : 0.96;
 	word-spacing : 5px;
 }
+.Button.btnLogin[status=focused]
+{
+	border-radius : 5px;
+	color : #ffffff;
+	cursor : pointer;
+	font : bold 16px Arial, sans-serif;
+	background : #16408d;
+}
+.Button.btnLogin[status=mouseover]
+{
+	border-radius : 5px;
+	color : #ffffff;
+	cursor : pointer;
+	font : bold 16px Arial, sans-serif;
+	background : #16408d;
+}
 .Edit.edt_Adr[status=readonly]
 {
 	background : white;
@@ -136,4 +172,12 @@
 {
 	background : white;
 	color : black;
+}
+.Button.btnLogin[status=disabled]
+{
+	border-radius : 5px;
+	color : #ffffff;
+	cursor : pointer;
+	font : bold 16px Arial, sans-serif;
+	background : #16408d;
 }
