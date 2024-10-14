@@ -232,9 +232,9 @@
             obj.set_text("   생년월일");
             this.addChild(obj.name, obj);
 
-            obj = new Button("Stu_Add_btn","810","512","151","38",null,null,null,null,null,null,this);
+            obj = new Button("Stu_Add_btn","463","520","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("25");
-            obj.set_text("작성완료");
+            obj.set_text("저장");
             this.addChild(obj.name, obj);
 
             obj = new Radio("rdo_gender","440","208","150","36",null,null,null,null,null,null,this);
@@ -294,9 +294,9 @@
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Reset","645","512","151","38",null,null,null,null,null,null,this);
+            obj = new Button("btn_Reset","574","520","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("33");
-            obj.set_text("초기화");
+            obj.set_text("닫기");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_01_00_00_00_02_00_00","426","346","176","50",null,null,null,null,null,null,this);
@@ -673,8 +673,11 @@
         this.btn_Reset_onclick = function(obj,e)
         {
         	// 초기 ds 다시 가져오기
-        	this.save_ds.copyData(this.ds_resetStu);
-        	this.ds_address.copyData(this.ds_reAdr);
+        // 	this.save_ds.copyData(this.ds_resetStu);
+        // 	this.ds_address.copyData(this.ds_reAdr);
+        	if(this.confirm("닫으시겠습니까?")){
+        		this.close();
+        	}
 
         };
 

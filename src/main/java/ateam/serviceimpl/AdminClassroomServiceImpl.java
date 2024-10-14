@@ -46,13 +46,9 @@ public class AdminClassroomServiceImpl extends EgovAbstractServiceImpl implement
 		int checkinsert = 0;
 		for(int i =0; i < param.size(); i++) {
 			checkinsert = mapper.SelectAdminclasstime(param.get(i));
-			if(param.get(i).get("CHECKS").equals("1")) {
-				mapper.updateAdminClasscourse(param.get(i));
-			}
+			mapper.updateAdminClasscourse(param.get(i));
     		if (checkinsert > 0) {
-    			if(param.get(i).get("CHECKS").equals("1")) {
-    				mapper.updateAdminClasscourse2(param.get(i));
-    			}
+    			mapper.updateAdminClasscourse2(param.get(i));
     		}else {
     			mapper.insertAdminClasscourse(param.get(i));
     		}

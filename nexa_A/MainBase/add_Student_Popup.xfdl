@@ -28,7 +28,7 @@
         <ImageViewer id="ImageViewer00" taborder="22" left="83" top="53" width="177" height="236" stretch="fixaspectratio"/>
         <Static id="Static00_00_01_00" taborder="23" left="329" top="249" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   상태"/>
         <Static id="Static00_00_01_00_00" taborder="24" left="600" top="249" width="98" height="49" background="#e7e7e8" border="1px solid #d3d3d4" text="   생년월일"/>
-        <Button id="Stu_Add_btn" taborder="25" text="작성완료" left="810" top="512" width="151" height="38" onclick="Stu_Add_btn_onclick"/>
+        <Button id="Stu_Add_btn" taborder="25" text="저장" left="463" top="520" width="77" height="38" onclick="Stu_Add_btn_onclick"/>
         <Radio id="rdo_gender" taborder="26" left="440" top="208" width="150" height="36" innerdataset="ds_ger" datacolumn="data" codecolumn="code" index="0" text="남자" value="M" direction="vertical"/>
         <Combo id="cmb_dept" taborder="27" text="" left="710" top="111" width="231" height="31" index="0" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value=""/>
         <Combo id="cmb_static" taborder="28" text="" left="437" top="259" width="153" height="31" index="0" innerdataset="ds_static" codecolumn="code" datacolumn="data" value=""/>
@@ -36,7 +36,7 @@
         <Combo id="cmb_univ" taborder="30" text="1학년" left="437" top="161" width="153" height="31" index="0" innerdataset="ds_grade" codecolumn="code" datacolumn="data" value="1"/>
         <Button id="btn_addfile" taborder="31" text="등록" left="221" top="298" width="43" height="20" onclick="btn_addfile_onclick"/>
         <Edit id="edt_filename" taborder="32" left="82" top="298" width="136" height="21" readonly="true"/>
-        <Button id="btn_Reset" taborder="33" text="초기화" left="645" top="512" width="151" height="38" onclick="btn_Reset_onclick"/>
+        <Button id="btn_Reset" taborder="33" text="닫기" left="574" top="520" width="77" height="38" onclick="btn_Reset_onclick"/>
         <Static id="Static00_03_01_00_00_00_02_00_00" taborder="34" left="426" top="346" width="176" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_03_01_00_00_00_01_00_01" taborder="35" left="426" top="395" width="534" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_00_01_00_01_00_01" taborder="36" left="329" top="395" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   주소"/>
@@ -243,8 +243,11 @@ this.insertstudent = function()
 this.btn_Reset_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	// 초기 ds 다시 가져오기
-	this.save_ds.copyData(this.ds_resetStu);
-	this.ds_address.copyData(this.ds_reAdr);
+// 	this.save_ds.copyData(this.ds_resetStu);
+// 	this.ds_address.copyData(this.ds_reAdr);
+	if(this.confirm("닫으시겠습니까?")){
+		this.close();
+	}
 	
 };
 

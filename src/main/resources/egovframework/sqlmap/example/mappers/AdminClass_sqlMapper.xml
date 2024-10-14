@@ -100,8 +100,7 @@
 		       a.CLASS_END as CLASS_END,
 		       a.CRE_USR as ADMIN_CODE,
 		       a.UPD_DTM as REGDATE,
-		       0 AS 'CHECK',
-		       0 AS 'CHECKS'
+		       0 AS 'CHECK'
 		FROM CLASS a
 		LEFT JOIN CLASSROOM b
 		    ON a.CLASSROOM_ID = b.CLASSROOM_ID
@@ -119,6 +118,7 @@
 		WHERE CLASS_TIME_CODE = #{CLASS_TIME_CODE}
 	</select>
 	
+	<!-- 하나의 강의에 두개의 강의실을 넣을 수 없도록 설계 -->
 	<update id="updateAdminClasscourse" parameterType="java.util.Map">
 		UPDATE CLASS
 		SET CLASSROOM_ID = #{CLASSROOM_ID}, 
