@@ -33,7 +33,8 @@
 
 
             obj = new Dataset("ds_scoreList", this);
-            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"MIDDLE_TEST\" type=\"INT\" size=\"256\"/><Column id=\"FINAL_TEST\" type=\"INT\" size=\"256\"/><Column id=\"REPORT\" type=\"INT\" size=\"256\"/><Column id=\"SCORE\" type=\"INT\" size=\"256\"/><Column id=\"GRADE\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"256\"/><Column id=\"CLASS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_USR\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_DTM\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj.set_useclientlayout("true");
+            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"MIDDLE_TEST\" type=\"INT\" size=\"256\"/><Column id=\"FINAL_TEST\" type=\"INT\" size=\"256\"/><Column id=\"REPORT\" type=\"INT\" size=\"256\"/><Column id=\"SCORE\" type=\"INT\" size=\"256\"/><Column id=\"GRADE\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"256\"/><Column id=\"CLASS_CODE\" type=\"INT\" size=\"256\"/><Column id=\"UPD_USR\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_DTM\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -111,7 +112,7 @@
             obj.set_taborder("6");
             obj.set_binddataset("ds_scoreList");
             obj.set_autofittype("col");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"수정\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"이름\"/><Cell col=\"3\" text=\"중간\"/><Cell col=\"4\" text=\"기말\"/><Cell col=\"5\" text=\"과제\"/><Cell col=\"6\" text=\"총점\"/><Cell col=\"7\" text=\"등급\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\"/><Cell col=\"2\" text=\"bind:NAME\"/><Cell col=\"3\" text=\"bind:MIDDLE_TEST\" displaytype=\"normal\" edittype=\"normal\"/><Cell col=\"4\" text=\"bind:FINAL_TEST\" edittype=\"normal\"/><Cell col=\"5\" text=\"bind:REPORT\" edittype=\"normal\"/><Cell col=\"6\" text=\"bind:SCORE\"/><Cell col=\"7\" text=\"bind:GRADE\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"수정\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"이름\"/><Cell col=\"3\" text=\"중간\"/><Cell col=\"4\" text=\"기말\"/><Cell col=\"5\" text=\"과제\"/><Cell col=\"6\" text=\"총점\"/><Cell col=\"7\" text=\"등급\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\"/><Cell col=\"2\" text=\"bind:NAME\"/><Cell col=\"3\" text=\"bind:MIDDLE_TEST\" displaytype=\"normal\" edittype=\"normal\"/><Cell col=\"4\" text=\"bind:FINAL_TEST\" edittype=\"normal\"/><Cell col=\"5\" text=\"bind:REPORT\" edittype=\"normal\"/><Cell col=\"6\" text=\"bind:SCORE\" maskeditlimitbymask=\"integer\" expr=\"nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)\"/><Cell col=\"7\" expr=\"nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 90 ? &apos;A&apos; : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 80 ? &apos;B&apos; : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 70 ? &apos;C&apos; : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 60 ? &apos;D&apos; : &apos;F&apos;\" text=\"bind:GRADE\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_resetStd","405","250","63","26",null,null,null,null,null,null,this);
@@ -315,6 +316,8 @@
         		var inputValue = this.ds_scoreList.getColumn(i, "MIDDLE_TEST"); // MIDDLE_TEST 값 가져오기
         		var inputValue2 = this.ds_scoreList.getColumn(i, "FINAL_TEST"); // FINAL_TEST 값 가져오기
         		var inputValue3 = this.ds_scoreList.getColumn(i, "REPORT"); // REPORT 값 가져오기
+
+        		trace(inputValue,inputValue2,inputValue3+"@@@@@@@@@@@@@@@@@@@@@@@!@#%$!@#$!@#$");
 
         		// 숫자만 입력 가능하도록 체크 (각 열에 대해)
         		if (!/^\d*$/.test(inputValue) || !/^\d*$/.test(inputValue2) || !/^\d*$/.test(inputValue3)) {

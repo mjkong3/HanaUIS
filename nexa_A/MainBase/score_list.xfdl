@@ -118,8 +118,8 @@
                 <Cell col="3" text="bind:MIDDLE_TEST" displaytype="normal" edittype="normal"/>
                 <Cell col="4" text="bind:FINAL_TEST" edittype="normal"/>
                 <Cell col="5" text="bind:REPORT" edittype="normal"/>
-                <Cell col="6" text="bind:SCORE"/>
-                <Cell col="7" text="bind:GRADE"/>
+                <Cell col="6" text="bind:SCORE" maskeditlimitbymask="integer" expr="nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)"/>
+                <Cell col="7" expr="nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 90 ? 'A' : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 80 ? 'B' : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 70 ? 'C' : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 60 ? 'D' : 'F'" text="bind:GRADE"/>
               </Band>
             </Format>
           </Formats>
@@ -300,6 +300,8 @@ this.updateCheck = function() {
 		var inputValue = this.ds_scoreList.getColumn(i, "MIDDLE_TEST"); // MIDDLE_TEST 값 가져오기
 		var inputValue2 = this.ds_scoreList.getColumn(i, "FINAL_TEST"); // FINAL_TEST 값 가져오기
 		var inputValue3 = this.ds_scoreList.getColumn(i, "REPORT"); // REPORT 값 가져오기
+		
+		trace(inputValue,inputValue2,inputValue3+"@@@@@@@@@@@@@@@@@@@@@@@!@#%$!@#$!@#$");
 
 		// 숫자만 입력 가능하도록 체크 (각 열에 대해)
 		if (!/^\d*$/.test(inputValue) || !/^\d*$/.test(inputValue2) || !/^\d*$/.test(inputValue3)) {
@@ -472,9 +474,9 @@ this.fn_searchClass = function() {
           <Column id="SEMESTER" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
-      <Dataset id="ds_scoreList">
+      <Dataset id="ds_scoreList" useclientlayout="true">
         <ColumnInfo>
-          <Column id="STUDENT_ID" type="STRING" size="256"/>
+          <Column id="STUDENT_ID" type="INT" size="256"/>
           <Column id="NAME" type="STRING" size="256"/>
           <Column id="MIDDLE_TEST" type="INT" size="256"/>
           <Column id="FINAL_TEST" type="INT" size="256"/>
@@ -482,7 +484,7 @@ this.fn_searchClass = function() {
           <Column id="SCORE" type="INT" size="256"/>
           <Column id="GRADE" type="STRING" size="256"/>
           <Column id="CHECK" type="INT" size="256"/>
-          <Column id="CLASS_CODE" type="STRING" size="256"/>
+          <Column id="CLASS_CODE" type="INT" size="256"/>
           <Column id="UPD_USR" type="STRING" size="256"/>
           <Column id="UPD_DTM" type="STRING" size="256"/>
         </ColumnInfo>
