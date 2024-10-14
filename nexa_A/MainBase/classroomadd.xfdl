@@ -3,7 +3,7 @@
   <Form id="classroomadd" width="516" height="340" titletext="New Form" onload="classroomadd_onload">
     <Layouts>
       <Layout height="340" width="516">
-        <Grid id="grd_classroom" taborder="0" left="0" top="0" width="516" height="291" binddataset="ds_classroom" autofittype="col">
+        <Grid id="grd_classroom" taborder="0" left="0" top="0" width="516" height="291" binddataset="ds_classroom" autofittype="col" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
