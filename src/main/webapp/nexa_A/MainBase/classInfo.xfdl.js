@@ -61,33 +61,33 @@
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"48\"/><Column size=\"70\"/><Column size=\"99\"/><Column size=\"120\"/><Column size=\"118\"/><Column size=\"48\"/><Column size=\"71\"/><Column size=\"78\"/><Column size=\"80\"/><Column size=\"90\"/><Column size=\"58\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\"/><Cell col=\"1\" text=\"No\"/><Cell col=\"2\" text=\"강의코드\"/><Cell col=\"3\" text=\"강의명\"/><Cell col=\"4\" text=\"개강일\"/><Cell col=\"5\" text=\"종강일\"/><Cell col=\"6\" text=\"학기\"/><Cell col=\"7\" text=\"이수학점\"/><Cell col=\"8\" text=\"이수구분\"/><Cell col=\"9\" text=\"강의실\"/><Cell col=\"10\" text=\"담당교수\"/><Cell col=\"11\" text=\"학과\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"expr:currow + 1\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:CLASS_CODE\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:CLASS_NAME\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:CLASS_START\" displaytype=\"calendarcontrol\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:CLASS_END\" displaytype=\"calendarcontrol\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:SEMESTER\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:CLASS_GRADE\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:CLASS_TYPE\" textAlign=\"center\"/><Cell col=\"9\" text=\"bind:CLASSROOM_ID\" textAlign=\"center\"/><Cell col=\"10\" text=\"bind:PROFESSOR_ID\" textAlign=\"center\"/><Cell col=\"11\" text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Search","50","70","187","24",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_Search","700","70","116","26",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_innerdataset("ds_cmb");
             obj.set_codecolumn("code");
             obj.set_datacolumn("data");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Search","656","70","68","24",null,null,null,null,null,null,this);
+            obj = new Button("btn_Search","986","70","68","24",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_text("조회");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_Search","252","70","395","24",null,null,null,null,null,null,this);
+            obj = new Edit("edt_Search","822","70","153","26",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Add","730","70","64","24",null,null,null,null,null,null,this);
+            obj = new Button("btn_Add","1060","70","64","24",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_text("등록");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Delete","800","70","64","24",null,null,null,null,null,null,this);
+            obj = new Button("btn_Delete","1130","70","64","24",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("삭제");
             this.addChild(obj.name, obj);
 
-            obj = new Static("sta_RowCnt","294","626","33","28",null,null,null,null,null,null,this);
+            obj = new Static("sta_RowCnt","1154","626","33","28",null,null,null,null,null,null,this);
             obj.set_taborder("7");
             obj.set_text("");
             obj.set_background("white");
@@ -95,7 +95,7 @@
             obj.set_font("bold 14px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00","252","626","56","28",null,null,null,null,null,null,this);
+            obj = new Static("Static00","1112","626","56","28",null,null,null,null,null,null,this);
             obj.set_taborder("8");
             obj.set_text("총계 :");
             obj.set_font("14px/normal \"Gulim\"");

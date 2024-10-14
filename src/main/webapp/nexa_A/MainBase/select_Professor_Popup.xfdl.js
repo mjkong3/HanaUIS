@@ -13,7 +13,7 @@
             this.set_titletext("New Form");
             if (Form == this.constructor)
             {
-                this._setFormPosition(1280,720);
+                this._setFormPosition(960,610);
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
@@ -82,68 +82,68 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Static("Static00_03_01_00_00_00_01","506","397","532","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_01_00_00_00_01","399","356","532","50",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00_00_00","778","250","260","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00_00_00","668","209","260","50",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_01_00_00_00_00","778","299","260","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_01_00_00_00_00","668","258","260","50",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_01_00_00_00","506","250","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_01_00_00_00","399","209","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00_00","778","201","260","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00_00","668","160","260","50",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00_00","778","152","260","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00_00","668","111","260","50",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_01_00_00","506","201","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_01_00_00","399","160","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_01","506","152","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_01","399","111","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("7");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_00","778","103","260","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_00","671","62","260","50",null,null,null,null,null,null,this);
             obj.set_taborder("8");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03","506","103","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03","399","62","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("9");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00","409","103","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00","302","62","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("10");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
@@ -151,91 +151,91 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00","409","152","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00","302","111","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("11");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   성명");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_01","681","103","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_01","574","62","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("12");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   비밀번호");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00","681","152","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00","574","111","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("13");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   담당학과");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_01_00","681","299","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_01_00","574","258","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("14");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   이메일");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00_00","681","250","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_00_00","574","209","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("15");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   연락처");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_01","409","201","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_01","302","160","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("16");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   성별");
             this.addChild(obj.name, obj);
 
-            obj = new ImageViewer("ImageViewer00","163","103","177","236",null,null,null,null,null,null,this);
+            obj = new ImageViewer("ImageViewer00","66","62","177","236",null,null,null,null,null,null,this);
             obj.set_taborder("17");
             obj.set_stretch("fit");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_01_00","409","250","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_01_00","302","209","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("18");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   재직여부");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_01_00_00","681","201","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_01_00_00","574","160","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("19");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   생년월일");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_01_00_01","409","397","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_01_00_01","302","356","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("20");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   주소");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_ProId","517","113","153","30",null,null,null,null,null,null,this);
+            obj = new Edit("edt_ProId","411","72","153","30",null,null,null,null,null,null,this);
             obj.set_taborder("21");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_ProPw","789","113","239","30",null,null,null,null,null,null,this);
+            obj = new Edit("edt_ProPw","682","72","239","30",null,null,null,null,null,null,this);
             obj.set_taborder("22");
             obj.set_password("false");
             obj.set_readonly("false");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_ProName","517","162","153","30",null,null,null,null,null,null,this);
+            obj = new Edit("edt_ProName","411","121","153","30",null,null,null,null,null,null,this);
             obj.set_taborder("23");
             obj.set_readonly("false");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Dept","789","162","239","31",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_Dept","682","121","239","31",null,null,null,null,null,null,this);
             obj.set_taborder("24");
             obj.set_innerdataset("ds_dept");
             obj.set_codecolumn("DEPARTMENT_CODE");
@@ -246,12 +246,12 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_EmailPt","789","309","119","30",null,null,null,null,null,null,this);
+            obj = new Edit("edt_EmailPt","682","268","119","30",null,null,null,null,null,null,this);
             obj.set_taborder("25");
             obj.set_readonly("false");
             this.addChild(obj.name, obj);
 
-            obj = new Radio("rdo_Gender","517","208","153","36",null,null,null,null,null,null,this);
+            obj = new Radio("rdo_Gender","411","167","153","36",null,null,null,null,null,null,this);
             obj.set_taborder("26");
             obj.set_innerdataset("ds_gender");
             obj.set_datacolumn("data");
@@ -263,12 +263,12 @@
             obj.set_index("1");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_Phone","789","260","239","30",null,null,null,null,null,null,this);
+            obj = new Edit("edt_Phone","682","219","239","30",null,null,null,null,null,null,this);
             obj.set_taborder("27");
             obj.set_readonly("false");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Status","517","260","153","31",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_Status","411","219","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("28");
             obj.set_innerdataset("ds_status");
             obj.set_codecolumn("code");
@@ -279,121 +279,126 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_Birth","789","211","239","31",null,null,null,null,null,null,this);
+            obj = new Calendar("cal_Birth","682","170","239","31",null,null,null,null,null,null,this);
             obj.set_taborder("29");
             obj.set_dateformat("yyyy-MM-dd");
             obj.set_readonly("false");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_Adr","516","407","512","30",null,null,null,null,null,null,this);
+            obj = new Edit("edt_Adr","409","366","512","30",null,null,null,null,null,null,this);
             obj.set_taborder("30");
             obj.set_readonly("true");
             obj.set_cssclass("edt_Adr");
             obj.set_displaynulltext("주소검색 버튼으로 검색하세요");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Add","889","511","151","38",null,null,null,null,null,null,this);
+            obj = new Button("btn_Add","443","487","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("31");
-            obj.set_text("작성완료");
+            obj.set_text("저장");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_01_00_00_00_02","506","299","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_01_00_00_00_02","399","258","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("32");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_01_00_02","409","299","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_01_00_02","302","258","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("33");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   등록ID");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_Admin","517","309","153","30",null,null,null,null,null,null,this);
+            obj = new Edit("edt_Admin","411","268","153","30",null,null,null,null,null,null,this);
             obj.set_taborder("34");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Update","889","511","151","38",null,null,null,null,null,null,this);
+            obj = new Button("btn_Update","443","487","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("35");
             obj.set_text("수정");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Retrun","730","511","151","38",null,null,null,null,null,null,this);
+            obj = new Button("btn_Retrun","332","487","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("36");
-            obj.set_text("되돌아가기");
+            obj.set_text("리셋");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_DomainPt","907","309","119","30",null,null,null,null,null,null,this);
+            obj = new Edit("edt_DomainPt","800","268","119","30",null,null,null,null,null,null,this);
             obj.set_taborder("37");
             this.addChild(obj.name, obj);
 
-            obj = new WebBrowser("wb_Adress","190","450","100","100",null,null,null,null,null,null,this);
+            obj = new WebBrowser("wb_Adress","60","450","100","100",null,null,null,null,null,null,this);
             obj.set_taborder("38");
             obj.set_visible("false");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_01_00_01_00","409","446","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_01_00_01_00","302","405","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("39");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   상세주소");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_01_00_00_00_01_00","506","446","532","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_01_00_00_00_01_00","399","405","532","50",null,null,null,null,null,null,this);
             obj.set_taborder("40");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_DtlAdr","516","456","512","30",null,null,null,null,null,null,this);
+            obj = new Edit("edt_DtlAdr","409","415","512","30",null,null,null,null,null,null,this);
             obj.set_taborder("41");
             obj.set_displaynulltext("상세주소를 입력하세요");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_01_00_02_00","409","348","98","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_00_01_00_02_00","302","307","98","50",null,null,null,null,null,null,this);
             obj.set_taborder("42");
             obj.set_background("#e7e7e8");
             obj.set_border("1px solid #d3d3d4");
             obj.set_text("   우편번호");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_01_00_00_00_02_00","506","348","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_01_00_00_00_02_00","399","307","176","50",null,null,null,null,null,null,this);
             obj.set_taborder("43");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_ZipCode","518","358","153","31",null,null,null,null,null,null,this);
+            obj = new Edit("edt_ZipCode","411","317","153","31",null,null,null,null,null,null,this);
             obj.set_taborder("44");
             obj.set_readonly("true");
             obj.set_cssclass("edt_Adr");
             obj.set_displaynulltext("우편번호");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Adr","690","354","80","38",null,null,null,null,null,null,this);
+            obj = new Button("btn_Adr","580","314","80","38",null,null,null,null,null,null,this);
             obj.set_taborder("45");
             obj.set_text("주소검색");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_addfile","297","358","43","20",null,null,null,null,null,null,this);
+            obj = new Button("btn_addfile","203","307","43","20",null,null,null,null,null,null,this);
             obj.set_taborder("46");
             obj.set_text("등록");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_filename","163","358","136","21",null,null,null,null,null,null,this);
+            obj = new Edit("edt_filename","64","307","136","21",null,null,null,null,null,null,this);
             obj.set_taborder("47");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_mypage","931","73","107","26",null,null,null,null,null,null,this);
+            obj = new Button("btn_mypage","820","27","107","26",null,null,null,null,null,null,this);
             obj.set_taborder("48");
-            obj.set_text("사용자페이지");
+            obj.set_text("사용자 페이지");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_Close","556","487","77","38",null,null,null,null,null,null,this);
+            obj.set_taborder("49");
+            obj.set_text("닫기");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
-            obj = new Layout("default","",1280,720,this,function(p){});
+            obj = new Layout("default","",960,610,this,function(p){});
             obj.set_mobileorientation("landscape");
             this.addLayout(obj.name, obj);
             
@@ -529,7 +534,7 @@
         	// readonly 설정하기
         	this.fn_setReadOnly(true);
         	this.btn_Adr.set_enable(false);
-        	this.btn_Retrun.set_visible(false);
+        	this.btn_Retrun.set_enable(false);
 
         	// 미리보기 처음 실행
         	setTimeout(function(){
@@ -561,7 +566,7 @@
         	this.fn_setReadOnly(false);
 
         	this.btn_Update.set_visible(false);
-        	this.btn_Retrun.set_visible(true);
+        	this.btn_Retrun.set_enable(true);
         	this.btn_Adr.set_enable(true);
         	this.btn_mypage.set_enable(false);
         };
@@ -632,7 +637,7 @@
 
         	this.btn_mypage.set_enable(true);
         	this.fn_setReadOnly(true);
-        	this.btn_Retrun.set_visible(false);
+        	this.btn_Retrun.set_enable(false);
         	this.btn_Update.set_visible(true);
         	this.btn_Adr.set_enable(false);
 
@@ -996,6 +1001,13 @@
            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 
         };
+        this.btn_Close_onclick = function(obj,e)
+        {
+        	if(this.confirm("닫으시겠습니까?")){
+        		this.close();
+        	}
+        };
+
         });
         
         // Regist UI Components Event
@@ -1004,6 +1016,7 @@
             this.addEventHandler("onload",this.select_Professor_Popup_onload,this);
             this.Static00_01_00.addEventHandler("onclick",this.Static00_01_00_onclick,this);
             this.edt_ProPw.addEventHandler("onchanged",this.edt_ProPw_onchanged,this);
+            this.rdo_Gender.addEventHandler("onitemchanged",this.rdo_Gender_onitemchanged,this);
             this.btn_Add.addEventHandler("onclick",this.btn_Add_onclick,this);
             this.btn_Update.addEventHandler("onclick",this.btn_Update_onclick,this);
             this.btn_Retrun.addEventHandler("onclick",this.btn_Retrun_onclick,this);
@@ -1013,6 +1026,7 @@
             this.btn_Adr.addEventHandler("onclick",this.btn_Adr_onclick,this);
             this.btn_addfile.addEventHandler("onclick",this.btn_addfile_onclick,this);
             this.btn_mypage.addEventHandler("onclick",this.btn_mypage_onclick,this);
+            this.btn_Close.addEventHandler("onclick",this.btn_Close_onclick,this);
             this.FileDialog00.addEventHandler("onclose",this.FileDialog00_onclose,this);
         };
         this.loadIncludeScript("select_Professor_Popup.xfdl");

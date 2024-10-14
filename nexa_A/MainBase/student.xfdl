@@ -3,7 +3,7 @@
   <Form id="Form_Code" width="1280" height="720" titletext="New Form" onload="Form_Code_onload" onkeyup="Form_Code_onkeyup">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="Depart_Grd" taborder="0" left="24" top="100" width="276" height="524" binddataset="DEPARTMENT_List" autofittype="col">
+        <Grid id="Depart_Grd" taborder="0" left="24" top="100" width="276" height="524" binddataset="DEPARTMENT_List" autofittype="col" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -25,7 +25,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="Dtl_Grid" taborder="1" left="303" top="100" width="947" height="524" binddataset="DEPARTMENT_DTL_List" oncelldblclick="Dtl_Grid_oncelldblclick" onheadclick="Dtl_Grid_onheadclick" autofittype="col">
+        <Grid id="Dtl_Grid" taborder="1" left="303" top="100" width="947" height="524" binddataset="DEPARTMENT_DTL_List" oncelldblclick="Dtl_Grid_oncelldblclick" onheadclick="Dtl_Grid_onheadclick" autofittype="col" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>

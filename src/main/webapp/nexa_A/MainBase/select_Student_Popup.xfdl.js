@@ -91,35 +91,35 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new ImageViewer("ImageViewer00","66","82","177","236",null,null,null,null,null,null,this);
+            obj = new ImageViewer("ImageViewer00","66","62","177","236",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_stretch("fit");
             this.addChild(obj.name, obj);
 
-            obj = new Button("Stu_Add_btn","493","537","77","38",null,null,null,null,null,null,this);
+            obj = new Button("Stu_Add_btn","443","537","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_text("수정");
             this.addChild(obj.name, obj);
 
-            obj = new Button("return_btn","382","537","77","38",null,null,null,null,null,null,this);
+            obj = new Button("return_btn","332","537","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_text("리셋");
             obj.set_enable("false");
             this.addChild(obj.name, obj);
 
-            obj = new Button("save_btn","493","537","77","38",null,null,null,null,null,null,this);
+            obj = new Button("save_btn","443","537","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_text("저장");
             obj.set_visible("false");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_filename","64","327","136","21",null,null,null,null,null,null,this);
+            obj = new Edit("edt_filename","64","307","136","21",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             obj.set_visible("false");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_addfile","203","327","43","20",null,null,null,null,null,null,this);
+            obj = new Button("btn_addfile","203","307","43","20",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_text("등록");
             obj.set_visible("false");
@@ -442,7 +442,7 @@
             obj.set_visible("false");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_close","602","537","77","38",null,null,null,null,null,null,this);
+            obj = new Button("btn_close","552","537","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("53");
             obj.set_text("닫기");
             this.addChild(obj.name, obj);
