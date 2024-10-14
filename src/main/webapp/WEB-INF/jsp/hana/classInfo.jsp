@@ -128,7 +128,7 @@
 				        	<form id="infoForm" >
 					        	<input type="hidden" id="classCode" value="${classInfo.classCode}">
 				        		<textarea id="classInfo" class="classInfo">${classInfo.classInfo}</textarea>
-				        		<a href="javascript:fn_updateClassInfo()">수정</a>
+				        		<a href="javascript:fn_updateClassInfo()" class="button-like">수정</a>
 							</form>
 				        </c:when>
 				    </c:choose>

@@ -42,6 +42,12 @@
 	    location.href = "/HanaUIS/pfs/schedule.do";
 	}
 	
+	   function fn_logout() {
+		   	alert("로그아웃 되었습니다.");
+		      location.href = "/HanaUIS/";
+		   }
+		
+	
 
 
 </script>
@@ -62,7 +68,7 @@
 				          	<li>
 				                <!-- 강의 클릭 시 fn_classInfo 호출 -->
 				                <a href="javascript:fn_classInfo('<c:out value="${professorClass.classCode}"/>')">
-			                    <c:out value="${professorClass.semester}학기  ${professorClass.className}"/>
+                               		 ${professorClass.semester}학기 ${professorClass.className}
 				                </a>
 				            </li>
 			            </c:forEach>
@@ -76,7 +82,7 @@
 			          	<li>
 			                <!-- 강의 클릭 시 fn_classInfo 호출 -->
 			                <a href="javascript:fn_gradeInfo('<c:out value="${professorClass.classCode}"/>')">
-			                    <c:out value="${professorClass.semester}학기  ${professorClass.className}"/>
+                                ${professorClass.semester}학기 ${professorClass.className}
 			                </a>
 			            </li>
 		            </c:forEach>
@@ -89,7 +95,7 @@
 			          	<li>
 			                <!-- 강의 클릭 시 fn_classInfo 호출 -->
 			                <a href="javascript:fn_studentInfo('<c:out value="${professorClass.classCode}"/>')">
-			                    <c:out value="${professorClass.semester}학기  ${professorClass.className}"/>
+                                ${professorClass.semester}학기 ${professorClass.className}
 			                </a>
 			            </li>
 		            </c:forEach>
@@ -99,5 +105,7 @@
 	        <li> <a href="javascript:fn_schedule()">강의시간표</a></li>
 	    </ul>
    	 </form>
+   	 
+   	     <button onclick="javascript:fn_logout()">로그아웃</button>
 	    
 </div>

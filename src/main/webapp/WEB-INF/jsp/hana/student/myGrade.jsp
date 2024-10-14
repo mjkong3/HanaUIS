@@ -39,7 +39,7 @@
         <div class="course-info">
             <h3>성적 조회</h3>
             
-            <p style="color: grey;">학점은 중간 (40%), 기말(40%), 과제(20%)를 합산하여 부여</p>
+            <p style="color: grey; float: right;">학점은 중간 (40%), 기말(40%), 과제(20%)를 합산하여 부여</p>
             
            		<table class="totalTable">
 					<thead>
@@ -113,11 +113,11 @@
             <div class="pagination">
 			   <!-- 첫 페이지로 이동 -->
 			   <a href="?page=1&yearSemester=${yearSemester}"
-			      class="${pageHandler.page == 1 ? 'disabled' : ''}">처음</a>
+			      class="${pageHandler.page == 1 ? 'disabled' : ''}">&lt;&lt;</a>
 			
 			   <!-- 이전 페이지로 이동 -->
 			   <a href="?page=${pageHandler.page > 1 ? pageHandler.page - 1 : 1}&yearSemester=${yearSemester}"
-			      class="${pageHandler.page == 1 ? 'disabled' : ''}">이전</a>
+			      class="${pageHandler.page == 1 ? 'disabled' : ''}">&lt;</a>
 			
 			   <!-- 중간 페이지 목록 (1~5 or 6~10) -->
 			   <c:forEach begin="${pageHandler.beginPage}" end="${pageHandler.endPage}" var="i">
@@ -127,11 +127,11 @@
 			
 			   <!-- 다음 페이지로 이동 -->
 			   <a href="?page=${pageHandler.page < pageHandler.totalPage ? pageHandler.page + 1 : pageHandler.totalPage}&yearSemester=${yearSemester}"
-			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">다음</a>
+			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">&gt;</a>
 			
 			   <!-- 마지막 페이지로 이동 -->
 			   <a href="?page=${pageHandler.totalPage}&yearSemester=${yearSemester}"
-			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">끝</a>
+			      class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">&gt;&gt;</a>
 			</div>
             
             
