@@ -589,6 +589,7 @@
            trace("하하핳ㅎ");
            }
         };
+
         //그리드 내 학생 클릭
         this.cell_student_onclick = function(obj,e)
         {
@@ -774,19 +775,6 @@
            this.nPrevCell = e.cell;
 
         };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         });

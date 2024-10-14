@@ -118,8 +118,8 @@
                 <Cell col="3" text="bind:MIDDLE_TEST" displaytype="normal" edittype="normal"/>
                 <Cell col="4" text="bind:FINAL_TEST" edittype="normal"/>
                 <Cell col="5" text="bind:REPORT" edittype="normal"/>
-                <Cell col="6" text="bind:SCORE"/>
-                <Cell col="7" text="bind:GRADE"/>
+                <Cell col="6" expr="nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)"/>
+                <Cell col="7" expr="nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 90 ? 'A' : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 80 ? 'B' : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 70 ? 'C' : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 60 ? 'D' : 'F'"/>
               </Band>
             </Format>
           </Formats>

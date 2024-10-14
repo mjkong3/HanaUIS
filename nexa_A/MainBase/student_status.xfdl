@@ -405,6 +405,7 @@ this.btn_Save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
    trace("하하핳ㅎ");
    }
 };
+
 //그리드 내 학생 클릭
 this.cell_student_onclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
@@ -590,19 +591,6 @@ this.fn_sort = function(obj:Grid, e:GridClickEventInfo)
    this.nPrevCell = e.cell;
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ]]></Script>
     <Bind>
