@@ -51,7 +51,7 @@
         <Button id="btn_Adr" taborder="45" text="주소검색" left="690" top="354" width="80" height="38" onclick="btn_Adr_onclick"/>
         <Button id="btn_addfile" taborder="46" text="등록" left="297" top="358" width="43" height="20" onclick="btn_addfile_onclick"/>
         <Edit id="edt_filename" taborder="47" left="163" top="358" width="136" height="21" readonly="true"/>
-        <Button id="btn_mypage" taborder="48" text="교수페이지" left="931" top="73" width="107" height="26" onclick="btn_mypage_onclick"/>
+        <Button id="btn_mypage" taborder="48" text="사용자페이지" left="931" top="73" width="107" height="26" onclick="btn_mypage_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -189,6 +189,7 @@
 // 6. 유효성검사
 // 7. 콜백함수
 // 8. 파일업로드
+// 9. 마이페이지
 
 // 1. 화면호출
 this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)

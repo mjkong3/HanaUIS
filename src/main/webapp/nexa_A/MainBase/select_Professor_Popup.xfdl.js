@@ -389,7 +389,7 @@
 
             obj = new Button("btn_mypage","931","73","107","26",null,null,null,null,null,null,this);
             obj.set_taborder("48");
-            obj.set_text("교수페이지");
+            obj.set_text("사용자페이지");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -474,6 +474,7 @@
         // 6. 유효성검사
         // 7. 콜백함수
         // 8. 파일업로드
+        // 9. 마이페이지
 
         // 1. 화면호출
         this.select_Professor_Popup_onload = function(obj,e)
