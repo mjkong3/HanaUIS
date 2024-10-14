@@ -3,7 +3,7 @@
   <Form id="classroom" width="1280" height="720" titletext="New Form" onload="classroom_onload" onbeforeclose="classroom_onbeforeclose">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="class_Grd" taborder="0" left="31" top="50" width="502" height="277" binddataset="classroom_ds" autofittype="col" scrollbartype="none" cssclass="ATEAM">
+        <Grid id="class_Grd" taborder="0" left="39" top="95" width="502" height="225" binddataset="classroom_ds" autofittype="col" scrollbartype="none" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -28,7 +28,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="classcourse_grd" taborder="1" left="31" top="406" width="1019" height="208" binddataset="classcourse_ds" selecttype="row" ondropdown="classcourse_grd_ondropdown" autofittype="col" cssclass="ATEAM">
+        <Grid id="classcourse_grd" taborder="1" left="39" top="377" width="1029" height="208" binddataset="classcourse_ds" selecttype="row" ondropdown="classcourse_grd_ondropdown" autofittype="col" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -74,13 +74,12 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="reset_btn" taborder="2" text="리셋" left="885" top="331" width="58" height="26" onclick="reset_btn_onclick"/>
-        <Button id="insert_btn" taborder="3" text="등록" left="1009" top="331" width="58" height="26" onclick="insert_btn_onclick"/>
-        <Button id="apply_btn" taborder="4" text="저장" left="947" top="331" width="58" height="26" onclick="apply_btn_onclick"/>
-        <Button id="btn_copy" taborder="5" text="추가" left="823" top="331" width="58" height="26" onclick="btn_copy_onclick"/>
-        <Button id="btn_delete" taborder="6" text="제거" left="761" top="331" width="58" height="26" onclick="btn_delete_onclick"/>
-        <Edit id="edt_search" taborder="7" left="170" top="331" width="185" height="26" onchanged="edt_search_onchanged"/>
-        <Combo id="cmb_course" taborder="8" text="전체" left="50" top="331" width="118" height="26" index="0" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" value="CLASSROOM_NAME + CLASSROOM_ID + CLASS_NAME  + PROFESSOR_NAME">
+        <Button id="reset_btn" taborder="2" text="리셋" left="947" top="347" width="58" height="26" onclick="reset_btn_onclick"/>
+        <Button id="apply_btn" taborder="3" text="저장" left="1009" top="347" width="58" height="26" onclick="apply_btn_onclick"/>
+        <Button id="btn_copy" taborder="4" text="추가" left="885" top="347" width="58" height="26" onclick="btn_copy_onclick"/>
+        <Button id="btn_delete" taborder="5" text="제거" left="823" top="347" width="58" height="26" onclick="btn_delete_onclick"/>
+        <Edit id="edt_search" taborder="6" left="159" top="347" width="185" height="26" onchanged="edt_search_onchanged"/>
+        <Combo id="cmb_course" taborder="7" text="전체" left="39" top="347" width="118" height="26" index="0" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" value="CLASSROOM_NAME + CLASSROOM_ID + CLASS_NAME  + PROFESSOR_NAME">
           <Dataset id="innerdataset">
             <ColumnInfo>
               <Column id="codecolumn" size="256"/>
@@ -110,7 +109,7 @@
             </Rows>
           </Dataset>
         </Combo>
-        <Combo id="cmb_se" taborder="9" text="1학기" left="205" top="69" width="151" height="26" innerdataset="ds_classsem" codecolumn="SEMESTER" datacolumn="SEMESTERN" index="0" value="1" onitemchanged="cmb_se_onitemchanged">
+        <Combo id="cmb_se" taborder="8" text="1학기" left="194" top="64" width="151" height="26" innerdataset="ds_classsem" codecolumn="SEMESTER" datacolumn="SEMESTERN" index="0" value="1" onitemchanged="cmb_se_onitemchanged">
           <Dataset id="innerdataset">
             <ColumnInfo>
               <Column id="codecolumn" size="256"/>
@@ -128,7 +127,7 @@
             </Rows>
           </Dataset>
         </Combo>
-        <Combo id="cmb_year" taborder="10" text="" left="50" top="69" width="151" height="26" innerdataset="ds_classyear" codecolumn="YEAR" datacolumn="YEARN" index="0" value="" onitemchanged="cmb_year_onitemchanged">
+        <Combo id="cmb_year" taborder="9" text="" left="39" top="64" width="151" height="26" innerdataset="ds_classyear" codecolumn="YEAR" datacolumn="YEARN" index="0" value="" onitemchanged="cmb_year_onitemchanged">
           <Dataset id="innerdataset">
             <ColumnInfo>
               <Column id="codecolumn" size="256"/>
@@ -146,11 +145,11 @@
             </Rows>
           </Dataset>
         </Combo>
-        <Button id="btn_popclassplus" taborder="11" text="강의실 추가" left="460" top="69" width="91" height="26" onclick="btn_popclassplus_onclick"/>
-        <Div id="Div00" taborder="13" text="Div00" left="550" top="60" width="537" height="340" formscrollbartype="default default" formscrolltype="none">
+        <Button id="btn_popclassplus" taborder="10" text="강의실 추가" left="449" top="64" width="91" height="26" onclick="btn_popclassplus_onclick"/>
+        <Div id="Div00" taborder="12" text="Div00" left="550" top="60" width="537" height="290" formscrollbartype="default default" formscrolltype="none">
           <Layouts>
             <Layout>
-              <Grid id="classtime_Grid" taborder="0" left="18" top="42" width="502" height="277" binddataset="classtime_ds" autofittype="col" autosizingtype="none" selecttype="cell" autosizebandtype="body" cssclass="ATEAM">
+              <Grid id="classtime_Grid" taborder="0" left="20" top="35" width="502" height="225" binddataset="classtime_ds" autofittype="col" autosizingtype="none" selecttype="cell" autosizebandtype="body" cssclass="ATEAM">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -184,13 +183,13 @@
                   </Format>
                 </Formats>
               </Grid>
-              <Static id="stc_classroom" taborder="1" left="20" top="13" width="137" height="27" onclick="Div00_stc_classroom_onclick"/>
+              <Static id="stc_classroom" taborder="1" left="22" top="4" width="137" height="27" onclick="Div00_stc_classroom_onclick"/>
             </Layout>
           </Layouts>
         </Div>
-        <Button id="btn_print" taborder="12" text="인쇄" left="920" top="69" width="74" height="26" onclick="btn_print_onclick"/>
-        <Button id="btn_browser_print00" taborder="14" text="전체 인쇄" left="998" top="69" width="72" height="26" onclick="btn_browser_print_onclick2"/>
-        <Static id="stt_board" taborder="15" text="강의실 관리" left="49" top="10" width="191" height="50" font="30px/normal &quot;Gulim&quot;"/>
+        <Button id="btn_print" taborder="11" text="인쇄" left="920" top="64" width="74" height="26" onclick="btn_print_onclick"/>
+        <Button id="btn_browser_print00" taborder="13" text="전체 인쇄" left="998" top="64" width="72" height="26" onclick="btn_browser_print_onclick2"/>
+        <Static id="stt_board" taborder="14" text="강의실 관리" left="49" top="10" width="191" height="50" font="30px/normal &quot;Gulim&quot;"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -249,7 +248,6 @@
           <Column id="PROFESSOR_NAME" type="STRING" size="256"/>
           <Column id="CLASS_TIME_CODE" type="STRING" size="256"/>
           <Column id="CHECK" type="STRING" size="256"/>
-          <Column id="CHECKS" type="STRING" size="256"/>
           <Column id="SEMESTER" type="STRING" size="256"/>
           <Column id="CLASS_GRADE" type="STRING" size="256"/>
           <Column id="CLASS_START" type="STRING" size="256"/>
@@ -346,6 +344,7 @@
           <Row/>
         </Rows>
       </Dataset>
+      <Dataset id="ds_classcourein"/>
     </Objects>
     <Script type="xscript5.1"><![CDATA[// 오토필터 불러오기
 include "MainBase::autofilter.xjs";
@@ -392,7 +391,6 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 			trace("아이디 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "ADMIN_CODE"));
 			trace("일시 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "REGDATE"));
 			//trace(this.classcourse_ds.saveXML());
-			/*this.classcourse_ds.filter("CHECKS == null");*/
 			this.topnull();
 			break;
 		case "SelectAdminClassroom":
@@ -408,21 +406,20 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 		default:
 	}
 };
-// 삭제버튼 클릭 카운트
-var countdelete = 0;
 
 // 데이터 null값 상단 배치
 this.topnull = function()
 {
-	if(this.classcourse_ds.getCaseCount("CLASSROOM_ID == undefined")){
-	this.classcourse_ds.set_keystring("S:-CLASSROOM_ID");
-	}
-	else if(this.classcourse_ds.getCaseCount("CLASS_WEEK == undefined")){
-		this.classcourse_ds.set_keystring("S:-CLASS_WEEK");
-	}
-	else if(this.classcourse_ds.getCaseCount("TIME_NUMBER == undefined")){
-		this.classcourse_ds.set_keystring("S:-TIME_NUMBER");
-	}
+	this.classcourse_ds.set_keystring("S:-CLASSROOM_ID-CLASS_WEEK-TIME_NUMBER-CLASS_NAME");
+// 	if(this.classcourse_ds.getCaseCount("CLASSROOM_ID == undefined")){
+// 	this.classcourse_ds.set_keystring("S:-CLASSROOM_ID");
+// 	}
+// 	else if(this.classcourse_ds.getCaseCount("CLASS_WEEK == undefined")){
+// 		this.classcourse_ds.set_keystring("S:-CLASS_WEEK");
+// 	}
+// 	else if(this.classcourse_ds.getCaseCount("TIME_NUMBER == undefined")){
+// 		this.classcourse_ds.set_keystring("S:-TIME_NUMBER");
+// 	}
 }
 //검색 필터링
 this.searchfilter = function()
@@ -468,7 +465,7 @@ this.classroom_ds_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro
 	var CLASSROOM_ID = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_ID");
 	var CLASSROOM_NAME = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_NAME");
 	var grade = this.cmb_se.value;
-	this.Div00.form.stc_classroom.set_text(CLASSROOM_ID+"  "+CLASSROOM_NAME);
+	this.Div00.form.stc_classroom.set_text(CLASSROOM_NAME);
 	// 요일을 나타내는 숫자를 요일 컬럼 ID로 변환하는 함수
 	function getDayColumnId(dayNumber) {
 		switch(dayNumber) {
@@ -528,6 +525,7 @@ this.classroom_ds_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro
 this.reset_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
 	this.classcourse_ds.reset();
+	this.classcoursedelete_ds.clearData();
 	
 	// 데이터 null값 상단 배치
 	this.topnull();
@@ -539,6 +537,8 @@ this.apply_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	// 유효성 검사
  	var count = 0;
 	var count2 = 0;
+	var classname = [];
+	var classpro = [];
 // 
 	this.classcourse_ds.filter("");
  	for (var i = 0; i < this.classcourse_ds.rowcount; i++) {
@@ -553,6 +553,7 @@ this.apply_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		var caseCount = this.classcourse_ds.getCaseCount(query);
 		if(caseCount > 1){
 			count++;
+			classname.push(this.classcourse_ds.getColumn(i, "CLASS_NAME"));
 		}
 
  	}
@@ -568,8 +569,7 @@ this.apply_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		var caseCount = this.classcourse_ds.getCaseCount(query);
 		if(caseCount > 1){
 			count2++;
-			trace(this.classcourse_ds.getColumn(i, "PROFESSOR_NAME"));
-			trace(this.classcourse_ds.getColumn(i, "CLASS_NAME"));
+			classpro.push(this.classcourse_ds.getColumn(i, "PROFESSOR_NAME"));
 		}
 		
 	}
@@ -578,21 +578,23 @@ this.apply_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		this.alert("값이 없는 경우가 있습니다. 다시 확인해 주세요.");
 	}
 	else if(count > 0){
-		this.alert("강의 일정 중복이 있습니다. 다시 확인해 주세요.");
-		
+		this.alert("강의 일정 중복이 있습니다. 다시 확인해 주세요." + "\n" + "중복된 과목 : " + classname.join(", "));	
 	}
 	else if(count2 > 0){
-		this.alert("교사 일정 중복이 있습니다. 다시 확인해 주세요.");
+		this.alert("교사 일정 중복이 있습니다. 다시 확인해 주세요." + "\n" + "중복된 교수 : " + classpro.join(", "));
 	} else{
-		this.classcourse_ds.filter("CHECK == 1")
-		
-		for(var i=0; i < this.classcourse_ds.rowcount; i++){
-			this.classcourse_ds.setColumn(i, "CHECK", 0);
-		}
+	
 		this.classcourse_ds.applyChange();
-		this.classroom_ds_onrowposchanged();
+		this.classcourse_ds.filter("CHECK==1");
 		
-		countdelete=0;
+		this.ds_classcourein.copyData(this.classcourse_ds, true);
+		
+		//this.classroom_ds_onrowposchanged();
+ 		if(confirm("등록하시겠습니까?")){
+ 				console.log(this.ds_classcourein.saveXML());
+  				this.fn_classcouserdelete();
+ 				this.fn_classcoursesave();
+ 		}
 
 	}
 	// classcourse_ds에서 필터링
@@ -600,24 +602,6 @@ this.apply_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 };
 
-//등록 버튼
-this.insert_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	if(this.classcourse_ds.getCaseCount("CHECK == 1") > 0){
-		this.alert("저장안된 부분이 있습니다. 저장해 주세요.");
-	}
-	else if(countdelete > 0){
-		this.alert("삭제되었지만 저장안된 부분이 있습니다. 저장해 주세요.")
-	} else{
-			if(confirm("등록하시겠습니까?")){
-				console.log(this.classcourse_ds.getColumn());
-				//this.classcourse_ds.filter("CHECK2 == 1");
- 				this.fn_classcouserdelete();
-				this.fn_classcoursesave();
-				
-		}
-	}
-};
 
 // 등록 시 삭제 트렌젝션
 this.fn_classcouserdelete = function(){
@@ -637,7 +621,7 @@ this.fn_classcouserdelete = function(){
 this.fn_classcoursesave = function(){
 	var strSvcId    = "saveAdminClasscourse";
 	var strSvcUrl   = "svc::saveAdminClasscourse.do";
-	var inData      = "classcourse_ds = classcourse_ds";
+	var inData      = "ds_classcourein = ds_classcourein";
 	var outData     = "";
 	var strArg      = "";
 	var callBackFnc = "fnCallback";
@@ -661,12 +645,11 @@ this.btn_copy_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
     // 새로운 행 추가
     var newRow = this.classcourse_ds.insertRow(selectedRow+1);
-	var sCol = "CLASSROOM_ID=CLASSROOM_ID, CLASS_NAME=CLASS_NAME, PROFESSOR_ID=PROFESSOR_ID, CLASSROOM_NAME=CLASSROOM_NAME, DEPARTMENT_CODE=DEPARTMENT_CODE, CLASS_CODE=CLASS_CODE, PROFESSOR_NAME=PROFESSOR_NAME, SEMESTER=SEMESTER, CLASS_GRADE=CLASS_GRADE";
+	var sCol = "CLASSROOM_ID=CLASSROOM_ID, CLASS_NAME=CLASS_NAME, PROFESSOR_ID=PROFESSOR_ID, CLASSROOM_NAME=CLASSROOM_NAME, DEPARTMENT_CODE=DEPARTMENT_CODE, CLASS_CODE=CLASS_CODE, PROFESSOR_NAME=PROFESSOR_NAME, SEMESTER=SEMESTER, CLASS_GRADE=CLASS_GRADE, CLASS_START=CLASS_START, CLASS_END=CLASS_END, ADMIN_CODE=ADMIN_CODE";
 
     // 선택된 행의 데이터를 새로운 행으로 복사
     this.classcourse_ds.copyRow(newRow, this.classcourse_ds, selectedRow, sCol);
     this.classcourse_ds.setColumn(newRow, "CHECK", 1);  // 해당 행의 check 컬럼을 1로 설정
-	this.classcourse_ds.setColumn(newRow, "CHECKS", 1);
 };
 
 // 삭제버튼
@@ -687,10 +670,8 @@ this.btn_delete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		this.classcourse_ds.deleteRow(rowPos);
 
 		// 복사된 데이터 확인
-		var classTimeCode = this.classcoursedelete_ds.getColumn(count - 1, "CLASS_TIME_CODE");
+		//var classTimeCode = this.classcoursedelete_ds.getColumn(count - 1, "CLASS_TIME_CODE");
 		
-		//삭제 카운트 증가 : 저장 유효성 검사용
-		countdelete++;
 	} else {
 		this.alert("유효한 행이 선택되지 않았습니다.");
 	}
@@ -703,7 +684,6 @@ this.classcourse_grd_ondropdown = function(obj:nexacro.Grid,e:nexacro.GridEditEv
 {
 	var row = e.row;  // 클릭한 셀의 위치
     this.classcourse_ds.setColumn(row, "CHECK", 1);  // 해당 행의 check 컬럼을 1로 설정
-	this.classcourse_ds.setColumn(row, "CHECKS", 1);
 
 };
 // 학기 바꾸기
@@ -767,10 +747,7 @@ this.classroom_onbeforeclose = function(obj:nexacro.Form,e:nexacro.CloseEventInf
 	if (this.classcourse_ds.getCaseCount("CHECK == 1") > 0) {
         var comt = "저장 안된 부분이 있습니다. 이동하겠습니까?";
 		return comt;
-    }else if(this.classcourse_ds.getCaseCount("CHECKS == 1") > 0){
-		var comt = "등록이 안된 부분이 있습니다. 이동하겠습니까?";
-		return comt;
-	}
+    }
 };
 
 this.btn_print_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
@@ -851,7 +828,7 @@ this.convertGridDataToHTML = function(grid, repeatCount, classid, classname) {
     html += "<table border='1' style='border-collapse: collapse; width: 100%;'>";
 	
 	// 강의실 이름 추가
-	html += "<h2>" + classid + "   " + classname + "</h2>";
+	html += "<h2>" + classname + "</h2>";
     // 그리드의 컬럼명 추가
     html += "<tr>";
     for (var i = 0; i < grid.getCellCount("head"); i++) {

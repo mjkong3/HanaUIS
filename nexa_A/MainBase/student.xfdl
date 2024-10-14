@@ -74,10 +74,10 @@
             </Format>
           </Formats>
         </Grid>
-        <Combo id="Search_Cmb" taborder="2" left="24" top="70" width="116" height="26" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="ALL" text="전체"/>
-        <Button id="Select_btn" taborder="3" text="조회" left="303" top="70" width="68" height="25" onclick="Select_btn_onclick"/>
-        <Edit id="Edit00" taborder="4" left="147" top="70" width="153" height="26"/>
-        <Button id="plus_btn" taborder="5" text="등록" left="1116" top="70" width="64" height="25" onclick="plus_btn_onclick"/>
+        <Combo id="Search_Cmb" taborder="2" left="766" top="70" width="116" height="26" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="ALL" text="전체"/>
+        <Button id="Select_btn" taborder="3" text="조회" left="1045" top="70" width="66" height="25" onclick="Select_btn_onclick"/>
+        <Edit id="Edit00" taborder="4" left="887" top="70" width="153" height="26"/>
+        <Button id="plus_btn" taborder="5" text="등록" left="1115" top="70" width="66" height="25" onclick="plus_btn_onclick"/>
         <Button id="delete_btn" taborder="6" text="삭제" left="1184" top="70" width="66" height="25" onclick="delete_btn_onclick" visible="true"/>
         <Static id="Static00" taborder="7" text="학생 조회" left="25" top="10" width="125" height="50" onclick="Static00_onclick" usedecorate="true" font="28px/normal &quot;Gulim&quot;,&quot;HY견고딕&quot;"/>
       </Layout>
