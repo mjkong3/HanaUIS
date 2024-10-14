@@ -45,6 +45,67 @@
             								}
             							}
             						}
+            					},
+            					{
+            						"btnLogin" :
+            						{
+            							"self" :
+            							{
+            								"enabled" :
+            								{
+            									"color" : nexacro.ColorObject("#ffffff"),
+            									"font" : nexacro.FontObject("bold 16px Arial, sans-serif")
+            								},
+            								"disabled" :
+            								{
+            									"color" : nexacro.ColorObject("#ffffff"),
+            									"font" : nexacro.FontObject("bold 16px Arial, sans-serif")
+            								},
+            								"focused" :
+            								{
+            									"color" : nexacro.ColorObject("#ffffff"),
+            									"font" : nexacro.FontObject("bold 16px Arial, sans-serif")
+            								},
+            								"mouseover" :
+            								{
+            									"color" : nexacro.ColorObject("#ffffff"),
+            									"font" : nexacro.FontObject("bold 16px Arial, sans-serif")
+            								}
+            							}
+            						}
+            					}
+            				]
+            			},
+            			"Static" :
+            			{
+            				"class" :
+            				[
+            					{
+            						"sta_WF_DetailLabel" :
+            						{
+            							"self" :
+            							{
+            								"enabled" :
+            								{
+            									"border" : nexacro.BorderObject("1px solid #bdc2c9"),
+            									"padding" : nexacro.PaddingObject("0px 0px 0px 10px"),
+            									"font" : nexacro.FontObject("13px \"Verdana\",\"Malgun Gothic\"")
+            								}
+            							}
+            						}
+            					},
+            					{
+            						"sta_WF_DetailArea" :
+            						{
+            							"self" :
+            							{
+            								"enabled" :
+            								{
+            									"border" : nexacro.BorderObject("1px solid #ffffff"),
+            									"padding" : nexacro.PaddingObject("0px 0px 0px 8px")
+            								}
+            							}
+            						}
             					}
             				]
             			},

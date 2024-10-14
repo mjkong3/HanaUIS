@@ -32,9 +32,10 @@
 	function fn_back() {
 	    location.href = "/HanaUIS/std/back.do";
 	}
-	function fn_logout() {
-		location.href = "/HanaUIS/";
-	}
+   function fn_logout() {
+	   	alert("로그아웃 되었습니다.");
+	      location.href = "/HanaUIS/";
+	   }
 	
 </script>
 <div class="menu">
@@ -43,8 +44,6 @@
        <a href="javascript:fn_notice()"><img src="<c:url value='/images/egovframework/logo.png'/>" alt=""/></a>
         
     </div>
-    <button onclick="javascript:fn_logout()">로그아웃
-    </button>
     <ul>
     
         <li><a onclick="toggleSubmenu(event)">학적관리</a>
@@ -64,4 +63,7 @@
         <li> <a href="javascript:fn_signForClass()">수강신청</a></li>
         <li> <a href="javascript:fn_schedule()">시간표</a></li>
     </ul>
+    
+     	     <button onclick="javascript:fn_logout()">로그아웃</button>
+    
 </div>

@@ -91,35 +91,35 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new ImageViewer("ImageViewer00","66","82","177","236",null,null,null,null,null,null,this);
+            obj = new ImageViewer("ImageViewer00","66","62","177","236",null,null,null,null,null,null,this);
             obj.set_taborder("0");
-            obj.set_stretch("fixaspectratio");
+            obj.set_stretch("fit");
             this.addChild(obj.name, obj);
 
-            obj = new Button("Stu_Add_btn","744","532","151","38",null,null,null,null,null,null,this);
+            obj = new Button("Stu_Add_btn","443","537","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_text("수정");
             this.addChild(obj.name, obj);
 
-            obj = new Button("return_btn","605","532","119","39",null,null,null,null,null,null,this);
+            obj = new Button("return_btn","332","537","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("2");
-            obj.set_text("되돌아가기");
-            obj.set_visible("false");
+            obj.set_text("리셋");
+            obj.set_enable("false");
             this.addChild(obj.name, obj);
 
-            obj = new Button("save_btn","745","533","151","38",null,null,null,null,null,null,this);
+            obj = new Button("save_btn","443","537","77","38",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_text("저장");
             obj.set_visible("false");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_filename","64","327","136","21",null,null,null,null,null,null,this);
+            obj = new Edit("edt_filename","64","307","136","21",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             obj.set_visible("false");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_addfile","203","327","43","20",null,null,null,null,null,null,this);
+            obj = new Button("btn_addfile","203","307","43","20",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_text("등록");
             obj.set_visible("false");
@@ -127,7 +127,7 @@
 
             obj = new Button("btn_mypage","820","27","107","26",null,null,null,null,null,null,this);
             obj.set_taborder("6");
-            obj.set_text("학생페이지");
+            obj.set_text("사용자 페이지");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_03_00_00_00_00_00","670","209","257","50",null,null,null,null,null,null,this);
@@ -334,7 +334,7 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_01_00_00_00_02_00_00","399","355","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_01_00_00_00_02_00_00","399","355","175","50",null,null,null,null,null,null,this);
             obj.set_taborder("36");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
@@ -365,7 +365,7 @@
             obj.set_cssclass("edt_Adr");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static00_03_01_00_00_00_02_01_00","399","306","176","50",null,null,null,null,null,null,this);
+            obj = new Static("Static00_03_01_00_00_00_02_01_00","399","306","175","50",null,null,null,null,null,null,this);
             obj.set_taborder("41");
             obj.set_background("white");
             obj.set_border("1px solid #d3d3d4");
@@ -440,6 +440,11 @@
             obj = new WebBrowser("wb_Adress","130","404","100","100",null,null,null,null,null,null,this);
             obj.set_taborder("52");
             obj.set_visible("false");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_close","552","537","77","38",null,null,null,null,null,null,this);
+            obj.set_taborder("53");
+            obj.set_text("닫기");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -675,7 +680,7 @@
            this.edt_DtlAdr.set_readonly(false);
 
            this.btn_Adr.set_enable(true);
-           this.return_btn.set_visible(true);
+           this.return_btn.set_enable(true);
 
            this.Stu_Add_btn.set_visible(false);
            this.save_btn.set_visible(true);
@@ -703,7 +708,7 @@
            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 
         }
-        // 되돌리기 버튼
+        // 리셋 버튼
         this.return_btn_onclick = function(obj,e)
         {
             this.edt_password.set_readonly(true);
@@ -721,7 +726,7 @@
            this.edt_DtlAdr.set_readonly(true);
 
            this.btn_Adr.set_enable(false);
-           this.return_btn.set_visible(false);
+           this.return_btn.set_enable(false);
 
            this.Stu_Add_btn.set_visible(true);
            this.save_btn.set_visible(false);
@@ -1107,6 +1112,13 @@
         	this.fn_go();
         };
 
+        this.btn_close_onclick = function(obj,e)
+        {
+        	if(this.confirm("닫으시겠습니까?")){
+        		this.close();
+        	}
+        };
+
         });
         
         // Regist UI Components Event
@@ -1127,6 +1139,7 @@
             this.cmb_Domain.addEventHandler("onitemchanged",this.cmb_Domain_onitemchanged,this);
             this.btn_Adr.addEventHandler("onclick",this.btn_Adr_onclick,this);
             this.wb_Adress.addEventHandler("onusernotify",this.wb_Adress_onusernotify,this);
+            this.btn_close.addEventHandler("onclick",this.btn_close_onclick,this);
             this.FileUpTransfer00.addEventHandler("onerror",this.FileUpTransfer00_onerror,this);
             this.FileUpTransfer00.addEventHandler("onprogress",this.FileUpTransfer00_onprogress,this);
             this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);

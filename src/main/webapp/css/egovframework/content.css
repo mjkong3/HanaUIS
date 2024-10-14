@@ -52,14 +52,7 @@ body {
     border: 1px solid #4CAF50;
 }
 
-.pagination a:first-child, .pagination a:last-child {
-    background-color: #007BFF;
-    color: white;
-}
 
-.pagination a:first-child:hover, .pagination a:last-child:hover {
-    background-color: #0056b3;
-}
 .pagination a.disabled {
     pointer-events: none;
     color: gray;

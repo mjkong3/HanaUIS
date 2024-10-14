@@ -285,6 +285,26 @@ textarea::-webkit-scrollbar { display: none; }
 	text-align : center;
 	background-position-x : center;
 }
+.Button.btnLogin
+{
+	border-radius : 5px;
+	color : #ffffff;
+	cursor : pointer;
+	font : bold 16px Arial, sans-serif;
+	background : #16408d;
+}
+.Static.sta_WF_DetailLabel
+{
+	border : 1px solid #bdc2c9;
+	background : #e7eaee;
+	font : 13px "Verdana","Malgun Gothic";
+}
+.Static.sta_WF_DetailArea
+{
+	border : 1px solid #ffffff;
+	background : #ffffff;
+	border-radius : 15px;
+}
 .Grid.ATEAM .head .row .cell
 {
 	background : #16408D;
@@ -336,6 +356,22 @@ textarea::-webkit-scrollbar { display: none; }
 	border-image-slice : 100% fill;
 	border-image-width : 0px;
 }
+#nexacontainer .Button.btnLogin[status=focused]
+{
+	border-radius : 5px;
+	color : #ffffff;
+	cursor : pointer;
+	font : bold 16px Arial, sans-serif;
+	background : #16408d;
+}
+#nexacontainer .Button.btnLogin[status=mouseover]
+{
+	border-radius : 5px;
+	color : #ffffff;
+	cursor : pointer;
+	font : bold 16px Arial, sans-serif;
+	background : #16408d;
+}
 #nexacontainer .Edit.edt_Adr[status=readonly]
 {
 	background : white;
@@ -345,4 +381,12 @@ textarea::-webkit-scrollbar { display: none; }
 {
 	background : white;
 	color : black;
+}
+#nexacontainer .Button.btnLogin[status=disabled]
+{
+	border-radius : 5px;
+	color : #ffffff;
+	cursor : pointer;
+	font : bold 16px Arial, sans-serif;
+	background : #16408d;
 }

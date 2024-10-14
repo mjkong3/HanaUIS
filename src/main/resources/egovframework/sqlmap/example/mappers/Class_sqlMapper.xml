@@ -86,6 +86,7 @@
 			FROM CLASS 
 			WHERE professor_id = #{professerId}
 				AND YEAR(SYSDATE()) LIKE  YEAR(CLASS_START)
+			ORDER BY semester
 	</select>
 	
 	

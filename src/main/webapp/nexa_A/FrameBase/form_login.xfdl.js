@@ -14,7 +14,7 @@
             this.set_font("36px/normal \"Gulim\"");
             if (Form == this.constructor)
             {
-                this._setFormPosition(1280,720);
+                this._setFormPosition(1100,600);
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
@@ -34,90 +34,103 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new ImageViewer("image_logo","-300:1.56%","36","599","600",null,null,null,null,null,null,this);
-            obj.set_taborder("0");
-            obj.set_text("");
-            obj.set_image("url(\'image::KakaoTalk_20240905_092944347.png\')");
-            obj.set_border("10px solid white");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("Static00","614","88","461","82",null,null,null,null,null,null,this);
-            obj.set_taborder("1");
-            obj.set_text("하나대학교");
-            obj.set_textAlign("center");
-            obj.set_letterSpacing("5px");
-            obj.set_font("88px/normal \"Gulim\"");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("Static01","658","188","372","45",null,null,null,null,null,null,this);
-            obj.set_taborder("2");
-            obj.set_text("학사 정보 시스템");
-            obj.set_textAlign("center");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("Static02","728","224","232","72",null,null,null,null,null,null,this);
-            obj.set_taborder("3");
-            obj.set_text("관리자 로그인");
-            obj.set_textAlign("center");
-            obj.set_font("26px/normal \"Gulim\"");
-            this.addChild(obj.name, obj);
-
-            obj = new Edit("Edit00_01","731","469","250","40",null,null,null,null,null,null,this);
-            obj.set_taborder("4");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("Static03","618","337","99","56",null,null,null,null,null,null,this);
-            obj.set_taborder("5");
-            obj.set_text("아이디 :");
-            obj.set_font("20px/normal \"Gulim\"");
-            obj.set_textAlign("right");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("Static03_00","621","395","99","56",null,null,null,null,null,null,this);
-            obj.set_taborder("6");
-            obj.set_text("비밀번호 :");
-            obj.set_font("20px/normal \"Gulim\"");
-            obj.set_textAlign("right");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("Static03_01","531","461","190","56",null,null,null,null,null,null,this);
-            obj.set_taborder("7");
-            obj.set_text("인증번호 :");
-            obj.set_font("20px/normal \"Gulim\"");
-            obj.set_textAlign("right");
-            this.addChild(obj.name, obj);
-
-            obj = new Button("Mail_Btn","1013","469","150","40",null,null,null,null,null,null,this);
-            obj.set_taborder("8");
-            obj.set_text("인증번호 확인");
-            obj.set_font("20px/normal \"Gulim\"");
-            this.addChild(obj.name, obj);
-
-            obj = new Button("Login_btn","1013","403","100","40",null,null,null,null,null,null,this);
-            obj.set_taborder("9");
-            obj.set_text("로그인");
-            obj.set_font("20px/normal \"Gulim\"");
-            obj.set_defaultbutton("false");
-            this.addChild(obj.name, obj);
-
-            obj = new Button("Test_Btn","228","548","205","72",null,null,null,null,null,null,this);
+            obj = new ImageViewer("ImageViewer00","0","0","940","550",null,null,null,null,null,null,this);
             obj.set_taborder("10");
-            obj.set_text("바로넘어가기");
-            obj.set_visible("true");
+            obj.set_image("url(\'image::그림1.png\')");
+            obj.set_stretch("fit");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("txt_Id","731","345","250","40",null,null,null,null,null,null,this);
-            obj.set_taborder("11");
+            obj = new Button("Test_Btn","715","460","205","72",null,null,null,null,null,null,this);
+            obj.set_taborder("6");
+            obj.set_text("바로넘어가기");
+            obj.set_visible("false");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("Static05","55","70","450","420",null,null,null,null,null,null,this);
+            obj.set_taborder("9");
+            obj.set_background("#fffff");
+            obj.set_opacity("0.7");
+            obj.set_cssclass("sta_WF_DetailArea");
+            obj.set_text("");
+            this.addChild(obj.name, obj);
+
+            obj = new Edit("Edit00_01","185","408","190","30",null,null,null,null,null,null,this);
+            obj.set_taborder("0");
+            obj.set_font("18px/normal \"Gulim\"");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("Static03","80","312","88","38",null,null,null,null,null,null,this);
+            obj.set_taborder("1");
+            obj.set_text("아이디    :");
+            obj.set_font("18px/normal \"Gulim\"");
+            obj.set_textAlign("right");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("Static03_00","80","355","88","46",null,null,null,null,null,null,this);
+            obj.set_taborder("2");
+            obj.set_text("비밀번호 :");
+            obj.set_font("18px/normal \"Gulim\"");
+            obj.set_textAlign("right");
+            this.addChild(obj.name, obj);
+
+            obj = new Edit("txt_Id","185","316","190","30",null,null,null,null,null,null,this);
+            obj.set_taborder("7");
+            obj.set_font("18px/normal \"Gulim\"");
             obj.set_text("fddfd");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("txt_Password","731","403","250","40",null,null,null,null,null,null,this);
-            obj.set_taborder("12");
+            obj = new Static("Static03_01","76","400","92","46",null,null,null,null,null,null,this);
+            obj.set_taborder("3");
+            obj.set_text("인증번호 :");
+            obj.set_font("18px/normal \"Gulim\"");
+            obj.set_textAlign("right");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("Mail_Btn","398","408","82","30",null,null,null,null,null,null,this);
+            obj.set_taborder("4");
+            obj.set_text("인증번호");
+            obj.set_font("16px/normal \"Gulim\"");
+            obj.set_cssclass("btnLogin");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("Login_btn","398","363","82","30",null,null,null,null,null,null,this);
+            obj.set_taborder("5");
+            obj.set_text("로그인");
+            obj.set_font("16px/normal \"Gulim\"");
+            obj.set_defaultbutton("false");
+            obj.set_cssclass("btnLogin");
+            this.addChild(obj.name, obj);
+
+            obj = new Edit("txt_Password","185","363","190","30",null,null,null,null,null,null,this);
+            obj.set_taborder("8");
             obj.set_password("true");
+            obj.set_font("18px/normal \"Gulim\"");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("Static00_00","109","130","342","70",null,null,null,null,null,null,this);
+            obj.set_taborder("11");
+            obj.set_text("하나대학교");
+            obj.set_textAlign("center");
+            obj.set_letterSpacing("5px");
+            obj.set_font("60px/normal \"Gulim\"");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("Static02","206","244","147","42",null,null,null,null,null,null,this);
+            obj.set_taborder("12");
+            obj.set_text("관리자 로그인");
+            obj.set_textAlign("center");
+            obj.set_font("20px/normal \"Gulim\"");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("Static01","131","213","298","35",null,null,null,null,null,null,this);
+            obj.set_taborder("13");
+            obj.set_text("학사 정보 시스템");
+            obj.set_textAlign("center");
+            obj.set_font("30px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
-            obj = new Layout("default","",1280,720,this,function(p){});
+            obj = new Layout("default","",1100,600,this,function(p){});
             this.addLayout(obj.name, obj);
             
             // BindItem Information
@@ -271,13 +284,12 @@
         // Regist UI Components Event
         this.on_initEvent = function()
         {
-            this.image_logo.addEventHandler("onclick",this.ImageViewer00_onclick,this);
-            this.Static00.addEventHandler("onclick",this.Static00_onclick,this);
+            this.Test_Btn.addEventHandler("onclick",this.Test_Btn_onclick,this);
             this.Static03.addEventHandler("onclick",this.Static03_onclick,this);
             this.Static03_00.addEventHandler("onclick",this.Static03_00_onclick,this);
             this.Mail_Btn.addEventHandler("onclick",this.Mail_Btn_onclick,this);
             this.Login_btn.addEventHandler("onclick",this.Login_btn_onclick,this);
-            this.Test_Btn.addEventHandler("onclick",this.Test_Btn_onclick,this);
+            this.Static00_00.addEventHandler("onclick",this.Static00_onclick,this);
         };
         this.loadIncludeScript("form_login.xfdl");
         this.loadPreloadList();

@@ -141,19 +141,11 @@ public class AdminClassroomController {
     }
 	
 	@RequestMapping(value = "/saveAdminClasscourse.do")
-    public NexacroResult saveAdminClasscourse(@ParamDataSet(name = "classcourse_ds", required = false) List<Map<String, Object>> param) {
+    public NexacroResult saveAdminClasscourse(@ParamDataSet(name = "ds_classcourein", required = false) List<Map<String, Object>> param) {
     	System.out.println(param);
     	NexacroResult result = new NexacroResult();
 
     	try {
-    		
-//    		for(int i =0; i < param.size(); i++) {
-//    			if(param.get(i).get("CHECKS").equals("1")) {
-//    				System.out.println("fnekjfnewkjfnkew");
-//    			}
-//    			System.out.println(param.get(i).get("CHECKS"));
-////    			System.out.println(param.get(i).get("CHECKS"));
-//        	}
     		service.saveAdminClasscourse(param);
     		
     	}catch(Exception ee) {
