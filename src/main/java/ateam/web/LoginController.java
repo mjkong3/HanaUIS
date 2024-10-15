@@ -11,4 +11,9 @@ public class LoginController {
 	public String loginView() {
 		return "hana/login";
 	}
+	
+	@RequestMapping(value="/findPassword.do")
+	public String findPasswordView() {
+		return "hana/findPassword";
+	}
 }

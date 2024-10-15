@@ -3,7 +3,7 @@
   <Form id="student_status" width="1280" height="720" titletext="New Form" onload="student_status_onload" enable="true">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="grd_applicationList" taborder="0" left="50" top="100" width="594" height="433" binddataset="ds_StudentList" autofittype="col" onheadclick="grd_applicationList_onheadclick" oncellclick="cell_student_onclick">
+        <Grid id="grd_applicationList" taborder="0" left="50" top="100" width="594" height="433" binddataset="ds_StudentList" autofittype="col" onheadclick="grd_applicationList_onheadclick" oncellclick="cell_student_onclick" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>

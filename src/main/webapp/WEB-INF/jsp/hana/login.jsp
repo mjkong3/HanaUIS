@@ -14,6 +14,12 @@
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javaScript" language="javascript" defer="defer">
 	
+	
+	function fn_findPassword() {
+	    location.href = "/HanaUIS/findPassword.do";
+	}
+	
+	
 	let verificationCode = "";
 
 	/* 학생  로그인*/
@@ -210,8 +216,8 @@
 
 								<td>
 									<div class="form-group">
-										<input type="password" id="password" name="password" autoComplete="off" 
-											placeholder="비밀번호">
+										<input type="password" id="password" name="password"
+											autoComplete="off" placeholder="비밀번호">
 									</div>
 								</td>
 							</tr>
@@ -233,6 +239,11 @@
 						</tbody>
 					</table>
 				</form>
+				
+				<div class="">
+					<a href="javascript:fn_findPassword()">비밀번호 찾기</a>
+				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -305,6 +316,9 @@
 					</tbody>
 				</table>
 			</form>
+			<div class="">
+				<a href="javascript:fn_findPassword()">비밀번호 찾기</a>
+			</div>
 		</div>`
 		change.insertAdjacentHTML('afterbegin', str_1);
 	}
@@ -375,6 +389,9 @@
 					</tbody>
 				</table>
 			</form>
+			<div class="">
+				<a href="javascript:fn_findPassword()">비밀번호 찾기</a>
+			</div>
 		</div>`
 		change.insertAdjacentHTML('afterbegin', str_2);
 	}	
