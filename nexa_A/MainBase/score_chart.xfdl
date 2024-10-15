@@ -3,7 +3,7 @@
   <Form id="score_chart" width="1280" height="720" titletext="New Form" onload="score_chart_onload" enable="true">
     <Layouts>
       <Layout height="720" width="1280">
-        <Div id="Div00" taborder="1" left="66" top="70" width="1080" height="55" border="1px solid #001414">
+        <Div id="Div00" taborder="1" left="50" top="72" width="1080" height="55" border="1px solid #001414">
           <Layouts>
             <Layout>
               <Combo id="cmb_Dept" taborder="0" text="Combo00" left="50" top="11" width="130" height="29" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" onitemchanged="Div00_cmb_Dept_onitemchanged" displaynulltext="학과를 선택하세요"/>
@@ -20,7 +20,7 @@
             </Layout>
           </Layouts>
         </Div>
-        <BasicChart id="cht_Score" taborder="0" left="49" top="140" width="1101" height="440" binddataset="ds_chart" categorycolumn="bind:등급" visible="true" bargrouping="true" stacktype="none" titlespacing="0px">
+        <BasicChart id="cht_Score" taborder="0" left="33" top="142" width="1101" height="440" binddataset="ds_chart" categorycolumn="bind:등급" visible="true" bargrouping="true" stacktype="none" titlespacing="0px">
           <Contents><![CDATA[{
 	"tooltip": {
 		"id": "tooltip",

@@ -192,7 +192,7 @@
                <td colspan="3">
                		<c:choose>
 	                     <c:when test="${not empty student}">
-	                        <form id="emailForm" action="<c:url value='/std/updateEmail.do'/>" method="post" onsubmit="return validateForm(this);">
+	                        <form id="emailForm" action="<c:url value='/std/updateEmail.do'/>" method="post">
 	                           <input type="hidden" name="studentId" value="${studentDetail.studentId}" /> 
 	                           <input type="text" name="email" class="inputEmail" value="${studentDetail.email}" />
 	                           <button type="submit">수정</button>
@@ -201,7 +201,7 @@
 	                     </c:when>
 	
 	                     <c:when test="${not empty professor}">
-	                        <form id="emailForm" action="<c:url value='/pfs/updateEmail.do'/>" method="post" onsubmit="return validateForm(this);">
+	                        <form id="emailForm" action="<c:url value='/pfs/updateEmail.do'/>" method="post">
 	                           <input type="hidden" name="professorId" value="${professorDetail.professorId}" /> 
 	                           <input type="text" name="email" class="inputEmail" value="${professorDetail.email}" />
 	                           <button type="submit">수정</button>
