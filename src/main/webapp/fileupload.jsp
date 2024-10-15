@@ -18,50 +18,53 @@ response.setHeader("Access-Control-Max-Age", "3600");
 response.setHeader("Access-Control-Allow-Origin", "*");
 response.setHeader("Access-Control-Allow-Credentials", "true");	
 
-	// 파일 객체 선언, 파일 최대 크기 설정, 
+	// 파일 객체 선언, 최대 파일 크기 설정, 최대 메모리 설정
    File file ;
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
-   String filePath = "C:\\upload\\";//context.getInitParameter("file-upload");
+   String filePath = "C:\\upload\\"; //context.getInitParameter("file-upload");		업로드 경로 설정
 
-   // Verify the content type
+   // 요청의 contentType 을 확인하여 multipart 형식인지 확인, 넥사크로의 platFormData와 VariableList 초기화
    String contentType = request.getContentType();
    PlatformData resData = new PlatformData();
    VariableList resVarList = resData.getVariableList();
    
+   // 요청의 Content-Type이 multipart/form-data일 경우, DiskFileItemFactory를 통해 파일 업로드 처리를 준비합니다. 메모리 크기와 최대 파일 크기를 설정하고, 메모리를 초과한 데이터는 C:\\upload\\에 임시로 저장되도록 설정합니다.
    if (contentType!=null && (contentType.indexOf("multipart/form-data") >= 0)) {
       DiskFileItemFactory factory = new DiskFileItemFactory();
-      // maximum size that will be stored in memory
+      // 메모리에 저장 될 가장 큰 사이즈
       factory.setSizeThreshold(maxMemSize);
       
-      // Location to save data that is larger than maxMemSize.
+      // 최대 메모리 사이즈보다 클 경우 저장 할 경로
       factory.setRepository(new File("C:\\upload\\"));
 
-      // Create a new file upload handler
+      // 파일 업로드 핸들러 생성
       ServletFileUpload upload = new ServletFileUpload(factory);
       
-      // maximum file size to be uploaded.
+      // 업로드 될 가장 큰 파일 사이즈
       upload.setSizeMax( maxFileSize );
       
+      
+      //upload.parseRequest(request)를 통해 업로드된 파일 목록을 가져오고, 각 파일을 확인하여 C:\\upload\\ 경로에 저장합니다. 파일 저장에 성공하면 성공 메시지를, 예외가 발생하면 에러 메시지를 반환합니다.
       try { 
-         // Parse the request to get file items.
+         // 요청을 분석해 파일 아이템을 가져옵니다
          List fileItems = upload.parseRequest(request);
 
-         // Process the uploaded file items
+         // 업로드된 파일 아이템들 프로세스
          Iterator i = fileItems.iterator();
 
          while ( i.hasNext () ) {
 
 			FileItem fi = (FileItem)i.next();
             if ( !fi.isFormField () ) {
-               // Get the uploaded file parameters
+               // 파일 파라미터 가져오기
                String fieldName = fi.getFieldName();
                String fileName = fi.getName();
                boolean isInMemory = fi.isInMemory();
                long sizeInBytes = fi.getSize();
             
-               // Write the file
+               // 파일 작성
                if( fileName.lastIndexOf("\\") >= 0 ) {
                   file = new File( filePath + 
                   fileName.substring( fileName.lastIndexOf("\\"))) ;
@@ -82,6 +85,8 @@ response.setHeader("Access-Control-Allow-Credentials", "true");
    } else {
       
    }
+    //HttpPlatformResponse 객체를 통해 서버 응답을 XML 형식으로 전송합니다. 설정된 ErrorCode와 ErrorMsg를 포함하여 클라이언트에 데이터를 반환합니다.
+   
 	HttpPlatformResponse res = new HttpPlatformResponse(response, request);
 	res.setContentType(PlatformType.CONTENT_TYPE_XML);
 	res.setCharset("UTF-8");
