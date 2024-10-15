@@ -27,6 +27,11 @@
         alert("학번과 비밀번호를 입력해주세요.");
         return;
     };
+    
+    // readonly 변경
+    function modi(){
+        $("#password").attr("readonly", false);
+      };
 
     
 	</script>
@@ -66,11 +71,11 @@
 	
 					<tr>
 						<td><label>새비밀번호</label></td>
-						<td><input type="password" id="password" name="password" required></td>
+						<td><input type="password" id="password" name="password" readonly></td>
 					</tr>
 					<tr>
 						<td><label>비밀번호 확인</label></td>
-						<td><input type="password" id="password" name="password" required></td>
+						<td><input type="password" id="password" name="password" readonly></td>
 						<td><button >비밀번호 변경</button></td>
 					</tr>
 				</table>
