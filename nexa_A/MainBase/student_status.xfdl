@@ -3,7 +3,7 @@
   <Form id="student_status" width="1280" height="720" titletext="New Form" onload="student_status_onload" enable="true">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="grd_applicationList" taborder="0" left="50" top="100" width="594" height="433" binddataset="ds_StudentList" autofittype="col" onheadclick="grd_applicationList_onheadclick" oncellclick="cell_student_onclick">
+        <Grid id="grd_applicationList" taborder="0" left="50" top="100" width="594" height="433" binddataset="ds_StudentList" autofittype="col" onheadclick="grd_applicationList_onheadclick" oncellclick="cell_student_onclick" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -405,6 +405,7 @@ this.btn_Save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
    trace("하하핳ㅎ");
    }
 };
+
 //그리드 내 학생 클릭
 this.cell_student_onclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
@@ -590,19 +591,6 @@ this.fn_sort = function(obj:Grid, e:GridClickEventInfo)
    this.nPrevCell = e.cell;
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ]]></Script>
     <Bind>

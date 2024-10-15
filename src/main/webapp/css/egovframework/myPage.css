@@ -135,4 +135,5 @@ input{
 button{
 	height: 34px;
 	width: 60px;
+	cursor: pointer;
 }

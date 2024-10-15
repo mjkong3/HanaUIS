@@ -19,7 +19,8 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("ds_chart", this);
-            obj._setContents("<ColumnInfo><Column id=\"등급\" type=\"STRING\" size=\"256\"/><Column id=\"중간\" type=\"STRING\" size=\"256\"/><Column id=\"기말\" type=\"STRING\" size=\"256\"/><Column id=\"과제\" type=\"STRING\" size=\"256\"/><Column id=\"총합\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"등급\">A</Col><Col id=\"중간\">1</Col><Col id=\"기말\">1</Col><Col id=\"과제\">7</Col><Col id=\"총합\">4</Col></Row><Row><Col id=\"등급\">B</Col><Col id=\"중간\">2</Col><Col id=\"기말\">2</Col><Col id=\"과제\">5</Col><Col id=\"총합\">6</Col></Row><Row><Col id=\"등급\">C</Col><Col id=\"중간\">3</Col><Col id=\"기말\">3</Col><Col id=\"과제\">4</Col><Col id=\"총합\">10</Col></Row><Row><Col id=\"등급\">D</Col><Col id=\"중간\">4</Col><Col id=\"기말\">4</Col><Col id=\"과제\">2</Col><Col id=\"총합\">11</Col></Row><Row><Col id=\"등급\">F</Col><Col id=\"중간\">5</Col><Col id=\"기말\">5</Col><Col id=\"과제\">1</Col><Col id=\"총합\">5</Col></Row></Rows>");
+            obj.set_useclientlayout("true");
+            obj._setContents("<ColumnInfo><Column id=\"등급\" type=\"STRING\" size=\"256\"/><Column id=\"중간\" type=\"STRING\" size=\"256\"/><Column id=\"기말\" type=\"STRING\" size=\"256\"/><Column id=\"과제\" type=\"STRING\" size=\"256\"/><Column id=\"총합\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -48,13 +49,12 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Div("Div00","90","70","1060","55",null,null,null,null,null,null,this);
+            obj = new Div("Div00","50","72","1080","55",null,null,null,null,null,null,this);
             obj.set_taborder("1");
-            obj.set_background("#004AAD");
-            obj.set_border("0px none darkcyan");
+            obj.set_border("1px solid #001414");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Dept","50","16","130","29",null,null,null,null,null,null,this.Div00.form);
+            obj = new Combo("cmb_Dept","50","11","130","29",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("0");
             obj.set_innerdataset("ds_dept");
             obj.set_codecolumn("DEPARTMENT_CODE");
@@ -63,7 +63,7 @@
             obj.set_text("Combo00");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Class","540","16","160","29",null,null,null,null,null,null,this.Div00.form);
+            obj = new Combo("cmb_Class","540","11","160","29",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("1");
             obj.set_innerdataset("ds_class");
             obj.set_codecolumn("CLASS_CODE");
@@ -72,25 +72,22 @@
             obj.set_text("");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Static("Static00","18","20","32","20",null,null,null,null,null,null,this.Div00.form);
+            obj = new Static("Static00","18","15","32","20",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("2");
             obj.set_text("학과");
-            obj.set_color("WHITE");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00","508","20","32","20",null,null,null,null,null,null,this.Div00.form);
+            obj = new Static("Static00_00","508","15","32","20",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("3");
             obj.set_text("강의");
-            obj.set_color("WHITE");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Static("Static00_01","358","20","32","20",null,null,null,null,null,null,this.Div00.form);
+            obj = new Static("Static00_01","358","15","32","20",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("4");
             obj.set_text("학기");
-            obj.set_color("WHITE");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Semester","390","16","80","29",null,null,null,null,null,null,this.Div00.form);
+            obj = new Combo("cmb_Semester","390","11","80","29",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("5");
             obj.set_innerdataset("ds_semester");
             obj.set_codecolumn("SEMESTER");
@@ -98,13 +95,12 @@
             obj.set_text("");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Static("Static00_01_00","208","20","32","20",null,null,null,null,null,null,this.Div00.form);
+            obj = new Static("Static00_01_00","208","15","32","20",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("6");
             obj.set_text("연도");
-            obj.set_color("WHITE");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Year","240","16","80","29",null,null,null,null,null,null,this.Div00.form);
+            obj = new Combo("cmb_Year","240","11","80","29",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("7");
             obj.set_innerdataset("ds_year");
             obj.set_codecolumn("YEAR");
@@ -112,26 +108,27 @@
             obj.set_text("");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Button("btn_Search","965","16","60","29",null,null,null,null,null,null,this.Div00.form);
+            obj = new Button("btn_Search","965","11","60","29",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("8");
             obj.set_text("조회");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Static("Static01","780","16","146","29",null,null,null,null,null,null,this.Div00.form);
+            obj = new Static("Static01","780","11","146","29",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("9");
             obj.set_text("");
             obj.set_background("white");
-            obj.set_textAlign("center");
-            obj.set_font("bold 14px/normal \"Gulim\"");
+            obj.set_textAlign("left");
+            obj.set_font("12px/normal \"Gulim\"");
+            obj.set_border("1px solid #c9c9c9");
+            obj.set_padding("0px 0px 0px 10px");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Static("Static00_00_00","748","20","36","20",null,null,null,null,null,null,this.Div00.form);
+            obj = new Static("Static00_00_00","748","15","36","20",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("10");
             obj.set_text("교수");
-            obj.set_color("WHITE");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new BasicChart("cht_Score","49","140","1101","440",null,null,null,null,null,null,this);
+            obj = new BasicChart("cht_Score","33","142","1101","440",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_binddataset("ds_chart");
             obj.set_visible("true");

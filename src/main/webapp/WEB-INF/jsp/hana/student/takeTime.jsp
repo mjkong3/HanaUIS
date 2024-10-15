@@ -175,14 +175,29 @@
 												name="returnDate" class="returnDate" /></span>
 										</c:when>
 										<c:when test="${back}">
-											<input type="hidden" name="leaveDate" class="leaveDate" value="0000-00-00"/>
+											<input type="hidden" name="leaveDate" class="leaveDate"
+												value="0000-00-00" />
 											<span class="startDate">복학일자&emsp;<input type="date"
-												name="returnDate" class="returnDate"/></span>
+												name="returnDate" class="returnDate" /></span>
 										</c:when>
 									</c:choose></td>
 							</tr>
 						</tbody>
 					</table>
+
+					<c:choose>
+						<c:when test="${leave}">
+							<input type="submit" value="신청" />
+						</c:when>
+						<c:when test="${back}">
+							<input type="submit" value="신청" />
+						</c:when>
+					</c:choose>
+					<c:if test="${!leave && !back}">
+						<input type="submit" name="error" value="신청 불가"
+							disabled="disabled" />
+					</c:if>
+
 					<c:if test="${not empty statusList}">
 						<div class="scroll-table">
 							<table id="status-table">
@@ -216,17 +231,7 @@
 						</div>
 					</c:if>
 				</c:if>
-				<c:choose>
-					<c:when test="${leave}">
-						<input type="submit" value="휴학 신청" />
-					</c:when>
-					<c:when test="${back}">
-						<input type="submit" value="복학 신청" />
-					</c:when>
-				</c:choose>
-				<c:if test="${!leave && !back}">
-					<input type="submit" name="error" value="신청 불가" disabled="disabled" />
-				</c:if>
+
 			</form>
 		</div>
 	</div>

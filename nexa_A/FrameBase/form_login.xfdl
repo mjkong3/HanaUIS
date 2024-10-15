@@ -1,21 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="form_login" width="1280" height="720" titletext="New Form" font="36px/normal &quot;Gulim&quot;">
+  <Form id="form_login" width="1100" height="600" titletext="New Form" font="36px/normal &quot;Gulim&quot;">
     <Layouts>
-      <Layout height="720" width="1280">
-        <ImageViewer id="image_logo" taborder="0" text="" left="-300:1.56%" top="36" width="599" height="600" image="url('image::KakaoTalk_20240905_092944347.png')" onclick="ImageViewer00_onclick" border="10px solid white"/>
-        <Static id="Static00" taborder="1" text="하나대학교" left="614" top="88" width="461" height="82" onclick="Static00_onclick" textAlign="center" letterSpacing="5px" font="88px/normal &quot;Gulim&quot;"/>
-        <Static id="Static01" taborder="2" text="학사 정보 시스템" left="658" top="188" width="372" height="45" textAlign="center"/>
-        <Static id="Static02" taborder="3" text="관리자 로그인" left="728" top="224" width="232" height="72" textAlign="center" font="26px/normal &quot;Gulim&quot;"/>
-        <Edit id="Edit00_01" taborder="4" left="731" top="469" width="250" height="40"/>
-        <Static id="Static03" taborder="5" text="아이디 :" left="618" top="337" width="99" height="56" font="20px/normal &quot;Gulim&quot;" onclick="Static03_onclick" textAlign="right"/>
-        <Static id="Static03_00" taborder="6" text="비밀번호 :" left="621" top="395" width="99" height="56" font="20px/normal &quot;Gulim&quot;" onclick="Static03_00_onclick" textAlign="right"/>
-        <Static id="Static03_01" taborder="7" text="인증번호 :" left="531" top="461" width="190" height="56" font="20px/normal &quot;Gulim&quot;" textAlign="right"/>
-        <Button id="Mail_Btn" taborder="8" text="인증번호 확인" left="1013" top="469" width="150" height="40" font="20px/normal &quot;Gulim&quot;" onclick="Mail_Btn_onclick"/>
-        <Button id="Login_btn" taborder="9" text="로그인" left="1013" top="403" width="100" height="40" font="20px/normal &quot;Gulim&quot;" onclick="Login_btn_onclick" defaultbutton="false"/>
-        <Button id="Test_Btn" taborder="10" text="바로넘어가기" left="228" top="548" width="205" height="72" onclick="Test_Btn_onclick" visible="true"/>
-        <Edit id="txt_Id" taborder="11" left="731" top="345" width="250" height="40" text="fddfd"/>
-        <Edit id="txt_Password" taborder="12" left="731" top="403" width="250" height="40" password="true"/>
+      <Layout height="600" width="1100">
+        <ImageViewer id="ImageViewer00" taborder="10" left="0" top="0" width="940" height="550" image="url('image::그림1.png')" stretch="fit"/>
+        <Button id="Test_Btn" taborder="6" text="바로넘어가기" left="715" top="460" width="205" height="72" onclick="Test_Btn_onclick" visible="false"/>
+        <Static id="Static05" taborder="9" left="55" top="70" width="450" height="420" background="#fffff" opacity="0.7" cssclass="sta_WF_DetailArea" text=""/>
+        <Edit id="Edit00_01" taborder="0" left="185" top="408" width="190" height="30" font="18px/normal &quot;Gulim&quot;"/>
+        <Static id="Static03" taborder="1" text="아이디    :" left="80" top="312" width="88" height="38" font="18px/normal &quot;Gulim&quot;" onclick="Static03_onclick" textAlign="right"/>
+        <Static id="Static03_00" taborder="2" text="비밀번호 :" left="80" top="355" width="88" height="46" font="18px/normal &quot;Gulim&quot;" onclick="Static03_00_onclick" textAlign="right"/>
+        <Edit id="txt_Id" taborder="7" left="185" top="316" width="190" height="30" text="fddfd" font="18px/normal &quot;Gulim&quot;"/>
+        <Static id="Static03_01" taborder="3" text="인증번호 :" left="76" top="400" width="92" height="46" font="18px/normal &quot;Gulim&quot;" textAlign="right"/>
+        <Button id="Mail_Btn" taborder="4" text="인증번호" left="398" top="408" width="82" height="30" font="16px/normal &quot;Gulim&quot;" onclick="Mail_Btn_onclick" cssclass="btnLogin"/>
+        <Button id="Login_btn" taborder="5" text="로그인" left="398" top="363" width="82" height="30" font="16px/normal &quot;Gulim&quot;" onclick="Login_btn_onclick" defaultbutton="false" cssclass="btnLogin"/>
+        <Edit id="txt_Password" taborder="8" left="185" top="363" width="190" height="30" password="true" font="18px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_00" taborder="11" text="하나대학교" left="109" top="130" width="342" height="70" onclick="Static00_onclick" textAlign="center" letterSpacing="5px" font="60px/normal &quot;Gulim&quot;"/>
+        <Static id="Static02" taborder="12" text="관리자 로그인" left="206" top="244" width="147" height="42" textAlign="center" font="20px/normal &quot;Gulim&quot;"/>
+        <Static id="Static01" taborder="13" text="학사 정보 시스템" left="131" top="213" width="298" height="35" textAlign="center" font="30px/normal &quot;Gulim&quot;"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[//처리콜백 함수

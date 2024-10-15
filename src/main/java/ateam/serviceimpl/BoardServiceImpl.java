@@ -40,7 +40,8 @@ public class BoardServiceImpl implements BoardService{
 	
 
 	public Map<String, Object> selectBoardAndFile(int id){
-		BoardDTO board = selectBoard(id);
+		
+		BoardDTO board = mapper.selectBoard(id);
 		
 		List<FileDTO> fileList = mapper.selectFile(id);
 	
@@ -50,12 +51,6 @@ public class BoardServiceImpl implements BoardService{
 		
 		return map;
 	}
-	
-	public BoardDTO selectBoard(int id) {
-		return mapper.selectBoard(id);
-	}
-	
 
-	
 
 }

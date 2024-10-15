@@ -52,6 +52,7 @@
             obj.set_taborder("0");
             obj.set_binddataset("ds_StudentList");
             obj.set_autofittype("col");
+            obj.set_cssclass("ATEAM");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"43\"/><Column size=\"156\"/><Column size=\"80\"/><Column size=\"62\"/><Column size=\"69\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"No\" tooltiptext=\"expr:\"/><Cell col=\"1\" text=\"신청일\" calendardateformat=\"yyyy-MM-dd\"/><Cell col=\"2\" text=\"학번\"/><Cell col=\"3\" text=\"신청유형\"/><Cell col=\"4\" text=\"승인여부\"/><Cell col=\"5\" text=\"이름\"/></Band><Band id=\"body\" cssclass=\"expr:APPROVED==&apos;C&apos;?&apos;aaa&apos;:&apos;bbb&apos;\"><Cell text=\"expr:currow + 1 \" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:REG_DTM\" calendardateformat=\"yyyy-MM-dd\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:STUDENT_ID\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:STATUS_TYPE\" textAlign=\"center\"/><Cell col=\"4\" textAlign=\"center\" text=\"bind:APPROVED\" cssclass=\"expr:APPROVED==&apos;미확인&apos;?&apos;backgroundRed&apos;:&apos;&apos;\"/><Cell col=\"5\" text=\"bind:NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
@@ -589,6 +590,7 @@
            trace("하하핳ㅎ");
            }
         };
+
         //그리드 내 학생 클릭
         this.cell_student_onclick = function(obj,e)
         {
@@ -774,19 +776,6 @@
            this.nPrevCell = e.cell;
 
         };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         });

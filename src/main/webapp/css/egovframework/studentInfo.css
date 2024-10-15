@@ -14,20 +14,33 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.search-section {
-	margin:10px;
+div .search-section {
+	margin-bottom:10px;
+	padding:0;
+	float: right;
+	align-content: bottom;
 }
 .search-section select{
 	width:100px;
-	height: 30px;
+	height: 40px;
+		border: 2px solid #EBEAE8;
+    border-radius: 4px;
 }
 .search-section input{
 	width:150px;
-	height: 25px;
+	height: 35px;
+		border: 2px solid #EBEAE8;
+    border-radius: 4px;
 }
 .search-section button{
 	width:70px;
-	height:30px;
+	height:40px;
+	border: 2px solid #EBEAE8;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.searchBtn{
+	height: 100%;
 }
 
 

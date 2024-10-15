@@ -434,7 +434,7 @@ public class ProfessorController {
 	// 메일 보내기 + 로그인
 	@RequestMapping(value = "/sign.do", method = RequestMethod.POST)
 	public ModelAndView loginView(@RequestParam("id") int professorId, @RequestParam("password") String password,
-			HttpServletRequest request, ProfessorDTO dto) {
+		HttpServletRequest request, ProfessorDTO dto) {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		ModelAndView view = new ModelAndView();

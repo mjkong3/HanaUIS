@@ -76,7 +76,7 @@
 	        </table>
 
 	        <div class="back-button">
-	            <a href="javascript:fn_notice()">목록으로 돌아가기</a>
+	            <a href="javascript:fn_notice()">목록</a>
 	        </div>
 	    </div>
     </div>

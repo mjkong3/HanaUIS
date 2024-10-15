@@ -87,11 +87,11 @@
            <!-- 페이징 -->
            <div class="pagination">
             <!-- 첫 페이지로 이동 -->
-            <a href="?page=1" class="${pageHandler.page == 1 ? 'disabled' : ''}">처음</a>
+            <a href="?page=1" class="${pageHandler.page == 1 ? 'disabled' : ''}">&lt;&lt;</a>
 
             <!-- 이전 페이지로 이동 -->
             <a href="?page=${pageHandler.page > 1 ? pageHandler.page - 1 : 1}"
-               class="${pageHandler.page == 1 ? 'disabled' : ''}">이전</a>
+               class="${pageHandler.page == 1 ? 'disabled' : ''}">&lt;</a>
 
             <!-- 중간 페이지 목록 (1~5 or 6~10) -->
             <c:forEach begin="${pageHandler.beginPage}"
@@ -103,11 +103,11 @@
             <!-- 다음 페이지로 이동 -->
             <a
                href="?page=${pageHandler.page < pageHandler.totalPage ? pageHandler.page + 1 : pageHandler.totalPage}"
-               class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">다음</a>
+               class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">&gt;</a>
 
             <!-- 마지막 페이지로 이동 -->
             <a href="?page=${pageHandler.totalPage}"
-               class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">끝</a>
+               class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">&gt;&gt;</a>
          </div>
        </div>
    </div>
