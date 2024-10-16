@@ -186,6 +186,7 @@
 		SELECT 
 				E.CLASS_CODE 	AS classCode,
 				C.CLASS_NAME 	AS className,
+				C.CLASS_TYPE    AS classType,
 				S.STUDENT_ID 	AS studentId,
 				S.NAME 			AS studentName,
 				E.STUDENT_YEAR 	AS studentYear,

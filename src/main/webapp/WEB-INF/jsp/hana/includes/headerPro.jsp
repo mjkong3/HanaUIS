@@ -42,10 +42,10 @@
 	    location.href = "/HanaUIS/pfs/schedule.do";
 	}
 	
-	   function fn_logout() {
-		   	alert("로그아웃 되었습니다.");
-		      location.href = "/HanaUIS/";
-		   }
+   function fn_logout() {
+	   	alert("로그아웃 되었습니다.");
+	      location.href = "/HanaUIS/";
+	   }
 		
 	
 
@@ -55,6 +55,9 @@
 
     <div class="logo">
        <a href="javascript:fn_notice()"><img src="<c:url value='/images/egovframework/logo.png'/>" alt=""/></a>
+    </div>
+    <div>
+     	<button onclick="javascript:fn_logout()">${professor.name}<br>로그아웃</button>
     </div>
     <form name="listForm" method="post">
    		<input type="hidden" name="selectedNo" />
@@ -105,7 +108,6 @@
 	        <li> <a href="javascript:fn_schedule()">강의시간표</a></li>
 	    </ul>
    	 </form>
-   	 
-   	     <button onclick="javascript:fn_logout()">로그아웃</button>
+
 	    
 </div>

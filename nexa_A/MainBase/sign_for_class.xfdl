@@ -65,7 +65,7 @@
               </Band>
               <Band id="body">
                 <Cell edittype="checkbox" displaytype="checkboxcontrol" text="bind:CHECK"/>
-                <Cell col="1" text="bind:STUDENT_ID" textAlign="center"/>
+                <Cell col="1" text="bind:STUDENT_ID" textAlign="center" displaytype="mask" maskedittype="string"/>
                 <Cell col="2" text="bind:NAME" textAlign="center"/>
                 <Cell col="3" text="bind:DEPARTMENT_NAME"/>
                 <Cell col="4" text="bind:CLASS_NAME"/>

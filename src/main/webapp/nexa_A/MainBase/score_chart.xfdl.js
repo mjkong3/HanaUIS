@@ -49,7 +49,7 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Div("Div00","50","72","1080","55",null,null,null,null,null,null,this);
+            obj = new Div("Div00","24","72","1080","55",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_border("1px solid #001414");
             this.addChild(obj.name, obj);
@@ -257,7 +257,7 @@
             obj.set_categorycolumn("bind:등급");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_board","49","10","191","50",null,null,null,null,null,null,this);
+            obj = new Static("stt_board","24","10","191","50",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_text("성적 통계");
             obj.set_font("30px/normal \"Gulim\"");

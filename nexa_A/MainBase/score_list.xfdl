@@ -32,7 +32,7 @@
                 <Cell col="1" text="bind:CLASS_CODE" textAlign="center"/>
                 <Cell col="2" text="bind:CLASS_NAME"/>
                 <Cell col="3" text="bind:NAME"/>
-                <Cell col="4" text="bind:CLASS_START" textAlign="center"/>
+                <Cell col="4" text="bind:CLASS_START" textAlign="center" displaytype="mask" maskedittype="string"/>
                 <Cell col="5" text="bind:SEMESTER" textAlign="center"/>
               </Band>
             </Format>
@@ -113,7 +113,7 @@
               </Band>
               <Band id="body">
                 <Cell displaytype="checkboxcontrol" text="bind:CHECK"/>
-                <Cell col="1" text="bind:STUDENT_ID"/>
+                <Cell col="1" text="bind:STUDENT_ID" displaytype="mask" maskedittype="string"/>
                 <Cell col="2" text="bind:NAME"/>
                 <Cell col="3" text="bind:MIDDLE_TEST" displaytype="normal" edittype="normal"/>
                 <Cell col="4" text="bind:FINAL_TEST" edittype="normal"/>
