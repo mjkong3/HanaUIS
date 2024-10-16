@@ -15,14 +15,24 @@
    href="<c:url value='/css/egovframework/signForClass.css'/>" />
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript" language="javascript" defer>
-   /* 메뉴 클릭 이벤트 */
-   function toggleSubmenu(event) {
-      event.preventDefault(); // 기본 링크 클릭 동작 방지
-      var submenu = event.currentTarget.nextElementSibling;
-      submenu.style.display = (submenu.style.display === "block") ? "none"
-            : "block";
-   }
-
+	/* 메뉴 클릭 이벤트 */
+	function toggleSubmenu(event) {
+	   event.preventDefault(); // 기본 링크 클릭 동작 방지
+	   var submenu = event.currentTarget.nextElementSibling;
+	   if (submenu.style.display === "block") {
+	      submenu.style.display = "none";
+	   } else {
+	      submenu.style.display = "block";
+	   }
+	}
+	
+	// 수정 완료시 알림 호출
+    $(document).ready(function() {   
+        <c:if test="${signComplete == 'success'}">
+        	alert('수정이 완료되었습니다.');
+     	</c:if>
+    });
+	
    // 첫화면 출력시 바로 학기 표시
    $(document).ready(function() {
       var today = new Date();
@@ -64,8 +74,9 @@
                      "<td>" + classGrade + "</td>" + // 학점
                      "<td>" + $row.find('td:eq(6)').text() + "</td>" + // 담당교수
                      "<td>" + $row.find('td:eq(7)').text() + "</td>" + // 강의실
-                     "<td>" + $row.find('td:eq(8)').text() + "</td>" + // 수강정원
-                     "<td>" + $row.find('td:eq(9)').text()
+                     "<td>" + $row.find('td:eq(8)').text() + "</td>" + // 수강시간
+                     "<td>" + $row.find('td:eq(9)').text() + "</td>" + // 수강정원
+                     "<td>" + $row.find('td:eq(10)').text() // 개설학과
                      + "</td></tr>";
 
                $('#innerClass').append(str);
@@ -74,14 +85,19 @@
 
       // 선택된 학점과 과목 수를 테이블에 표시
       $('#totalGrade').text(totalGrade + "점");
-      $('#remainGrade').text(15 - totalGrade - cumulative + "점");
+      if(15 - totalGrade - cumulative > 0){
+    	  $('#remainGrade').text(15 - totalGrade - cumulative + "점");
+      }
+      else{
+    	  $('#remainGrade').text(0 + "점");
+      }
       $('#totalCnt').text(totalClass + "개");
 
       // tbody에 문구 띄우기
       if (totalClass === 0) {
          $('#checkedClass tbody')
                .html(
-                     '<tr><td colspan="9" class="emptyClass">선택한 과목이 없습니다.</td></tr>');
+                     '<tr><td colspan="10" class="emptyClass">선택한 과목이 없습니다.</td></tr>');
       }
 
       // 학점 제한 초과 시 체크박스 비활성화 // 오류나는지 확인하기
@@ -121,7 +137,7 @@
       }
 
       // 검증 통과 시 Form submit
-      alert("수강신청 완료");
+      alert("수강신청 내역을 확인 중입니다.");
       return true;
    }
 </script>
@@ -133,31 +149,31 @@
    <div class="content">
       <div class="container">
          <h3>
-            수강 신청<span id="semester-title"></span>
+         	수강 신청<span id="semester-title"></span>
          </h3>
-         <form action="/HanaUIS/std/signForClass.do" method="post" style="float: right;">
-            <c:set var="selectedDepartment" 
-               value="${sessionScope.selectedDepartment}" />
-            <select name="departmentCode" onchange="this.form.submit()">
-               <option value="0" ${selectedDepartment == 0 ? 'selected' : ''}>전체
-                  학과</option>
-               <c:forEach var="dpt" items="${department}">
-                  <option value="${dpt.departmentCode}"
-                     ${selectedDepartment == dpt.departmentCode ? 'selected' : ''}>
-                     ${dpt.departmentName}</option>
-               </c:forEach>
-            </select>
-         </form>
-         <form id="form_enroll" action="/HanaUIS/std/enrollClass.do"
-            method="post" onsubmit="return validateForm()">
-            
-            <input type="hidden" name="studentId"
-               value="${sessionScope.studentId}" />
-               
-            <div class="scroll-table">
-                                      
-            
-               <table id="allClass">
+         
+		 <form action="/HanaUIS/std/signForClass.do" method="post">
+		    <c:set var="selectedDepartment" value="${sessionScope.selectedDepartment}" />
+		    <p class="p-style">신청 가능한 최대 학점은 15점 입니다.</p>
+		    <div style="display: inline-block; float: right;">
+		        <select name="departmentCode" onchange="this.form.submit()">
+		            <option value="0" ${selectedDepartment == 0 ? 'selected' : ''}>
+		            	전체 학과
+	            	</option>
+		            <c:forEach var="dpt" items="${department}">
+		                <option value="${dpt.departmentCode}" ${selectedDepartment == dpt.departmentCode ? 'selected' : ''}>
+		                    ${dpt.departmentName}
+		                </option>
+		            </c:forEach>
+		        </select>
+		    </div>
+		</form>
+
+        <form id="form_enroll" action="/HanaUIS/std/enrollClass.do" method="post" onsubmit="return validateForm()">
+            <input type="hidden" name="studentId" value="${sessionScope.studentId}" /> <!-- 학번 보내기 -->
+            <!-- <input type="hidden" name="studentYear" /> --> <!-- 학년 보내기 -->
+				<div class="scroll-table">
+                <table id="allClass">
                   <colgroup>
                      <col width="3%">
                      <col width="6%">
@@ -165,6 +181,7 @@
                      <col width="*">
                      <col width="*">
                      <col width="6%">
+                     <col width="*">
                      <col width="*">
                      <col width="*">
                      <col width="*">
@@ -180,33 +197,35 @@
                         <th>학점</th>
                         <th>담당교수</th>
                         <th>강의실</th>
+                        <th>수강시간</th>
                         <th>수강정원</th>
                         <th>개설학과</th>
                      </tr>
                   </thead>
                   <tbody>
                      <c:if test="${not empty classItem}">
-                        <c:forEach var="classItem" items="${classItem}"
-                           varStatus="status">
+                        <c:forEach var="classItem" items="${classItem}" varStatus="status">
                            <tr>
                               <td>${status.count}</td>
-                              <td><input type="checkbox" name="chk"
-                                 onclick="checkClass()" value="${classItem.CLASS_CODE}"></td>
+                              <td><input type="checkbox" name="chk" onclick="checkClass()" value="${classItem.CLASS_CODE}"></td>
                               <td>${classItem.CLASS_CODE}</td>
                               <td>${classItem.CLASS_NAME}</td>
                               <td>${classItem.CLASS_TYPE}</td>
                               <td>${classItem.CLASS_GRADE}</td>
                               <td>${classItem.NAME}</td>
                               <td>${classItem.CLASS_WEEK}(${classItem.CLASSROOM_NAME})</td>
-                              <td><span id="people">${classItem.PEOPLE}</span>/<span
-                                 id="maxPeople">${classItem.MAX_PEOPLE}</span></td>
+                              <td>${classItem.TIME_NUMBER}</td>
+                              <td>
+                              	<span id="people">${classItem.PEOPLE}</span>/
+                              	<span id="maxPeople">${classItem.MAX_PEOPLE}</span>
+                              </td>
                               <td>${classItem.DEPARTMENT_NAME}</td>
                            </tr>
                         </c:forEach>
                      </c:if>
                      <c:if test="${empty classItem}">
                         <tr>
-                           <td colspan="10" class="emptyClass">개설된 강의가 없습니다.</td>
+                           <td colspan="11" class="emptyClass">개설된 강의가 없습니다.</td>
                         </tr>
                      </c:if>
                   </tbody>
@@ -219,18 +238,22 @@
                         <c:if test="${empty classItem}">0개</c:if>
                   </span></th>
                </tr>
-            </table>
-             <p style="color: grey;">신청 가능한 최대 학점은 15점 입니다.</p>
-            <button type="submit" id="enroll-button"
-               style="float: right; ">수강신청</button>
+            </table>              
+            
+         	<div class="vertical-space"></div>
+                         
             <table id="checkedClass">
-               <caption>선택 강의</caption>
+               <caption class="table-submit-caption">
+				    <span class="submit-caption">선택 강의</span>
+				    <button type="submit" id="enroll-button">수강신청</button>
+               </caption>
                <colgroup>
                   <col width="3%">
                   <col width="*">
                   <col width="*">
                   <col width="*">
                   <col width="6%">
+                  <col width="*">
                   <col width="*">
                   <col width="*">
                   <col width="*">
@@ -245,37 +268,45 @@
                      <th>학점</th>
                      <th>담당교수</th>
                      <th>강의실</th>
+                     <th>수강시간</th>
                      <th>수강정원</th>
                      <th>개설학과</th>
                   </tr>
                </thead>
                <tbody id="innerClass">
                   <tr>
-                     <td colspan="9" class="emptyClass">선택한 과목이 없습니다.</td>
+                     <td colspan="10" class="emptyClass">선택한 과목이 없습니다.</td>
                   </tr>
                </tbody>
                <tfoot>
                   <tr>
-                     <td colspan="6" class="total"><span>선택강의 수 : </span> <span
-                        id="totalCnt">0개</span> <span style="padding-left: 2vw;">선택학점
-                           : </span> <span id="totalGrade">0점</span> <span
-                        style="padding-left: 2vw;">남은 신청학점 : </span> <span
-                        id="remainGrade">${15-totalGrades}점</span></td>
-                     <td colspan="3" class="message"><span id="gradeCheck">최대
-                           학점(15점)을 초과했습니다.</span></td>
+                     <td colspan="7" class="total">
+	                     <span>선택강의 수 : </span> 
+	                     <span id="totalCnt">0개</span> 
+	                     <span style="padding-left: 2vw;">선택학점 : </span> 
+	                     <span id="totalGrade">0점</span> 
+	                     <span style="padding-left: 2vw;">남은 신청학점 : </span> 
+	                     <span id="remainGrade">${15-totalGrades}점</span>
+                     </td>
+                     <td colspan="3" class="message">
+                     	<span id="gradeCheck">최대 학점(15점)을 초과했습니다.</span>
+                   	 </td>
                   </tr>
                </tfoot>
             </table>
-
          </form>
+         
+         <div class="vertical-space"></div>
+         
          <table>
-            <caption>신청 완료</caption>
+            <caption class="table-caption">신청 완료</caption>
             <colgroup>
                <col width="3%">
                <col width="*">
                <col width="*">
                <col width="*">
                <col width="6%">
+               <col width="*">
                <col width="*">
                <col width="*">
                <col width="*">
@@ -290,14 +321,14 @@
                   <th>학점</th>
                   <th>담당교수</th>
                   <th>강의실</th>
+                  <th>수강시간</th>
                   <th>수강정원</th>
                   <th>개설학과</th>
                </tr>
             </thead>
             <tbody>
                <c:if test="${not empty selectedClass}">
-                  <c:forEach var="selectedClass" items="${selectedClass}"
-                     varStatus="status">
+                  <c:forEach var="selectedClass" items="${selectedClass}" varStatus="status">
                      <tr>
                         <td>${status.count}</td>
                         <td>${selectedClass.CLASS_CODE}</td>
@@ -306,26 +337,29 @@
                         <td>${selectedClass.CLASS_GRADE}</td>
                         <td>${selectedClass.NAME}</td>
                         <td>${selectedClass.CLASS_WEEK}(${selectedClass.CLASSROOM_NAME})</td>
-                        <td><span id="people">${selectedClass.PEOPLE}</span>/<span
-                           id="maxPeople">${selectedClass.MAX_PEOPLE}</span></td>
+                        <td>${selectedClass.TIME_NUMBER}</td>
+                        <td>
+                        	<span id="people">${selectedClass.PEOPLE}</span>/
+                        	<span id="maxPeople">${selectedClass.MAX_PEOPLE}</span>
+                       	</td>
                         <td>${selectedClass.DEPARTMENT_NAME}</td>
                      </tr>
                   </c:forEach>
                </c:if>
                <c:if test="${empty selectedClass}">
                   <tr>
-                     <td colspan="9" class="emptyClass">선택한 과목이 없습니다.</td>
+                     <td colspan="10" class="emptyClass">선택한 과목이 없습니다.</td>
                   </tr>
                </c:if>
             </tbody>
             <tfoot>
                <tr>
-                  <td colspan="9" class="total"><span>신청학점 : </span> <span
+                  <td colspan="10" class="total"><span>신청학점 : </span> <span
                      id="totalGrades">${totalGrades}점</span></td>
                </tr>
             </tfoot>
          </table>
-         <div class="temporary-margin" style="margin-bottom: 136px;"></div>
+         
       </div>
    </div>
 

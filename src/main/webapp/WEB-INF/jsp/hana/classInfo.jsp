@@ -79,31 +79,32 @@
 
 			<table class="course-table">
 				<tr>
-					<th>강의명</th>
+					<th>&ensp;강의명</th>
 					<td>${classInfo.className}</td>
 				</tr>
 				<tr>
-					<th>강의 코드</th>
+					<th>&ensp;강의 코드</th>
 					<td>${classInfo.classCode}</td>
 				</tr>
 				<tr>
-					<th>교수명</th>
+					<th>&ensp;교수명</th>
 					<td>${classInfo.name}</td>
 				</tr>
 				<tr>
-					<th>수강 정원</th>
+					<th>&ensp;수강 정원</th>
 					<td>${classInfo.maxPeople}명</td>
 				</tr>
 				<tr>
-					<th>강의 시간표</th>
+					<th>&ensp;강의 시간표</th>
 					<td>
 						<table class="schedule-table">
-							<fmt:formatDate value="${classInfo.classStart}"
-								pattern="yyyy년  MM월  dd일" />
-							~
-							<fmt:formatDate value="${classInfo.classEnd}"
-								pattern="yyyy년  MM월  dd일" />
-
+							<tr>
+								<td style="border: none;">
+									<fmt:formatDate value="${classInfo.classStart}" pattern="yyyy년  MM월  dd일" />
+										~
+									<fmt:formatDate value="${classInfo.classEnd}" pattern="yyyy년  MM월  dd일" />
+								</td>
+							</tr>
 							<c:forEach var="schedule" items="${timetable}">
 								<tr>
 									<td><c:choose>
@@ -121,21 +122,21 @@
 					</td>
 				</tr>
 				<tr class="classInfoTD">
-					<th>강의 개요</th>
+					<th>&ensp;<span class="redDot">*</span>강의 개요</th>
 					<td class="classInfo"><c:choose>
-							<c:when test="${not empty student}">
-								<c:out value="${classInfo.classInfo}" />
-							</c:when>
+						<c:when test="${not empty student}">
+							<c:out value="${classInfo.classInfo}" />
+						</c:when>
 
-							<c:when test="${not empty professor}">
-								<form id="infoForm">
-									<input type="hidden" id="classCode"
-										value="${classInfo.classCode}">
-									<textarea id="classInfo" class="classInfo">${classInfo.classInfo}</textarea>
-									<a href="javascript:fn_updateClassInfo()" class="button-like">수정</a>
-								</form>
-							</c:when>
-						</c:choose></td>
+						<c:when test="${not empty professor}">
+							<form id="infoForm">
+								<input type="hidden" id="classCode"
+									value="${classInfo.classCode}">
+								<textarea id="classInfo" class="classInfo">${classInfo.classInfo}</textarea>
+								<a href="javascript:fn_updateClassInfo()" class="button-like">수정</a>
+							</form>
+						</c:when>
+					</c:choose></td>
 				</tr>
 			</table>
 			<c:choose>
