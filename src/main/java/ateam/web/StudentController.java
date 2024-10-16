@@ -250,7 +250,7 @@ public class StudentController {
 	// 수강 신청 적용 // 데이터 받을 땐 String 자료형으로 변환되어서 옴
 	@PostMapping("/enrollClass.do")
 	public String insertClass(@RequestParam("studentId") String studentId,
-			@RequestParam("chk") List<String> classCodes) {
+			@RequestParam("chk") List<String> classCodes, RedirectAttributes redirectAttributes) {
 		// 각 수업에 대해 DB에 저장
 		for (String classCode : classCodes) {
 			EnrollmentDTO enrollmentDTO = new EnrollmentDTO();
@@ -258,6 +258,7 @@ public class StudentController {
 			enrollmentDTO.setClassCode(Integer.parseInt(classCode)); // String -> int 변환
 			studentService.enrollClass(enrollmentDTO); // 서비스 호출
 		}
+		redirectAttributes.addFlashAttribute("signComplete", "success");
 		// 수강 신청 후 수강 목록 페이지로 리다이렉트
 		return "redirect:/std/signForClass.do";
 	}

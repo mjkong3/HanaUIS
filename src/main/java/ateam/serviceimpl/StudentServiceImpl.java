@@ -141,6 +141,11 @@ public class StudentServiceImpl implements StudentService {
 	         @Param("departmentCode") int departmentCode) {
 	      return mapper.selectedClasses(departmentCode, studentId);
 	   }
+	// 수강신청 7. 학년 보내주기
+	@Override
+	public int stuWhatYear(int studentId) {
+		return mapper.stuWhatYear(studentId);
+	}
 
 
 
