@@ -39,7 +39,7 @@ public class MailSendServiceImpl extends EgovAbstractServiceImpl implements Mail
     public String joinEmail(String email) {
         makeRandomNumber();
         System.out.println("이메일 발송준비");
-        String setFrom = "ush529@gmail.com"; // 자신의 이메일 주소를 입력
+        String setFrom = "ush529@gmail.com"; // 발송 이메일 주소
         String toMail = email;
         String title = "[하나대학교] 로그인 인증코드를 확인해주세요."; // 이메일 제목
         String content = "안녕하세요." + "<br><br>" + // 이메일 내용 삽입
