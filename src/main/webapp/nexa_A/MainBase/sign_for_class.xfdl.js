@@ -18,22 +18,22 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("ds_list", this);
-            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_START\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_END\" type=\"STRING\" size=\"256\"/><Column id=\"STUDENT_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"SEMESTER\" type=\"STRING\" size=\"256\"/><Column id=\"PROFESSOR_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"STUDENT_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"SEMESTER\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
             obj = new Dataset("ds_search", this);
-            obj._setContents("<ColumnInfo><Column id=\"SEARCH_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"SEARCH_WORD\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"SEMESTER\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"SEARCH_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"SEARCH_WORD\" type=\"STRING\" size=\"256\"/><Column id=\"YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"SEMESTER\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
             obj = new Dataset("ds_cmb", this);
-            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">ALL</Col><Col id=\"data\">전체</Col></Row><Row><Col id=\"code\">STUDENT_ID</Col><Col id=\"data\">학번</Col></Row><Row><Col id=\"code\">NAME</Col><Col id=\"data\">성명</Col></Row><Row><Col id=\"code\">CLASS_NAME</Col><Col id=\"data\">강의명</Col></Row><Row><Col id=\"code\">CLASS_TYPE</Col><Col id=\"data\">전공이수</Col></Row><Row><Col id=\"code\">PROFESSOR_NAME</Col><Col id=\"data\">담당교수</Col></Row></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">ALL</Col><Col id=\"data\">전체</Col></Row><Row><Col id=\"code\">CLASS_NAME</Col><Col id=\"data\">강의명</Col></Row><Row><Col id=\"code\">CLASS_TYPE</Col><Col id=\"data\">이수구분</Col></Row><Row><Col id=\"code\">PROFESSOR_NAME</Col><Col id=\"data\">담당교수</Col></Row></Rows>");
             this.addChild(obj.name, obj);
 
 
             obj = new Dataset("ds_dept", this);
-            obj._setContents("<ColumnInfo><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PEOPLE\" type=\"STRING\" size=\"256\"/><Column id=\"MAX_PEOPLE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PEOPLE\" type=\"STRING\" size=\"256\"/><Column id=\"MAX_PEOPLE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"PROFESSOR_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_WEEK\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_GRADE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -50,50 +50,60 @@
             obj = new Dataset("ds_delete", this);
             obj._setContents("");
             this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_className", this);
+            obj._setContents("<ColumnInfo><Column id=\"CLASS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Grid("grd_Depart","32","100","394","440",null,null,null,null,null,null,this);
+            obj = new Grid("grd_Depart","32","105","838","460",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_autofittype("col");
             obj.set_binddataset("ds_dept");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"20\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"40\"/><Column size=\"40\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"No\"/><Cell col=\"1\" text=\"학과명\"/><Cell col=\"2\" text=\"강의명\"/><Cell col=\"3\" text=\"신청인원\"/><Cell col=\"4\" text=\"수강정원\"/></Band><Band id=\"body\"><Cell text=\"expr:currow+1\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:DEPARTMENT_NAME\"/><Cell col=\"2\" text=\"bind:CLASS_NAME\"/><Cell col=\"3\" text=\"bind:PEOPLE\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:MAX_PEOPLE\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj.set_cssclass("ATEAM");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"20\"/><Column size=\"60\"/><Column size=\"75\"/><Column size=\"40\"/><Column size=\"55\"/><Column size=\"40\"/><Column size=\"50\"/><Column size=\"55\"/><Column size=\"35\"/><Column size=\"35\"/><Column size=\"20\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"No\"/><Cell col=\"1\" text=\"학과명\"/><Cell col=\"2\" text=\"강의명\"/><Cell col=\"3\" text=\"이수구분\"/><Cell col=\"4\" text=\"담당교수\"/><Cell col=\"5\" text=\"수강요일\"/><Cell col=\"6\" text=\"수강시간\"/><Cell col=\"7\" text=\"강의실\"/><Cell col=\"8\" text=\"신청인원\"/><Cell col=\"9\" text=\"수강정원\"/><Cell col=\"10\" text=\"학점\"/></Band><Band id=\"body\"><Cell text=\"expr:currow+1\" textAlign=\"center\" font=\"12px/normal &quot;Gulim&quot;\"/><Cell col=\"1\" text=\"bind:DEPARTMENT_NAME\"/><Cell col=\"2\" text=\"bind:CLASS_NAME\"/><Cell col=\"3\" text=\"bind:CLASS_TYPE\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:PROFESSOR_NAME\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:CLASS_WEEK\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:TIME_NUMBER\" textAlign=\"center\" wordWrap=\"both\" font=\"normal 12px/normal &quot;Gulim&quot;\"/><Cell col=\"7\" textAlign=\"center\" text=\"bind:CLASSROOM_NAME\"/><Cell col=\"8\" textAlign=\"center\" text=\"bind:PEOPLE\"/><Cell col=\"9\" textAlign=\"center\" text=\"bind:MAX_PEOPLE\"/><Cell col=\"10\" text=\"bind:CLASS_GRADE\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_List","440","100","811","440",null,null,null,null,null,null,this);
+            obj = new Grid("grd_List","890","105","361","460",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_autofittype("col");
             obj.set_binddataset("ds_list");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"60\"/><Column size=\"60\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"60\"/><Column size=\"60\"/><Column size=\"60\"/><Column size=\"60\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"학생 이름\"/><Cell col=\"3\" text=\"학과명\"/><Cell col=\"4\" text=\"강의명\"/><Cell col=\"5\" text=\"전공이수\"/><Cell col=\"6\" text=\"담당교수\"/><Cell col=\"7\" text=\"개강일\"/><Cell col=\"8\" text=\"종강일\"/></Band><Band id=\"body\"><Cell edittype=\"checkbox\" displaytype=\"checkboxcontrol\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\" textAlign=\"center\" displaytype=\"mask\" maskedittype=\"string\"/><Cell col=\"2\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:DEPARTMENT_NAME\"/><Cell col=\"4\" text=\"bind:CLASS_NAME\"/><Cell col=\"5\" text=\"bind:CLASS_TYPE\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:PROFESSOR_NAME\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:CLASS_START\" textAlign=\"center\" displaytype=\"date\"/><Cell col=\"8\" text=\"bind:CLASS_END\" textAlign=\"center\" displaytype=\"date\"/></Band></Format></Formats>");
+            obj.set_cssclass("ATEAM");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"30\" band=\"left\"/><Column size=\"30\"/><Column size=\"60\"/><Column size=\"60\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"normal\" edittype=\"none\" text=\"No\"/><Cell col=\"1\" text=\"bind:CHECK\" displaytype=\"checkboxcontrol\" edittype=\"checkbox\"/><Cell col=\"2\" text=\"학번\" tooltiptext=\"bind:STUDENT_ID\"/><Cell col=\"3\" text=\"학생이름\"/><Cell col=\"4\" text=\"학과명\"/></Band><Band id=\"body\"><Cell edittype=\"none\" displaytype=\"normal\" text=\"expr:currow+1\" textAlign=\"center\" font=\"12px/normal &quot;Gulim&quot;\"/><Cell col=\"1\" text=\"bind:CHECK\" textAlign=\"center\" displaytype=\"checkboxcontrol\" edittype=\"checkbox\"/><Cell col=\"2\" text=\"bind:STUDENT_ID\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:DEPARTMENT_NAME\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Search","306","70","120","25",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_Search","310","70","130","25",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_innerdataset("ds_cmb");
             obj.set_codecolumn("code");
             obj.set_datacolumn("data");
+            obj.set_text("");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Search","743","70","70","25",null,null,null,null,null,null,this);
+            obj = new Button("btn_Search","720","70","70","25",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_text("수강 조회");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_Search","440","70","300","25",null,null,null,null,null,null,this);
+            obj = new Edit("edt_Search","450","70","260","25",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             obj.set_displaynulltext("검색어 입력");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Add","1030","70","70","25",null,null,null,null,null,null,this);
+            obj = new Button("btn_Add","800","70","70","25",null,null,null,null,null,null,this);
             obj.set_taborder("5");
-            obj.set_text("수강 등록");
+            obj.set_text("수강 신청");
+            obj.set_font("12px/normal \"Gulim\"");
+            obj.set_color("#e33b3b");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Delete","1105","70","70","25",null,null,null,null,null,null,this);
+            obj = new Button("btn_Delete","1100","70","70","25",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("수강 삭제");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_year","32","70","132","25",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_year","32","70","130","25",null,null,null,null,null,null,this);
             obj.set_taborder("7");
             obj.set_codecolumn("YEAR");
             obj.set_datacolumn("YEAR_NAME");
@@ -108,7 +118,7 @@
             obj.set_codecolumn("SEMESTER");
             obj.set_datacolumn("SEMESTER_NUM");
             obj.set_innerdataset("ds_semester");
-            obj.set_text("학기");
+            obj.set_text("");
             obj.set_value("");
             obj.set_index("-1");
             this.addChild(obj.name, obj);
@@ -123,6 +133,15 @@
             obj.set_text("수강신청");
             obj.set_usedecorate("true");
             obj.set_font("28px/normal \"Gulim\",\"HY견고딕\"");
+            this.addChild(obj.name, obj);
+
+            obj = new Edit("edtClassName","890","70","200","25",null,null,null,null,null,null,this);
+            obj.set_taborder("11");
+            obj.set_enable("false");
+            obj.set_textAlign("center");
+            obj.set_color("#000000");
+            obj.set_background("#ffffff");
+            obj.set_font("bold 12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -162,48 +181,45 @@
         {
         	this.ds_search.setColumn(0,"SEARCH_TYPE","ALL");
         	this.onRowKey = false; // onrow 이벤트 트리거(off)
-        	this.fn_searchDept(); // dept 검색 함수 호출
+
         	this.fn_year(); // year 검색 함수 호출
         	this.fn_semester(); // semester 검색 함수 호출
+
+        	this.fn_searchDept(); // dept 검색 함수 호출
         };
 
 
-        // 시작 학과 호출
+        // 전체 수강과목 호출
         this.fn_searchDept = function() {
-        	var strSvcId    = "searchDept";
-        	var strSvcUrl   = "svc::selectDeptListForSign.do";
-        	var inData      = "";
-        	var outData     = "ds_dept = ds_dept";
-        	var strArg      = "";
-        	var callBackFnc = "fnCallBack_deptInfo";
-        	var isAsync     = true;
-        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
-        }
+
+            var strSvcId = "searchDept";
+            var strSvcUrl = "svc::selectDeptListForSign.do";
+            var inData = "ds_search = ds_search";
+            var outData = "ds_dept = ds_dept";
+            var strArg = "";
+            var callBackFnc = "fnCallBack_deptInfo";
+            var isAsync = true;
+
+            this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        };
 
 
-        // 시작 학과 호출 -> 콜백 처리
-        this.fnCallBack_deptInfo = function (svcID, errCD, errMsg)
-        {
-        	if (svcID == "searchDept" && errCD == 0){
-        		this.ds_dept.insertRow(0); // 맨 앞에 row 생성
-        		this.ds_dept.setColumn(0, "DEPARTMENT_CODE", 0);
-        		this.ds_dept.setColumn(0, "DEPARTMENT_NAME", "전체학과");
-        		this.onRowKey = true; // onrow 이벤트 트리거(on)
-        		this.ds_dept.set_rowposition(0); // 첫번째 행 수동 설정
-        		this.ds_dept_onrowposchanged(this.ds_dept, null); // 이벤트 수동호출
+        // 전체 수강과목 호출 -> 콜백 처리
+        this.fnCallBack_deptInfo = function (svcID, errCD, errMsg) {
+            if (svcID == "searchDept" && errCD == 0) {
+                this.onRowKey = true; // onrow 이벤트 트리거 on
 
-        		// 월에 따른 학기 결정 (2월~6월: 1학기, 나머지: 2학기)
-        		var currentMonth = new Date().getMonth();
-        		var semesterNum;
-        		if (currentMonth >= 1 && currentMonth <= 5) {
-        			semesterNum = '0';  // 1학기
-        		} else {
-        			semesterNum = '1';  // 2학기
-        		}
-        		this.cmb_semester.set_index(semesterNum);
-        	} else {
-        		this.alert("오류 발생");
-        	}
+                // 첫 번째 행 명시적 설정 및 rowposchanged 이벤트 호출
+                this.ds_dept.set_rowposition(0); // 첫 번째 행을 수동 설정
+                this.ds_dept_onrowposchanged(this.ds_dept, null); // 이벤트 수동 호출
+
+                // 학기 결정 로직
+                var currentMonth = new Date().getMonth() + 1; // 1월 = 0 이므로 +1 필요
+                var semesterNum = (currentMonth >= 2 && currentMonth <= 6) ? '1' : '2';
+                // this.cmb_semester.set_value(semesterNum); // 콤보 박스에서 학기 설정
+            } else {
+                this.alert("오류 발생: " + errMsg);
+            }
         };
 
 
@@ -211,14 +227,15 @@
         this.fn_year = function() {
             // 현재 연도를 가져옴
             var currentYear = new Date().getFullYear();
+
             // 5년 동안의 데이터를 넣기 위해 반복
             for (var i = 0; i < 5; i++) {
                 var year = currentYear - i; // 현재 연도부터 5년 전까지의 데이터
                 var newRow = this.ds_year.addRow(); // 새로운 row 추가
-
                 this.ds_year.setColumn(newRow, "YEAR", year.toString()); // 순수 숫자 값
                 this.ds_year.setColumn(newRow, "YEAR_NAME", year.toString() + "년"); // '년'을 붙인 값
             }
+
             // 기본적으로 현재 연도가 선택되도록 설정
             this.ds_search.setColumn(0, "YEAR", currentYear.toString());
         };
@@ -226,15 +243,9 @@
 
         // 학기 호출
         this.fn_semester = function() {
-            // 현재 월을 가져옴
-            var currentMonth = new Date().getMonth();
-            var semester;
-
-            if (currentMonth >= 1 && currentMonth <= 5) { // 2~6월 (1학기)
-                semester = 1;
-            } else {
-                semester = 2;  // 7~12월 (2학기)
-            }
+        	// 현재 날짜를 가져옴
+        	var currentMonth = new Date().getMonth() + 1;
+            var semester = (currentMonth >= 2 && currentMonth <= 6) ? 1 : 2;
 
             // 데이터셋에서 현재 학기를 찾아서 선택
             for (var i = 0; i < this.ds_semester.rowcount; i++) {
@@ -243,56 +254,80 @@
                     this.ds_semester.set_rowposition(i); // 해당 행 선택
                     // ds_search에 현재 학기 값 설정 (undefined 방지)
                     this.ds_search.setColumn(0, "SEMESTER", semester); // SEMESTER 컬럼에 값 설정
-                    break; // 찾으면 루프 종료
+        			break;
                 }
+        		else {
+        			trace("학기 에러");
+        		}
             }
+
         };
 
 
-        // 조회
-        this.ds_dept_onrowposchanged = function(obj,e)
-        {
-        	trace("이벤트 발동 확인");
-        	trace("트리거 값 확인 : " + this.onRowKey);
-        	if (this.onRowKey == true){
-        		this.ds_search.setColumn(0,"DEPARTMENT_CODE", obj.getColumn(obj.rowposition,"DEPARTMENT_CODE"));
-        		trace("트리거 발동시 search 확인 : " + this.ds_search.getColumn(0,"DEPARTMENT_CODE"));
-        		// 조회함수 호출
-        		this.fn_searchList();
-        	}
+        // ///////////////////////////////////////////////////////////////// //
+
+        // 학생 조회
+        this.ds_dept_onrowposchanged = function(obj, e) {
+            trace("이벤트 발동 확인");
+            trace("트리거 값 확인: " + this.onRowKey);
+        	trace(obj.rowposition);
+
+            if (this.onRowKey) {
+                var classCode = obj.getColumn(obj.rowposition, "CLASS_CODE");
+                trace("선택된 CLASS_CODE: " + classCode); // CLASS_CODE 확인
+
+                // CLASS_CODE가 유효할 경우 조회 함수 호출
+                if (classCode) {
+                    //this.ds_dept.setColumn(0, "CLASS_CODE", classCode);
+                    this.fn_searchList();
+
+                    // 강의 이름 설정
+                    var className = obj.getColumn(obj.rowposition, "CLASS_NAME");
+                    this.ds_className.setColumn(0, "CLASS_CODE", classCode);
+                    this.ds_className.setColumn(0, "CLASS_NAME", className);
+                    this.edtClassName.set_value(className);
+                }
+            }
         };
 
 
         // 조회 - 버튼클릭
         this.btn_Search_onclick = function(obj,e)
         {
+        	var setYear = this.cmb_year.value;
+        	var setSemester = this.cmb_semester.value;
+
+        	this.ds_search.setColumn(0, "YEAR", setYear);
+        	this.ds_search.setColumn(0, "SEMESTER", setSemester);
+
         	// 조회함수 호출
-        	this.fn_searchList();
+        	this.fn_searchDept();
         };
 
         // list grd 호출 조회함수
         this.fn_searchList = function ()
         {
-        	var deptCode = this.ds_search.getColumn(0, "DEPARTMENT_CODE");
-        	trace("받아온 DEPARTMENT_CODE: " + deptCode);  // 전체학과 선택 시 값 확인
-        	var year = this.ds_search.getColumn(0, "YEAR");
-            trace("받아온 YEAR: " + year);  // YEAR 값 확인
-        	var semester = this.ds_search.getColumn(0, "SEMESTER");
-            trace("받아온 SEMESTER: " + semester);  // SEMESTER 값 확인
+        	var classCode = this.ds_dept.getColumn(this.ds_dept.rowposition, "CLASS_CODE");
+        	this.ds_search.setColumn(0, "CLASS_CODE", classCode);
+        	trace("받아온 CLASS_CODE: " + classCode);  // 전체학과 선택 시 값 확인
 
-        	if (deptCode == '' || deptCode == 'undefined' || deptCode == null) {
-        		alert("학과를 선택해주세요.");
+        	if (!classCode) {
+        		alert("강의를 선택해주세요.");
         		return;
         	}
+
         	var strSvcId    = "searchList";
         	var strSvcUrl   = "svc::selectAdSignClass.do";
         	var inData      = "ds_search = ds_search";
         	var outData     = "ds_list = ds_list";
-        	var strArg      = "";
+        	var strArg      = ""
         	var callBackFnc = "fnCallBack";
         	var isAsync     = true;
+
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
+
+        // /////////////////////////////////////////////////////////////////////////////////////// //
 
         // 삭제 구현하기
         this.btn_Delete_onclick = function(obj,e)
@@ -321,6 +356,7 @@
             var strArg      = "";
             var callBackFnc = "fnCallBack";
             var isAsync     = true;
+
             this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
 
@@ -331,13 +367,13 @@
          	if(svcID == "deleteList" && errCD == 0){
         		alert("삭제되었습니다");
         		this.fn_searchList(); // 삭제된 이후의 리스트를 출력
+        		this.fn_searchDept(); // 삭제된 이후의 리스트를 출력
          	}
          	if(svcID == "searchList"){
         		trace("searchList 호출완료")
          		// trace(this.ds_list.saveXML());
          	}
         };
-
 
         // 새로고침 함수
         this.btn_Reload_onclick = function(obj,e)
@@ -457,13 +493,13 @@
             // 팝업 호출 (필요 시 파라미터 추가)
             this.showPopup({}, surl);
         };
-
         });
         
         // Regist UI Components Event
         this.on_initEvent = function()
         {
             this.addEventHandler("onload",this.sign_for_class_onload,this);
+            this.grd_Depart.addEventHandler("oncellclick",this.grd_Depart_oncellclick,this);
             this.grd_List.addEventHandler("oncelldblclick",this.grd_List_oncelldblclick,this);
             this.grd_List.addEventHandler("onheadclick",this.grd_List_onheadclick,this);
             this.cmb_Search.addEventHandler("onitemchanged",this.cmb_Search_onitemchanged,this);
