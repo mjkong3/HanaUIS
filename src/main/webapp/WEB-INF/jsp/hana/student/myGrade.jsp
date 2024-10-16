@@ -45,7 +45,13 @@
 					<thead>
 		                <tr>
 		                  <th>학기</th>
-		                  <th>총 학점 </th>
+		                  <th>학점 </th>
+		                  <th>A</th>
+		                  <th>B</th>
+		                  <th>C</th>
+		                  <th>D</th>
+		                  <th>F</th>
+		                  
 		                </tr>
 		            </thead>
 		            <tbody>
@@ -53,8 +59,23 @@
 							<tr>
 								<th>${totalGrade.studentYear} 학년 ${totalGrade.semester}학기</th>
 								<td>${totalGrade.totalCredit} / ${totalGrade.totalGrade}</td>
+								<td>${totalGrade.countA}</td>
+								<td>${totalGrade.countB}</td>
+								<td>${totalGrade.countC}</td>
+								<td>${totalGrade.countD}</td>
+								<td>${totalGrade.countF}</td>
+
 							</tr>
 						</c:forEach>
+							<tr>
+								<th>총계</th>
+								<th>${totalAvgGrade.avgTotalCredit} / ${totalAvgGrade.avgTotalGrade}</th>	
+								<th>${totalAvgGrade.totalCountA}</th>
+								<th>${totalAvgGrade.totalCountB}</th>
+								<th>${totalAvgGrade.totalCountC}</th>
+								<th>${totalAvgGrade.totalCountD}</th>
+								<th>${totalAvgGrade.totalCountF}</th>
+							</tr>
 					</tbody>
 				</table>
 

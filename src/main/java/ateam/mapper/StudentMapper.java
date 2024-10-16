@@ -40,6 +40,7 @@ public interface StudentMapper {
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적조회
 	public List<Map<String, Object>> myGradeList(Map<String, Object> map);
 	public List<Map<String, Object>> myTotalGradeList(int studentId);
+	public Map<String, Object> myTotalAvgGrade(int studentId);
 	public int countAllClass(Map<String, Object> map);
 
 	
@@ -61,6 +62,8 @@ public interface StudentMapper {
 	// 6.기존 수강신청 + 학과별 수강목록 조회
 	   public List<Map<String, Object>> selectedClasses(@Param("studentId") int studentId,
 	         @Param("departmentCode") int departmentCode);
+
+
 
 	   
 	
