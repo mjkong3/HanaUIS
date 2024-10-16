@@ -48,29 +48,29 @@
 					<tr>
 						<td><label for="name">이름</label></td>
 						<td><input type="text" id="name" name="name"
-							placeholder="이름을 입력하세요" required></td>
+							placeholder="이름을 입력하세요" ></td>
 					</tr>
 					<tr>
 						<td><label for="user-id">아이디</label></td>
 						<td><input type="text" id="id" name="id"
-							placeholder="아이디를 입력하세요" required></td>
+							placeholder="아이디를 입력하세요" ></td>
 						<td colspan="2"><button>인증번호 발송</button></td>
 							
 					</tr>
 					<tr>
 						<td><label for="">인증번호</label></td>
 						<td><input type="text" id="" name=""
-							placeholder="인증번호를 입력하세요" required></td>
+							placeholder="인증번호를 입력하세요" ></td>
 						<td><button>인증번호 확인</button></td>
 					</tr>
 	
 					<tr>
 						<td><label>새비밀번호</label></td>
-						<td><input type="password" id="password" name="password" required></td>
+						<td><input type="password" id="password" name="password" ></td>
 					</tr>
 					<tr>
 						<td><label>비밀번호 확인</label></td>
-						<td><input type="password" id="password" name="password" required></td>
+						<td><input type="password" id="password" name="password" ></td>
 						<td><button >비밀번호 변경</button></td>
 					</tr>
 				</table>

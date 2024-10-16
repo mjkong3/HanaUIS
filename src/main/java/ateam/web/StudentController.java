@@ -287,7 +287,7 @@ public class StudentController {
 
 		// 페이징 작업
 		int page = param.get("page") != null ? Integer.parseInt((String) param.get("page")) : 1;
-		System.out.println(page + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
 		int pageSize = 5; // 페이지당 표시할 항목 수
 		int offset = (page - 1) * pageSize;
 		map.put("offset", offset);

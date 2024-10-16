@@ -79,6 +79,7 @@
                 <thead>
                     <tr>
                         <th>과목명</th>
+                        <th>전공</th>
                         <th>학기</th>
 		                <th>중간</th>
 		                <th>기말</th>
@@ -100,6 +101,7 @@
           				<input type="hidden" name="studentId" value="${grade.studentId}"/>			            
 	                <tr>
 		                <td>${grade.className}</td>
+		                <td>${grade.classType}</td>
 		                <td>${grade.studentYear} 학년 ${grade.semester}학기</td>
 	                    <td>${grade.middleTest}</td>
 	                    <td>${grade.finalTest}</td>
