@@ -178,7 +178,6 @@
         	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
          	//popup.style.set_overlaycolor("#6666664C");
          	//popup.form.style.set_border("1 solid #4c5a6f");
-
         }
 
         // 검색 필터 박스 값
