@@ -15,6 +15,13 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.totalTable{
+	margin-bottom: 20px;
+}
+
+.totalTable th:first-child{
+	width: 300px;
+}
 .totalTable th{
 	width: 150px	
 }

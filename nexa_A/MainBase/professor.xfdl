@@ -3,12 +3,12 @@
   <Form id="professor" width="1280" height="720" titletext="New Form" onload="professor_onload" onkeyup="professor_onkeyup">
     <Layouts>
       <Layout height="720" width="1280">
-        <Grid id="grd_Depart" left="50" top="99" width="237" height="524" taborder="0" autofittype="col" binddataset="ds_dept" cssclass="ATEAM">
+        <Grid id="grd_Depart" left="26" top="69" width="237" height="524" taborder="0" autofittype="col" binddataset="ds_dept" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="80"/>
-                <Column size="80"/>
+                <Column size="69"/>
+                <Column size="167"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -25,7 +25,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="grd_List" left="293" top="99" width="907" height="524" taborder="1" autofittype="col" binddataset="ds_list" oncelldblclick="grd_List_oncelldblclick" onheadclick="grd_List_onheadclick" background="white" cssclass="ATEAM">
+        <Grid id="grd_List" left="273" top="69" width="977" height="524" taborder="1" autofittype="col" binddataset="ds_list" oncelldblclick="grd_List_oncelldblclick" onheadclick="grd_List_onheadclick" background="white" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -61,7 +61,7 @@
               <Band id="body">
                 <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:CHECK"/>
                 <Cell col="1" text="expr:currow + 1" textAlign="center"/>
-                <Cell col="2" text="bind:PROFESSOR_ID" textAlign="center" displaytype="normal" maskedittype="number"/>
+                <Cell col="2" text="bind:PROFESSOR_ID" textAlign="center" displaytype="mask" maskedittype="string"/>
                 <Cell col="3" text="bind:NAME" textAlign="center"/>
                 <Cell col="4" text="bind:PHONE" textAlign="center"/>
                 <Cell col="5" text="bind:EMAIL" textAlign="center"/>
@@ -74,14 +74,14 @@
             </Format>
           </Formats>
         </Grid>
-        <Combo id="cmb_Search" left="716" top="70" width="116" height="26" taborder="2" innerdataset="ds_cmb" codecolumn="code" datacolumn="data"/>
-        <Button id="btn_Search" left="995" top="70" width="66" height="25" taborder="3" text="조회" onclick="btn_Search_onclick"/>
-        <Edit id="edt_Search" left="837" top="70" width="153" height="26" taborder="4"/>
-        <Button id="btn_Add" left="1065" top="70" width="66" height="25" taborder="5" text="등록" onclick="btn_Add_onclick"/>
-        <Button id="btn_Delete" taborder="6" text="삭제" left="1134" top="70" width="66" height="25" onclick="btn_Delete_onclick"/>
-        <Static id="sta_RowCnt" taborder="7" text="" left="1112" top="623" width="88" height="28" background="white" textAlign="right" font="bold 14px/normal &quot;Gulim&quot;"/>
-        <Static id="Static00" taborder="8" text="총원 :" left="1127" top="623" width="56" height="28" font="14px/normal &quot;Gulim&quot;"/>
-        <Static id="stt_board" taborder="9" text="교수 관리" left="49" top="10" width="191" height="50" font="30px/normal &quot;Gulim&quot;"/>
+        <Combo id="cmb_Search" left="766" top="40" width="116" height="26" taborder="2" innerdataset="ds_cmb" codecolumn="code" datacolumn="data"/>
+        <Button id="btn_Search" left="1045" top="40" width="66" height="25" taborder="3" text="조회" onclick="btn_Search_onclick"/>
+        <Edit id="edt_Search" left="887" top="40" width="153" height="26" taborder="4"/>
+        <Button id="btn_Add" left="1115" top="40" width="66" height="25" taborder="5" text="등록" onclick="btn_Add_onclick"/>
+        <Button id="btn_Delete" taborder="6" text="삭제" left="1184" top="40" width="66" height="25" onclick="btn_Delete_onclick"/>
+        <Static id="sta_RowCnt" taborder="7" text="" left="1162" top="593" width="88" height="28" background="white" textAlign="right" font="bold 14px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00" taborder="8" text="총원 :" left="1127" top="593" width="56" height="28" font="14px/normal &quot;Gulim&quot;"/>
+        <Static id="stt_board" taborder="9" text="교수 관리" left="26" top="10" width="191" height="50" font="30px/normal &quot;Gulim&quot;"/>
       </Layout>
     </Layouts>
     <Objects>

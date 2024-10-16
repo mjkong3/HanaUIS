@@ -19,6 +19,22 @@ public class AdSignClassController {
 	@Autowired
 	private AdSignClassService adSignClassService;
 
+	// 수강신청 분류하기
+	@RequestMapping(value = "/selectDeptListForSign.do")
+	public NexacroResult selectAdDept(@ParamDataSet(name = "ds_search", required = false) Map<String, Object> param) {
+		System.out.println("강의 목록 호출 : " + param);
+		NexacroResult result = new NexacroResult();
+		try {
+			List<Map<String, Object>> ds_dept = adSignClassService.selectDeptList(param);
+			result.addDataSet("ds_dept", ds_dept);
+		} catch (Exception ee) {
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+		return result;
+	}
+	
 	// 수강신청 수정 조회하기
 	@RequestMapping(value = "/selectAdSignClass.do")
 	public NexacroResult selectList(@ParamDataSet(name = "ds_search", required = false) Map<String, Object> param) {
@@ -55,21 +71,7 @@ public class AdSignClassController {
 		System.out.println("수강신청 목록 삭제 데이터전송 완료" + result);
 		return result;
 	}
-	
-	// 수강신청 분류하기
-	@RequestMapping(value = "/selectDeptListForSign.do")
-	public NexacroResult selectAdDept() {
-		NexacroResult result = new NexacroResult();
-		try {
-			List<Map<String, Object>> ds_dept = adSignClassService.selectDeptList();
-			result.addDataSet("ds_dept", ds_dept);
-		} catch (Exception ee) {
-			System.out.println(ee);
-			result.setErrorCode(-1);
-			result.setErrorMsg("catch 조회 오류");
-		}
-		return result;
-	}
+
 	
 	// <↓ 팝업> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 	

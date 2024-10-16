@@ -40,6 +40,7 @@ public interface StudentMapper {
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적조회
 	public List<Map<String, Object>> myGradeList(Map<String, Object> map);
 	public List<Map<String, Object>> myTotalGradeList(int studentId);
+	public Map<String, Object> myTotalAvgGrade(int studentId);
 	public int countAllClass(Map<String, Object> map);
 
 	
@@ -58,12 +59,11 @@ public interface StudentMapper {
 	// 수강신청 5. insert전 총 신청 학점
 	public int totalGrades(int studentId);
 
-	// 6.기존 수강신청 + 학과별 수강목록 조회
-	   public List<Map<String, Object>> selectedClasses(@Param("studentId") int studentId,
-	         @Param("departmentCode") int departmentCode);
-
+	// 수강신청 6.기존 수강신청 + 학과별 수강목록 조회
+	public List<Map<String, Object>> selectedClasses(@Param("studentId") int studentId,
+         @Param("departmentCode") int departmentCode);
 	   
-	
-
+	// 수강신청 7. 학년 보내주기
+	public int stuWhatYear(int studentId);
 
 }
