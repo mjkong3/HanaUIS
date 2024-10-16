@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ateam.mapper.FindPwdMapper">
+	
+	<select id="selectUser" parameterType="java.util.Map" resultType="String">
+    <choose>
+    	<when test="id.length() == 4">	
+            SELECT EMAIL
+            FROM ADMIN
+            WHERE ADMIN_CODE = #{ADMIN_CODE}
+            AND NAME = #{NAME}
+        </when>
+        <when test="id.length() == 5">	
+            SELECT EMAIL
+            FROM PROFESSOR
+            WHERE PROFESSOR_ID = #{id}
+            AND NAME = #{name}
+        </when>
+        <when test="id.length() == 6">
+            SELECT EMAIL
+            FROM STUDENT
+            WHERE STUDENT_ID = #{id}
+            AND NAME = #{name}
+        </when>
+        <otherwise>
+            SELECT NULL AS EMAIL
+        </otherwise>
+    </choose>
+	</select>
+	
+	<update id="updatePwd" parameterType="java.util.Map">
+		<choose>
+	        <when test="id.length() == 5">	
+	            UPDATE PROFESSOR SET PASSWORD = SHA2(#{password}, 256) WHERE PROFESSOR_ID = #{id}
+	        </when>
+	        <when test="id.length() == 6">
+	            UPDATE STUDENT SET PASSWORD = SHA2(#{password}, 256) WHERE STUDENT_ID = #{id}
+	        </when>
+	        <otherwise>
+	            SELECT NULL AS EMAIL
+	        </otherwise>
+	    </choose>
+	</update>
+	
+	
+</mapper>

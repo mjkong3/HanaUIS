@@ -222,12 +222,12 @@
         		this.ImageViewer00.set_top(contentY + 5);
 
         		// content, file 높이 15차이 , stt, upload btn 높이 동일시
-        // 		this.grd_file.set_top(contimgbot + 15);  // 다른 컴포넌트를 imgviewer 하단에 배치
-        // 		this.stt_file.set_top(contimgbot + 15);
-        // 		this.btn_addFile.set_top(contimgbot + 15);
-        // 		this.btn_deleteFile.set_top(contimgbot + 65);
-        // 		this.btn_addBoard.set_top(contimgbot + 175);
-        // 		this.btn_closeBoard.set_top(contimgbot + 175);
+         		this.grd_file.set_top(contimgbot + 15);  // 다른 컴포넌트를 imgviewer 하단에 배치
+         		this.stt_file.set_top(contimgbot + 15);
+         		this.btn_addFile.set_top(contimgbot + 15);
+         		this.btn_deleteFile.set_top(contimgbot + 65);
+         		this.btn_addBoard.set_top(contimgbot + 175);
+         		this.btn_closeBoard.set_top(contimgbot + 175);
         	}
         };
 
