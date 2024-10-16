@@ -116,8 +116,5 @@ public class StudentDTO {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
 
 }
