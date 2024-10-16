@@ -61,7 +61,7 @@
               <Band id="body">
                 <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:CHECK"/>
                 <Cell col="1" text="expr:currow + 1" textAlign="center"/>
-                <Cell col="2" text="bind:PROFESSOR_ID" textAlign="center"/>
+                <Cell col="2" text="bind:PROFESSOR_ID" textAlign="center" displaytype="normal" maskedittype="number"/>
                 <Cell col="3" text="bind:NAME" textAlign="center"/>
                 <Cell col="4" text="bind:PHONE" textAlign="center"/>
                 <Cell col="5" text="bind:EMAIL" textAlign="center"/>

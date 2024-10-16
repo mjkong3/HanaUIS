@@ -43,7 +43,7 @@
             obj = new Button("Test_Btn","715","460","205","72",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("바로넘어가기");
-            obj.set_visible("false");
+            obj.set_visible("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static05","55","70","450","420",null,null,null,null,null,null,this);
