@@ -27,6 +27,10 @@
         }
     }
     
+	function fn_classList() {
+	    location.href = "/HanaUIS/std/classList.do";
+	}
+    
     /* 수정 정보를 수정 */
     function fn_updateClassInfo(){
     	
@@ -73,69 +77,80 @@
         <div class="container">
         <h3>강의 정보</h3>
 
-        <table class="course-table">
-            <tr>
-                <th>강의명</th>
-                <td>${classInfo.className}</td>
-            </tr>
-            <tr>
-                <th>강의 코드</th>
-                <td>${classInfo.classCode}</td>
-            </tr>
-            <tr>
-                <th>교수명</th>
-                <td>${classInfo.name}</td>
-            </tr>
-            <tr>
-                <th>수강 정원</th>
-                <td>${classInfo.maxPeople} 명</td>
-            </tr>
-            <tr>
-                <th>강의 시간표</th>
-                <td>
-                    <table class="schedule-table">
-                    <fmt:formatDate value="${classInfo.classStart}" pattern="yyyy년  MM월  dd일"/>
-                    		~
-                    <fmt:formatDate value="${classInfo.classEnd}" pattern="yyyy년  MM월  dd일"/>
-                    
-				        <c:forEach var="schedule" items="${timetable}">
-				            <tr>
-				                <td>
-				                	<c:choose>
-					                    <c:when test="${schedule.weekDay == 1}">월요일</c:when>
-					                    <c:when test="${schedule.weekDay == 2}">화요일</c:when>
-					                    <c:when test="${schedule.weekDay == 3}">수요일</c:when>
-					                    <c:when test="${schedule.weekDay == 4}">목요일</c:when>
-					                    <c:when test="${schedule.weekDay == 5}">금요일</c:when>
-				                    </c:choose>
-				                </td>
-				                <td>${schedule.classHour} 교시</td>
-				                <td>${schedule.location}</td>
-				            </tr>
-				        </c:forEach>
-                    </table>
-                </td>
-            </tr>
-            <tr class="classInfoTD">
-              	<th>강의 개요</th>
-              	<td class="classInfo">
-	                <c:choose>
-				        <c:when test="${not empty student}">
-				        	<c:out value="${classInfo.classInfo}"/>
-				        </c:when>
-				        
-				        <c:when test="${not empty professor}">
-				        	<form id="infoForm" >
-					        	<input type="hidden" id="classCode" value="${classInfo.classCode}">
-				        		<textarea id="classInfo" class="classInfo">${classInfo.classInfo}</textarea>
-				        		<a href="javascript:fn_updateClassInfo()" class="button-like">수정</a>
+			<table class="course-table">
+				<tr>
+					<th>&ensp;강의명</th>
+					<td>${classInfo.className}</td>
+				</tr>
+				<tr>
+					<th>&ensp;강의 코드</th>
+					<td>${classInfo.classCode}</td>
+				</tr>
+				<tr>
+					<th>&ensp;교수명</th>
+					<td>${classInfo.name}</td>
+				</tr>
+				<tr>
+					<th>&ensp;수강 정원</th>
+					<td>${classInfo.maxPeople}명</td>
+				</tr>
+				<tr>
+					<th>&ensp;강의 시간표</th>
+					<td>
+						<table class="schedule-table">
+							<tr>
+								<td style="border: none;">
+									<fmt:formatDate value="${classInfo.classStart}" pattern="yyyy년  MM월  dd일" />
+										~
+									<fmt:formatDate value="${classInfo.classEnd}" pattern="yyyy년  MM월  dd일" />
+								</td>
+							</tr>
+							<c:forEach var="schedule" items="${timetable}">
+								<tr>
+									<td><c:choose>
+											<c:when test="${schedule.weekDay == 1}">월요일</c:when>
+											<c:when test="${schedule.weekDay == 2}">화요일</c:when>
+											<c:when test="${schedule.weekDay == 3}">수요일</c:when>
+											<c:when test="${schedule.weekDay == 4}">목요일</c:when>
+											<c:when test="${schedule.weekDay == 5}">금요일</c:when>
+										</c:choose></td>
+									<td>${schedule.classHour}교시</td>
+									<td>${schedule.location}</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</td>
+				</tr>
+				<tr class="classInfoTD">
+					<th>&ensp;<span class="redDot">*</span>강의 개요</th>
+					<td class="classInfo"><c:choose>
+						<c:when test="${not empty student}">
+							<c:out value="${classInfo.classInfo}" />
+						</c:when>
+
+						<c:when test="${not empty professor}">
+							<form id="infoForm">
+								<input type="hidden" id="classCode"
+									value="${classInfo.classCode}">
+								<textarea id="classInfo" class="classInfo">${classInfo.classInfo}</textarea>
+								<a href="javascript:fn_updateClassInfo()" class="button-like">수정</a>
 							</form>
-				        </c:when>
-				    </c:choose>
-              	</td>
-            </tr>
-        </table>
-    </div>
+						</c:when>
+					</c:choose></td>
+				</tr>
+			</table>
+			<c:choose>
+
+				<c:when test="${not empty student}">
+
+					<div class="back-button">
+						<a href="javascript:fn_classList()">목록</a>
+					</div>
+				</c:when>
+			</c:choose>
+
+
+		</div>
 
     </div>
 

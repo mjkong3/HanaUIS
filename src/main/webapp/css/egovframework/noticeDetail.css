@@ -58,11 +58,11 @@ td.boardImage img{
 }
 .back-button a {
     padding: 10px 20px;
-    background-color: #007BFF;
+    background-color: #0056B3;
     color: white;
     text-decoration: none;
     border-radius: 5px;
 }
 .back-button a:hover {
-    background-color: #0056b3;
+    background-color: navy;
 }

@@ -49,7 +49,7 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Div("Div00","66","70","1080","55",null,null,null,null,null,null,this);
+            obj = new Div("Div00","24","72","1080","55",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_border("1px solid #001414");
             this.addChild(obj.name, obj);
@@ -128,7 +128,7 @@
             obj.set_text("교수");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new BasicChart("cht_Score","49","140","1101","440",null,null,null,null,null,null,this);
+            obj = new BasicChart("cht_Score","33","142","1101","440",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_binddataset("ds_chart");
             obj.set_visible("true");
@@ -257,7 +257,7 @@
             obj.set_categorycolumn("bind:등급");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_board","49","10","191","50",null,null,null,null,null,null,this);
+            obj = new Static("stt_board","24","10","191","50",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_text("성적 통계");
             obj.set_font("30px/normal \"Gulim\"");

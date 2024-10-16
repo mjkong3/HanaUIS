@@ -15,7 +15,7 @@ public interface AdSignClassMapper {
 	public void deleteAdSignClass(Map<String, Object> param);
 	
 	// 수강신청 분류하기
-	List<Map<String, Object>> selectDeptList();
+	List<Map<String, Object>> selectDeptList(Map<String, Object> param);
 	
 	// <팝업> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 	

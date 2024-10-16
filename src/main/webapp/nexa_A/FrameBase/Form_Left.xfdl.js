@@ -33,13 +33,13 @@
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"190\"/></Columns><Rows><Row size=\"40\"/></Rows><Band id=\"body\"><Cell displaytype=\"treeitemcontrol\" edittype=\"tree\" treelevel=\"bind:MENU_LEVEL\" treestartlevel=\"1\" text=\"bind:MENU_NM\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_logout","0","0","192","20",null,null,null,null,null,null,this);
+            obj = new Button("btn_logout","0","30","192","20",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_text("로그아웃");
             obj.set_border("1px none darkblue, 1px solid darkblue, 1px solid darkblue, 1px none darkblue");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stc_admin","0","20","192","30",null,null,null,null,null,null,this);
+            obj = new Static("stc_admin","0","0","192","30",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_textAlign("center");
             obj.set_border("1px solid darkblue");
