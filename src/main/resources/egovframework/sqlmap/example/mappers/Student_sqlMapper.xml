@@ -175,7 +175,13 @@
 					ELSE 0
 				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 1.0 THEN 'D'
 				ELSE 'F'
-				END AS totalCredit
+				END AS totalCredit,
+				
+			    SUM(CASE WHEN E.GRADE = 'A' THEN 1 ELSE 0 END) AS countA,
+			    SUM(CASE WHEN E.GRADE = 'B' THEN 1 ELSE 0 END) AS countB,
+			    SUM(CASE WHEN E.GRADE = 'C' THEN 1 ELSE 0 END) AS countC,
+			    SUM(CASE WHEN E.GRADE = 'D' THEN 1 ELSE 0 END) AS countD,
+			    SUM(CASE WHEN E.GRADE = 'F' THEN 1 ELSE 0 END) AS countF
 		FROM ENROLLMENT E
 			LEFT JOIN CLASS C ON E.CLASS_CODE = C.CLASS_CODE
 		WHERE E.STUDENT_ID = #{studentId}
@@ -210,6 +216,84 @@
 			studentYear DESC, semester DESC
 		LIMIT 
 			#{pageSize} OFFSET #{offset}
+	</select>
+	
+
+	<select id="myTotalAvgGrade" resultType="Map">
+		WITH StudentGrades AS (
+		    SELECT 
+		        E.STUDENT_ID AS studentId,
+		        E.STUDENT_YEAR AS studentYear,
+		        E.SEMESTER AS semester,
+		        ROUND(SUM(CASE
+		            WHEN E.GRADE = 'A' THEN 4.5
+		            WHEN E.GRADE = 'B' THEN 3.5
+		            WHEN E.GRADE = 'C' THEN 2.5
+		            WHEN E.GRADE = 'D' THEN 1.5
+		            WHEN E.GRADE = 'F' THEN 0
+		            ELSE 0
+		        END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) AS totalGrade,
+		        CASE
+		            WHEN ROUND(SUM(CASE
+		                WHEN E.GRADE = 'A' THEN 4.5
+		                WHEN E.GRADE = 'B' THEN 3.5
+		                WHEN E.GRADE = 'C' THEN 2.5
+		                WHEN E.GRADE = 'D' THEN 1.5
+		                WHEN E.GRADE = 'F' THEN 0
+		                ELSE 0
+		            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 4.0 THEN 'A'
+		            WHEN ROUND(SUM(CASE
+		                WHEN E.GRADE = 'A' THEN 4.5
+		                WHEN E.GRADE = 'B' THEN 3.5
+		                WHEN E.GRADE = 'C' THEN 2.5
+		                WHEN E.GRADE = 'D' THEN 1.5
+		                WHEN E.GRADE = 'F' THEN 0
+		                ELSE 0
+		            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 3.0 THEN 'B'
+		            WHEN ROUND(SUM(CASE
+		                WHEN E.GRADE = 'A' THEN 4.5
+		                WHEN E.GRADE = 'B' THEN 3.5
+		                WHEN E.GRADE = 'C' THEN 2.5
+		                WHEN E.GRADE = 'D' THEN 1.5
+		                WHEN E.GRADE = 'F' THEN 0
+		                ELSE 0
+		            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 2.0 THEN 'C'
+		            WHEN ROUND(SUM(CASE
+		                WHEN E.GRADE = 'A' THEN 4.5
+		                WHEN E.GRADE = 'B' THEN 3.5
+		                WHEN E.GRADE = 'C' THEN 2.5
+		                WHEN E.GRADE = 'D' THEN 1.5
+		                WHEN E.GRADE = 'F' THEN 0
+		                ELSE 0
+		            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 1.0 THEN 'D'
+		            ELSE 'F'
+		        END AS totalCredit,
+		        SUM(CASE WHEN E.GRADE = 'A' THEN 1 ELSE 0 END) AS countA,
+		        SUM(CASE WHEN E.GRADE = 'B' THEN 1 ELSE 0 END) AS countB,
+		        SUM(CASE WHEN E.GRADE = 'C' THEN 1 ELSE 0 END) AS countC,
+		        SUM(CASE WHEN E.GRADE = 'D' THEN 1 ELSE 0 END) AS countD,
+		        SUM(CASE WHEN E.GRADE = 'F' THEN 1 ELSE 0 END) AS countF
+		    FROM ENROLLMENT E
+		    LEFT JOIN CLASS C ON E.CLASS_CODE = C.CLASS_CODE
+		    WHERE E.STUDENT_ID = #{studentId}
+		    GROUP BY E.STUDENT_YEAR, E.SEMESTER
+		)
+		SELECT 
+	        ROUND(AVG(totalGrade),2) AS avgTotalGrade,
+		    (CASE 
+		        WHEN AVG(totalGrade) >= 4.0 THEN 'A'
+		        WHEN AVG(totalGrade) >= 3.5 THEN 'B'
+		        WHEN AVG(totalGrade) >= 3.0 THEN 'C'
+		        WHEN AVG(totalGrade) >= 2.5 THEN 'D'
+		        WHEN AVG(totalGrade) >= 2.0 THEN 'F'
+		        ELSE 'F'
+		    END) AS avgTotalCredit,
+		    SUM(countA) AS totalCountA,
+		    SUM(countB) AS totalCountB, 
+		    SUM(countC) AS totalCountC, 
+		    SUM(countD) AS totalCountD, 
+		    SUM(countF) AS totalCountF
+		FROM StudentGrades
 	</select>
 	
 	<select id="countAllClass" parameterType="HashMap"

@@ -40,6 +40,7 @@ public interface StudentMapper {
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적조회
 	public List<Map<String, Object>> myGradeList(Map<String, Object> map);
 	public List<Map<String, Object>> myTotalGradeList(int studentId);
+	public Map<String, Object> myTotalAvgGrade(int studentId);
 	public int countAllClass(Map<String, Object> map);
 
 	

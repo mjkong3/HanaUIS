@@ -28,7 +28,6 @@ public interface StudentService {
 	
 	public List<Map<String, Object>> myTotalGradeList(int studentId);
 	
-	
 	public int countAllClass(Map<String, Object> map);
 	
 
@@ -69,6 +68,9 @@ public interface StudentService {
 	public int updateEmail(Map<String, Object> param);
 
 	public Map<String, Object> selectStudent(int studentId);
+
+	public Map<String, Object> myTotalAvgGrade(int studentId);
+
 
 	
 

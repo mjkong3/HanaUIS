@@ -102,6 +102,12 @@ public class StudentServiceImpl implements StudentService {
 		List<Map<String, Object>> totalGrade = mapper.myTotalGradeList(studentId);
 		return totalGrade;
 	}
+	
+	@Override
+	public Map<String, Object> myTotalAvgGrade(int studentId) {
+		return mapper.myTotalAvgGrade(studentId);
+	}
+	
 	@Override
 	public int countAllClass(Map<String, Object> map) {
 		return mapper.countAllClass(map);
@@ -146,6 +152,8 @@ public class StudentServiceImpl implements StudentService {
 	public int stuWhatYear(int studentId) {
 		return mapper.stuWhatYear(studentId);
 	}
+
+
 
 
 

@@ -301,6 +301,9 @@ public class StudentController {
 		List<Map<String, Object>> totalGradeList = studentService.myTotalGradeList(student.getStudentId());
 		model.addAttribute("totalGrade", totalGradeList);
 
+		Map<String, Object> totalAvgGrade = studentService.myTotalAvgGrade(student.getStudentId());
+		model.addAttribute("totalAvgGrade", totalAvgGrade);
+		
 		int totalClassCount = studentService.countAllClass(map);
 		PageHandler pageHandler = new PageHandler(totalClassCount, pageSize, page);
 		model.addAttribute("pageHandler", pageHandler);
