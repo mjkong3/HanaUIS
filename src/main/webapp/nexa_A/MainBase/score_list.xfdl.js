@@ -169,11 +169,11 @@
         /* 온로드*/
         this.score_list_onload = function(obj,e)
         {
-        	this.fn_searchDept();
+        	this.fn_searchDept(); // 학과코드 불러오기
 
 
 
-        	var currentYear = new Date().getFullYear();
+        	var currentYear = new Date().getFullYear(); // 해당년도 가져오기
             // ds_year 초기화
             this.ds_year.clearData();
         	var nRow = this.ds_year.addRow();
@@ -188,14 +188,14 @@
             }
         	trace(this.ds_year.getColumn(0,"DATA"))
         	var nYear = this.ds_year.getColumn(0,"YEAR");
-        	this.cmb_year.set_value(nYear);
-        	this.cmb_searchType.set_value(0);
+        	this.cmb_year.set_value(nYear);  //  콤보박스 기본값을 해당년도로 지정
+        	this.cmb_searchType.set_value(0); // 콤보박스 기본값을 0번컬럼으로 지정
         };
 
 
 
 
-        this.ds_dept_onrowposchanged = function(obj,e)
+        this.ds_dept_onrowposchanged = function(obj,e) // 학과코드 그리드에 컬럼 클릭시 이벤트 발동
         {
         	var row = this.ds_dept.rowposition;
         	trace(row);	var deptcd = this.ds_dept.getColumn(row, "DEPARTMENT_CODE");
@@ -205,7 +205,7 @@
 
 
         	this.fn_searchClass();
-        };
+        }; // 원하는 컬럼클릭시 해당 컬럼을 포지션으로 찾고 그 값에 해당하는 모든 수업들을 찾아서 ds_class에 넣어주는 역할
 
         this.grd_class_oncellclick = function(obj,e)
         {
@@ -216,14 +216,16 @@
         		var yearsm = this.ds_class.getColumn(row,"CLASS_START");;
         		var semesterm = this.ds_class.getColumn(row,"SEMESTER");;
         		var clascd = this.ds_class.getColumn(row,"CLASS_CODE");
-
+        		// 년도 학기 강의코드 선언 (트랜젝션해서 가져온ds_class 내부 값들에서 빼옴)
 
 
         		this.ds_searchSttudent.setColumn(0,"YEAR",yearsm);
         		this.ds_searchSttudent.setColumn(0,"SEMESTER",semesterm);
         		this.ds_searchSttudent.setColumn(0,"CLASS_CODE",clascd);
+        		// 위에서 선언한 친구들을 ds_searchStudent로 감싸서 트랜젝션 실행
 
-        		this.fn_searchStudent();
+
+        		this.fn_searchStudent();   // 트랜젝션 실행 하여
 
         };
 
@@ -279,7 +281,7 @@
             var row = this.ds_scoreList.rowposition;
 
             this.ds_scoreList.setColumn(row, "CHECK", "1");
-        };
+        }; // 성적 기입이 시작될때 이벤트 발생
 
 
 
