@@ -77,7 +77,7 @@
             obj.set_binddataset("ds_class");
             obj.set_autofittype("col");
             obj.set_cssclass("ATEAM");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"47\"/><Column size=\"71\"/><Column size=\"161\"/><Column size=\"145\"/><Column size=\"64\"/><Column size=\"68\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"NO\"/><Cell col=\"1\" text=\"강의코드\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"2\" text=\"강의명\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"3\" text=\"담당교수\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"4\" text=\"년도\"/><Cell col=\"5\" text=\"학기\"/></Band><Band id=\"body\"><Cell text=\"expr:currow+1\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:CLASS_CODE\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:CLASS_NAME\"/><Cell col=\"3\" text=\"bind:NAME\"/><Cell col=\"4\" text=\"bind:CLASS_START\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:SEMESTER\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"47\"/><Column size=\"71\"/><Column size=\"161\"/><Column size=\"145\"/><Column size=\"64\"/><Column size=\"68\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"NO\"/><Cell col=\"1\" text=\"강의코드\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"2\" text=\"강의명\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"3\" text=\"담당교수\" autosizerow=\"default\" autosizecol=\"default\"/><Cell col=\"4\" text=\"년도\"/><Cell col=\"5\" text=\"학기\"/></Band><Band id=\"body\"><Cell text=\"expr:currow+1\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:CLASS_CODE\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:CLASS_NAME\"/><Cell col=\"3\" text=\"bind:NAME\"/><Cell col=\"4\" text=\"bind:CLASS_START\" textAlign=\"center\" displaytype=\"mask\" maskedittype=\"string\"/><Cell col=\"5\" text=\"bind:SEMESTER\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Grid("grd_dept","50","60","400","160",null,null,null,null,null,null,this);
@@ -114,7 +114,7 @@
             obj.set_binddataset("ds_scoreList");
             obj.set_autofittype("col");
             obj.set_cssclass("ATEAM");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"수정\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"이름\"/><Cell col=\"3\" text=\"중간\"/><Cell col=\"4\" text=\"기말\"/><Cell col=\"5\" text=\"과제\"/><Cell col=\"6\" text=\"총점\"/><Cell col=\"7\" text=\"등급\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\"/><Cell col=\"2\" text=\"bind:NAME\"/><Cell col=\"3\" text=\"bind:MIDDLE_TEST\" displaytype=\"normal\" edittype=\"normal\"/><Cell col=\"4\" text=\"bind:FINAL_TEST\" edittype=\"normal\"/><Cell col=\"5\" text=\"bind:REPORT\" edittype=\"normal\"/><Cell col=\"6\" expr=\"nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)\"/><Cell col=\"7\" expr=\"nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 90 ? &apos;A&apos; : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 80 ? &apos;B&apos; : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 70 ? &apos;C&apos; : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 60 ? &apos;D&apos; : &apos;F&apos;\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"48\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"수정\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"이름\"/><Cell col=\"3\" text=\"중간\"/><Cell col=\"4\" text=\"기말\"/><Cell col=\"5\" text=\"과제\"/><Cell col=\"6\" text=\"총점\"/><Cell col=\"7\" text=\"등급\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\" displaytype=\"mask\" maskedittype=\"string\"/><Cell col=\"2\" text=\"bind:NAME\"/><Cell col=\"3\" text=\"bind:MIDDLE_TEST\" displaytype=\"normal\" edittype=\"normal\"/><Cell col=\"4\" text=\"bind:FINAL_TEST\" edittype=\"normal\"/><Cell col=\"5\" text=\"bind:REPORT\" edittype=\"normal\"/><Cell col=\"6\" expr=\"nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)\"/><Cell col=\"7\" expr=\"nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 90 ? &apos;A&apos; : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 80 ? &apos;B&apos; : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 70 ? &apos;C&apos; : nexacro.round((MIDDLE_TEST / 100.0 * 40) + (FINAL_TEST / 100.0 * 40) + (REPORT / 100.0 * 20),0)&gt;= 60 ? &apos;D&apos; : &apos;F&apos;\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_resetStd","405","230","63","26",null,null,null,null,null,null,this);
@@ -172,11 +172,11 @@
         /* 온로드*/
         this.score_list_onload = function(obj,e)
         {
-        	this.fn_searchDept();
+        	this.fn_searchDept(); // 학과코드 불러오기
 
 
 
-        	var currentYear = new Date().getFullYear();
+        	var currentYear = new Date().getFullYear(); // 해당년도 가져오기
             // ds_year 초기화
             this.ds_year.clearData();
         	var nRow = this.ds_year.addRow();
@@ -191,14 +191,14 @@
             }
         	trace(this.ds_year.getColumn(0,"DATA"))
         	var nYear = this.ds_year.getColumn(0,"YEAR");
-        	this.cmb_year.set_value(nYear);
-        	this.cmb_searchType.set_value(0);
+        	this.cmb_year.set_value(nYear);  //  콤보박스 기본값을 해당년도로 지정
+        	this.cmb_searchType.set_value(0); // 콤보박스 기본값을 0번컬럼으로 지정
         };
 
 
 
 
-        this.ds_dept_onrowposchanged = function(obj,e)
+        this.ds_dept_onrowposchanged = function(obj,e) // 학과코드 그리드에 컬럼 클릭시 이벤트 발동
         {
         	var row = this.ds_dept.rowposition;
         	trace(row);	var deptcd = this.ds_dept.getColumn(row, "DEPARTMENT_CODE");
@@ -208,7 +208,7 @@
 
 
         	this.fn_searchClass();
-        };
+        }; // 원하는 컬럼클릭시 해당 컬럼을 포지션으로 찾고 그 값에 해당하는 모든 수업들을 찾아서 ds_class에 넣어주는 역할
 
         this.grd_class_oncellclick = function(obj,e)
         {
@@ -219,14 +219,16 @@
         		var yearsm = this.ds_class.getColumn(row,"CLASS_START");;
         		var semesterm = this.ds_class.getColumn(row,"SEMESTER");;
         		var clascd = this.ds_class.getColumn(row,"CLASS_CODE");
-
+        		// 년도 학기 강의코드 선언 (트랜젝션해서 가져온ds_class 내부 값들에서 빼옴)
 
 
         		this.ds_searchSttudent.setColumn(0,"YEAR",yearsm);
         		this.ds_searchSttudent.setColumn(0,"SEMESTER",semesterm);
         		this.ds_searchSttudent.setColumn(0,"CLASS_CODE",clascd);
+        		// 위에서 선언한 친구들을 ds_searchStudent로 감싸서 트랜젝션 실행
 
-        		this.fn_searchStudent();
+
+        		this.fn_searchStudent();   // 트랜젝션 실행 하여
 
         };
 
@@ -282,7 +284,7 @@
             var row = this.ds_scoreList.rowposition;
 
             this.ds_scoreList.setColumn(row, "CHECK", "1");
-        };
+        }; // 성적 기입이 시작될때 이벤트 발생
 
 
 

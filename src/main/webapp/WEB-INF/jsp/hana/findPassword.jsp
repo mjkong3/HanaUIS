@@ -20,22 +20,6 @@
 	// 인증번호 빈칸 선언 및 초기화
 	let verificationCode = "";
 	
-	 // 유효성 검사
-	   /* $(document).ready(function() {
-      	let reg = /^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[~?!@#$%^&*_-])$/; // a-z, 0-9 특수문자가 포함되어 있는지, 8자 이상 넣으려면 .{8,} 뒤에 넣기
-
-	      // 이메일 수정 폼 제출 시 유효성 검사
-	      $('#password').on('click' ,'#changepwd', function() {
-	         const password = $('#password').val();
-	
-	         
-	         if (!reg.test(password)) {
-	            alert("비밀번호 형식이 올바르지 않습니다.");
-	            return false; // 유효성 검사 실패 시 제출 중단
-	         }
-	      })
-	   }); */
-	
 	// 인증코드 보내기 버튼 클릭 이벤트
  	$(document).on("click", "#btn_veriUser", function() {
  	/* event.preventDefault(); */
@@ -169,7 +153,7 @@
 					<tr>
 						<td><label for="name">이름</label></td>
 						<td><input type="text" id="name" name="name"
-							placeholder="이름을 입력하세요" required></td>
+							placeholder="이름을 입력하세요" ></td>
 					</tr>
 					<tr>
 						<td><label for="user-id">아이디</label></td>

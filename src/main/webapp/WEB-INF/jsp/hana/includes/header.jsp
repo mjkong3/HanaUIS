@@ -42,7 +42,10 @@
 
     <div class="logo">
        <a href="javascript:fn_notice()"><img src="<c:url value='/images/egovframework/logo.png'/>" alt=""/></a>
-        
+    </div>
+    
+    <div>
+     	<button onclick="javascript:fn_logout()">${student.name}<br>로그아웃</button>
     </div>
     <ul>
     
@@ -64,6 +67,5 @@
         <li> <a href="javascript:fn_schedule()">시간표</a></li>
     </ul>
     
-     	     <button onclick="javascript:fn_logout()">로그아웃</button>
     
 </div>

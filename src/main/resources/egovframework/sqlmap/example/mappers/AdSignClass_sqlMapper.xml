@@ -2,188 +2,198 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ateam.mapper.AdSignClassMapper">
 
-	<!-- 수강신청한 강의 데이터 불러오기 / 검색 -->
-	<!-- list grd에 목록 생성 -->
-	<select id="selectAdSignClass" parameterType="java.util.Map"
-		resultType="java.util.Map">
-		SELECT A.ENROLLMENT_CODE,
-		A.STUDENT_ID,
-		B.NAME,
-		D.DEPARTMENT_CODE,
-		D.DEPARTMENT_NAME,
-		C.CLASS_NAME,
-		C.CLASS_TYPE,
-		YEAR(C.CLASS_START) AS
-		YEAR,
-		C.CLASS_START,
-		C.CLASS_END,
-		A.STUDENT_YEAR,
-		A.SEMESTER,
-		E.NAME AS
-		PROFESSOR_NAME,
-		0 AS 'CHECK'
-		FROM ENROLLMENT A
-		INNER JOIN STUDENT B
-		ON
-		A.STUDENT_ID =
-		B.STUDENT_ID
-		INNER JOIN CLASS C
-		ON A.CLASS_CODE =
-		C.CLASS_CODE
-		INNER JOIN
-		DEPARTMENT D
-		ON C.DEPARTMENT_CODE =
-		D.DEPARTMENT_CODE
-		LEFT JOIN
-		PROFESSOR E
-		ON C.PROFESSOR_ID =
-		E.PROFESSOR_ID
+	<!-- 학과별x 수강신청 목록 -->
+	<select id="selectDeptList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT C.DEPARTMENT_CODE,
+		       C.DEPARTMENT_NAME,
+		       B.CLASS_CODE,
+		       B.CLASS_NAME,
+		       B.CLASS_TYPE,
+		       D.NAME AS PROFESSOR_NAME,
+			    GROUP_CONCAT(
+			        DISTINCT CASE
+			            WHEN F.CLASS_WEEK = 1 THEN '월'
+			            WHEN F.CLASS_WEEK = 2 THEN '화'
+			            WHEN F.CLASS_WEEK = 3 THEN '수'
+			            WHEN F.CLASS_WEEK = 4 THEN '목'
+			            WHEN F.CLASS_WEEK = 5 THEN '금'
+			            WHEN F.CLASS_WEEK = 6 THEN '토'
+			            WHEN F.CLASS_WEEK = 7 THEN '일'
+			            ELSE '요일 미정'
+			        	END
+			        ORDER BY F.CLASS_WEEK
+			        SEPARATOR ''
+			    ) AS CLASS_WEEK,
+			    CONCAT(
+			        GROUP_CONCAT(
+			            DISTINCT CASE
+			                WHEN F.TIME_NUMBER = 1 THEN '1'
+			                WHEN F.TIME_NUMBER = 2 THEN '2'
+			                WHEN F.TIME_NUMBER = 3 THEN '3'
+			                WHEN F.TIME_NUMBER = 4 THEN '4'
+			                WHEN F.TIME_NUMBER = 5 THEN '5'
+			                WHEN F.TIME_NUMBER = 6 THEN '6'
+			                WHEN F.TIME_NUMBER = 7 THEN '7'
+			                ELSE '시간 미정'
+			            END
+			            ORDER BY F.TIME_NUMBER
+			            SEPARATOR ','
+			        ),
+			        '교시'
+			    ) AS TIME_NUMBER,
+		    	COALESCE(G.CNT, 0) AS PEOPLE,
+			   E.MAX_PEOPLE,
+			   B.CLASS_GRADE,
+			   E.CLASSROOM_NAME
+		FROM CLASS B
+		INNER JOIN DEPARTMENT C ON B.DEPARTMENT_CODE = C.DEPARTMENT_CODE
+		INNER JOIN CLASS_TIME F ON B.CLASS_CODE = F.CLASS_CODE
+		LEFT JOIN PROFESSOR D ON B.PROFESSOR_ID = D.PROFESSOR_ID
+		INNER JOIN CLASSROOM E ON B.CLASSROOM_ID = E.CLASSROOM_ID
+		LEFT JOIN (
+		    SELECT I.CLASS_CODE, COUNT(I.STUDENT_ID) AS CNT
+		    FROM ENROLLMENT I
+		    INNER JOIN CLASS J ON I.CLASS_CODE = J.CLASS_CODE
+		    WHERE YEAR(J.CLASS_START) = #{YEAR}
+		    AND YEAR(I.REG_DTM) = #{YEAR} 
+		    AND J.SEMESTER = #{SEMESTER}
+		    GROUP BY I.CLASS_CODE
+		) G ON B.CLASS_CODE = G.CLASS_CODE
 		WHERE 1 = 1
 		<if test="SEARCH_WORD != null">
-			<if test="SEARCH_TYPE == 'ALL'">
-				AND (A.STUDENT_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-				OR B.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-				OR D.DEPARTMENT_CODE
-				LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-				OR D.DEPARTMENT_NAME LIKE
-				CONCAT('%', #{SEARCH_WORD}, '%')
-				OR C.CLASS_NAME LIKE CONCAT('%',
-				#{SEARCH_WORD}, '%')
-				OR C.CLASS_TYPE LIKE CONCAT('%', #{SEARCH_WORD},
-				'%')
-				OR C.CLASS_START LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-				OR
-				C.CLASS_END LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-				OR A.STUDENT_YEAR
-				LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-				OR A.SEMESTER LIKE CONCAT('%',
-				#{SEARCH_WORD}, '%')
-				OR E.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
-			</if>
-			<if test="SEARCH_TYPE == 'STUDENT_ID'">
-				AND A.STUDENT_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-			</if>
-			<if test="SEARCH_TYPE == 'NAME'">
-				AND B.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+			<if test="SEARCH_TYPE == 'ALL'"> 
+				AND (B.CLASS_NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				OR B.CLASS_TYPE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				OR D.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
 			</if>
 			<if test="SEARCH_TYPE == 'CLASS_NAME'">
-				AND C.CLASS_NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				AND B.CLASS_NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
 			</if>
 			<if test="SEARCH_TYPE == 'CLASS_TYPE'">
-				AND C.CLASS_TYPE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				AND B.CLASS_TYPE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
 			</if>
 			<if test="SEARCH_TYPE == 'PROFESSOR_NAME'">
-				AND E.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+				AND D.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
 			</if>
 		</if>
-		<if test="DEPARTMENT_CODE != 0">
-			AND D.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
-		</if>
-		<if test="YEAR != null and YEAR != ''">
-			AND YEAR(C.CLASS_START) = #{YEAR}
-		</if>
-		<if test="SEMESTER != null and SEMESTER != ''">
-			AND A.SEMESTER = #{SEMESTER}
-		</if>
+		AND YEAR(B.CLASS_START) = #{YEAR}
+		AND B.SEMESTER = #{SEMESTER}
+		GROUP BY C.DEPARTMENT_CODE,
+			     C.DEPARTMENT_NAME,
+			     B.CLASS_CODE,
+			     B.CLASS_NAME,
+			     B.CLASS_TYPE,
+			     D.NAME,
+			     E.MAX_PEOPLE,
+			     B.CLASS_GRADE,
+			     E.CLASSROOM_NAME
+		ORDER BY B.CLASS_CODE;
+	</select>
+	
+	<!-- 수강신청한 강의 데이터 불러오기 / 검색 -->
+	<!-- list grd에 목록 생성 -->
+	<select id="selectAdSignClass" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT A.ENROLLMENT_CODE,
+				A.STUDENT_ID,
+				B.NAME,
+				B.DEPARTMENT_CODE,
+				D.DEPARTMENT_NAME,
+				0 AS 'CHECK'
+		FROM ENROLLMENT A
+		LEFT JOIN STUDENT B ON A.STUDENT_ID = B.STUDENT_ID
+		INNER JOIN CLASS C ON A.CLASS_CODE = C.CLASS_CODE
+		LEFT JOIN DEPARTMENT D ON B.DEPARTMENT_CODE = D.DEPARTMENT_CODE
+		WHERE 1 = 1
+		AND A.CLASS_CODE = #{CLASS_CODE}
+		AND YEAR(A.REG_DTM) = #{YEAR}
+		AND A.SEMESTER = #{SEMESTER}
 	</select>
 
 	<!-- list grd에 체크된 값들 삭제처리 -->
 	<delete id="deleteAdSignClass" parameterType="java.util.Map">
-		DELETE FROM
-		ENROLLMENT
+		DELETE FROM ENROLLMENT
 		WHERE ENROLLMENT_CODE = #{ENROLLMENT_CODE};
 	</delete>
-
-
-
-	<!-- 학과별 조회 수정하기 -->
-	<select id="selectDeptList" parameterType="java.util.Map"
-		resultType="java.util.Map">
-		SELECT A.DEPARTMENT_CODE,
-		A.DEPARTMENT_NAME,
-		B.CLASS_NAME,
-		COUNT(C.STUDENT_ID) AS PEOPLE,
-		D.MAX_PEOPLE
-		FROM DEPARTMENT A
-		INNER JOIN
-		CLASS B
-		ON A.DEPARTMENT_CODE =
-		B.DEPARTMENT_CODE
-		INNER JOIN ENROLLMENT C
-		ON B.CLASS_CODE =
-		C.CLASS_CODE
-		INNER JOIN CLASSROOM D ON B.CLASSROOM_ID
-		= D.CLASSROOM_ID
-		WHERE YEAR(B.CLASS_START) = YEAR(CURRENT_DATE())
-		AND
-		C.SEMESTER = CASE
-		WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
-		ELSE 2
-		END
-		GROUP BY A.DEPARTMENT_NAME,
-		B.CLASS_NAME,
-		D.MAX_PEOPLE;
-	</select>
 
 	<!-- <팝업> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 
 	<!-- 재학 중인 학생들 불러오기 -->
-	<select id="selectDeptUserList" parameterType="java.util.Map"
-		resultType="java.util.Map">
+	<select id="selectDeptUserList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT A.NAME,
-		A.STUDENT_ID,
-		A.DEPARTMENT_CODE,
-		B.DEPARTMENT_NAME
-		FROM STUDENT A
-		INNER JOIN DEPARTMENT B
-		ON
-		A.DEPARTMENT_CODE =
-		B.DEPARTMENT_CODE
+			A.STUDENT_ID,
+			A.DEPARTMENT_CODE,
+			B.DEPARTMENT_NAME,
+			A.UNIV_YEAR AS STUDENT_YEAR
+			FROM STUDENT A
+			INNER JOIN DEPARTMENT B ON A.DEPARTMENT_CODE = B.DEPARTMENT_CODE
 		WHERE A.STATUS = '재학중';
 	</select>
 
 	<!-- 모든 수강목록 리스트 조회 -->
-	<select id="selectClassFullList" parameterType="java.util.Map"
-		resultType="java.util.Map">
+	<select id="selectClassFullList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT A.CLASS_CODE,
-		C.DEPARTMENT_NAME,
-		A.CLASS_NAME,
-		A.CLASS_TYPE,
-		B.NAME
-		AS PROFESSOR_NAME,
-		A.CLASS_START,
-		A.CLASS_END,
-		COUNT(E.STUDENT_ID) AS
-		PEOPLE,
-		D.MAX_PEOPLE,
-		A.CLASS_GRADE,
-		0 AS 'CHECK'
+		       C.DEPARTMENT_NAME,
+		       A.CLASS_NAME,
+		       A.CLASS_TYPE,
+		       B.NAME AS PROFESSOR_NAME,
+		       COALESCE(G.CNT, 0) AS PEOPLE,
+		       D.MAX_PEOPLE,
+		       A.CLASS_GRADE,
+		       0 AS 'CHECK',
+		       GROUP_CONCAT(
+		           DISTINCT CASE
+		           WHEN F.CLASS_WEEK = 1 THEN '월'
+		           WHEN F.CLASS_WEEK = 2 THEN '화'
+		           WHEN F.CLASS_WEEK = 3 THEN '수'
+		           WHEN F.CLASS_WEEK = 4 THEN '목'
+		           WHEN F.CLASS_WEEK = 5 THEN '금'
+		           WHEN F.CLASS_WEEK = 6 THEN '토'
+		           WHEN F.CLASS_WEEK = 7 THEN '일'
+		           ELSE '요일 미정'
+		           END
+		           ORDER BY F.CLASS_WEEK
+		           SEPARATOR ''
+		       ) AS CLASS_WEEK,
+		       CONCAT(
+		           GROUP_CONCAT(
+		               DISTINCT CASE
+		               WHEN F.TIME_NUMBER = 1 THEN '1'
+		               WHEN F.TIME_NUMBER = 2 THEN '2'
+		               WHEN F.TIME_NUMBER = 3 THEN '3'
+		               WHEN F.TIME_NUMBER = 4 THEN '4'
+		               WHEN F.TIME_NUMBER = 5 THEN '5'
+		               WHEN F.TIME_NUMBER = 6 THEN '6'
+		               WHEN F.TIME_NUMBER = 7 THEN '7'
+		               ELSE '시간 미정'
+		               END
+		               ORDER BY F.TIME_NUMBER
+		               SEPARATOR ','
+		           ),
+		           '교시'
+		       ) AS TIME_NUMBER
 		FROM CLASS A
-		LEFT JOIN PROFESSOR B
-		ON
-		A.PROFESSOR_ID = B.PROFESSOR_ID
-		LEFT JOIN DEPARTMENT C
-		ON
-		A.DEPARTMENT_CODE = C.DEPARTMENT_CODE
-		INNER JOIN CLASSROOM D
-		ON
-		A.CLASSROOM_ID = D.CLASSROOM_ID
-		LEFT JOIN ENROLLMENT E
-		ON A.CLASS_CODE =
-		E.CLASS_CODE
+		LEFT JOIN PROFESSOR B ON A.PROFESSOR_ID = B.PROFESSOR_ID
+		LEFT JOIN DEPARTMENT C ON A.DEPARTMENT_CODE = C.DEPARTMENT_CODE
+		INNER JOIN CLASSROOM D ON A.CLASSROOM_ID = D.CLASSROOM_ID
+		LEFT JOIN (
+		    SELECT I.CLASS_CODE, COUNT(I.STUDENT_ID) AS CNT
+		    FROM ENROLLMENT I
+		    INNER JOIN CLASS J ON I.CLASS_CODE = J.CLASS_CODE
+		    WHERE YEAR(J.CLASS_START) = YEAR(CURRENT_DATE())
+		      AND J.SEMESTER = CASE WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1 ELSE 2 END
+		    GROUP BY I.CLASS_CODE
+		) G ON A.CLASS_CODE = G.CLASS_CODE
+		INNER JOIN CLASS_TIME F ON A.CLASS_CODE = F.CLASS_CODE
 		WHERE 1 = 1
-		AND YEAR(A.CLASS_START) = YEAR(CURRENT_DATE())
-		AND A.SEMESTER = CASE WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN
-		1
-		ELSE 2
-		END
-		GROUP BY C.DEPARTMENT_NAME,
-		A.CLASS_NAME,
-		A.CLASS_TYPE,
-		B.NAME,
-		A.CLASS_START,
-		A.CLASS_END,
-		D.MAX_PEOPLE;
+		  AND YEAR(A.CLASS_START) = YEAR(CURRENT_DATE())
+		  AND A.SEMESTER = CASE WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1 ELSE 2 END
+		GROUP BY A.CLASS_CODE,
+		         C.DEPARTMENT_NAME,
+		         A.CLASS_NAME,
+		         A.CLASS_TYPE,
+		         B.NAME,
+		         D.MAX_PEOPLE
+		ORDER BY A.CLASS_TYPE DESC;
 	</select>
 
 	<!-- 수강신청한 학점 총합 보기 -->
@@ -206,18 +216,55 @@
 			   B.CLASS_NAME,
 			   B.CLASS_TYPE,
 			   B.CLASS_GRADE,
-			   B.CLASS_CODE
+			   B.CLASS_CODE,
+		   		GROUP_CONCAT(
+						DISTINCT CASE
+						WHEN F.CLASS_WEEK = 1 THEN '월'
+						WHEN F.CLASS_WEEK = 2 THEN '화'
+						WHEN F.CLASS_WEEK = 3 THEN '수'
+						WHEN F.CLASS_WEEK = 4 THEN '목'
+						WHEN F.CLASS_WEEK = 5 THEN '금'
+						WHEN F.CLASS_WEEK = 6 THEN '토'
+						WHEN F.CLASS_WEEK = 7 THEN '일'
+						ELSE '요일 미정'
+						END
+						ORDER BY F.CLASS_WEEK
+						SEPARATOR ''
+					) AS CLASS_WEEK,
+				CONCAT(
+				    GROUP_CONCAT(
+				        DISTINCT CASE
+				        WHEN F.TIME_NUMBER = 1 THEN '1'
+				        WHEN F.TIME_NUMBER = 2 THEN '2'
+				        WHEN F.TIME_NUMBER = 3 THEN '3'
+				        WHEN F.TIME_NUMBER = 4 THEN '4'
+				        WHEN F.TIME_NUMBER = 5 THEN '5'
+				        WHEN F.TIME_NUMBER = 6 THEN '6'
+				        WHEN F.TIME_NUMBER = 7 THEN '7'
+				        ELSE '시간 미정'
+				        END
+				        ORDER BY F.TIME_NUMBER
+				        SEPARATOR ','
+				    ),
+				    '교시'
+				) AS TIME_NUMBER,
+				D.NAME AS PROFESSOR_NAME
 		FROM ENROLLMENT A
-		INNER JOIN CLASS B
-		ON A.CLASS_CODE = B.CLASS_CODE
-		INNER JOIN DEPARTMENT C
-		ON B.DEPARTMENT_CODE = C.DEPARTMENT_CODE
+		INNER JOIN CLASS B ON A.CLASS_CODE = B.CLASS_CODE
+		INNER JOIN DEPARTMENT C ON B.DEPARTMENT_CODE = C.DEPARTMENT_CODE
+		INNER JOIN CLASS_TIME F ON A.CLASS_CODE = F.CLASS_CODE
+		INNER JOIN PROFESSOR D ON B.PROFESSOR_ID = D.PROFESSOR_ID
 		WHERE YEAR(B.CLASS_START) = YEAR(CURRENT_DATE())
 		AND B.SEMESTER = CASE
 						 WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
 						 ELSE 2
 						 END
-		AND A.STUDENT_ID = #{param};
+		AND A.STUDENT_ID = #{param}
+		GROUP BY C.DEPARTMENT_NAME,
+			   B.CLASS_NAME,
+			   B.CLASS_TYPE,
+			   B.CLASS_GRADE,
+			   B.CLASS_CODE
 	</select>
 	
 	<!-- 수강신청 -->
@@ -229,7 +276,13 @@
 			SEMESTER,
 			REG_DTM,
 			CRE_DTM,
-			CRE_USR
+			CRE_USR,
+			SCORE,
+			GRADE,
+			MIDDLE_TEST,
+			FINAL_TEST,
+			REPORT,
+			STUDENT_YEAR
 		) VALUES 
 		(
 			#{CLASS_CODE},
@@ -240,7 +293,13 @@
 			END,
 			SYSDATE(),
 			SYSDATE(),
-			#{STUDENT_ID}
+			#{STUDENT_ID},
+			0,
+			'F',
+			0,
+			0,
+			0,
+			#{STUDENT_YEAR}
 		)
 	</insert>
 

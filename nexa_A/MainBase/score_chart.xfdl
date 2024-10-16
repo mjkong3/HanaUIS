@@ -3,7 +3,7 @@
   <Form id="score_chart" width="1280" height="720" titletext="New Form" onload="score_chart_onload" enable="true">
     <Layouts>
       <Layout height="720" width="1280">
-        <Div id="Div00" taborder="1" left="50" top="72" width="1080" height="55" border="1px solid #001414">
+        <Div id="Div00" taborder="1" left="24" top="72" width="1080" height="55" border="1px solid #001414">
           <Layouts>
             <Layout>
               <Combo id="cmb_Dept" taborder="0" text="Combo00" left="50" top="11" width="130" height="29" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" onitemchanged="Div00_cmb_Dept_onitemchanged" displaynulltext="학과를 선택하세요"/>
@@ -141,7 +141,7 @@
 	}
 }]]></Contents>
         </BasicChart>
-        <Static id="stt_board" taborder="2" text="성적 통계" left="49" top="10" width="191" height="50" font="30px/normal &quot;Gulim&quot;" onclick="stt_board_onclick"/>
+        <Static id="stt_board" taborder="2" text="성적 통계" left="24" top="10" width="191" height="50" font="30px/normal &quot;Gulim&quot;" onclick="stt_board_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
