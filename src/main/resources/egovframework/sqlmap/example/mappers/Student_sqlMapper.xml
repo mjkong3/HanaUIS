@@ -186,6 +186,7 @@
 		SELECT 
 				E.CLASS_CODE 	AS classCode,
 				C.CLASS_NAME 	AS className,
+				C.CLASS_TYPE    AS classType,
 				S.STUDENT_ID 	AS studentId,
 				S.NAME 			AS studentName,
 				E.STUDENT_YEAR 	AS studentYear,
@@ -206,7 +207,7 @@
 			AND E.SEMESTER = #{semester}
 		</if>
 		ORDER BY 
-			studentYear, semester DESC
+			studentYear DESC, semester DESC
 		LIMIT 
 			#{pageSize} OFFSET #{offset}
 	</select>
@@ -315,6 +316,9 @@
 			CLASS_CODE,
 			STUDENT_ID,
 			SEMESTER,
+			MIDDLE_TEST,
+			FINAL_TEST,
+			REPORT,
 			REG_DTM,
 			CRE_DTM,
 			CRE_USR
@@ -326,6 +330,9 @@
 				WHEN MONTH(NOW()) BETWEEN 2 AND 6 THEN 1
 				ELSE 2
 			END,
+			0,
+			0,
+			0,
 			SYSDATE(),
 			SYSDATE(),
 			#{studentId}

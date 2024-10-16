@@ -19,7 +19,7 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("ds_StudentList", this);
-            obj._setContents("<ColumnInfo><Column id=\"REG_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"STATUS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"APPROVED\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"REG_DTM\">20241002</Col><Col id=\"STUDENT_ID\">240000</Col><Col id=\"STATUS_TYPE\">복학</Col><Col id=\"APPROVED\"> Y</Col></Row></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"REG_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"STUDENT_ID\" type=\"INT\" size=\"256\"/><Column id=\"STATUS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"APPROVED\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"REG_DTM\">20241002</Col><Col id=\"STUDENT_ID\">240000</Col><Col id=\"STATUS_TYPE\">복학</Col><Col id=\"APPROVED\"> Y</Col></Row></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -52,7 +52,8 @@
             obj.set_taborder("0");
             obj.set_binddataset("ds_StudentList");
             obj.set_autofittype("col");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"43\"/><Column size=\"156\"/><Column size=\"80\"/><Column size=\"62\"/><Column size=\"69\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"No\" tooltiptext=\"expr:\"/><Cell col=\"1\" text=\"신청일\" calendardateformat=\"yyyy-MM-dd\"/><Cell col=\"2\" text=\"학번\"/><Cell col=\"3\" text=\"신청유형\"/><Cell col=\"4\" text=\"승인여부\"/><Cell col=\"5\" text=\"이름\"/></Band><Band id=\"body\" cssclass=\"expr:APPROVED==&apos;C&apos;?&apos;aaa&apos;:&apos;bbb&apos;\"><Cell text=\"expr:currow + 1 \" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:REG_DTM\" calendardateformat=\"yyyy-MM-dd\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:STUDENT_ID\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:STATUS_TYPE\" textAlign=\"center\"/><Cell col=\"4\" textAlign=\"center\" text=\"bind:APPROVED\" cssclass=\"expr:APPROVED==&apos;미확인&apos;?&apos;backgroundRed&apos;:&apos;&apos;\"/><Cell col=\"5\" text=\"bind:NAME\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj.set_cssclass("ATEAM");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"43\"/><Column size=\"156\"/><Column size=\"80\"/><Column size=\"62\"/><Column size=\"69\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"No\" tooltiptext=\"expr:\"/><Cell col=\"2\" text=\"신청일\" calendardateformat=\"yyyy-MM-dd\"/><Cell col=\"3\" text=\"학번\"/><Cell col=\"4\" text=\"신청유형\"/><Cell col=\"5\" text=\"승인여부\"/><Cell col=\"6\" text=\"이름\"/></Band><Band id=\"body\" cssclass=\"expr:APPROVED==&apos;C&apos;?&apos;aaa&apos;:&apos;bbb&apos;\"><Cell edittype=\"checkbox\" displaytype=\"checkboxcontrol\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"expr:currow + 1 \" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:REG_DTM\" calendardateformat=\"yyyy-MM-dd\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:STUDENT_ID\" textAlign=\"center\" edittype=\"normal\" maskedittype=\"string\" displaytype=\"mask\"/><Cell col=\"4\" text=\"bind:STATUS_TYPE\" textAlign=\"center\"/><Cell col=\"5\" textAlign=\"center\" text=\"bind:APPROVED\" cssclass=\"expr:APPROVED==&apos;미확인&apos;?&apos;backgroundRed&apos;:&apos;&apos;\"/><Cell col=\"6\" text=\"bind:NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00","658","100","98","50",null,null,null,null,null,null,this);
@@ -530,6 +531,7 @@
         //삭제버튼 클릭
         this.btn_Delete_onclick = function(obj,e)
         {
+
         	  if(confirm("정말로 삭제하시겠습니까?")){
         		 var statusCode = this.ds_StudentDetail.getColumn(0, "STATUS_CODE");
                  this.fn_statusDelete(statusCode);
@@ -589,6 +591,7 @@
            trace("하하핳ㅎ");
            }
         };
+
         //그리드 내 학생 클릭
         this.cell_student_onclick = function(obj,e)
         {
@@ -726,7 +729,34 @@
         ///////////////////////////////////////////////// 그리드 필터 정렬기능 : 구자명
         this.grd_applicationList_onheadclick = function(obj,e)
         {
-           this.fn_sort(obj, e);
+          // 체크박스 컬럼 헤더 셀 클릭 시 전체 선택/해제
+            if (obj.getCellProperty("head", e.cell, "displaytype") == "checkboxcontrol") {
+
+              // 아래 속성에서 0은 그리드에서 0번쨰 column을 의미하며 text 값을 가져오라는 의미입니다.
+              var chkVal = obj.getCellProperty("head", 0, "text");
+
+              // 0이면 체크 안된 상태이고 1이면 체크된 상태임을 의미합니다.
+              if (chkVal == "1") { // 이미 체크된 상태라면 체크 해지로 변환
+                 chkVal   = "0";
+                 obj.setCellProperty("head", 0, "text", chkVal); //프론트에 적용 HEAD 부분
+                 for (var i=0; i<this.ds_StudentList.rowcount; i++) { //프론트에 적용 ROW 부분
+                    this.ds_StudentList.setColumn(i,"CHECK","0");
+                 }
+              } else {
+                 chkVal   = "1"; //체크 안 된 상태라면 체크 표시
+                 obj.setCellProperty("head", 0, "text", chkVal); //프론트에 HEAD 적용
+                 for (var i=0; i<this.ds_StudentList.rowcount; i++) { //프론트에 적용 ROW 부분
+                    this.ds_StudentList.setColumn(i,"CHECK","1");
+                 }
+
+              }
+            } else {
+                // 정렬 기능 실행
+                this.fn_sort(obj, e);
+            }
+
+            obj.clearSelect();   // 선택된 셀 해제
+            obj.setFocus(false); // 포커스 해제
         };
 
 
@@ -774,19 +804,6 @@
            this.nPrevCell = e.cell;
 
         };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         });

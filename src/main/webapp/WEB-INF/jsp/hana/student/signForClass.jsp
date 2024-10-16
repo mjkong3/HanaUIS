@@ -135,9 +135,8 @@
          <h3>
             수강 신청<span id="semester-title"></span>
          </h3>
-         <form action="/HanaUIS/std/signForClass.do" method="post">
-            <span class="search">개설 과목</span>&nbsp;
-            <c:set var="selectedDepartment"
+         <form action="/HanaUIS/std/signForClass.do" method="post" style="float: right;">
+            <c:set var="selectedDepartment" 
                value="${sessionScope.selectedDepartment}" />
             <select name="departmentCode" onchange="this.form.submit()">
                <option value="0" ${selectedDepartment == 0 ? 'selected' : ''}>전체
@@ -151,10 +150,13 @@
          </form>
          <form id="form_enroll" action="/HanaUIS/std/enrollClass.do"
             method="post" onsubmit="return validateForm()">
+            
             <input type="hidden" name="studentId"
                value="${sessionScope.studentId}" />
-            <p style="color: grey;">최대 신청 가능한 학점은 15점 입니다.</p>
+               
             <div class="scroll-table">
+                                      
+            
                <table id="allClass">
                   <colgroup>
                      <col width="3%">
@@ -218,7 +220,9 @@
                   </span></th>
                </tr>
             </table>
-            <br>
+             <p style="color: grey;">신청 가능한 최대 학점은 15점 입니다.</p>
+            <button type="submit" id="enroll-button"
+               style="float: right; ">수강신청</button>
             <table id="checkedClass">
                <caption>선택 강의</caption>
                <colgroup>
@@ -262,8 +266,7 @@
                   </tr>
                </tfoot>
             </table>
-            <button type="submit" id="enroll-button"
-               style="float: right; margin-bottom: 3rem;">수강신청</button>
+
          </form>
          <table>
             <caption>신청 완료</caption>

@@ -3,7 +3,7 @@
   <Form id="classroomadd" width="516" height="340" titletext="New Form" onload="classroomadd_onload">
     <Layouts>
       <Layout height="340" width="516">
-        <Grid id="grd_classroom" taborder="0" left="0" top="0" width="516" height="291" binddataset="ds_classroom" autofittype="col">
+        <Grid id="grd_classroom" taborder="0" left="0" top="0" width="516" height="291" binddataset="ds_classroom" autofittype="col" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -21,8 +21,8 @@
                 <Cell col="2" text="정원"/>
               </Band>
               <Band id="body">
-                <Cell textAlign="center" displaytype="expr:CLASSROOM_ID==null ? 'imagecontrol' : 'text'" text="expr:CLASSROOM_ID ==null ? 'image::plusbtn.png' : CLASSROOM_ID" imagestretch="fixaspectratio"/>
-                <Cell col="1" text="bind:CLASSROOM_NAME" textAlign="center"/>
+                <Cell textAlign="center" text="bind:CLASSROOM_ID" imagestretch="fixaspectratio"/>
+                <Cell col="1" text="expr:CLASSROOM_NAME ==null ? 'image::plusbtn.png' : CLASSROOM_NAME" textAlign="center" displaytype="expr:CLASSROOM_NAME==null ? 'imagecontrol' : 'text'" imagestretch="fixaspectratio"/>
                 <Cell col="2" text="bind:MAX_PEOPLE" textAlign="center"/>
               </Band>
             </Format>

@@ -1,17 +1,17 @@
 <%@ page contentType="application/octet-stream;charset=utf-8" errorPage="/errorpage.jsp"%>
 <%@ page import="java.io.*, java.net.URLConnection, java.net.URLEncoder" %>
 <%
-    // 파일 이름과 경로 설정
+    // fileName의 파라미터 받아오기, 실제 파일 경로 만들기
     String fileName = request.getParameter("fileName");
     String filePath = "C:\\upload\\" + fileName;
     
     File file = new File(filePath);
     
     if (file.exists()) {
-        // 파일의 MIME 타입 추측
+        // 파일의 MIMETYPE 추측
         String mimeType = URLConnection.guessContentTypeFromName(file.getName());
         
-        // MIME 타입을 찾지 못할 경우 기본값 설정
+        // MIMETYPE을 찾지 못할 경우 기본값 설정
         if (mimeType == null) {
             mimeType = "application/octet-stream";
         }

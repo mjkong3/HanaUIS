@@ -36,46 +36,63 @@
 
        
        function fn_updateGrade(studentId) {
-           let formData = $("#listForm").serializeArray();
-           let jsonData = {};
-           
-           middleTest= document.getElementById("middleTest"+studentId).value;
-           finalTest = document.getElementById("finalTest"+studentId).value;
-           report = document.getElementById("report"+studentId).value;
-           classCode = document.getElementById("selectedNo").value;
+    	    let middleTest = document.getElementById("middleTest" + studentId).value;
+    	    let finalTest = document.getElementById("finalTest" + studentId).value;
+    	    let report = document.getElementById("report" + studentId).value;
+    	    let classCode = document.getElementById("selectedNo").value;
 
-           jsonData['studentId'] = studentId;
-           jsonData["middleTest"] = middleTest;
-           jsonData["finalTest"] = finalTest;
-           jsonData["report"] = report;
-           jsonData["classCode"] = classCode;
-           
-           // # = id
-           // . = class
-           $("#report"+studentId).val();
-           console.log(formData);
-           console.log(jsonData);
+    	    // 유효성 검사 함수
+    	    function validateInput(middleTest, finalTest, report) {
+    	        if ((middleTest === null || middleTest.trim() === "") && 
+    	            (finalTest === null || finalTest.trim() === "") && 
+    	            (report === null || report.trim() === "")) {
+    	            alert("성적을 입력해주세요");
+    	            return false;  // 유효성 검사 실패
+    	        }
+    	        return true;  // 유효성 검사 성공
+    	    }
 
-           $.ajax({
-               type: "POST",
-               url: "updateGrade.do",
-               data: jsonData,  // JSON 데이터임을 명시
-               dataType: "text",
-               success: function(data) {
-                   if (data === "ok") {
-                       alert("성적 수정 성공");
-                       console.log("${selectedNo}");
-                       location.href = "<c:url value='/pfs/gradeInfo.do?selectedNo=" + classCode + "' />";
-                   } else {
-                       alert("성적 수정 실패");
-                   }
-               },
-               error: function(request, status, error) {
-                   alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-               }
-           });
-       }
-    // input 숫자 값 유효성 검사 1.
+    	    // 유효성 검사 통과 여부 확인
+    	    if (!validateInput(middleTest, finalTest, report)) {
+    	        return;  // 유효성 검사가 실패하면 함수 종료
+    	    }
+
+    	    let formData = $("#listForm").serializeArray();
+    	    let jsonData = {};
+    	    
+    	    jsonData['studentId'] = studentId;
+    	    jsonData["middleTest"] = middleTest;
+    	    jsonData["finalTest"] = finalTest;
+    	    jsonData["report"] = report;
+    	    jsonData["classCode"] = classCode;
+
+    	    console.log(formData);
+    	    console.log(jsonData);
+
+    	    $.ajax({
+    	        type: "POST",
+    	        url: "updateGrade.do",
+    	        data: jsonData,  // JSON 데이터임을 명시
+    	        dataType: "text",
+    	        success: function(data) {
+    	            if (data === "ok") {
+    	                alert("성적 수정 성공");
+    	                location.href = "<c:url value='/pfs/gradeInfo.do?selectedNo=" + classCode + "' />";
+    	            } else {
+    	                alert("성적 수정 실패");
+    	            }
+    	        },
+    	        error: function(request, status, error) {
+    	            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+    	            alert("");
+    	        }
+    	    });
+    	}
+
+       
+       
+
+
        $(document).on("keyup", "input[name^=middleTest], input[name^=finalTest]", "input[name^=report]", function() {
            var val = $(this).val();
  
@@ -98,9 +115,14 @@
 
 	<div class="content">
 		<div class="container">
+					<h3>성적 관리 : ${className}</h3>
+			<div class="chartDiv">
 
-			<h3>성적 관리 : ${className}</h3>
-            <c:choose>
+			
+
+			</div>
+			
+			<c:choose>
             
         		<c:when test="${professor.status == '재직중'}">
         		
@@ -121,19 +143,20 @@
 								<input type="hidden" name="selectedNo" value="${classCode}" />
 								<button type="submit">검색</button>
 							</div>
+							
 						</form>
+						<button class="chartBtn" onclick="fn_chart('<c:out value="${classCode}"/>')">통계</button>
+						
 		
-						<div class="chartDiv">
-							<a class="chartBtn"
-								href="javascript:fn_chart('<c:out value="${classCode}"/>')">통계</a>
-						</div>
+
 						
 					</div>
 					
-		            <p style="color: grey;">학점은 중간 (40%), 기말(40%), 과제(20%)를 합산하여 부여</p>
 					
 					<div class="student-list">
+					
 						<form id="listForm" method="post">
+				            <p style="color: grey; margin-top:15px; ">학점은 중간 (40%), 기말(40%), 과제(20%)를 합산하여 부여</p>
 		
 							<table>
 								<thead>
@@ -188,9 +211,9 @@
 						<div class="pagination">
 						    <!-- 첫 페이지로 이동 -->
 						    <a href="?page=1&selectedNo=${classCode}"
-						        class="${pageHandler.firstPage ? 'disabled' : ''}">처음</a>
+						        class="${pageHandler.firstPage ? 'disabled' : ''}">&lt;&lt;</a>
 						    <a href="?page=${pageHandler.page - 1}&selectedNo=${classCode}"
-						        class="${pageHandler.firstPage ? 'disabled' : ''}">이전</a>
+						        class="${pageHandler.firstPage ? 'disabled' : ''}">&lt;</a>
 						
 						    <!-- 중간 페이지 목록 (1~5 or 6~10) -->
 						    <c:forEach begin="${pageHandler.beginPage}" end="${pageHandler.endPage}" var="i">
@@ -200,11 +223,11 @@
 						
 						    <!-- 다음 페이지로 이동 -->
 						    <a href="?page=${pageHandler.page + 1}&selectedNo=${classCode}"
-						        class="${pageHandler.page >= pageHandler.totalPage ? 'disabled' : ''}">다음</a>
+						        class="${pageHandler.page >= pageHandler.totalPage ? 'disabled' : ''}">&gt;</a>
 						
 						    <!-- 마지막 페이지로 이동 -->
 						    <a href="?page=${pageHandler.totalPage}&selectedNo=${classCode}"
-						        class="${pageHandler.page >= pageHandler.totalPage ? 'disabled' : ''}">끝</a>
+						        class="${pageHandler.page >= pageHandler.totalPage ? 'disabled' : ''}">&gt;&gt;</a>
 						</div>
 		
 		

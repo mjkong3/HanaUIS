@@ -25,7 +25,7 @@
               <Band id="body">
                 <Cell text="expr:currow+1" textAlign="center" font="12px/normal &quot;Gulim&quot;"/>
                 <Cell col="1" text="bind:DEPARTMENT_NAME" textAlign="left"/>
-                <Cell col="2" text="bind:STUDENT_ID" textAlign="center"/>
+                <Cell col="2" text="bind:STUDENT_ID" textAlign="center" displaytype="mask" maskedittype="string"/>
                 <Cell col="3" text="bind:NAME" textAlign="center"/>
               </Band>
             </Format>
