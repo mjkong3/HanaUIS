@@ -4,7 +4,7 @@
     <Layouts>
       <Layout height="600" width="1100">
         <ImageViewer id="ImageViewer00" taborder="10" left="0" top="0" width="940" height="550" image="url('image::그림1.png')" stretch="fit"/>
-        <Button id="Test_Btn" taborder="6" text="바로넘어가기" left="715" top="460" width="205" height="72" onclick="Test_Btn_onclick" visible="false"/>
+        <Button id="Test_Btn" taborder="6" text="바로넘어가기" left="715" top="460" width="205" height="72" onclick="Test_Btn_onclick" visible="true"/>
         <Static id="Static05" taborder="9" left="55" top="70" width="450" height="420" background="#fffff" opacity="0.7" cssclass="sta_WF_DetailArea" text=""/>
         <Edit id="Edit00_01" taborder="0" left="185" top="408" width="190" height="30" font="18px/normal &quot;Gulim&quot;"/>
         <Static id="Static03" taborder="1" text="아이디    :" left="80" top="312" width="88" height="38" font="18px/normal &quot;Gulim&quot;" onclick="Static03_onclick" textAlign="right"/>
