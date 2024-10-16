@@ -30,8 +30,8 @@ public class AdSignClassServiceImpl extends EgovAbstractServiceImpl implements A
 
 	// 수강신청 분류하기
 	@Override
-	public List<Map<String, Object>> selectDeptList() {
-		return mapper.selectDeptList();
+	public List<Map<String, Object>> selectDeptList(Map<String, Object> param) {
+		return mapper.selectDeptList(param);
 	}
 	
 	// <팝업> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
