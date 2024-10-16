@@ -27,6 +27,11 @@
         alert("학번과 비밀번호를 입력해주세요.");
         return;
     };
+    
+    // readonly 변경
+    function modi(){
+        $("#password").attr("readonly", false);
+      };
 
     
 	</script>

@@ -51,6 +51,8 @@
     <Component type="JavaScript" id="GaugeChart" classname="nexacro.GaugeChart" iconindex="403" iconextra="true" prefixid=""/>
     <Component type="JavaScript" id="PieChart" classname="nexacro.PieChart" iconindex="402" iconextra="true" prefixid=""/>
     <Component type="JavaScript" id="BubbleChart" classname="nexacro.BubbleChart" iconindex="401" iconextra="true"/>
+    <Component type="JavaScript" id="ExcelExportObject" classname="nexacro.ExcelExportObject"/>
+    <Component type="JavaScript" id="ExcelImportObject" classname="nexacro.ExcelImportObject"/>
   </Components>
   <Services>
     <Service prefixid="theme" type="resource" url="./_resource_/_theme_/" version="0" cachelevel="session" include_subdir="true"/>

@@ -11,9 +11,10 @@
         {
             this.set_name("board_upload");
             this.set_titletext("New Form");
+            this.set_border("0px none");
             if (Form == this.constructor)
             {
-                this._setFormPosition(1280,720);
+                this._setFormPosition(960,720);
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
@@ -34,6 +35,7 @@
 
 
             obj = new Dataset("ds_contentFile", this);
+            obj.set_useclientlayout("true");
             obj._setContents("<ColumnInfo><Column id=\"IMAGE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
@@ -58,94 +60,100 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Static("stt_boardTop","563","16","167","74",null,null,null,null,null,null,this);
+            obj = new Static("stt_boardTop","427","13","167","74",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_text("공지사항");
-            obj.set_font("30pt/normal \"HY견고딕\"");
+            obj.set_font("30pt/normal \"Arial\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01","175","114","172","53",null,null,null,null,null,null,this);
+            obj = new Static("Static01","29","111","172","53",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_text("제목");
             obj.set_textAlign("center");
-            obj.set_font("20pt \"Arial\"");
-            obj.set_border("0px none, 1px solid, 0px none, 0px none");
+            obj.set_font("16pt \"Arial\"");
+            obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01_00","175","174","172","53",null,null,null,null,null,null,this);
+            obj = new Static("Static01_00","29","171","172","53",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_text("작성자");
             obj.set_textAlign("center");
-            obj.set_font("20pt \"Arial\"");
-            obj.set_border("0px none, 1px solid, 0px none, 0px none");
+            obj.set_font("16pt \"Arial\"");
+            obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_Content","175","240","172","170",null,null,null,null,null,null,this);
+            obj = new Static("stt_Content","29","237","172","170",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_text("내용");
             obj.set_textAlign("center");
-            obj.set_font("20pt \"Arial\"");
-            obj.set_border("0px none, 1px solid, 0px none, 0px none");
+            obj.set_font("16pt \"Arial\"");
+            obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_file","175","443","172","150",null,null,null,null,null,null,this);
+            obj = new Static("stt_file","29","440","172","150",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             obj.set_text("첨부파일");
             obj.set_textAlign("center");
-            obj.set_font("20pt \"Arial\"");
-            obj.set_border("0px none, 1px solid, 0px none, 0px none");
+            obj.set_font("16pt \"Arial\"");
+            obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_file","380","500","450","95",null,null,null,null,null,null,this);
+            obj = new Grid("grd_file","234","497","450","95",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_binddataset("ds_file");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"447\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"32\"/></Rows><Band id=\"head\"><Cell text=\"파 일\"/></Band><Band id=\"body\"><Cell text=\"bind:FILE_NAME\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_closeBoard","714","615","72","33",null,null,null,null,null,null,this);
+            obj = new Button("btn_closeBoard","568","612","72","33",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("닫기");
+            obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_uploader","390","180","250","40",null,null,null,null,null,null,this);
+            obj = new Static("stt_uploader","244","177","250","40",null,null,null,null,null,null,this);
             obj.set_taborder("7");
+            obj.set_font("16px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01_00_01","660","117","172","53",null,null,null,null,null,null,this);
+            obj = new Static("Static01_00_01","514","114","172","53",null,null,null,null,null,null,this);
             obj.set_taborder("8");
             obj.set_text("게시일");
             obj.set_textAlign("center");
-            obj.set_font("20pt \"Arial\"");
-            obj.set_border("0px none, 1px solid, 0px none, 0px none");
+            obj.set_font("16pt \"Arial\"");
+            obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01_00_01_00","660","177","172","53",null,null,null,null,null,null,this);
+            obj = new Static("Static01_00_01_00","514","174","172","53",null,null,null,null,null,null,this);
             obj.set_taborder("9");
             obj.set_text("게시번호");
             obj.set_textAlign("center");
-            obj.set_font("20pt \"Arial\"");
-            obj.set_border("0px none, 1px solid, 0px none, 0px none");
+            obj.set_font("16pt \"Arial\"");
+            obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_boardCode","898","183","145","40",null,null,null,null,null,null,this);
+            obj = new Static("stt_boardCode","752","180","145","40",null,null,null,null,null,null,this);
             obj.set_taborder("10");
+            obj.set_font("16px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_updateBoard","634","615","72","33",null,null,null,null,null,null,this);
+            obj = new Button("btn_updateBoard","488","612","72","33",null,null,null,null,null,null,this);
             obj.set_taborder("11");
             obj.set_text("수정");
+            obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new FileDownload("btn_fileDown","850","500","90","95",null,null,null,null,null,null,this);
+            obj = new FileDownload("btn_fileDown","704","497","90","95",null,null,null,null,null,null,this);
             obj.set_taborder("12");
             obj.set_text("파일 다운");
+            obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new TextArea("txt_Title","380","117","283","46",null,null,null,null,null,null,this);
+            obj = new TextArea("txt_Title","234","114","283","46",null,null,null,null,null,null,this);
             obj.set_taborder("13");
+            obj.set_font("16px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new TextArea("txt_Content","380","240","666","170",null,null,null,null,null,null,this);
+            obj = new TextArea("txt_Content","234","237","666","170",null,null,null,null,null,null,this);
             obj.set_taborder("14");
             obj.set_scrolltype("vertical");
             obj.set_tooltiptype("hover");
@@ -155,50 +163,52 @@
             obj.set_wordWrap("english");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_addFile","956","500","90","40",null,null,null,null,null,null,this);
+            obj = new Button("btn_addFile","810","497","90","40",null,null,null,null,null,null,this);
             obj.set_taborder("15");
             obj.set_text("파일 첨부");
+            obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_deleteFile","956","555","90","40",null,null,null,null,null,null,this);
+            obj = new Button("btn_deleteFile","810","552","90","40",null,null,null,null,null,null,this);
             obj.set_taborder("16");
             obj.set_text("파일 삭제");
+            obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_deleteBoard","953","615","90","33",null,null,null,null,null,null,this);
+            obj = new Button("btn_deleteBoard","807","612","90","33",null,null,null,null,null,null,this);
             obj.set_taborder("17");
             obj.set_text("삭제");
-            obj.set_color("white");
-            obj.set_background("#ff0505");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_Dtm","890","120","153","47",null,null,null,null,null,null,this);
+            obj = new Calendar("cal_Dtm","744","117","153","47",null,null,null,null,null,null,this);
             obj.set_taborder("18");
+            obj.set_font("16px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_addContentPhoto","850","443","90","35",null,null,null,null,null,null,this);
+            obj = new Button("btn_addContentPhoto","704","440","90","35",null,null,null,null,null,null,this);
             obj.set_taborder("19");
             obj.set_text("본문 파일 삽입");
+            obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new ImageViewer("ImageViewer00","380","425","666","10",null,null,null,null,null,null,this);
+            obj = new ImageViewer("ImageViewer00","234","422","666","10",null,null,null,null,null,null,this);
             obj.set_taborder("20");
             obj.set_visible("false");
             obj.set_stretch("none");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_delContentPhoto","956","443","90","35",null,null,null,null,null,null,this);
+            obj = new Button("btn_delContentPhoto","810","440","90","35",null,null,null,null,null,null,this);
             obj.set_taborder("21");
             obj.set_text("본문 파일 삭제");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_filename","380","450","450","20",null,null,null,null,null,null,this);
+            obj = new Edit("edt_filename","234","447","450","20",null,null,null,null,null,null,this);
             obj.set_taborder("22");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
-            obj = new Layout("default","",1280,720,this,function(p){});
+            obj = new Layout("default","",960,720,this,function(p){});
             this.addLayout(obj.name, obj);
             
             // BindItem Information
@@ -238,13 +248,14 @@
         {
         	this.fnOnload();
 
+        	// 해당 게시번호에 해당하는 이미지가 있을 시 이미지 표현
         	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMAGE") == "undefined") {
         	} else {
         		setTimeout(function(){
         			trace(this.ds_contentFile.getColumn(0,"IMAGE") + "@@@@@@@@@@@@@@@@@@@@@");
         			this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
         			this.showFirstImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"))	;
-        		}.bind(this), 100);
+        		}.bind(this), 500);
 
         		trace("@@daslkfa;skdfajskdjfl;aksjdlk;fjal;sdjf");
         		console.log(this.ds_contentFile.getColumn(0, "IMAGE"));
@@ -546,7 +557,7 @@
         		this.fnUpdateFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
 
         		// JSP를 통해 POST 방식으로 로컬 폴더(D:/upload/)로 업로드)
-        		this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp'); // 본문 이미지 제외 모두
+        		this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp'); // 첨부파일
         		this.FileUpTransfer01.upload('http://localhost:8082/HanaUIS/fileupload.jsp'); // 본문 이미지 한장
 
             } else {
@@ -641,7 +652,7 @@
         	this.set_scrolltype("vertical");
         };
 
-        // 텍스트의 변화에 따라 높이를 조정하는 함수
+        // 이미지 등록에 따라 컴포넌트 높이를 조정하는 함수
         this.adjustTextareaHeight = function() {
 
         	this.set_height(720); // 폼 길이 초기화
@@ -699,25 +710,34 @@
         		alert("png, "+ "jpg, "+ "jpeg, " + "jfif " + "가 아닙니다.");
         		return;
          	}
+        	//초기화
         	this.btn_delContentPhoto_onclick;
 
         	this.addFileList2(e.virtualfiles);
         	var name = e.virtualfiles[0].filename;
-        	this.ds_contentFile.setColumn(0, "IMAGE", name);
+        	this.ds_contentFile.addRow();
+        	this.ds_contentFile.setColumn(0, "IMAGE", e.virtualfiles[0].filename);
+        	trace(this.ds_contentFile.saveXML());
 
         	this.edt_filename.set_value(name);
 
         	this.ImageViewer00.set_visible(true); //본문 이미지 보이기
 
+
         	setTimeout(function(){
         		this.addFileList2(e.virtualfiles);
-        		this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
-        		this.showImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"));
-        	}.bind(this), 500); // 500ms 뒤 실행
+        		//var imgName = this.ds_contentFile.getColumn(0, "IMAGE");
+        		var imgName = e.virtualfiles[0].filename;
+        		this.showImagePreview(imgName);
+        	}.bind(this), 2500); // 2500ms 뒤 실행
 
         	trace(this.ds_contentFile.saveXML());
 
         	this.adjustTextareaHeight();
+
+        	if (this.ds_contentFile.rowcount > 1) {
+        		this.ds_contentFile.deleteRow(1);
+        	}
         };
 
         // 이미지 미리보기 함수 -- onload 시
@@ -731,10 +751,10 @@
 
         // 이미지 미리보기 함수 -- 수정 시
         this.showImagePreview = function(fileName) {
-        	trace("이미지 미리보기 진입했지롱");
+        	trace("이미지 미리보기 진입");
         	trace(fileName + "@@@@@@@@@@22changed");
             var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
-            var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
+            var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"	; // 업로드한 파일 경로
             this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
 
         	setTimeout(function(){
@@ -742,6 +762,7 @@
          	}.bind(this), 5000); // 5초 후 삭제
         };
 
+        //파일 삭제 기능
         this.deleteFile = function(fileName) {
         	trace("여기까지 왔나?");
             var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
@@ -782,6 +803,7 @@
         	this.FileUpTransfer01.clearFileList();
             this.FileUpTransfer01.addFile(vFile.filename, vFile);
             this.FileUpTransfer01.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
+
         }
 
         this.ImageViewer00_onload = function(obj,e)
@@ -875,6 +897,9 @@
 
         		this.stt_file.set_top(this.btn_addContentPhoto.getOffsetTop());
         		this.stt_Content.set_height(this.txt_Content.height);
+
+        		// 화면 길이 초기화
+        		this.set_height(720);
         		}
         	}
         };
