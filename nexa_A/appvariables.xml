@@ -108,6 +108,12 @@
           <Col id="MENU_LEVEL">2</Col>
           <Col id="MENU_PATH">MainBase::board_main.xfdl</Col>
         </Row>
+        <Row>
+          <Col id="MENU_ID">020003</Col>
+          <Col id="MENU_NM">엑셀실험</Col>
+          <Col id="MENU_LEVEL">2</Col>
+          <Col id="MENU_PATH">MainBase::fileupload.xfdl</Col>
+        </Row>
       </Rows>
     </Dataset>
     <Dataset id="gdsOpenMenu">

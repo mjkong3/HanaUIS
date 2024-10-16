@@ -4,7 +4,7 @@
     <Layouts>
       <Layout height="600" width="1100">
         <ImageViewer id="ImageViewer00" taborder="10" left="0" top="0" width="940" height="550" image="url('image::그림1.png')" stretch="fit"/>
-        <Button id="Test_Btn" taborder="6" text="바로넘어가기" left="715" top="460" width="205" height="72" onclick="Test_Btn_onclick" visible="false"/>
+        <Button id="Test_Btn" taborder="6" text="바로넘어가기" left="715" top="460" width="205" height="72" onclick="Test_Btn_onclick" visible="true"/>
         <Static id="Static05" taborder="9" left="55" top="70" width="450" height="420" background="#fffff" opacity="0.7" cssclass="sta_WF_DetailArea" text=""/>
         <Edit id="Edit00_01" taborder="0" left="185" top="408" width="190" height="30" font="18px/normal &quot;Gulim&quot;"/>
         <Static id="Static03" taborder="1" text="아이디    :" left="80" top="312" width="88" height="38" font="18px/normal &quot;Gulim&quot;" onclick="Static03_onclick" textAlign="right"/>
@@ -17,6 +17,7 @@
         <Static id="Static00_00" taborder="11" text="하나대학교" left="109" top="130" width="342" height="70" onclick="Static00_onclick" textAlign="center" letterSpacing="5px" font="60px/normal &quot;Gulim&quot;"/>
         <Static id="Static02" taborder="12" text="관리자 로그인" left="206" top="244" width="147" height="42" textAlign="center" font="20px/normal &quot;Gulim&quot;"/>
         <Static id="Static01" taborder="13" text="학사 정보 시스템" left="131" top="213" width="298" height="35" textAlign="center" font="30px/normal &quot;Gulim&quot;"/>
+        <Static id="stt_findPwd" taborder="14" text="비밀번호 찾기" left="298" top="446" width="82" height="16" font="12px/normal &quot;Gulim&quot;" onclick="stt_findPwd_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[//처리콜백 함수
@@ -139,6 +140,32 @@ this.fn_addSession = function (adminCode)
 	var isAsync     = true;
 	
 	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 	
+};
+
+/************************************************************************
+ * 		비밀번호 찾기
+ ************************************************************************/
+	// 팝업 설정 및 호출
+this.showPopup = function (objParam, surl) 
+{		  
+	popup = new nexacro.ChildFrame;
+	popup.init("popupWork", 0, 0, 800, 700, null, null, surl);
+	popup.set_dragmovetype("normal");
+	popup.set_layered("true");
+	popup.set_autosize(true);
+	popup.set_showtitlebar("Popup Title");
+	popup.set_showstatusbar(true);
+	popup.set_resizable(true);
+	popup.set_openalign("center middle");
+	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
+ 	//popup.style.set_overlaycolor("#6666664C");
+ 	//popup.form.style.set_border("1 solid #4c5a6f");
+}
+
+this.stt_findPwd_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	var surl = "MainBase::findPwd.xfdl";	
+	this.showPopup(objParam, surl);
 };
 ]]></Script>
     <Objects>

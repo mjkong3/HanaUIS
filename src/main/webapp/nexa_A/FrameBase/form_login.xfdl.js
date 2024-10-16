@@ -43,7 +43,7 @@
             obj = new Button("Test_Btn","715","460","205","72",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("바로넘어가기");
-            obj.set_visible("false");
+            obj.set_visible("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static05","55","70","450","420",null,null,null,null,null,null,this);
@@ -127,6 +127,12 @@
             obj.set_text("학사 정보 시스템");
             obj.set_textAlign("center");
             obj.set_font("30px/normal \"Gulim\"");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("stt_findPwd","298","446","82","16",null,null,null,null,null,null,this);
+            obj.set_taborder("14");
+            obj.set_text("비밀번호 찾기");
+            obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -279,6 +285,32 @@
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
 
+        /************************************************************************
+         * 		비밀번호 찾기
+         ************************************************************************/
+        	// 팝업 설정 및 호출
+        this.showPopup = function (objParam, surl)
+        {
+        	popup = new nexacro.ChildFrame;
+        	popup.init("popupWork", 0, 0, 800, 700, null, null, surl);
+        	popup.set_dragmovetype("normal");
+        	popup.set_layered("true");
+        	popup.set_autosize(true);
+        	popup.set_showtitlebar("Popup Title");
+        	popup.set_showstatusbar(true);
+        	popup.set_resizable(true);
+        	popup.set_openalign("center middle");
+        	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
+         	//popup.style.set_overlaycolor("#6666664C");
+         	//popup.form.style.set_border("1 solid #4c5a6f");
+        }
+
+        this.stt_findPwd_onclick = function(obj,e)
+        {
+        	var surl = "MainBase::findPwd.xfdl";
+        	this.showPopup(objParam, surl);
+        };
+
         });
         
         // Regist UI Components Event
@@ -290,6 +322,7 @@
             this.Mail_Btn.addEventHandler("onclick",this.Mail_Btn_onclick,this);
             this.Login_btn.addEventHandler("onclick",this.Login_btn_onclick,this);
             this.Static00_00.addEventHandler("onclick",this.Static00_onclick,this);
+            this.stt_findPwd.addEventHandler("onclick",this.stt_findPwd_onclick,this);
         };
         this.loadIncludeScript("form_login.xfdl");
         this.loadPreloadList();
