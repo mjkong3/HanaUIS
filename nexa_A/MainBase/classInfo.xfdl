@@ -25,22 +25,21 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="grd_List" left="251" top="70" width="947" height="481" taborder="1" autofittype="none" binddataset="ds_list" onheadclick="grd_List_onheadclick" oncelldblclick="grd_List_oncelldblclick" cssclass="ATEAM">
+        <Grid id="grd_List" left="251" top="70" width="947" height="481" taborder="1" autofittype="col" binddataset="ds_list" onheadclick="grd_List_onheadclick" oncelldblclick="grd_List_oncelldblclick" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
                 <Column size="48" band="left"/>
-                <Column size="48"/>
-                <Column size="70"/>
-                <Column size="99"/>
+                <Column size="68"/>
+                <Column size="116"/>
                 <Column size="120"/>
                 <Column size="118"/>
                 <Column size="48"/>
-                <Column size="71"/>
-                <Column size="78"/>
+                <Column size="63"/>
+                <Column size="74"/>
                 <Column size="80"/>
-                <Column size="90"/>
-                <Column size="58"/>
+                <Column size="107"/>
+                <Column size="103"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -48,31 +47,29 @@
               </Rows>
               <Band id="head">
                 <Cell displaytype="checkboxcontrol" edittype="checkbox"/>
-                <Cell col="1" text="No"/>
-                <Cell col="2" text="강의코드"/>
-                <Cell col="3" text="강의명"/>
-                <Cell col="4" text="개강일"/>
-                <Cell col="5" text="종강일"/>
-                <Cell col="6" text="학기"/>
-                <Cell col="7" text="이수학점"/>
-                <Cell col="8" text="이수구분"/>
-                <Cell col="9" text="강의실"/>
-                <Cell col="10" text="담당교수"/>
-                <Cell col="11" text="학과"/>
+                <Cell col="1" text="강의코드"/>
+                <Cell col="2" text="강의명"/>
+                <Cell col="3" text="개강일"/>
+                <Cell col="4" text="종강일"/>
+                <Cell col="5" text="학기"/>
+                <Cell col="6" text="이수학점"/>
+                <Cell col="7" text="이수구분"/>
+                <Cell col="8" text="강의실"/>
+                <Cell col="9" text="담당교수"/>
+                <Cell col="10" text="학과"/>
               </Band>
               <Band id="body">
                 <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:CHECK"/>
-                <Cell col="1" text="expr:currow + 1" textAlign="center"/>
-                <Cell col="2" text="bind:CLASS_CODE" textAlign="center"/>
-                <Cell col="3" text="bind:CLASS_NAME" textAlign="center"/>
-                <Cell col="4" text="bind:CLASS_START" displaytype="calendarcontrol" textAlign="center"/>
-                <Cell col="5" text="bind:CLASS_END" displaytype="calendarcontrol" textAlign="center"/>
-                <Cell col="6" text="bind:SEMESTER" textAlign="center"/>
-                <Cell col="7" text="bind:CLASS_GRADE" textAlign="center"/>
-                <Cell col="8" text="bind:CLASS_TYPE" textAlign="center"/>
-                <Cell col="9" text="bind:CLASSROOM_ID" textAlign="center"/>
-                <Cell col="10" text="bind:PROFESSOR_ID" textAlign="center"/>
-                <Cell col="11" text="bind:DEPARTMENT_CODE" textAlign="center"/>
+                <Cell col="1" text="bind:CLASS_CODE" textAlign="center"/>
+                <Cell col="2" text="bind:CLASS_NAME" textAlign="center"/>
+                <Cell col="3" text="bind:CLASS_START" displaytype="calendarcontrol" textAlign="center"/>
+                <Cell col="4" text="bind:CLASS_END" displaytype="calendarcontrol" textAlign="center"/>
+                <Cell col="5" text="bind:SEMESTER" textAlign="center"/>
+                <Cell col="6" text="bind:CLASS_GRADE" textAlign="center"/>
+                <Cell col="7" text="bind:CLASS_TYPE" textAlign="center"/>
+                <Cell col="8" text="bind:CLASSROOM_ID" textAlign="center"/>
+                <Cell col="9" text="bind:NAME" textAlign="center"/>
+                <Cell col="10" text="bind:DEPARTMENT_NAME" textAlign="center"/>
               </Band>
             </Format>
           </Formats>
@@ -178,6 +175,8 @@
           <Column id="CRE_DTM" type="STRING" size="256"/>
           <Column id="UPD_USR" type="STRING" size="256"/>
           <Column id="UPD_DTM" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_NAME" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="ds_delete"/>

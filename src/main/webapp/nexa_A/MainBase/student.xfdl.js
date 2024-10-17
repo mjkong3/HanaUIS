@@ -53,7 +53,7 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Grid("Depart_Grd","24","70","276","524",null,null,null,null,null,null,this);
+            obj = new Grid("Depart_Grd","23","79","166","524",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_binddataset("DEPARTMENT_List");
             obj.set_autofittype("col");
@@ -61,14 +61,15 @@
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"93\"/><Column size=\"142\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"학과코드\"/><Cell col=\"1\" text=\"학과명\"/></Band><Band id=\"body\"><Cell text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\" displaytype=\"mask\" maskeditformat=\"00\"/><Cell col=\"1\" text=\"bind:DEPARTMENT_NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("Dtl_Grid","303","70","947","524",null,null,null,null,null,null,this);
+            obj = new Grid("Dtl_Grid","199","79","1050","524",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("DEPARTMENT_DTL_List");
             obj.set_autofittype("col");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"31\"/><Column size=\"64\"/><Column size=\"65\"/><Column size=\"86\"/><Column size=\"160\"/><Column size=\"80\"/><Column size=\"44\"/><Column size=\"187\"/><Column size=\"58\"/><Column size=\"43\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"No\"/><Cell col=\"2\" text=\"학번\"/><Cell col=\"3\" text=\"성명\"/><Cell col=\"4\" text=\"연락처\"/><Cell col=\"5\" text=\"이메일\"/><Cell col=\"6\" text=\"생년월일\"/><Cell col=\"7\" text=\"성별\"/><Cell col=\"8\" text=\"주소\"/><Cell col=\"9\" text=\"상태여부\"/><Cell col=\"10\" text=\"학과\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"expr:currow + 1\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:STUDENT_ID\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:PHONE\"/><Cell col=\"5\" text=\"bind:EMAIL\"/><Cell col=\"6\" text=\"bind:BIRTHDAY\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:GENDER\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:ADDRESS\"/><Cell col=\"9\" text=\"bind:STATUS\" textAlign=\"center\"/><Cell col=\"10\" text=\"bind:DEPARTMENT_NAME\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj.set_cssclass("ATEAM");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"52\"/><Column size=\"65\"/><Column size=\"73\"/><Column size=\"141\"/><Column size=\"70\"/><Column size=\"36\"/><Column size=\"187\"/><Column size=\"47\"/><Column size=\"68\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"성명\"/><Cell col=\"3\" text=\"연락처\"/><Cell col=\"4\" text=\"이메일\"/><Cell col=\"5\" text=\"생년월일\"/><Cell col=\"6\" text=\"성별\"/><Cell col=\"7\" text=\"주소\"/><Cell col=\"8\" text=\"상태여부\"/><Cell col=\"9\" text=\"학과\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\" textAlign=\"center\" displaytype=\"mask\" maskedittype=\"string\"/><Cell col=\"2\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:PHONE\"/><Cell col=\"4\" text=\"bind:EMAIL\"/><Cell col=\"5\" text=\"bind:BIRTHDAY\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:GENDER\" textAlign=\"center\" expr=\"expr:GENDER==&apos;M&apos; ? &apos;남자&apos; : GENDER==&apos;F&apos; ? &apos;여자&apos; : &apos;&apos;\"/><Cell col=\"7\" text=\"bind:ADDRESS\"/><Cell col=\"8\" text=\"bind:STATUS\" textAlign=\"center\"/><Cell col=\"9\" text=\"bind:DEPARTMENT_NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("Search_Cmb","626","70","116","26",null,null,null,null,null,null,this);
+            obj = new Combo("Search_Cmb","766","50","116","26",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_innerdataset("Search_Type");
             obj.set_datacolumn("data");
@@ -78,21 +79,21 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Button("Select_btn","904","70","66","25",null,null,null,null,null,null,this);
+            obj = new Button("Select_btn","1043","50","66","25",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_text("조회");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("Edit00","747","70","153","26",null,null,null,null,null,null,this);
+            obj = new Edit("Edit00","886","50","153","26",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             this.addChild(obj.name, obj);
 
-            obj = new Button("plus_btn","1115","40","66","25",null,null,null,null,null,null,this);
+            obj = new Button("plus_btn","1113","50","66","25",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_text("등록");
             this.addChild(obj.name, obj);
 
-            obj = new Button("delete_btn","1184","40","66","25",null,null,null,null,null,null,this);
+            obj = new Button("delete_btn","1183","50","66","25",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("삭제");
             obj.set_visible("true");
@@ -105,14 +106,28 @@
             obj.set_font("28px/normal \"Gulim\",\"HY견고딕\"");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_excel","1045","70","66","25",null,null,null,null,null,null,this);
+            obj = new Button("btn_excel","201","50","66","25",null,null,null,null,null,null,this);
             obj.set_taborder("8");
             obj.set_text("엑셀 등록");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_excelexp","974","70","66","25",null,null,null,null,null,null,this);
+            obj = new Button("btn_excelexp","270","50","66","25",null,null,null,null,null,null,this);
             obj.set_taborder("9");
             obj.set_text("엑셀 받기");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("Static00_00","207","603","43","28",null,null,null,null,null,null,this);
+            obj.set_taborder("10");
+            obj.set_text("총원 :");
+            obj.set_font("14px/normal \"Gulim\"");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("sta_RowCnt","250","603","30","28",null,null,null,null,null,null,this);
+            obj.set_taborder("11");
+            obj.set_text("");
+            obj.set_background("white");
+            obj.set_textAlign("right");
+            obj.set_font("bold 14px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -200,6 +215,9 @@
               var surl = "MainBase::select_Student_Popup.xfdl"
               this.showPopup(objParam, surl);
               break;
+        	case "selectAdStudent":
+        		this.sta_RowCnt.set_text(this.DEPARTMENT_DTL_List.rowcount);
+        		break;
         	default:
         		break;
            }

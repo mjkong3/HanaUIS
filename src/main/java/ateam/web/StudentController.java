@@ -22,6 +22,7 @@ import ateam.dto.BoardDTO;
 import ateam.dto.ClassDTO;
 import ateam.dto.DepartmentDTO;
 import ateam.dto.EnrollmentDTO;
+import ateam.dto.ProfessorDTO;
 import ateam.dto.StudentDTO;
 import ateam.service.BoardService;
 import ateam.service.ClassService;
@@ -32,11 +33,11 @@ import ateam.service.StudentService;
 @Controller
 @RequestMapping(value = "/std")
 public class StudentController {
+	
 	@Inject
 
-	// 메일 서비스
 	@Autowired
-	private MailSendService mailService;
+	private MailSendService mailService; // 메일 서비스
 	@Autowired
 	private StudentService studentService;
 	@Autowired
@@ -47,15 +48,82 @@ public class StudentController {
 	private DepartmentService departmentService;
 
 	
+	
+	
+	// 공지사항 ################################################################################################## //
+	@RequestMapping(value="/notice.do")
+	public String noticeView(@RequestParam(value = "page", defaultValue = "1") int page, 
+											@RequestParam(value ="searchKeyword", defaultValue = "ALL") String searchKeyword, 
+											Model model, HttpSession session, HttpServletRequest request) {
+		// 세션 만료시 로그인 페이지로 이동
+		HttpSession sessionPage = request.getSession();
+		StudentDTO studentTemp = (StudentDTO) sessionPage.getAttribute("student");
+		if (studentTemp == null) {
+			return "redirect:/login.do"; 
+		}
+		
+		// 공지사항 총 게시물 수
+		int totalCnt = boardService.getBoardCount(searchKeyword); 
+		int pageSize = 10;
+		PageHandler pageHandler = new PageHandler(totalCnt, pageSize, page);
+		model.addAttribute("pageHandler", pageHandler);
+		
+		// 페이징 처리된 게시물 목록 가져오기
+		List<Map<String, Object>> board = boardService.boardList(page, pageSize);
 
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마이페이지
+		model.addAttribute("notice", board);
+		
+		return "hana/notice";
+	}
+
+	// 공지사항 검색
+    @RequestMapping(value = "/noticeSearch.do", method = RequestMethod.GET)
+    public String searchNotice(@RequestParam("searchKeyword") String searchKeyword,
+					    	   @RequestParam(value = "page", defaultValue = "1") int page,
+					    	   Model model,HttpSession session) {
+    	
+		// 페이징 처리
+		int totalCnt = boardService.getBoardCount(searchKeyword); // 공지사항 총 개수 가져오는 메서드 필요
+		int pageSize = 10;
+		
+		PageHandler pageHandler = new PageHandler(totalCnt, pageSize, page);
+		model.addAttribute("pageHandler", pageHandler);
+        List<Map<String, Object>> noticeList = boardService.searchNoticeByTitle(searchKeyword, pageSize, page);
+        model.addAttribute("notice", noticeList);
+        
+        return "hana/notice";
+    }
+	
+    // 공지사항 상세보기
+	@RequestMapping(value="/noticeDetail.do")
+	public String noticeDetail(@RequestParam("boardNo") int no, Model model, HttpSession session) {	
+		
+		Map<String, Object> selectBoard = boardService.selectBoardAndFile(no);
+
+		BoardDTO board = (BoardDTO) selectBoard.get("board");
+		Object fileList = selectBoard.get("fileList");
+
+		model.addAttribute("board", board);
+		model.addAttribute("boardFile", fileList);
+
+		return "hana/noticeDetail";
+	}
+	
+	
+	
+	
+	// 마이페이지 ################################################################################################## //
 	@RequestMapping(value = "/myPage.do")
 	public String myPageView(HttpSession session, Model model) {
 		StudentDTO student = (StudentDTO) session.getAttribute("student");
+		// 세션만료시 로그인 페이지로 이동
+		if (student == null) {
+			return "redirect:/login.do"; 
+		}
 		String departmentName = studentService.studentDepartment(student.getStudentId());
 		
 		int studentId= student.getStudentId();
-				//session.getAttribute("studentId");
+		//session.getAttribute("studentId");
 		Map<String, Object> studentDetail = studentService.selectStudent(studentId);
 		
 		model.addAttribute("departmentName", departmentName);
@@ -66,8 +134,7 @@ public class StudentController {
 	
 	// 연락처 수정
 	@RequestMapping("/updatePhone.do")
-	public String updatePhone(@RequestParam Map<String, Object> param,
-								RedirectAttributes redirectAttributes) {
+	public String updatePhone(@RequestParam Map<String, Object> param, RedirectAttributes redirectAttributes) {
 		studentService.updatePhone(param);
 		redirectAttributes.addFlashAttribute("updateStatus", "success");
 
@@ -76,9 +143,7 @@ public class StudentController {
 
 	// 이메일을 수정
 	@RequestMapping("/updateEmail.do")
-	public String updateEmail(@RequestParam Map<String, Object> param,
-								RedirectAttributes redirectAttributes) {
-
+	public String updateEmail(@RequestParam Map<String, Object> param, RedirectAttributes redirectAttributes) {
 		int result = studentService.updateEmail(param);
 		
 		if(result != 1) {
@@ -91,53 +156,17 @@ public class StudentController {
 	}
 
 	
-	
-	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 공지사항
-	@RequestMapping(value="/notice.do")
-	public String noticeView(@RequestParam(value = "page", defaultValue = "1") int page, Model model, HttpSession session) {
-		
-		// 공지사항 총 게시물 수
-		int totalCnt = boardService.getBoardCount(); 
-		int pageSize = 10;
-		PageHandler pageHandler = new PageHandler(totalCnt, pageSize, page);
-		model.addAttribute("pageHandler", pageHandler);
-		
-		// 페이징 처리된 게시물 목록 가져오기
-		List<BoardDTO> board = boardService.boardList(page, pageSize);
 
-		model.addAttribute("notice", board);
-		
-		return "hana/notice";
-	}
 
-	@RequestMapping(value="/noticeDetail.do")
-	public String noticeDetail(@RequestParam("boardNo") int no,
-								Model model,
-								HttpSession session) {	
-		
-		Map<String, Object> selectBoard = boardService.selectBoardAndFile(no);
-
-		BoardDTO board = (BoardDTO) selectBoard.get("board");
-		Object fileList = selectBoard.get("fileList");
-
-		model.addAttribute("board", board);
-		model.addAttribute("boardFile", fileList);
-
-		return "hana/noticeDetail";
-	}
-
-	
-
-	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 휴복학
+	// 휴학복학신청 ################################################################################################## //
 	@RequestMapping(value = "/leave.do")
 	public String leaveView(StudentDTO dto, Model model, HttpServletRequest request) {
 		// 세션 불러옴
 		HttpSession session = request.getSession();
 		StudentDTO studentTemp = (StudentDTO) session.getAttribute("student");
-		
+		// 세션 만료시 로그인 페이지로 이동
 		if (studentTemp == null) {
-			return "redirect:/login.do"; // 세션 만료시 로그인 페이지로 이동
+			return "redirect:/login.do"; 
 		}
 		
 		// 학생 정보 가져옴
@@ -162,7 +191,9 @@ public class StudentController {
 	}
 
 	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 강의 정보
+	
+	
+	// 강의정보 보기 ################################################################################################## //
 	@RequestMapping(value = "/classList.do")
 	public String classListView(@RequestParam Map<String, Object> map, Model model) {
 
@@ -192,11 +223,13 @@ public class StudentController {
 
 	//강의 정보 조회
 	@RequestMapping(value="/classInfo.do")
-	public String classInfoView(@RequestParam("selectedNo") int no, 
-								Model model, 
-								HttpSession session) {
+	public String classInfoView(@RequestParam("selectedNo") int no, Model model, HttpSession session) {
 		
 		StudentDTO student = (StudentDTO) session.getAttribute("student");
+		// 세션만료시 로그인 페이지로 이동
+		if (student == null) {
+			return "redirect:/login.do"; 
+		}
 		List<ClassDTO> classList = classService.selectClassList(student.getStudentId());
 		model.addAttribute("professorClass", classList);
 		
@@ -211,11 +244,10 @@ public class StudentController {
 	
 	
 	
-	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 수강신청
-	// 수강 신청 + 수강목록 조회
+	
+	// 수강신청 ################################################################################################## //
 	@RequestMapping(value = "/signForClass.do")
-	public String signForClassView(@RequestParam(defaultValue = "0") int departmentCode, Model model,
-			HttpServletRequest request) {
+	public String signForClassView(@RequestParam(defaultValue = "0") int departmentCode, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		StudentDTO student = (StudentDTO) session.getAttribute("student");
 		if (student == null) {
@@ -268,13 +300,17 @@ public class StudentController {
 	}
 			
 			
-			
-
-	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적 조회
+	
+	
+	// 성적조회 하기 ################################################################################################## //
 	@RequestMapping(value = "/myGrade.do")
 	public String myGradeView(@RequestParam Map<String, Object> param, HttpSession session, Model model) {
 		Map<String, Object> map = new HashMap<>();
 		StudentDTO student = (StudentDTO) session.getAttribute("student");
+		// 세션만료시 로그인 페이지로 이동
+		if (student == null) {
+			return "redirect:/login.do"; 
+		}
 		map.put("studentId", student.getStudentId());
 
 		// yearSemester 파라미터 처리
@@ -318,11 +354,16 @@ public class StudentController {
 	
 	
 	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 시간표
+	
+	// 시간표 보기 ################################################################################################## //
 	@RequestMapping(value = "/schedule.do")
 	public String scheduleView(Model model, HttpSession session) {
 	    StudentDTO student = (StudentDTO) session.getAttribute("student");
 	    Map<String, Object> map = new HashMap<>();
+	    // 세션 만료시 로그인 페이지로 이동
+ 		if (student == null) {
+ 			return "redirect:/login.do"; 
+ 		}
 	    map.put("studentId", student.getStudentId());
 	    
 		// 시간표 조회
@@ -334,9 +375,9 @@ public class StudentController {
 	}
 
 	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인
-
 	
+	
+	// 로그인 기능 ################################################################################################## //
 	// 메일 보내기 + 로그인
 	@RequestMapping(value = "/sign.do", method = RequestMethod.POST)
 	public ModelAndView loginView(@RequestParam("id") int studentId, @RequestParam("password") String password,
@@ -371,15 +412,8 @@ public class StudentController {
 			// 로그인 실패 시 처리
 			view.addObject("result", "failure");
 		}
-
 		// 뷰 설정 (JSON 응답을 위한 jsonView 사용)
 		view.setViewName("jsonView");
-
 		return view;
-
 	}
-	
-	
-	
-
 }
