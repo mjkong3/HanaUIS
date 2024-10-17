@@ -69,7 +69,9 @@ if (nexacro.Environment)
         		{"id":"RadarChart", "classname":"nexacro.RadarChart", "type":"JavaScript"},
         		{"id":"GaugeChart", "classname":"nexacro.GaugeChart", "type":"JavaScript"},
         		{"id":"PieChart", "classname":"nexacro.PieChart", "type":"JavaScript"},
-        		{"id":"BubbleChart", "classname":"nexacro.BubbleChart", "type":"JavaScript"}
+        		{"id":"BubbleChart", "classname":"nexacro.BubbleChart", "type":"JavaScript"},
+        		{"id":"ExcelExportObject", "classname":"nexacro.ExcelExportObject", "type":"JavaScript"},
+        		{"id":"ExcelImportObject", "classname":"nexacro.ExcelImportObject", "type":"JavaScript"}
         ];
     	nexacro._addClasses(registerclass);
     };

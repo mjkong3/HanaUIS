@@ -69,17 +69,19 @@
                 <Cell col="7" text="bind:GENDER" textAlign="center"/>
                 <Cell col="8" text="bind:ADDRESS"/>
                 <Cell col="9" text="bind:STATUS" textAlign="center"/>
-                <Cell col="10" text="bind:DEPARTMENT_CODE" textAlign="center"/>
+                <Cell col="10" text="bind:DEPARTMENT_NAME" textAlign="center"/>
               </Band>
             </Format>
           </Formats>
         </Grid>
-        <Combo id="Search_Cmb" taborder="2" left="766" top="70" width="116" height="26" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="ALL" text="전체"/>
-        <Button id="Select_btn" taborder="3" text="조회" left="1045" top="70" width="66" height="25" onclick="Select_btn_onclick"/>
-        <Edit id="Edit00" taborder="4" left="887" top="70" width="153" height="26"/>
+        <Combo id="Search_Cmb" taborder="2" left="626" top="70" width="116" height="26" innerdataset="Search_Type" datacolumn="data" codecolumn="code" index="0" value="ALL" text="전체"/>
+        <Button id="Select_btn" taborder="3" text="조회" left="904" top="70" width="66" height="25" onclick="Select_btn_onclick"/>
+        <Edit id="Edit00" taborder="4" left="747" top="70" width="153" height="26"/>
         <Button id="plus_btn" taborder="5" text="등록" left="1115" top="70" width="66" height="25" onclick="plus_btn_onclick"/>
         <Button id="delete_btn" taborder="6" text="삭제" left="1184" top="70" width="66" height="25" onclick="delete_btn_onclick" visible="true"/>
         <Static id="Static00" taborder="7" text="학생 조회" left="25" top="10" width="125" height="50" onclick="Static00_onclick" usedecorate="true" font="28px/normal &quot;Gulim&quot;,&quot;HY견고딕&quot;"/>
+        <Button id="btn_excel" taborder="8" text="엑셀 등록" left="1045" top="70" width="66" height="25" onclick="btn_excel_onclick"/>
+        <Button id="btn_excelexp" taborder="9" text="엑셀 받기" left="974" top="70" width="66" height="25" onclick="btn_excelexp_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -403,6 +405,58 @@ this.delete_btn_onclick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)
         alert("삭제할 항목을 선택하세요.");
     }
 };
+
+this.btn_excel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 팝업으로 넘길 파라미터 (데이터셋 전체와 선택된 학과의 코드)
+    var objParam = { 
+    };
+    
+    // 팝업 창 경로 설정
+    var surl = "MainBase::excel_popup.xfdl";
+
+    // 팝업 호출 (데이터셋과 선택된 학과 코드 전달)
+    this.showPopup(objParam, surl);
+};
+
+this.btn_excelexp_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    // 현재 그리드 데이터셋을 가져옵니다.
+    var ds = this.Dtl_Grid.getBindDataset();
+    var data = ds.saveXML(); // 데이터셋의 데이터를 XML 형식으로 변환합니다.
+
+    trace(data); // XML 데이터가 잘 생성되었는지 확인
+
+    // 서버로 transaction 호출
+    var url = "http://localhost:8082/HanaUIS/exceldown.jsp"; // 다운로드 excel 요청
+
+    // XMLHttpRequest 객체 생성
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                // 서버 응답이 성공적이면 엑셀 파일을 다운로드합니다.
+                var blob = new Blob([xhr.response], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                var link = document.createElement("a");
+                link.href = window.URL.createObjectURL(blob);
+                link.download = "student_data.xlsx"; // 다운로드할 파일 이름
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link); // 링크를 제거합니다.
+                trace("엑셀 파일 다운로드 완료");
+            } else {
+                trace("오류 발생: " + xhr.status);
+            }
+        }
+    };
+
+    // 데이터 전송
+    xhr.responseType = "blob"; // 응답 유형을 blob으로 설정
+    xhr.send("data=" + encodeURIComponent(data));	
+};
 ]]></Script>
     <Objects>
       <Dataset id="Search_Type">
@@ -476,11 +530,12 @@ this.delete_btn_onclick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo)
           <Column id="UNIV_YEAR" type="STRING" size="256"/>
           <Column id="PHONE" type="STRING" size="256"/>
           <Column id="EMAIL" type="STRING" size="256"/>
-          <Column id="BIRTHDAY" type="INT" size="10"/>
+          <Column id="BIRTHDAY" type="STRING" size="10"/>
           <Column id="GENDER" type="STRING" size="256"/>
           <Column id="ADDRESS" type="STRING" size="256"/>
           <Column id="STATUS" type="STRING" size="256"/>
           <Column id="DEPARTMENT_CODE" type="STRING" size="256"/>
+          <Column id="DEPARTMENT_NAME" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="DTL_onrow_ds">

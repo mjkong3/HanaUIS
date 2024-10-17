@@ -183,7 +183,6 @@ public class AdStudentController {
     public NexacroResult deleteAdStudent(@ParamDataSet(name = "dlt_ds", required = false) List<Map<String, Object>> param) {
       NexacroResult result = new NexacroResult();
        System.out.println(param);
-       
 
        try {
           
@@ -229,6 +228,54 @@ public class AdStudentController {
 
     	  
     	  
+      }catch(Exception ee) {
+         System.out.println(ee);
+      }
+      System.out.println("뭘 리턴하지? " + result);
+      return result;
+      
+   }
+   /*
+   @RequestMapping(value = "/checkstudentexcel.do")
+   public NexacroResult checkstudentexcel(@ParamDataSet(name = "ds_test", required = false) List<Map<String, Object>> param) {
+	   NexacroResult result = new NexacroResult();
+      System.out.println(param);
+
+      try {
+    	  List<Map<String, Object>> ds_check = null;
+    	  service.checkstudentexcel(param);
+    	  System.out.println(ds_check);
+      }catch(Exception ee) {
+         System.out.println(ee);
+      }
+      System.out.println("뭘 리턴하지? " + result);
+      return result;
+      
+   }
+    */
+
+   @RequestMapping(value = "/checkstudentexcel.do")
+    public NexacroResult checkstudentexcel(@ParamDataSet(name = "ds_test", required = false) List<Map<String, Object>> param) {
+      NexacroResult result = new NexacroResult();
+      System.out.println(param);
+      try {
+    	  List<Map<String, Object>> list = null;
+    	  list = service.checkStudentExcel(param);
+    	  System.out.println(list);
+    	  result.addDataSet("ds_check", list);
+      }catch(Exception ee) {
+    	  System.out.println(ee);
+      }
+       return result;
+    }
+   
+   @RequestMapping(value = "/insertexcelStu.do")
+   public NexacroResult insertexcelStu(@ParamDataSet(name = "ds_test", required = false) List<Map<String, Object>> param) {
+     NexacroResult result = new NexacroResult();
+      System.out.println(param);
+
+      try {
+         service.insertexcelStu(param);
       }catch(Exception ee) {
          System.out.println(ee);
       }
