@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="board_upload" width="900" titletext="New Form" onload="board_upload_onload" onsize="board_upload_onsize" height="600">
+  <Form id="board_upload" width="900" titletext="New Form" onload="board_upload_onload" onsize="board_upload_onsize" height="600" scrollbartype="fixed fixed" scrolltype="vertical">
     <Layouts>
       <Layout height="600" width="900">
         <Static id="stt_top" taborder="0" text="공지사항 등록" left="347" top="2" width="173" height="74" font="20pt/normal &quot;Arial&quot;"/>
         <Static id="stt_title" taborder="1" text="제목" left="60" top="65" width="150" height="35" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
-        <Static id="stt_boarder" taborder="2" text="작성자" left="61" top="105" width="149" height="35" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
-        <Static id="stt_content" taborder="3" text="내용" left="59" top="145" width="150" height="219" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
-        <TextArea id="txt_content" taborder="4" left="219" top="145" width="591" height="219" textAlign="left" font="12px/1.2 &quot;Gulim&quot;" scrolltype="vertical" readonly="false" wordWrap="english" scrollbartype="auto auto" scrollbarsize="10" onkeydown="txt_content_onkeydown"/>
-        <Static id="stt_file" taborder="5" text="첨부파일" left="61" top="430" width="150" height="91" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
-        <ImageViewer id="ImageViewer00" taborder="12" left="220" top="txt_content:50" width="589" height="5" visible="false" onload="ImageViewer00_onload" stretch="none" fittocontents="none"/>
-        <Grid id="grd_file" taborder="6" left="219" top="428" width="501" height="93" binddataset="ds_file" onclick="grd_file_onclick" ondrop="grd_file_ondrop" ondragenter="grd_file_ondragenter" ondragleave="grd_file_ondragleave">
+        <Static id="stt_boarder" taborder="2" text="작성자" left="60" top="105" width="150" height="35" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
+        <Static id="stt_content" taborder="3" text="내용" left="60" top="145" width="150" height="220" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <TextArea id="txt_content" taborder="4" left="220" top="145" width="590" height="220" textAlign="left" font="12px/1.2 &quot;Gulim&quot;" scrolltype="vertical" readonly="false" wordWrap="english" scrollbartype="auto auto" scrollbarsize="10" onkeydown="txt_content_onkeydown"/>
+        <Static id="stt_file" taborder="5" text="첨부파일" left="60" top="430" width="150" height="90" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
+        <ImageViewer id="ImageViewer00" taborder="12" left="220" top="415" width="590" height="5" visible="false" onload="ImageViewer00_onload" stretch="none" fittocontents="none"/>
+        <Grid id="grd_file" taborder="6" left="219" top="430" width="500" height="90" binddataset="ds_file" onclick="grd_file_onclick" ondrop="grd_file_ondrop" ondragenter="grd_file_ondragenter" ondragleave="grd_file_ondragleave">
           <Formats>
             <Format id="default">
               <Columns>
@@ -32,16 +32,16 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="btn_addFile" taborder="7" text="첨부" left="731" top="448" width="79" height="36" onclick="btn_addFile_onclick"/>
-        <Button id="btn_deleteFile" taborder="8" text="삭제" left="731" top="btn_addFile:1" width="79" height="36" onclick="btn_deleteFile_onclick"/>
-        <Button id="btn_addBoard" taborder="9" text="저장" left="350" top="grd_file:9" width="72" height="34" onclick="btn_addBoard_onclick"/>
+        <Button id="btn_addFile" taborder="7" text="첨부" left="730" top="445" width="79" height="35" onclick="btn_addFile_onclick"/>
+        <Button id="btn_deleteFile" taborder="8" text="삭제" left="730" top="485" width="79" height="35" onclick="btn_deleteFile_onclick"/>
+        <Button id="btn_addBoard" taborder="9" text="저장" left="350" top="530" width="72" height="34" onclick="btn_addBoard_onclick"/>
         <Static id="stt_uploader" taborder="10" text="name" left="220" top="100" width="214" height="40" font="16px/normal &quot;Gulim&quot;"/>
-        <Edit id="txt_title" taborder="11" left="219" top="65" width="590" height="35" onsetfocus="txt_title_onsetfocus"/>
-        <Button id="btn_addContentPhoto" taborder="13" text="추가" left="640" top="375" width="79" height="34" onclick="btn_addContentPhoto_onclick"/>
-        <Edit id="edt_filename" taborder="14" left="219" top="375" width="413" height="35" readonly="true"/>
-        <Button id="btn_delContentPhoto" taborder="15" text="삭제" left="729" top="375" width="79" height="34" onclick="btn_delContentPhoto_onclick"/>
-        <Button id="btn_closeBoard" taborder="16" text="닫기" left="443" top="grd_file:9" width="72" height="34" onclick="btn_closeBoard_onclick"/>
-        <Static id="stt_boarder00" taborder="17" text="이미지" left="60" top="375" width="150" height="35" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
+        <Edit id="txt_title" taborder="11" left="220" top="65" width="590" height="35" onsetfocus="txt_title_onsetfocus"/>
+        <Button id="btn_addContentPhoto" taborder="13" text="추가" left="640" top="375" width="79" height="35" onclick="btn_addContentPhoto_onclick"/>
+        <Edit id="edt_filename" taborder="14" left="220" top="375" width="413" height="35" readonly="true"/>
+        <Button id="btn_delContentPhoto" taborder="15" text="삭제" left="729" top="375" width="79" height="35" onclick="btn_delContentPhoto_onclick"/>
+        <Button id="btn_closeBoard" taborder="16" text="닫기" left="443" top="530" width="72" height="34" onclick="btn_closeBoard_onclick"/>
+        <Static id="stt_img" taborder="17" text="이미지" left="60" top="375" width="150" height="35" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[// 폼 온로드
@@ -67,23 +67,49 @@ this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 // 이미지의 유무에 따라 컴포넌트 높이를 조정하는 함수
 this.adjustTextareaHeight = function() {
 
-	this.set_height(720); // 폼 길이 초기화
+	//this.set_height(720); // 폼 길이 초기화
 	
 	// 기준이 될 content tarea
 	var contentY = this.txt_content.getOffsetBottom();  // TextArea의 하단 y 좌표	
 	
-	if (this.ImageViewer00.visible) {	
-		var contimgbot = this.ImageViewer00.getOffsetBottom();
+	if (this.ImageViewer00.visible) {			
+		this.edt_filename.set_top(contentY + 10);
+		this.btn_addContentPhoto.set_top(this.edt_filename.getOffsetTop());
+		this.btn_delContentPhoto.set_top(this.edt_filename.getOffsetTop());
+		this.stt_img.set_top(this.edt_filename.getOffsetTop());
+
+		this.ImageViewer00.set_top(this.edt_filename.getOffsetBottom() + 5);
+
+		this.grd_file.set_top(this.ImageViewer00.getOffsetBottom() + 10);
+		this.stt_file.set_top(this.grd_file.getOffsetTop());
+		this.btn_addFile.set_top(this.grd_file.getOffsetTop() + 5);
+		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 50);
 		
-		this.ImageViewer00.set_top(contentY + 5);
+		this.btn_addBoard.set_top(this.grd_file.getOffsetBottom() + 10);
+		this.btn_closeBoard.set_top(this.grd_file.getOffsetBottom() + 10);
 		
-		// content, file 높이 15차이 , stt, upload btn 높이 동일시
- 		this.grd_file.set_top(contimgbot + 15);  // 다른 컴포넌트를 imgviewer 하단에 배치
- 		this.stt_file.set_top(contimgbot + 15);
- 		this.btn_addFile.set_top(contimgbot + 15);
- 		this.btn_deleteFile.set_top(contimgbot + 65);
- 		this.btn_addBoard.set_top(contimgbot + 175);
- 		this.btn_closeBoard.set_top(contimgbot + 175);
+		this.stt_img.set_height(this.grd_file.getOffsetTop() - this.edt_filename.getOffsetTop() - 20);
+		
+		this.resetScroll();
+	} 
+		else if (this.ImageViewer00.visible == false) {
+		
+		this.edt_filename.set_top(contentY + 10);
+		this.btn_addContentPhoto.set_top(this.edt_filename.getOffsetTop());
+		this.btn_delContentPhoto.set_top(this.edt_filename.getOffsetTop());
+		this.stt_img.set_top(this.edt_filename.getOffsetTop());
+		
+		this.grd_file.set_top(this.edt_filename.getOffsetBottom() + 20);
+		this.stt_file.set_top(this.grd_file.getOffsetTop());
+		this.btn_addFile.set_top(this.grd_file.getOffsetTop() + 5);
+		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 50);
+		
+		this.btn_addBoard.set_top(this.grd_file.getOffsetBottom() + 10);
+		this.btn_closeBoard.set_top(this.grd_file.getOffsetBottom() + 10);
+		
+		this.stt_img.set_height(this.edt_filename.height);
+		
+		this.resetScroll();
 	}
 };
 
@@ -191,7 +217,6 @@ this.ImageViewer00_onload = function(obj:nexacro.ImageViewer,e:nexacro.LoadEvent
 	trace('이미지 온로드 시작');	
 	this.fnContImg(obj, e);
 	
-	this.stt_content.set_height(this.txt_content.getOffsetHeight() + obj.imageheight + 5);
 	this.adjustTextareaHeight();
 	this.resetScroll();
 	/*
@@ -239,6 +264,8 @@ this.fnContImg = function(obj, e) {
 	
 	//trace(this.ds_file.saveXML());
 	//trace(this.ds_fileInsert.saveXML());
+	
+	this.resetScroll();
 };
 
 
@@ -256,27 +283,8 @@ this.btn_delContentPhoto_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 		this.ImageViewer00.set_visible(false);
 		this.ImageViewer00.set_image(null);
 		
-		// 기준이 될 content tarea
-	var contentY = this.txt_content.getOffsetBottom();  // TextArea의 하단 y 좌표	
-	
-	if (!this.ImageViewer00.visible) {	
-		var textbot = this.txt_content.getOffsetBottom();
-		
-		// content, file 높이 15차이 , stt, upload btn 높이 동일시
-/*		this.grd_file.set_top(textbot + 15);  // 다른 컴포넌트를 imgviewer 하단에 배치
-		this.stt_file.set_top(textbot + 15);
-		this.btn_addFile.set_top(textbot + 15);
-		this.btn_deleteFile.set_top(textbot + 65);
-		this.btn_addBoard.set_top(textbot + 175);
-		this.btn_closeBoard.set_top(textbot + 175);
-*/		
-		this.stt_content.set_height(this.txt_content.height);
-		
-		// 화면 길이 초기화
-		this.set_height(720);
+		this.adjustTextareaHeight();
 		}
-	}
-	
 };
 
 /************************************************************************

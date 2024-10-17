@@ -149,6 +149,8 @@
           </Dataset>
         </Combo>
         <Static id="stt_board" taborder="10" text="성적 관리" left="49" top="10" width="191" height="50" font="30px/normal &quot;Gulim&quot;" onclick="stt_board_onclick"/>
+        <Static id="sta_RowCnt" taborder="11" text="" left="97" top="556" width="33" height="28" background="white" textAlign="right" font="bold 14px/normal &quot;Gulim&quot;"/>
+        <Static id="Static00_00" taborder="12" text="총원 :" left="55" top="556" width="56" height="28" font="14px/normal &quot;Gulim&quot;" onclick="Static00_onclick"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[/* 온로드*/
@@ -385,7 +387,7 @@ this.fn_update = function() {
 	var inData      = "ds_updateScore = ds_updateScore";
 	var outData     = "";
 	var strArg      = "";
-	var callBackFnc = "fnCallBack_update";
+	var callBackFnc = "fnCallBack";
 	var isAsync     = true;
 	
 	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
@@ -393,12 +395,18 @@ this.fn_update = function() {
 	
 }
 
-this.fnCallBack_update = function (svcID, errCD, errMsg)
+this.fnCallBack = function (svcID, errCD, errMsg)
 {	
 	if(svcID == "updateScStudent" && errCD == 0){
 		trace("잘 받아왔나?");
 		this.fn_searchStudent();
 	} else if (errCD == -1){	
+		alert(errMsg);
+	}
+	if(svcID == "selectScStudent" && errCD == 0){
+		var cRow = this.ds_scoreList.rowcount;
+		this.sta_RowCnt.set_text(cRow);
+	} else if (errCD == -1){
 		alert(errMsg);
 	}
 };
@@ -413,7 +421,7 @@ this.fn_searchStudent = function() {
 	var inData      = "ds_searchSttudent=ds_searchSttudent";
 	var outData     = "ds_scoreList = ds_scoreList";
 	var strArg      = "";
-	var callBackFnc = "fnCallBack_deptInfo";
+	var callBackFnc = "fnCallBack";
 	var isAsync     = true;
 	
 	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);

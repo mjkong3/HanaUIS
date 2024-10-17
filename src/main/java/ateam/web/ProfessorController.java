@@ -1,7 +1,6 @@
 package ateam.web;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +23,7 @@ import ateam.dto.BoardDTO;
 import ateam.dto.ClassDTO;
 import ateam.dto.DepartmentDTO;
 import ateam.dto.ProfessorDTO;
+import ateam.dto.StudentDTO;
 import ateam.service.BoardService;
 import ateam.service.ClassService;
 import ateam.service.DepartmentService;
@@ -36,11 +36,10 @@ public class ProfessorController {
 
 	@Inject
 
-	// 메일 서비스
+	@Autowired
+	private MailSendService mailService; // 메일 서비스
 	@Autowired
 	private BoardService boardService;
-	@Autowired
-	private MailSendService mailService;
 	@Autowired
 	public ProfessorService professorService;
 	@Autowired
@@ -50,17 +49,21 @@ public class ProfessorController {
 
 	
 	
-	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 공지사항
-	// 공지사항 화면
+	
+	// 공지사항 ################################################################################################## //
 	@RequestMapping(value = "/notice.do")
 	public String noticeView(@RequestParam(value = "page", defaultValue = "1") int page,
 							 @RequestParam(value ="searchKeyword", defaultValue = "ALL") String searchKeyword,
-							 Model model, HttpSession session) {
-
+							 Model model, HttpSession session, HttpServletRequest request) {
 		System.out.println("교수 정보가 확인되었습니다: " + session.getAttribute("professor"));
 
 		// 교수, 교수 강의 정보 가져오기
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		// 세션 만료시 로그인 페이지로 이동
+		if (professor == null) {
+			return "redirect:/login.do"; 
+		}
+	
 		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
 		model.addAttribute("professorClass", classList);
 
@@ -76,6 +79,7 @@ public class ProfessorController {
 		return "hana/notice";
 	}
 	
+	// 공지사항 검색
     @RequestMapping(value = "/noticeSearch.do", method = RequestMethod.GET)
     public String searchNotice(@RequestParam("searchKeyword") String searchKeyword,
 					    	   @RequestParam(value = "page", defaultValue = "1") int page,
@@ -103,6 +107,10 @@ public class ProfessorController {
 	public String noticeDetail(@RequestParam("boardNo") int no, Model model, HttpSession session) {
 
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		// 세션 만료시 로그인 페이지로 이동
+		if (professor == null) {
+			return "redirect:/login.do"; 
+		}
 		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
 		model.addAttribute("professorClass", classList);
 
@@ -119,15 +127,16 @@ public class ProfessorController {
 
 	
 	
-	
-	
 
-	//// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마이페이지
-	// 마이페이지 조회
+	// 마이페이지 ################################################################################################## //
 	@RequestMapping(value = "/myPage.do")
 	public String mainView(HttpSession session, Model model) {
 
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		// 세션 만료시 로그인 페이지로 이동
+		if (professor == null) {
+			return "redirect:/login.do"; 
+		}
 		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
 		model.addAttribute("professorClass", classList);
 		System.out.println("@@@@@@@@@@@@!#!@#@!#!@#@!#");
@@ -143,9 +152,7 @@ public class ProfessorController {
 
 	// 연락처 수정
 	@RequestMapping("/updatePhone.do")
-	public String updatePhone(@RequestParam Map<String, Object> param, 
-								HttpSession session,
-								RedirectAttributes redirectAttributes) {
+	public String updatePhone(@RequestParam Map<String, Object> param, HttpSession session, RedirectAttributes redirectAttributes) {
 		
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
 		param.put("professorId", professor.getProfessorId());
@@ -158,9 +165,7 @@ public class ProfessorController {
 
 	// 이메일을 수정
 	@RequestMapping("/updateEmail.do")
-	public String updateEmail(@RequestParam Map<String, Object> param, 
-								HttpSession session,
-								RedirectAttributes redirectAttributes) {
+	public String updateEmail(@RequestParam Map<String, Object> param, HttpSession session, RedirectAttributes redirectAttributes) {
 
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
 		param.put("professorId", professor.getProfessorId());
@@ -174,15 +179,15 @@ public class ProfessorController {
 	
 	
 	
-	
-	
-	
-	//// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 강의
-	// 강의 정보 조회
+	// 강의정보 ################################################################################################## //
 	@RequestMapping(value = "/classInfo.do")
 	public String classInfoView(@RequestParam("selectedNo") int no, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		// 세션 만료시 로그인 페이지로 이동
+		if (professor == null) {
+			return "redirect:/login.do"; 
+		}
 		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
 		model.addAttribute("professorClass", classList);
 
@@ -223,14 +228,15 @@ public class ProfessorController {
 	
 	
 	
-	
-	
-	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 학생조회
-	// 수강중인 학생정보 조회
+	// 학생정보 조회 ################################################################################################## //
 	@RequestMapping(value = "/studentInfo.do")
 	public String studentInfoView(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
 
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		// 세션 만료시 로그인 페이지로 이동
+		if (professor == null) {
+			return "redirect:/login.do"; 
+		}
 		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
 		model.addAttribute("professorClass", classList);
 
@@ -282,16 +288,16 @@ public class ProfessorController {
 	
 	
 	
-	
-	
-
-	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적 조회
-	// 학생들의 성적 조회
+	// 학생성적 조회 ################################################################################################## //
 	@RequestMapping(value = "/gradeInfo.do")
 	public String gradeInfoView(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
 
 		// 세션에서 교수 정보 가져오기
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		// 세션 만료시 로그인 페이지로 이동
+		if (professor == null) {
+			return "redirect:/login.do"; 
+		}
 		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
 		model.addAttribute("professorClass", classList);
 
@@ -349,14 +355,12 @@ public class ProfessorController {
 
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
 		param.put("professroId", professor.getProfessorId());
-		System.out.println("============================================");
 		System.out.println(param);
 		int middleTest = Integer.parseInt((String) param.get("middleTest"));
 		int finalTest = Integer.parseInt((String) param.get("finalTest"));
 		int report = Integer.parseInt((String) param.get("report"));
 		double score = (middleTest / 100.0 * 40) + (finalTest / 100.0 * 40) + (report / 100.0 * 20);
 		int classCode = Integer.parseInt((String) param.get("classCode"));
-		System.out.println("============================================" + score);
 
 		System.out.println(score);
 		String grade = "";
@@ -394,6 +398,10 @@ public class ProfessorController {
 	public String chartView(@RequestParam(value = "classCode") int no, Model model, HttpSession session) {
 
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		// 세션 만료시 로그인 페이지로 이동
+		if (professor == null) {
+			return "redirect:/login.do"; 
+		}
 		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
 		model.addAttribute("professorClass", classList);
 
@@ -425,12 +433,15 @@ public class ProfessorController {
 	
 	
 	
-	
-
-	// //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 시간표 조회
+	// 시간표 조회 ################################################################################################## //
 	@RequestMapping(value = "/schedule.do")
 	public String scheduleView(Model model, HttpSession session) {
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		// 세션 만료시 로그인 페이지로 이동
+		if (professor == null) {
+			return "redirect:/login.do"; 
+		}
+		
 		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
 		model.addAttribute("professorClass", classList);
 
@@ -452,7 +463,7 @@ public class ProfessorController {
 	
 	
 
-	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인
+	// 로그인 기능 ################################################################################################## //
 	// 메일 보내기 + 로그인
 	@RequestMapping(value = "/sign.do", method = RequestMethod.POST)
 	public ModelAndView loginView(@RequestParam("id") int professorId, @RequestParam("password") String password,
@@ -518,8 +529,6 @@ public class ProfessorController {
 
 		// JSON 응답을 위한 jsonView 설정
 		view.setViewName("jsonView");
-
 		return view;
 	}
-
 }

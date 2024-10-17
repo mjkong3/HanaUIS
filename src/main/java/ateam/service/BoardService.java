@@ -16,7 +16,6 @@ public interface BoardService {
 	//공지사항 가져오기
 	public Map<String, Object> selectBoardAndFile( int no);
 
-
 	public List<Map<String, Object>> searchNoticeByTitle(String searchKeyword, int pageSize, int page);
 
 

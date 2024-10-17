@@ -104,7 +104,7 @@
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"447\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"32\"/></Rows><Band id=\"head\"><Cell text=\"파 일\"/></Band><Band id=\"body\"><Cell text=\"bind:FILE_NAME\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_closeBoard","484","530","90","35",null,null,null,null,null,null,this);
+            obj = new Button("btn_closeBoard","494","530","90","35",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("닫기");
             obj.set_font("12px/normal \"Gulim\"");
@@ -136,7 +136,7 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_updateBoard","290","530","90","35",null,null,null,null,null,null,this);
+            obj = new Button("btn_updateBoard","300","530","90","35",null,null,null,null,null,null,this);
             obj.set_taborder("11");
             obj.set_text("수정");
             obj.set_font("12px/normal \"Gulim\"");
@@ -175,7 +175,7 @@
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_deleteBoard","387","530","90","35",null,null,null,null,null,null,this);
+            obj = new Button("btn_deleteBoard","397","530","90","35",null,null,null,null,null,null,this);
             obj.set_taborder("17");
             obj.set_text("삭제");
             this.addChild(obj.name, obj);
@@ -208,7 +208,7 @@
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_boarder00","61","355","149","35",null,null,null,null,null,null,this);
+            obj = new Static("stt_img","61","355","149","35",null,null,null,null,null,null,this);
             obj.set_taborder("23");
             obj.set_text("이미지");
             obj.set_textAlign("center");
@@ -266,7 +266,7 @@
                 p.btn_closeBoard.set_taborder("6");
                 p.btn_closeBoard.set_text("닫기");
                 p.btn_closeBoard.set_font("12px/normal \"Gulim\"");
-                p.btn_closeBoard.move("484","530","90","35",null,null);
+                p.btn_closeBoard.move("494","530","90","35",null,null);
 
                 p.stt_uploader.set_taborder("7");
                 p.stt_uploader.set_font("12px/normal \"Gulim\"");
@@ -293,7 +293,7 @@
                 p.btn_updateBoard.set_taborder("11");
                 p.btn_updateBoard.set_text("수정");
                 p.btn_updateBoard.set_font("12px/normal \"Gulim\"");
-                p.btn_updateBoard.move("290","530","90","35",null,null);
+                p.btn_updateBoard.move("300","530","90","35",null,null);
 
                 p.btn_fileDown.set_taborder("12");
                 p.btn_fileDown.set_text("다운");
@@ -325,7 +325,7 @@
 
                 p.btn_deleteBoard.set_taborder("17");
                 p.btn_deleteBoard.set_text("삭제");
-                p.btn_deleteBoard.move("387","530","90","35",null,null);
+                p.btn_deleteBoard.move("397","530","90","35",null,null);
 
                 p.cal_Dtm.set_taborder("18");
                 p.cal_Dtm.set_font("12px/normal \"Gulim\"");
@@ -350,12 +350,12 @@
                 p.edt_filename.set_readonly("true");
                 p.edt_filename.move("219","355","401","35",null,null);
 
-                p.stt_boarder00.set_taborder("23");
-                p.stt_boarder00.set_text("이미지");
-                p.stt_boarder00.set_textAlign("center");
-                p.stt_boarder00.set_font("12pt \"Arial\"");
-                p.stt_boarder00.set_border("0px none,10px darkblue solid,0px none,0px none");
-                p.stt_boarder00.move("61","355","149","35",null,null);
+                p.stt_img.set_taborder("23");
+                p.stt_img.set_text("이미지");
+                p.stt_img.set_textAlign("center");
+                p.stt_img.set_font("12pt \"Arial\"");
+                p.stt_img.set_border("0px none,10px darkblue solid,0px none,0px none");
+                p.stt_img.move("61","355","149","35",null,null);
             	}
             );
             this.addLayout(obj.name, obj);
@@ -413,7 +413,7 @@
 
                 p.edt_filename.move("169","355","401","35",null,null);
 
-                p.stt_boarder00.move("11","355","149","35",null,null);
+                p.stt_img.move("11","355","149","35",null,null);
             	}
             );
             obj.set_mobileorientation("landscape");
@@ -854,42 +854,59 @@
          * 							본문 이미지 첨부
          ************************************************************************/
 
-        // 게시글 textarea 높이 늘리기
-        this.txt_Content_onkeydown = function(obj,e)
-        {
-        	this.set_scrolltype("vertical");
-        };
-
         // 이미지 등록에 따라 컴포넌트 높이를 조정하는 함수
         this.adjustTextareaHeight = function() {
 
-        	this.set_height(720); // 폼 길이 초기화
+        	//this.set_height(720); // 폼 길이 초기화
 
         	// 기준이 될 content tarea
         	var contentY = this.txt_Content.getOffsetBottom();  // TextArea의 하단 y 좌표
 
         	if (this.ImageViewer00.visible) {
-        		var contimgbot = this.ImageViewer00.getOffsetBottom();
+        		this.edt_filename.set_top(contentY + 10);
+        		this.btn_addContentPhoto.set_top(this.edt_filename.getOffsetTop());
+        		this.btn_delContentPhoto.set_top(this.edt_filename.getOffsetTop());
+        		this.stt_img.set_top(this.edt_filename.getOffsetTop());
 
-        		this.ImageViewer00.set_top(contentY + 5);
+        		this.ImageViewer00.set_top(this.edt_filename.getOffsetBottom() + 5);
 
-        		// 이미지뷰어 아래 컴포넌트들 이미지 위치 아래로 변경
-        		this.edt_filename.set_top(contimgbot + 15);
-        		this.btn_addContentPhoto.set_top(contimgbot + 15.5);
-        		this.btn_delContentPhoto.set_top(contimgbot + 15.5);
-
-        		this.grd_file.set_top(contimgbot + 52.5);
+        		this.grd_file.set_top(this.ImageViewer00.getOffsetBottom() + 20);
+        		this.stt_file.set_top(this.grd_file.getOffsetTop());
         		this.btn_fileDown.set_top(this.grd_file.getOffsetTop());
-        		this.btn_addFile.set_top(this.grd_file.getOffsetTop());
-        		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 35);
+        		this.btn_addFile.set_top(this.grd_file.getOffsetTop() + 35);
+        		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 70);
 
-        		this.btn_updateBoard.set_top(this.edt_filename.getOffsetBottom() + 100);
-        		this.btn_deleteBoard.set_top(this.edt_filename.getOffsetBottom() + 100);
-        		this.btn_closeBoard.set_top(this.edt_filename.getOffsetBottom() + 100);
+        		this.btn_updateBoard.set_top(this.grd_file.getOffsetBottom() + 10);
+        		this.btn_deleteBoard.set_top(this.grd_file.getOffsetBottom() + 10);
+        		this.btn_closeBoard.set_top(this.grd_file.getOffsetBottom() + 10);
 
-        		this.stt_file.set_top(this.btn_addContentPhoto.getOffsetTop());
+        		this.stt_img.set_height(this.grd_file.getOffsetTop() - this.edt_filename.getOffsetTop() - 20);
+
+        		this.resetScroll();
+        	}
+        		else if (this.ImageViewer00.visible == false) {
+
+        		this.edt_filename.set_top(contentY + 10);
+        		this.btn_addContentPhoto.set_top(this.edt_filename.getOffsetTop());
+        		this.btn_delContentPhoto.set_top(this.edt_filename.getOffsetTop());
+        		this.stt_img.set_top(this.edt_filename.getOffsetTop());
+
+        		this.grd_file.set_top(this.edt_filename.getOffsetBottom() + 20);
+        		this.stt_file.set_top(this.grd_file.getOffsetTop());
+        		this.btn_fileDown.set_top(this.grd_file.getOffsetTop());
+        		this.btn_addFile.set_top(this.grd_file.getOffsetTop() + 35);
+        		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 70);
+
+        		this.btn_updateBoard.set_top(this.grd_file.getOffsetBottom() + 10);
+        		this.btn_deleteBoard.set_top(this.grd_file.getOffsetBottom() + 10);
+        		this.btn_closeBoard.set_top(this.grd_file.getOffsetBottom() + 10);
+
+        		this.stt_img.set_height(this.edt_filename.height);
+
+        		this.resetScroll();
         	}
         };
+
 
         // 본문 사진 첨부
 
@@ -931,6 +948,8 @@
 
         	this.ImageViewer00.set_visible(true); //본문 이미지 보이기
 
+        	this.adjustTextareaHeight();
+
 
         	setTimeout(function(){
         		this.addFileList2(e.virtualfiles);
@@ -941,7 +960,6 @@
 
         	trace(this.ds_contentFile.saveXML());
 
-        	this.adjustTextareaHeight();
 
         	if (this.ds_contentFile.rowcount > 1) {
         		this.ds_contentFile.deleteRow(1);
@@ -1019,19 +1037,7 @@
         	trace('이미지 온로드 시작');
         	this.fnContImg(obj, e);
 
-
-
-        	this.stt_Content.set_height(this.txt_Content.getOffsetHeight() + obj.imageheight + 5);
         	this.adjustTextareaHeight();
-        	this.resetScroll();
-
-        	var imgviehei = this.ImageViewer00.imageheight;
-        	var imgviewid = this.ImageViewer00.imagewidth;
-
-        	this.ImageViewer00.set_height(imgviehei);
-        	this.ImageViewer00.set_width(imgviewid);
-
-
         };
 
 
@@ -1064,6 +1070,7 @@
         	obj.set_top(contentY + 5);
 
         	trace(this.ds_file.saveXML());
+        	this.resetScroll();
         };
 
 
@@ -1071,8 +1078,6 @@
         this.btn_delContentPhoto_onclick = function(obj,e)
         {
         	this.deleteFile(this.ds_contentFile.getColumn(0, "IMAGE"));
-
-        	this.resetScroll();
 
         	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMAGE") == "undefined") {
         		alert("본문에 들어간 파일이 없습니다.");
@@ -1083,32 +1088,7 @@
         		this.ImageViewer00.set_visible(false);
         		this.ImageViewer00.set_image(null);
 
-        		// 기준이 될 content tarea
-        	var contentY = this.txt_Content.getOffsetBottom();  // TextArea의 하단 y 좌표
-
-        	if (!this.ImageViewer00.visible) {
-        		var textbot = this.txt_Content.getOffsetBottom();
-
-        		// 기존 위치로 컴포넌트 배치
-        		this.edt_filename.set_top(textbot + 40);  // 다른 컴포넌트를 imgviewer 하단에 배치
-        		this.btn_addContentPhoto.set_top(this.edt_filename.getOffsetTop()-7);
-        		this.btn_delContentPhoto.set_top(this.edt_filename.getOffsetTop()-7);
-
-        		this.grd_file.set_top(this.edt_filename.getOffsetBottom() + 30);
-        		this.btn_fileDown.set_top(this.grd_file.getOffsetTop());
-        		this.btn_addFile.set_top(this.grd_file.getOffsetTop());
-        		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 55);
-
-        		this.btn_updateBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
-        		this.btn_deleteBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
-        		this.btn_closeBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
-
-        		this.stt_file.set_top(this.btn_addContentPhoto.getOffsetTop());
-        		this.stt_Content.set_height(this.txt_Content.height);
-
-        		// 화면 길이 초기화
-        		this.set_height(720);
-        		}
+        		this.adjustTextareaHeight();
         	}
         };
 
@@ -1131,7 +1111,7 @@
             this.btn_addContentPhoto.addEventHandler("onclick",this.btn_addContentPhoto_onclick,this);
             this.ImageViewer00.addEventHandler("onload",this.ImageViewer00_onload,this);
             this.btn_delContentPhoto.addEventHandler("onclick",this.btn_delContentPhoto_onclick,this);
-            this.stt_boarder00.addEventHandler("onclick",this.Static01_00_onclick,this);
+            this.stt_img.addEventHandler("onclick",this.Static01_00_onclick,this);
             this.FileDownTransfer00.addEventHandler("onerror",this.FileDownTransfer00_onerror,this);
             this.FileDownTransfer00.addEventHandler("onsuccess",this.FileDownTransfer00_onsuccess,this);
             this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);

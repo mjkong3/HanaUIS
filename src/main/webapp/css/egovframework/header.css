@@ -55,7 +55,8 @@ body {
 }
 
 .menu li a:hover {
-    background-color: #444;
+    /* background-color: #444; */
+    border-left: 4px solid white;
 }
 
 /* 하위 메뉴 스타일 */
@@ -74,7 +75,7 @@ body {
 /* 로그아웃 버튼 스타일 */
 .menu button {
 	height: 20px;
-    width: 200px;
+    width: 210px;
     margin: 0 20px;
     color: rgb(15,15,112);
     border: none;
@@ -91,14 +92,14 @@ body {
 .stuproName {
 	text-align: left;
 	height:20px;
-    width: 180px;
+    width: 190px;
     margin: 0 20px;
-    padding: 15px 20px 15px 0px;
+    padding: 15px 20px 10px 0px;
     font-weight: bold;
     font-size: 16px;
     color: white;
-    border-bottom: 2px solid white;
-    margin-bottom: 10px;
+    /* border-bottom: 1px solid white;
+    margin-bottom: 10px; */
 }
 
 /* 메인 컨텐츠 스타일 */
