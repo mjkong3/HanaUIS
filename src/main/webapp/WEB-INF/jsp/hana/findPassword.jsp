@@ -132,8 +132,11 @@
     }
  	});
 	
+	function fn_cancelPwd() {
+	    location.href = "/HanaUIS/login.do";
+	}
+	
  
-    
 	</script>
 </head>
 <body>
@@ -143,45 +146,68 @@
 			<img src="<c:url value='/images/egovframework/logo.png'/>"
 				alt="대학 로고" class="logo">
 		</div>
-		<h1>하나대학교</h1>
+		
+		<br>
 		<h3>비밀번호 찾기</h3>
-
+	
 		<div class="login-form">
 
 			<form action="" method="post" id="form_login">
 				<table>
-					<tr>
-						<td><label for="name">이름</label></td>
-						<td><input type="text" id="name" name="name"
-							placeholder="이름을 입력하세요" ></td>
-					</tr>
-					<tr>
-						<td><label for="user-id">아이디</label></td>
-						<td><input type="text" id="id" name="id"
-							placeholder="학번/교번을 입력하세요" required></td>
-						<td colspan="2"><button id="btn_veriUser" type="button">인증번호 발송</button></td>
-							
-					</tr>
-					<tr>
-						<td><label for="">인증번호</label></td>
-						<td><input type="text" id="veritext" name="veritext"
-							placeholder="인증번호를 입력하세요" disabled="disabled"></td>
-						<td><button id="veriCode" type="button" disabled="disabled">인증번호 확인</button></td>
-					</tr>
-	
-					<tr>
-						<td><label>새비밀번호</label></td>
-						<td><input type="password" id="password" name="password" 
-						placeholder="영문, 숫자, 특수문자, 8-24자" disabled="disabled"></td>
-					</tr>
-					<tr>
-						<td><label>비밀번호 확인</label></td>
-						<td><input type="password" id="secpassword" name="secpassword" disabled="disabled"></td>
-						<td><button type="button" id="changepwd">비밀번호 변경</button></td>
-					</tr>
+					<colgroup>
+						<col width="23%">
+						<col width="*">
+						<col width="24%">
+					</colgroup>
+					<tbody>
+						<tr><td class="subTitle"></td><td></td></tr>
+						<tr>
+							<td class="subTitle">&ensp;이름</td>
+							<td><input type="text" id="name" name="name" placeholder="이름을 입력하세요"></td>
+							<td rowspan="2">
+								<div class="btn-margin">
+									<button id="btn_veriUser" type="button"
+								style="height: 78px;">인증번호 발송</button>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="subTitle">&ensp;아이디</td>
+							<td><input type="text" id="id" name="id" placeholder="학번/교번을 입력하세요" required></td>
+						</tr>
+						<tr>
+							<td class="subTitle">&ensp;인증번호</td>
+							<td><input type="text" id="veritext" name="veritext"
+								placeholder="인증번호를 입력하세요" disabled="disabled"></td>
+							<td rowspan="2">
+								<div class="btn-margin">
+									<button id="veriCode" type="button" disabled="disabled" style="height: 78px;">인증번호 확인</button>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="subTitle">&ensp;새 비밀번호</td>
+							<td><input type="password" id="password" name="password" placeholder="영문, 숫자, 특수문자, 8-24자" 
+								disabled="disabled">
+							</td>
+						</tr>
+						<tr>
+							<td class="subTitle">&ensp;비밀번호 확인</td>
+							<td><input type="password" id="secpassword" name="secpassword" placeholder="새 비밀번호를 입력하세요"
+								disabled="disabled"></td>
+							<td>
+								<div class="btn-margin">
+									<button type="button" id="changepwd" style="height: 39px;">변경 확인</button>
+								</div>
+							</td>
+						</tr>
+						<tr><td class="subTitle"></td><td></td></tr>
+					</tbody>
 				</table>
 			</form>
-
+			<div class="cancelPwd">
+				<a href="javascript:fn_cancelPwd()">변경 취소</a>
+			</div>	
 		</div>
 	</div>
 </body>

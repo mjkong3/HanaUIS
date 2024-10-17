@@ -44,10 +44,8 @@
        <a href="javascript:fn_notice()"><img src="<c:url value='/images/egovframework/logo.png'/>" alt=""/></a>
     </div>
     
-    <div>
-    	<div class="stuproName">${student.name} <span style="font-weight: normal;">학생</span></div>
-     	<button onclick="javascript:fn_logout()">로그아웃</button>
-    </div>
+   	<div class="stuproName">${student.name} <span style="font-weight: normal;">학생</span></div>
+    <button onclick="javascript:fn_logout()">로그아웃</button>
     
     <ul>
         <li>

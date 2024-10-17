@@ -56,7 +56,7 @@
 				    <c:choose>
 				        <c:when test="${not empty student}">
 				            <!-- 학생용 검색 폼 -->
-				            <form action="<c:url value='/noticeSearch.do'/>" method="get">
+				            <form action="<c:url value='/std/noticeSearch.do'/>" method="get">
 				                <input type="text" name="searchKeyword" placeholder="학생용 제목 검색" value="${param.searchKeyword}">
 				                <button type="submit">검색</button>
 				            </form>
@@ -126,7 +126,7 @@
             <!-- 마지막 페이지로 이동 -->
             <a href="?page=${pageHandler.totalPage}"
                class="${pageHandler.page == pageHandler.totalPage ? 'disabled' : ''}">&gt;&gt;</a>
-         </div>
+         	</div>
        </div>
    </div>
    
