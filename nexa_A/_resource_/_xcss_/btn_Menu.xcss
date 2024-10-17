@@ -136,8 +136,8 @@ color : black;
 {
 background: #FFCEDA !important;
 }
-.Grid .body.row.cell.backgroundBlue
+.Grid .body .row .cell.backgroundBlue
 {
-background : #B0E0E6;
+background : #B0E0E6 !important;
 }
 ]]></XCSS>

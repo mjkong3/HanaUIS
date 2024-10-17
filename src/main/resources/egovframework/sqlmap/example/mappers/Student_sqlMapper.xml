@@ -141,42 +141,6 @@
 					WHEN E.GRADE = 'F' THEN 0
 					ELSE 0
 				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) AS totalGrade,
-					CASE
-					WHEN ROUND(SUM(CASE
-					WHEN E.GRADE = 'A' THEN 4.5
-					WHEN E.GRADE = 'B' THEN 3.5
-					WHEN E.GRADE = 'C' THEN 2.5
-					WHEN E.GRADE = 'D' THEN 1.5
-					WHEN E.GRADE = 'F' THEN 0
-					ELSE 0
-				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 4.0 THEN 'A'
-					WHEN ROUND(SUM(CASE
-					WHEN E.GRADE = 'A' THEN 4.5
-					WHEN E.GRADE = 'B' THEN 3.5
-					WHEN E.GRADE = 'C' THEN 2.5
-					WHEN E.GRADE = 'D' THEN 1.5
-					WHEN E.GRADE = 'F' THEN 0
-					ELSE 0
-				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 3.0 THEN 'B'
-					WHEN ROUND(SUM(CASE
-					WHEN E.GRADE = 'A' THEN 4.5
-					WHEN E.GRADE = 'B' THEN 3.5
-					WHEN E.GRADE = 'C' THEN 2.5
-					WHEN E.GRADE = 'D' THEN 1.5
-					WHEN E.GRADE = 'F' THEN 0
-					ELSE 0
-				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 2.0 THEN 'C'
-					WHEN ROUND(SUM(CASE
-					WHEN E.GRADE = 'A' THEN 4.5
-					WHEN E.GRADE = 'B' THEN 3.5
-					WHEN E.GRADE = 'C' THEN 2.5
-					WHEN E.GRADE = 'D' THEN 1.5
-					WHEN E.GRADE = 'F' THEN 0
-					ELSE 0
-				END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 1.0 THEN 'D'
-				ELSE 'F'
-				END AS totalCredit,
-				
 			    SUM(CASE WHEN E.GRADE = 'A' THEN 1 ELSE 0 END) AS countA,
 			    SUM(CASE WHEN E.GRADE = 'B' THEN 1 ELSE 0 END) AS countB,
 			    SUM(CASE WHEN E.GRADE = 'C' THEN 1 ELSE 0 END) AS countC,
@@ -233,41 +197,6 @@
 		            WHEN E.GRADE = 'F' THEN 0
 		            ELSE 0
 		        END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) AS totalGrade,
-		        CASE
-		            WHEN ROUND(SUM(CASE
-		                WHEN E.GRADE = 'A' THEN 4.5
-		                WHEN E.GRADE = 'B' THEN 3.5
-		                WHEN E.GRADE = 'C' THEN 2.5
-		                WHEN E.GRADE = 'D' THEN 1.5
-		                WHEN E.GRADE = 'F' THEN 0
-		                ELSE 0
-		            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 4.0 THEN 'A'
-		            WHEN ROUND(SUM(CASE
-		                WHEN E.GRADE = 'A' THEN 4.5
-		                WHEN E.GRADE = 'B' THEN 3.5
-		                WHEN E.GRADE = 'C' THEN 2.5
-		                WHEN E.GRADE = 'D' THEN 1.5
-		                WHEN E.GRADE = 'F' THEN 0
-		                ELSE 0
-		            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 3.0 THEN 'B'
-		            WHEN ROUND(SUM(CASE
-		                WHEN E.GRADE = 'A' THEN 4.5
-		                WHEN E.GRADE = 'B' THEN 3.5
-		                WHEN E.GRADE = 'C' THEN 2.5
-		                WHEN E.GRADE = 'D' THEN 1.5
-		                WHEN E.GRADE = 'F' THEN 0
-		                ELSE 0
-		            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 2.0 THEN 'C'
-		            WHEN ROUND(SUM(CASE
-		                WHEN E.GRADE = 'A' THEN 4.5
-		                WHEN E.GRADE = 'B' THEN 3.5
-		                WHEN E.GRADE = 'C' THEN 2.5
-		                WHEN E.GRADE = 'D' THEN 1.5
-		                WHEN E.GRADE = 'F' THEN 0
-		                ELSE 0
-		            END * C.CLASS_GRADE) / SUM(C.CLASS_GRADE), 2) >= 1.0 THEN 'D'
-		            ELSE 'F'
-		        END AS totalCredit,
 		        SUM(CASE WHEN E.GRADE = 'A' THEN 1 ELSE 0 END) AS countA,
 		        SUM(CASE WHEN E.GRADE = 'B' THEN 1 ELSE 0 END) AS countB,
 		        SUM(CASE WHEN E.GRADE = 'C' THEN 1 ELSE 0 END) AS countC,
@@ -280,14 +209,6 @@
 		)
 		SELECT 
 	        ROUND(AVG(totalGrade),2) AS avgTotalGrade,
-		    (CASE 
-		        WHEN AVG(totalGrade) >= 4.0 THEN 'A'
-		        WHEN AVG(totalGrade) >= 3.5 THEN 'B'
-		        WHEN AVG(totalGrade) >= 3.0 THEN 'C'
-		        WHEN AVG(totalGrade) >= 2.5 THEN 'D'
-		        WHEN AVG(totalGrade) >= 2.0 THEN 'F'
-		        ELSE 'F'
-		    END) AS avgTotalCredit,
 		    SUM(countA) AS totalCountA,
 		    SUM(countB) AS totalCountB, 
 		    SUM(countC) AS totalCountC, 
@@ -382,7 +303,6 @@
 		      WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
 		      ELSE 2
 		  END
-		  AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
 		  AND NOT EXISTS (
 		      SELECT 1
 		      FROM ENROLLMENT H
@@ -418,6 +338,8 @@
 			FINAL_TEST,
 			REPORT,
 			STUDENT_YEAR,
+			SCORE,
+			GRADE,
 			REG_DTM,
 			CRE_DTM,
 			CRE_USR
@@ -429,8 +351,10 @@
 				WHEN MONTH(NOW()) BETWEEN 2 AND 6 THEN 1
 				ELSE 2
 			END,
-			#{studentYear},
 			0,
+			0,
+			0,
+			#{studentYear},
 			0,
 			0,
 			SYSDATE(),
@@ -505,7 +429,6 @@
 		      WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
 		      ELSE 2
 		  END
-		  AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
 		  AND NOT EXISTS (
 		      SELECT 1
 		      FROM ENROLLMENT H
@@ -610,7 +533,6 @@
 		      WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
 		      ELSE 2
 		  END
-		  AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
 		  AND EXISTS (
 		      SELECT 1
 		      FROM ENROLLMENT H

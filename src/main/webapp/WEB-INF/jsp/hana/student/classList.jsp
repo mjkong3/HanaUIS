@@ -104,7 +104,7 @@
 	            </tbody>
 	        </table>
 	        
-	                    <div class="pagination">
+               <div class="pagination">
 			   <!-- 첫 페이지로 이동 -->
 			   <a href="?page=1&departmentCode=${departmentCode}"
 			      class="${pageHandler.page == 1 ? 'disabled' : ''}">&lt;&lt;</a>
