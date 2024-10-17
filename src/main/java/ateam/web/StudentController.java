@@ -152,11 +152,12 @@ public class StudentController {
 
 	// 휴학&재학 처리
 	@RequestMapping(value = "/leaveReturn.do", method = RequestMethod.POST)
-	public String studentStatus(@RequestParam Map<String, Object> map) {
+	public String studentStatus(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes) {
 		System.out.println(map.get("studentId"));
 		studentService.insertStatus(map); // status_date 테이블에 insert
 		// studentService.updateLeave(map); // student 테이블에 update
 		System.out.println("휴학/복학 신청 확인");
+		redirectAttributes.addFlashAttribute("leaveComplete", "success");
 		return "redirect:/std/leave.do";
 	}
 
@@ -243,18 +244,21 @@ public class StudentController {
 		model.addAttribute("department", department); // 조회 결과를 모델에 추가
 		model.addAttribute("totalGrades", totalGrades); // 누적학점 보내기
 		model.addAttribute("selectedClass", selectedClass); // 신청했던 수강목록 리스트 보내기
+		model.addAttribute("studentYear", studentService.stuWhatYear(student.getStudentId())); // 학년 보내기
 		System.out.print(departmentCode + " studentId 보내기 완료");
+		System.out.print("보내는 학년 : "+studentService.stuWhatYear(student.getStudentId()));
 		return "hana/student/signForClass";
 	}
 
 	// 수강 신청 적용 // 데이터 받을 땐 String 자료형으로 변환되어서 옴
 	@PostMapping("/enrollClass.do")
-	public String insertClass(@RequestParam("studentId") String studentId,
+	public String insertClass(@RequestParam("studentId") String studentId, @RequestParam("studentYear") String studentYear,
 			@RequestParam("chk") List<String> classCodes, RedirectAttributes redirectAttributes) {
 		// 각 수업에 대해 DB에 저장
 		for (String classCode : classCodes) {
 			EnrollmentDTO enrollmentDTO = new EnrollmentDTO();
 			enrollmentDTO.setStudentId(Integer.parseInt(studentId)); // String -> int 변환
+			enrollmentDTO.setStudentYear(Integer.parseInt(studentYear)); // String -> int 변환
 			enrollmentDTO.setClassCode(Integer.parseInt(classCode)); // String -> int 변환
 			studentService.enrollClass(enrollmentDTO); // 서비스 호출
 		}
@@ -286,6 +290,7 @@ public class StudentController {
 		}
 		model.addAttribute("yearSemester", yearSemester);
 
+		
 		// 페이징 작업
 		int page = param.get("page") != null ? Integer.parseInt((String) param.get("page")) : 1;
 

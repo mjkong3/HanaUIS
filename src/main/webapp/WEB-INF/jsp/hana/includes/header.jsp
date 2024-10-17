@@ -45,27 +45,29 @@
     </div>
     
     <div>
-     	<button onclick="javascript:fn_logout()">${student.name}<br>로그아웃</button>
+    	<div class="stuproName">${student.name} <span style="font-weight: normal;">학생</span></div>
+     	<button onclick="javascript:fn_logout()">로그아웃</button>
     </div>
-    <ul>
     
-        <li><a onclick="toggleSubmenu(event)">학적관리</a>
+    <ul>
+        <li>
+        	<a onclick="toggleSubmenu(event)">학적관리</a>
             <ul class="submenu">
                 <li><a href="javascript:fn_myPage()">마이페이지</a></li>
                 <li><a href="javascript:fn_leave()">휴/복학신청</a></li>
             </ul>
         </li>
         
-        <li><a onclick="toggleSubmenu(event)">강의</a>
+        <li>
+        	<a onclick="toggleSubmenu(event)">강의</a>
             <ul class="submenu">
 			     <li> <a href="javascript:fn_classList()" >강의조회</a></li>
 			     <li> <a href="javascript:fn_myGrade()" >성적조회</a></li>
             </ul>
         </li>
-        
+  
         <li> <a href="javascript:fn_signForClass()">수강신청</a></li>
         <li> <a href="javascript:fn_schedule()">시간표</a></li>
     </ul>
-    
     
 </div>

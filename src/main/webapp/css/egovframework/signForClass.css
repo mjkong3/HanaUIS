@@ -144,18 +144,13 @@ select {
    overflow: auto;
 }
 
-#allClass {
+#allClass table {
    width: 100%;
-   border: 0;
 }
 
 #allClass thead {
    position: sticky;
-   top: 0px;
-}
-
-#allClass > thead > tr > th {
-   border-top: 1px solid #dddddd;
+   top: -1px; /* 테이블 상단 여백 없애기 */
 }
 
 .search {

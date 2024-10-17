@@ -68,8 +68,11 @@
 		        		<br>
 		        		<br>
 		        		<br>
-    					<img src="${pageContext.request.contextPath}/images/egovframework/boardImage/${board.image}" />
-
+		        		<c:choose>
+			        		<c:when test="${not empty board.image}">
+	    						<img src="${pageContext.request.contextPath}/images/egovframework/boardImage/${board.image}" />
+							</c:when>
+						</c:choose>
 	        		</td>
 		        </tr>
 
