@@ -1,5 +1,7 @@
 package ateam.serviceimpl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,4 +87,28 @@ public class AdStudentServiceImpl extends EgovAbstractServiceImpl implements AdS
 		return mapper.stuCheckEm(param);
 	}
 
+	@Override
+	public List<Map<String, Object>> checkStudentExcel(List<Map<String, Object>> param) {
+		// TODO Auto-generated method stub
+		/*
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		for(int i=0;i<9;i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("key", i);
+			list.add(map);
+		}
+		return list;
+		*/
+		return mapper.checkStudentExcel(param);
+	}
+
+	@Override
+	public void insertexcelStu(List<Map<String, Object>> param) {
+		// TODO Auto-generated method stub
+		for(int i=0; i<param.size(); i++) {
+			//System.out.println(param.get(i));
+			mapper.insertexcelStu(param.get(i));
+		}
+	}
+	
 }

@@ -33,7 +33,7 @@
 
 
             obj = new Dataset("DEPARTMENT_DTL_List", this);
-            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"INT\" size=\"10\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"STUDENT_ID\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"UNIV_YEAR\" type=\"STRING\" size=\"256\"/><Column id=\"PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"BIRTHDAY\" type=\"STRING\" size=\"10\"/><Column id=\"GENDER\" type=\"STRING\" size=\"256\"/><Column id=\"ADDRESS\" type=\"STRING\" size=\"256\"/><Column id=\"STATUS\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -65,11 +65,10 @@
             obj.set_taborder("1");
             obj.set_binddataset("DEPARTMENT_DTL_List");
             obj.set_autofittype("col");
-            obj.set_cssclass("ATEAM");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"31\"/><Column size=\"64\"/><Column size=\"65\"/><Column size=\"86\"/><Column size=\"160\"/><Column size=\"80\"/><Column size=\"44\"/><Column size=\"187\"/><Column size=\"58\"/><Column size=\"43\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"No\"/><Cell col=\"2\" text=\"학번\"/><Cell col=\"3\" text=\"성명\"/><Cell col=\"4\" text=\"연락처\"/><Cell col=\"5\" text=\"이메일\"/><Cell col=\"6\" text=\"생년월일\"/><Cell col=\"7\" text=\"성별\"/><Cell col=\"8\" text=\"주소\"/><Cell col=\"9\" text=\"상태여부\"/><Cell col=\"10\" text=\"학과\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"expr:currow + 1\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:STUDENT_ID\" textAlign=\"center\" displaytype=\"mask\" maskedittype=\"string\"/><Cell col=\"3\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:PHONE\"/><Cell col=\"5\" text=\"bind:EMAIL\"/><Cell col=\"6\" text=\"bind:BIRTHDAY\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:GENDER\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:ADDRESS\"/><Cell col=\"9\" text=\"bind:STATUS\" textAlign=\"center\"/><Cell col=\"10\" text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"31\"/><Column size=\"64\"/><Column size=\"65\"/><Column size=\"86\"/><Column size=\"160\"/><Column size=\"80\"/><Column size=\"44\"/><Column size=\"187\"/><Column size=\"58\"/><Column size=\"43\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"No\"/><Cell col=\"2\" text=\"학번\"/><Cell col=\"3\" text=\"성명\"/><Cell col=\"4\" text=\"연락처\"/><Cell col=\"5\" text=\"이메일\"/><Cell col=\"6\" text=\"생년월일\"/><Cell col=\"7\" text=\"성별\"/><Cell col=\"8\" text=\"주소\"/><Cell col=\"9\" text=\"상태여부\"/><Cell col=\"10\" text=\"학과\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"expr:currow + 1\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:STUDENT_ID\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:PHONE\"/><Cell col=\"5\" text=\"bind:EMAIL\"/><Cell col=\"6\" text=\"bind:BIRTHDAY\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:GENDER\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:ADDRESS\"/><Cell col=\"9\" text=\"bind:STATUS\" textAlign=\"center\"/><Cell col=\"10\" text=\"bind:DEPARTMENT_NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("Search_Cmb","766","40","116","26",null,null,null,null,null,null,this);
+            obj = new Combo("Search_Cmb","626","70","116","26",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_innerdataset("Search_Type");
             obj.set_datacolumn("data");
@@ -79,12 +78,12 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Button("Select_btn","1045","40","66","25",null,null,null,null,null,null,this);
+            obj = new Button("Select_btn","904","70","66","25",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_text("조회");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("Edit00","887","40","153","26",null,null,null,null,null,null,this);
+            obj = new Edit("Edit00","747","70","153","26",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             this.addChild(obj.name, obj);
 
@@ -104,6 +103,16 @@
             obj.set_text("학생 조회");
             obj.set_usedecorate("true");
             obj.set_font("28px/normal \"Gulim\",\"HY견고딕\"");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_excel","1045","70","66","25",null,null,null,null,null,null,this);
+            obj.set_taborder("8");
+            obj.set_text("엑셀 등록");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_excelexp","974","70","66","25",null,null,null,null,null,null,this);
+            obj.set_taborder("9");
+            obj.set_text("엑셀 받기");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -453,6 +462,58 @@
             }
         };
 
+        this.btn_excel_onclick = function(obj,e)
+        {
+        	// 팝업으로 넘길 파라미터 (데이터셋 전체와 선택된 학과의 코드)
+            var objParam = {
+            };
+
+            // 팝업 창 경로 설정
+            var surl = "MainBase::excel_popup.xfdl";
+
+            // 팝업 호출 (데이터셋과 선택된 학과 코드 전달)
+            this.showPopup(objParam, surl);
+        };
+
+        this.btn_excelexp_onclick = function(obj,e)
+        {
+            // 현재 그리드 데이터셋을 가져옵니다.
+            var ds = this.Dtl_Grid.getBindDataset();
+            var data = ds.saveXML(); // 데이터셋의 데이터를 XML 형식으로 변환합니다.
+
+            trace(data); // XML 데이터가 잘 생성되었는지 확인
+
+            // 서버로 transaction 호출
+            var url = "http://localhost:8082/HanaUIS/exceldown.jsp"; // 다운로드 excel 요청
+
+            // XMLHttpRequest 객체 생성
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // 서버 응답이 성공적이면 엑셀 파일을 다운로드합니다.
+                        var blob = new Blob([xhr.response], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                        var link = document.createElement("a");
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "student_data.xlsx"; // 다운로드할 파일 이름
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link); // 링크를 제거합니다.
+                        trace("엑셀 파일 다운로드 완료");
+                    } else {
+                        trace("오류 발생: " + xhr.status);
+                    }
+                }
+            };
+
+            // 데이터 전송
+            xhr.responseType = "blob"; // 응답 유형을 blob으로 설정
+            xhr.send("data=" + encodeURIComponent(data));
+        };
+
         });
         
         // Regist UI Components Event
@@ -466,6 +527,8 @@
             this.plus_btn.addEventHandler("onclick",this.plus_btn_onclick,this);
             this.delete_btn.addEventHandler("onclick",this.delete_btn_onclick,this);
             this.Static00.addEventHandler("onclick",this.Static00_onclick,this);
+            this.btn_excel.addEventHandler("onclick",this.btn_excel_onclick,this);
+            this.btn_excelexp.addEventHandler("onclick",this.btn_excelexp_onclick,this);
             this.DEPARTMENT_List.addEventHandler("onrowposchanged",this.DEPARTMENT_List_onrowposchanged,this);
             this.DEPARTMENT_DTL_List.addEventHandler("onrowposchanged",this.DEPARTMENT_DTL_List_onrowposchanged,this);
         };
