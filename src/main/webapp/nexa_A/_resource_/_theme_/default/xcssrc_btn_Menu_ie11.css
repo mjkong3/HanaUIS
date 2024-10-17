@@ -308,9 +308,9 @@ input::-ms-clear,input::-ms-reveal
 {
 	background : #FFCEDA !important;
 }
-.Grid .body.row.dummy.cell.dummy.backgroundBlue.dummy
+.Grid .body .row .cell.backgroundBlue.dummy.dummy.dummy
 {
-	background : #B0E0E6;
+	background : #B0E0E6 !important;
 }
 #nexacontainer .Button.btn_top_menu[status=mouseover]
 {

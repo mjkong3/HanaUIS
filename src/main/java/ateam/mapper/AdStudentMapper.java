@@ -28,7 +28,8 @@ public interface AdStudentMapper {
    Map<String, Object> studCheckId(String STUDENT_ID);
 
    Map<String, Object> stuCheckEm(Map<String, Object> param);
-   
-   
 
+   List<Map<String, Object>> checkStudentExcel(List<Map<String, Object>> param);
+
+   void insertexcelStu(Map<String, Object> map);
 }

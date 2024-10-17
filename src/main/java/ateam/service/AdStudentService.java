@@ -29,4 +29,7 @@ public interface AdStudentService {
 
    Map<String, Object> stuCheckEm(Map<String, Object> param);
 
+   List<Map<String, Object>> checkStudentExcel(List<Map<String, Object>> param);
+
+   void insertexcelStu(List<Map<String, Object>> param);
 }
