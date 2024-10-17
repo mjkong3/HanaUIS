@@ -14,6 +14,12 @@
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javaScript" language="javascript" defer="defer">
 	
+	// 비밀번호 찾기 링크 설정
+	function fn_findPassword() {
+	    location.href = "/HanaUIS/findPassword.do";
+	}
+	
+	
 	/* 학생  로그인*/
 	
 	// 인증코드 보내기 버튼 클릭 이벤트

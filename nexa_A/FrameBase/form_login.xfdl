@@ -164,7 +164,8 @@ this.showPopup = function (objParam, surl)
 
 this.stt_findPwd_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 {
-	var surl = "MainBase::findPwd.xfdl";	
+	var surl = "MainBase::findPwd.xfdl";
+	var objParam="";
 	this.showPopup(objParam, surl);
 };
 ]]></Script>

@@ -18,11 +18,21 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("ds_check", this);
-            obj._setContents("<ColumnInfo><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/><Column id=\"VERICODE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"id\" type=\"STRING\" size=\"256\"/><Column id=\"name\" type=\"STRING\" size=\"256\"/><Column id=\"PASSWORD1\" type=\"STRING\" size=\"256\"/><Column id=\"PASSWORD2\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_vericheck", this);
+            obj._setContents("<ColumnInfo><Column id=\"OK\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_valicheck", this);
+            obj._setContents("<ColumnInfo><Column id=\"usercheck\" type=\"STRING\" size=\"256\"/><Column id=\"codecheck\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Static("stt_findPwd","77","0","126","35",null,null,null,null,null,null,this);
+            obj = new Static("stt_findPwd","177","10","126","35",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_text("비밀번호 찾기");
             obj.set_font("18px/normal \"Gulim\"");
@@ -36,6 +46,8 @@
 
             obj = new Edit("edt_id","187","65","101","30",null,null,null,null,null,null,this);
             obj.set_taborder("2");
+            obj.set_inputtype("digit");
+            obj.set_maxlength("4");
             this.addChild(obj.name, obj);
 
             obj = new Static("stt_name","77","115","90","30",null,null,null,null,null,null,this);
@@ -46,6 +58,7 @@
 
             obj = new Edit("edt_name","187","115","101","30",null,null,null,null,null,null,this);
             obj.set_taborder("4");
+            obj.set_inputfilter("none,comma,digit,dot,symbol,sign");
             this.addChild(obj.name, obj);
 
             obj = new Static("stt_pwd1","77","220","110","30",null,null,null,null,null,null,this);
@@ -57,6 +70,10 @@
             obj = new Edit("edt_pwd1","187","220","130","30",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_readonly("true");
+            obj.set_password("true");
+            obj.set_imeaction("search");
+            obj.set_tooltiptext("문자, 숫자, 특수문자가 필요하며, 8자 이상이 필요합니다.");
+            obj.set_text("asdfj;");
             this.addChild(obj.name, obj);
 
             obj = new Static("stt_pwd2","77","270","110","30",null,null,null,null,null,null,this);
@@ -68,6 +85,7 @@
             obj = new Edit("edt_pwd2","187","270","130","30",null,null,null,null,null,null,this);
             obj.set_taborder("8");
             obj.set_readonly("true");
+            obj.set_password("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("stt_code","77","165","90","30",null,null,null,null,null,null,this);
@@ -79,6 +97,9 @@
             obj = new Edit("edt_code","187","165","101","30",null,null,null,null,null,null,this);
             obj.set_taborder("10");
             obj.set_readonly("true");
+            obj.set_inputfilter("none");
+            obj.set_inputtype("digit");
+            obj.set_maxlength("6");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_sendCode","330","115","100","30",null,null,null,null,null,null,this);
@@ -119,7 +140,49 @@
         
         // User Script
         this.registerScript("findPwd.xfdl", function() {
+        /************************************************************************
+         * 								콜백함수
+         ************************************************************************/
+        // 코드
+        this.fnCallback = function(svcID, errCD, errMsg) {
 
+        	if (errCD == -1 ) {
+        		alert(errMsg);
+        		return;
+        	}
+
+        	switch(svcID) {
+        		case "userCheck" :
+        			if (this.ds_valicheck.getColumn(0, "usercheck") == "Y"){
+        				alert("인증번호가 발송되었습니다.");
+        				this.edt_code.set_readonly(false);
+        				this.btn_sendCode.set_enable(false);
+        			} else {
+        				alert("등록된 아이디와 이름이 일치하지 않습니다.");
+        			}
+
+        		break;
+
+        		case "matchCode" :
+        			if (this.ds_valicheck.getColumn(0, "codecheck") == "Y") {
+        				alert("인증번호가 일치하였습니다.");
+        				this.edt_pwd1.set_readonly(false);
+        				this.edt_pwd2.set_readonly(false);
+        				this.btn_checkCode.set_enable(false);
+        			} else {
+        				alert("인증번호가 일치하지 않습니다.");
+        				this.edt_code.set_value("");
+        			}
+        		break;
+
+        		case "updatePwd" :
+
+
+        			alert("비밀번호가 변경되었습니다.");
+        			this.close();
+        		break;
+        	}
+        }
 
 
 
@@ -133,18 +196,42 @@
         	var strSvcId    = "userCheck";
             var strSvcUrl   = "svc::userCheck.do";
             var inData      = "ds_check=ds_check";
-            var outData     = "ds_check=ds_check";  // 결과를 받을 데이터셋
+            var outData     = "ds_valicheck=ds_valicheck";  // 결과를 받을 데이터셋
             var strArg      = ""
-            var callBackFnc = "fnCallbackSendMail";
-            var isAsync     = false;
+            var callBackFnc = "fnCallback";
+            var isAsync     = true;
 
             this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         }
 
-        // 코드
-        this.fnCallbackSendMail = function() {
-        	this.edt_code.set_readonly(false);
-        }
+        // 인증번호 매치
+        this.fnMatchCode = function() {
+
+        	var strSvcId    = "matchCode";
+        	var strSvcUrl   = "svc::matchCode.do";
+        	var inData      = "ds_vericheck=ds_vericheck";
+        	var outData     = "ds_valicheck=ds_valicheck";  // 결과를 받을 데이터셋
+        	var strArg      = "";
+        	var callBackFnc = "fnCallback";
+        	var isAsync     = true;
+
+        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        };
+
+        // 비밀번호 업데이트
+        this.fnUpdatePwd = function() {
+        	console.log(this.ds_check.saveXML());
+
+        	var strSvcId    = "updatePwd";
+        	var strSvcUrl   = "svc::updatePwd.do";
+        	var inData      = "ds_check=ds_check";
+        	var outData     = "";
+        	var strArg      = "";
+        	var callBackFnc = "fnCallback";
+        	var isAsync     = true;
+
+        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        };
 
 
         /************************************************************************
@@ -155,29 +242,73 @@
         //인증번호 발송 버튼
         this.btn_sendCode_onclick = function(obj,e)
         {
-        	this.ds_check.setColumn(0, "ADMIN_CODE", this.edt_code.value);
-        	this.ds_check.setColumn(0, "NAME", this.edt_name.value);
+        	if (this.edt_id.value == null || this.edt_id.value == "" || this.edt_id.value == "undefined") {
+        		alert("아이디가 입력되지 않았습니다.");
+        	} else if (this.edt_name.value == null || this.edt_name.value == "" || this.edt_name.value == "undefined") {
+        		alert("이름이 입력되지 않았습니다.")
+        	} else if (this.edt_id.value.length = 4) {
+
+        	this.ds_check.setColumn(0, "id", this.edt_id.value);
+        	this.ds_check.setColumn(0, "name", this.edt_name.value);
+
+        	trace(this.ds_check.saveXML());
+
+        	this.fnCheckUser();
+
+        	trace(this.ds_check.saveXML());
+        	} else {
+        		alert("아이디 혹은 이름이 유효하지 않습니다.");
+        	}
         };
 
         //인증번호 확인 버튼
         this.btn_checkCode_onclick = function(obj,e)
         {
+        	this.ds_vericheck.setColumn(0, "OK", this.edt_code.value);
 
+        	trace(this.ds_vericheck.saveXML());
+
+        	this.fnMatchCode();
         };
 
 
         //수정 버튼
         this.btn_update_onclick = function(obj,e)
         {
+        	this.ds_check.setColumn(0, "PASSWORD1", this.edt_pwd1.value);
+        	this.ds_check.setColumn(0, "PASSWORD2", this.edt_pwd2.value);
+
+        	if (this.edt_pwd1.value == this.edt_pwd2.value) {
+        		this.fnUpdatePwd();
+        	} else {
+        		alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        	}
 
         };
 
         //닫기 버튼
         this.btn_close_onclick = function(obj,e)
         {
-        	this.close;
+        	this.close();
         };
 
+        /************************************************************************
+         * 								타 이벤트
+         ************************************************************************/
+
+         // 비밀번호 정규식
+        this.edt_pwd1_onchanged = function(obj,e)
+        {
+            var password = obj.value;
+            var regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+        		if (!regex.test(password)) {
+        			alert("비밀번호는 최소 8자 이상이며, 특수문자가 포함되어야 합니다.");
+        			obj.set_value("");
+        			obj.setFocus();
+        		} else {
+        			trace("비밀번호가 유효합니다.");
+        		}
+        };
 
 
         });
@@ -185,6 +316,7 @@
         // Regist UI Components Event
         this.on_initEvent = function()
         {
+            this.edt_pwd1.addEventHandler("onchanged",this.edt_pwd1_onchanged,this);
             this.btn_sendCode.addEventHandler("onclick",this.btn_sendCode_onclick,this);
             this.btn_checkCode.addEventHandler("onclick",this.btn_checkCode_onclick,this);
             this.btn_update.addEventHandler("onclick",this.btn_update_onclick,this);
