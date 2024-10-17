@@ -58,7 +58,7 @@
 			            <c:forEach var="totalGrade" items="${totalGrade}">	
 							<tr>
 								<th>${totalGrade.studentYear} 학년 ${totalGrade.semester}학기</th>
-								<td>${totalGrade.totalCredit} / ${totalGrade.totalGrade}</td>
+								<td>${totalGrade.totalGrade}</td>
 								<td>${totalGrade.countA}</td>
 								<td>${totalGrade.countB}</td>
 								<td>${totalGrade.countC}</td>
@@ -69,7 +69,7 @@
 						</c:forEach>
 							<tr>
 								<th>총계</th>
-								<th>${totalAvgGrade.avgTotalCredit} / ${totalAvgGrade.avgTotalGrade}</th>	
+								<th>${totalAvgGrade.avgTotalGrade}</th>	
 								<th>${totalAvgGrade.totalCountA}</th>
 								<th>${totalAvgGrade.totalCountB}</th>
 								<th>${totalAvgGrade.totalCountC}</th>

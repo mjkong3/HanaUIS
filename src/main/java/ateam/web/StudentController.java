@@ -290,6 +290,7 @@ public class StudentController {
 		}
 		model.addAttribute("yearSemester", yearSemester);
 
+		
 		// 페이징 작업
 		int page = param.get("page") != null ? Integer.parseInt((String) param.get("page")) : 1;
 

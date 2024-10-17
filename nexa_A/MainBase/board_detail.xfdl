@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="board_upload" width="960" height="720" titletext="New Form" onload="board_upload_onload" border="0px none">
+  <Form id="board_upload" width="900" height="600" titletext="New Form" onload="board_upload_onload" border="0px none">
     <Layouts>
-      <Layout height="720" width="960">
-        <Static id="stt_boardTop" taborder="0" text="공지사항" left="427" top="13" width="167" height="74" font="30pt/normal &quot;Arial&quot;"/>
-        <Static id="Static01" taborder="1" text="제목" left="29" top="111" width="172" height="53" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
-        <Static id="Static01_00" taborder="2" text="작성자" left="29" top="171" width="172" height="53" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
-        <Static id="stt_Content" taborder="3" text="내용" left="29" top="237" width="172" height="170" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
-        <Static id="stt_file" taborder="4" text="첨부파일" left="29" top="440" width="172" height="150" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
-        <Grid id="grd_file" taborder="5" left="234" top="497" width="450" height="95" binddataset="ds_file">
+      <Layout height="600" width="900">
+        <Static id="stt_boardTop" taborder="0" text="공지사항" left="378" top="6" width="113" height="74" font="20pt/normal &quot;Arial&quot;"/>
+        <Static id="Static01" taborder="1" text="제목" left="61" top="65" width="148" height="35" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <Static id="Static01_00" taborder="2" text="작성자" left="60" top="105" width="149" height="35" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <Static id="stt_Content" taborder="3" text="내용" left="60" top="145" width="149" height="198" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <Static id="stt_file" taborder="4" text="첨부파일" left="61" top="416" width="149" height="104" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
+        <Grid id="grd_file" taborder="5" left="219" top="416" width="496" height="104" binddataset="ds_file">
           <Formats>
             <Format id="default">
               <Columns>
@@ -27,23 +27,50 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="btn_closeBoard" taborder="6" text="닫기" left="568" top="612" width="72" height="33" onclick="btn_closeBoard_onclick" font="12px/normal &quot;Gulim&quot;"/>
-        <Static id="stt_uploader" taborder="7" left="244" top="177" width="250" height="40" font="16px/normal &quot;Gulim&quot;"/>
-        <Static id="Static01_00_01" taborder="8" text="게시일" left="514" top="114" width="172" height="53" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
-        <Static id="Static01_00_01_00" taborder="9" text="게시번호" left="514" top="174" width="172" height="53" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
-        <Static id="stt_boardCode" taborder="10" left="752" top="180" width="145" height="40" font="16px/normal &quot;Gulim&quot;"/>
-        <Button id="btn_updateBoard" taborder="11" text="수정" left="488" top="612" width="72" height="33" onclick="btn_updateBoard_onclick" font="12px/normal &quot;Gulim&quot;"/>
-        <FileDownload id="btn_fileDown" taborder="12" text="파일 다운" left="704" top="497" width="90" height="95" onclick="btn_fileDown_onclick" font="12px/normal &quot;Gulim&quot;"/>
-        <TextArea id="txt_Title" taborder="13" left="234" top="114" width="283" height="46" font="16px/normal &quot;Gulim&quot;"/>
-        <TextArea id="txt_Content" taborder="14" left="234" top="237" width="666" height="170" scrolltype="vertical" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="auto auto" scrollbarsize="10" font="16px/normal &quot;Gulim&quot;" wordWrap="english"/>
-        <Button id="btn_addFile" taborder="15" text="파일 첨부" left="810" top="497" width="90" height="40" onclick="btn_addFile_onclick" font="12px/normal &quot;Gulim&quot;"/>
-        <Button id="btn_deleteFile" taborder="16" text="파일 삭제" left="810" top="552" width="90" height="40" onclick="btn_deleteFile_onclick" font="12px/normal &quot;Gulim&quot;"/>
-        <Button id="btn_deleteBoard" taborder="17" text="삭제" left="807" top="612" width="90" height="33" onclick="btn_deleteBoard_onclick"/>
-        <Calendar id="cal_Dtm" taborder="18" left="744" top="117" width="153" height="47" font="16px/normal &quot;Gulim&quot;"/>
-        <Button id="btn_addContentPhoto" taborder="19" text="본문 파일 삽입" left="704" top="440" width="90" height="35" onclick="btn_addContentPhoto_onclick" font="12px/normal &quot;Gulim&quot;"/>
-        <ImageViewer id="ImageViewer00" taborder="20" left="234" top="422" width="666" height="10" visible="false" onload="ImageViewer00_onload" stretch="none"/>
-        <Button id="btn_delContentPhoto" taborder="21" text="본문 파일 삭제" left="810" top="440" width="90" height="35" onclick="btn_delContentPhoto_onclick"/>
-        <Edit id="edt_filename" taborder="22" left="234" top="447" width="450" height="20" readonly="true"/>
+        <Button id="btn_closeBoard" taborder="6" text="닫기" left="484" top="530" width="90" height="35" onclick="btn_closeBoard_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="stt_uploader" taborder="7" left="219" top="105" width="245" height="35" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="Static01_00_01" taborder="8" text="게시일" left="522" top="65" width="106" height="35" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <Static id="Static01_00_01_00" taborder="9" text="게시번호" left="522" top="105" width="106" height="35" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <Static id="stt_boardCode" taborder="10" left="638" top="105" width="171" height="35" font="12px/normal &quot;Gulim&quot;"/>
+        <Button id="btn_updateBoard" taborder="11" text="수정" left="290" top="530" width="90" height="35" onclick="btn_updateBoard_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <FileDownload id="btn_fileDown" taborder="12" text="다운" left="720" top="416" width="90" height="34" onclick="btn_fileDown_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <TextArea id="txt_Title" taborder="13" left="219" top="65" width="288" height="35" font="12px/normal &quot;Gulim&quot;"/>
+        <TextArea id="txt_Content" taborder="14" left="219" top="145" width="591" height="198" scrolltype="vertical" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="auto auto" scrollbarsize="10" font="12px/normal &quot;Gulim&quot;" wordWrap="english" onchanged="txt_Content_onchanged"/>
+        <Button id="btn_addFile" taborder="15" text="첨부" left="720" top="451" width="90" height="34" onclick="btn_addFile_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <Button id="btn_deleteFile" taborder="16" text="삭제" left="720" top="486" width="90" height="34" onclick="btn_deleteFile_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <Button id="btn_deleteBoard" taborder="17" text="삭제" left="387" top="530" width="90" height="35" onclick="btn_deleteBoard_onclick"/>
+        <Calendar id="cal_Dtm" taborder="18" left="638" top="65" width="171" height="35" font="12px/normal &quot;Gulim&quot;" readonly="true"/>
+        <Button id="btn_addContentPhoto" taborder="19" text="삽입" left="625" top="355" width="90" height="35" onclick="btn_addContentPhoto_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <ImageViewer id="ImageViewer00" taborder="20" left="219" top="395" width="590" height="11" visible="false" onload="ImageViewer00_onload" stretch="none"/>
+        <Button id="btn_delContentPhoto" taborder="21" text="삭제" left="720" top="355" width="90" height="35" onclick="btn_delContentPhoto_onclick"/>
+        <Edit id="edt_filename" taborder="22" left="219" top="355" width="401" height="35" readonly="true"/>
+        <Static id="stt_boarder00" taborder="23" text="이미지" left="61" top="355" width="149" height="35" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
+      </Layout>
+      <Layout name="Layout2" width="900" height="600" mobileorientation="landscape">
+        <Static id="stt_boardTop" left="328" top="6" width="113" height="74"/>
+        <Static id="Static01" left="11" top="65" width="148" height="35"/>
+        <Static id="Static01_00" left="10" top="105" width="149" height="35"/>
+        <Static id="stt_Content" left="10" top="145" width="149" height="198"/>
+        <Static id="stt_file" left="11" top="416" width="149" height="104"/>
+        <Grid id="grd_file" left="169" top="416" width="496" height="104"/>
+        <Button id="btn_closeBoard" left="434" top="530" width="90" height="35"/>
+        <Static id="stt_uploader" left="169" top="105" width="245" height="35"/>
+        <Static id="Static01_00_01" left="472" top="65" width="106" height="35"/>
+        <Static id="Static01_00_01_00" left="472" top="105" width="106" height="35"/>
+        <Static id="stt_boardCode" left="588" top="105" width="171" height="35"/>
+        <Button id="btn_updateBoard" left="240" top="530" width="90" height="35"/>
+        <FileDownload id="btn_fileDown" left="670" top="416" width="90" height="34"/>
+        <TextArea id="txt_Title" left="169" top="65" width="288" height="35"/>
+        <TextArea id="txt_Content" left="169" top="145" width="591" height="198"/>
+        <Button id="btn_addFile" left="670" top="451" width="90" height="34"/>
+        <Button id="btn_deleteFile" left="670" top="486" width="90" height="34"/>
+        <Button id="btn_deleteBoard" left="337" top="530" width="90" height="35"/>
+        <Calendar id="cal_Dtm" left="588" top="65" width="171" height="35"/>
+        <Button id="btn_addContentPhoto" left="575" top="355" width="90" height="35"/>
+        <ImageViewer id="ImageViewer00" left="169" top="395" width="590" height="11"/>
+        <Button id="btn_delContentPhoto" left="670" top="355" width="90" height="35"/>
+        <Edit id="edt_filename" left="169" top="355" width="401" height="35"/>
+        <Static id="stt_boarder00" left="11" top="355" width="149" height="35"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[// 화면 온로드
@@ -469,18 +496,18 @@ this.adjustTextareaHeight = function() {
 		this.ImageViewer00.set_top(contentY + 5);
 		
 		// 이미지뷰어 아래 컴포넌트들 이미지 위치 아래로 변경
-		this.edt_filename.set_top(contimgbot + 22.5);
+		this.edt_filename.set_top(contimgbot + 15);
 		this.btn_addContentPhoto.set_top(contimgbot + 15.5);
 		this.btn_delContentPhoto.set_top(contimgbot + 15.5);
 		
 		this.grd_file.set_top(contimgbot + 52.5);
 		this.btn_fileDown.set_top(this.grd_file.getOffsetTop());
 		this.btn_addFile.set_top(this.grd_file.getOffsetTop());
-		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 55);
+		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 35);
 		
-		this.btn_updateBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
-		this.btn_deleteBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
-		this.btn_closeBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
+		this.btn_updateBoard.set_top(this.edt_filename.getOffsetBottom() + 100);
+		this.btn_deleteBoard.set_top(this.edt_filename.getOffsetBottom() + 100);
+		this.btn_closeBoard.set_top(this.edt_filename.getOffsetBottom() + 100);
 		
 		this.stt_file.set_top(this.btn_addContentPhoto.getOffsetTop());
 	}
@@ -705,7 +732,9 @@ this.btn_delContentPhoto_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 		this.set_height(720);
 		}
 	}
-};]]></Script>
+};
+
+]]></Script>
     <Objects>
       <Dataset id="ds_board">
         <ColumnInfo>
