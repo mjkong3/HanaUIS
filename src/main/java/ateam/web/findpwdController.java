@@ -47,7 +47,7 @@ public class findpwdController {
 				view.addObject("result", "success");
 			} 
 			else {
-				// 로그인 실패 시 처리
+				// 비밀번호 찾기 실패 시 처리
 				view.addObject("result", "failure");
 			}
 
