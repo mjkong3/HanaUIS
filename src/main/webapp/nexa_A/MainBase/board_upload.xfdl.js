@@ -242,7 +242,7 @@
         		this.btn_addBoard.set_top(this.grd_file.getOffsetBottom() + 10);
         		this.btn_closeBoard.set_top(this.grd_file.getOffsetBottom() + 10);
 
-        		this.stt_img.set_height(this.ImageViewer00.height + this.edt_filename.height + 10);
+        		this.stt_img.set_height(this.grd_file.getOffsetTop() - this.edt_filename.getOffsetTop() - 20);
 
         		this.resetScroll();
         	}
