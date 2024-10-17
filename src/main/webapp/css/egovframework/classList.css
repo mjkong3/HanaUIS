@@ -58,6 +58,10 @@ h3 {
 	width: 60px;
 	height: 40px;
 }
+.form-inline.justify-content-center{
+	float: right;
+	margin-bottom:5px;
+}
 
 /* 테이블 스타일 */
 /* .table {

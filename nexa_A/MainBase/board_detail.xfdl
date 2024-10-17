@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="board_upload" width="1280" height="720" titletext="New Form" onload="board_upload_onload">
+  <Form id="board_upload" width="960" height="720" titletext="New Form" onload="board_upload_onload" border="0px none">
     <Layouts>
-      <Layout height="720" width="1280">
-        <Static id="stt_boardTop" taborder="0" text="공지사항" left="563" top="16" width="167" height="74" font="30pt/normal &quot;HY견고딕&quot;"/>
-        <Static id="Static01" taborder="1" text="제목" left="175" top="114" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="Static01_00" taborder="2" text="작성자" left="175" top="174" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="stt_Content" taborder="3" text="내용" left="175" top="240" width="172" height="170" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="stt_file" taborder="4" text="첨부파일" left="175" top="443" width="172" height="150" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none" onclick="Static01_00_onclick"/>
-        <Grid id="grd_file" taborder="5" left="380" top="500" width="450" height="95" binddataset="ds_file">
+      <Layout height="720" width="960">
+        <Static id="stt_boardTop" taborder="0" text="공지사항" left="427" top="13" width="167" height="74" font="30pt/normal &quot;Arial&quot;"/>
+        <Static id="Static01" taborder="1" text="제목" left="29" top="111" width="172" height="53" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <Static id="Static01_00" taborder="2" text="작성자" left="29" top="171" width="172" height="53" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <Static id="stt_Content" taborder="3" text="내용" left="29" top="237" width="172" height="170" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <Static id="stt_file" taborder="4" text="첨부파일" left="29" top="440" width="172" height="150" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
+        <Grid id="grd_file" taborder="5" left="234" top="497" width="450" height="95" binddataset="ds_file">
           <Formats>
             <Format id="default">
               <Columns>
@@ -27,23 +27,23 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="btn_closeBoard" taborder="6" text="닫기" left="714" top="615" width="72" height="33" onclick="btn_closeBoard_onclick"/>
-        <Static id="stt_uploader" taborder="7" left="390" top="180" width="250" height="40"/>
-        <Static id="Static01_00_01" taborder="8" text="게시일" left="660" top="117" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="Static01_00_01_00" taborder="9" text="게시번호" left="660" top="177" width="172" height="53" textAlign="center" font="20pt &quot;Arial&quot;" border="0px none, 1px solid, 0px none, 0px none"/>
-        <Static id="stt_boardCode" taborder="10" left="898" top="183" width="145" height="40"/>
-        <Button id="btn_updateBoard" taborder="11" text="수정" left="634" top="615" width="72" height="33" onclick="btn_updateBoard_onclick"/>
-        <FileDownload id="btn_fileDown" taborder="12" text="파일 다운" left="850" top="500" width="90" height="95" onclick="btn_fileDown_onclick"/>
-        <TextArea id="txt_Title" taborder="13" left="380" top="117" width="283" height="46"/>
-        <TextArea id="txt_Content" taborder="14" left="380" top="240" width="666" height="170" scrolltype="vertical" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="auto auto" scrollbarsize="10" font="16px/normal &quot;Gulim&quot;" wordWrap="english"/>
-        <Button id="btn_addFile" taborder="15" text="파일 첨부" left="956" top="500" width="90" height="40" onclick="btn_addFile_onclick"/>
-        <Button id="btn_deleteFile" taborder="16" text="파일 삭제" left="956" top="555" width="90" height="40" onclick="btn_deleteFile_onclick"/>
-        <Button id="btn_deleteBoard" taborder="17" text="삭제" left="953" top="615" width="90" height="33" color="white" background="#ff0505" onclick="btn_deleteBoard_onclick"/>
-        <Calendar id="cal_Dtm" taborder="18" left="890" top="120" width="153" height="47"/>
-        <Button id="btn_addContentPhoto" taborder="19" text="본문 파일 삽입" left="850" top="443" width="90" height="35" onclick="btn_addContentPhoto_onclick"/>
-        <ImageViewer id="ImageViewer00" taborder="20" left="380" top="425" width="666" height="10" visible="false" onload="ImageViewer00_onload" stretch="none"/>
-        <Button id="btn_delContentPhoto" taborder="21" text="본문 파일 삭제" left="956" top="443" width="90" height="35" onclick="btn_delContentPhoto_onclick"/>
-        <Edit id="edt_filename" taborder="22" left="380" top="450" width="450" height="20" readonly="true"/>
+        <Button id="btn_closeBoard" taborder="6" text="닫기" left="568" top="612" width="72" height="33" onclick="btn_closeBoard_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <Static id="stt_uploader" taborder="7" left="244" top="177" width="250" height="40" font="16px/normal &quot;Gulim&quot;"/>
+        <Static id="Static01_00_01" taborder="8" text="게시일" left="514" top="114" width="172" height="53" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <Static id="Static01_00_01_00" taborder="9" text="게시번호" left="514" top="174" width="172" height="53" textAlign="center" font="16pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none"/>
+        <Static id="stt_boardCode" taborder="10" left="752" top="180" width="145" height="40" font="16px/normal &quot;Gulim&quot;"/>
+        <Button id="btn_updateBoard" taborder="11" text="수정" left="488" top="612" width="72" height="33" onclick="btn_updateBoard_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <FileDownload id="btn_fileDown" taborder="12" text="파일 다운" left="704" top="497" width="90" height="95" onclick="btn_fileDown_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <TextArea id="txt_Title" taborder="13" left="234" top="114" width="283" height="46" font="16px/normal &quot;Gulim&quot;"/>
+        <TextArea id="txt_Content" taborder="14" left="234" top="237" width="666" height="170" scrolltype="vertical" onkeyup="txt_Content_onkeyup" tooltiptype="hover" scrollbartype="auto auto" scrollbarsize="10" font="16px/normal &quot;Gulim&quot;" wordWrap="english"/>
+        <Button id="btn_addFile" taborder="15" text="파일 첨부" left="810" top="497" width="90" height="40" onclick="btn_addFile_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <Button id="btn_deleteFile" taborder="16" text="파일 삭제" left="810" top="552" width="90" height="40" onclick="btn_deleteFile_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <Button id="btn_deleteBoard" taborder="17" text="삭제" left="807" top="612" width="90" height="33" onclick="btn_deleteBoard_onclick"/>
+        <Calendar id="cal_Dtm" taborder="18" left="744" top="117" width="153" height="47" font="16px/normal &quot;Gulim&quot;"/>
+        <Button id="btn_addContentPhoto" taborder="19" text="본문 파일 삽입" left="704" top="440" width="90" height="35" onclick="btn_addContentPhoto_onclick" font="12px/normal &quot;Gulim&quot;"/>
+        <ImageViewer id="ImageViewer00" taborder="20" left="234" top="422" width="666" height="10" visible="false" onload="ImageViewer00_onload" stretch="none"/>
+        <Button id="btn_delContentPhoto" taborder="21" text="본문 파일 삭제" left="810" top="440" width="90" height="35" onclick="btn_delContentPhoto_onclick"/>
+        <Edit id="edt_filename" taborder="22" left="234" top="447" width="450" height="20" readonly="true"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[// 화면 온로드
@@ -51,13 +51,14 @@ this.board_upload_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	this.fnOnload();
 	
+	// 해당 게시번호에 해당하는 이미지가 있을 시 이미지 표현
 	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMAGE") == "undefined") {
 	} else {
 		setTimeout(function(){
 			trace(this.ds_contentFile.getColumn(0,"IMAGE") + "@@@@@@@@@@@@@@@@@@@@@");
 			this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
 			this.showFirstImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"))	;
-		}.bind(this), 100);
+		}.bind(this), 500);
 		
 		trace("@@daslkfa;skdfajskdjfl;aksjdlk;fjal;sdjf");
 		console.log(this.ds_contentFile.getColumn(0, "IMAGE"));
@@ -359,7 +360,7 @@ this.fnCallbackUpdateFile = function(svcID, errorCode, errorMsg) {
 		this.fnUpdateFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
 		
 		// JSP를 통해 POST 방식으로 로컬 폴더(D:/upload/)로 업로드)
-		this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp'); // 본문 이미지 제외 모두
+		this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp'); // 첨부파일
 		this.FileUpTransfer01.upload('http://localhost:8082/HanaUIS/fileupload.jsp'); // 본문 이미지 한장
 
     } else {
@@ -454,7 +455,7 @@ this.txt_Content_onkeydown = function(obj:nexacro.TextArea,e:nexacro.KeyEventInf
 	this.set_scrolltype("vertical");
 };
 
-// 텍스트의 변화에 따라 높이를 조정하는 함수
+// 이미지 등록에 따라 컴포넌트 높이를 조정하는 함수
 this.adjustTextareaHeight = function() {
 
 	this.set_height(720); // 폼 길이 초기화
@@ -512,25 +513,34 @@ this.FileDialog01_onclose = function(obj:nexacro.FileDialog, e:nexacro.FileDialo
 		alert("png, "+ "jpg, "+ "jpeg, " + "jfif " + "가 아닙니다.");
 		return;
  	}
+	//초기화 
 	this.btn_delContentPhoto_onclick;
 	
 	this.addFileList2(e.virtualfiles);
 	var name = e.virtualfiles[0].filename;
-	this.ds_contentFile.setColumn(0, "IMAGE", name);
+	this.ds_contentFile.addRow();
+	this.ds_contentFile.setColumn(0, "IMAGE", e.virtualfiles[0].filename);
+	trace(this.ds_contentFile.saveXML());
 	
 	this.edt_filename.set_value(name);
 	
 	this.ImageViewer00.set_visible(true); //본문 이미지 보이기
 	
+	
 	setTimeout(function(){
 		this.addFileList2(e.virtualfiles);
-		this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
-		this.showImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"));
-	}.bind(this), 500); // 500ms 뒤 실행
+		//var imgName = this.ds_contentFile.getColumn(0, "IMAGE");
+		var imgName = e.virtualfiles[0].filename;
+		this.showImagePreview(imgName);
+	}.bind(this), 2500); // 2500ms 뒤 실행
 	
 	trace(this.ds_contentFile.saveXML());	
 	
 	this.adjustTextareaHeight();
+	
+	if (this.ds_contentFile.rowcount > 1) {
+		this.ds_contentFile.deleteRow(1);
+	}
 };
 
 // 이미지 미리보기 함수 -- onload 시
@@ -544,10 +554,10 @@ this.showFirstImagePreview = function(fileName) {
 
 // 이미지 미리보기 함수 -- 수정 시
 this.showImagePreview = function(fileName) {
-	trace("이미지 미리보기 진입했지롱");
+	trace("이미지 미리보기 진입");
 	trace(fileName + "@@@@@@@@@@22changed");
     var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
-    var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
+    var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"	; // 업로드한 파일 경로
     this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
 	
 	setTimeout(function(){
@@ -555,6 +565,7 @@ this.showImagePreview = function(fileName) {
  	}.bind(this), 5000); // 5초 후 삭제
 };
 
+//파일 삭제 기능
 this.deleteFile = function(fileName) {
 	trace("여기까지 왔나?");
     var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
@@ -595,6 +606,7 @@ this.uploadFileToServer = function(vFile) {
 	this.FileUpTransfer01.clearFileList();
     this.FileUpTransfer01.addFile(vFile.filename, vFile);
     this.FileUpTransfer01.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
+	
 }
 
 this.ImageViewer00_onload = function(obj:nexacro.ImageViewer,e:nexacro.LoadEventInfo)
@@ -688,6 +700,9 @@ this.btn_delContentPhoto_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
 		
 		this.stt_file.set_top(this.btn_addContentPhoto.getOffsetTop());
 		this.stt_Content.set_height(this.txt_Content.height);
+		
+		// 화면 길이 초기화
+		this.set_height(720);
 		}
 	}
 };]]></Script>
@@ -714,7 +729,7 @@ this.btn_delContentPhoto_onclick = function(obj:nexacro.Button,e:nexacro.ClickEv
       <Dataset id="ds_copyCat"/>
       <FileDialog id="FileDialog01" onclose="FileDialog01_onclose"/>
       <FileUpTransfer id="FileUpTransfer01"/>
-      <Dataset id="ds_contentFile">
+      <Dataset id="ds_contentFile" useclientlayout="true">
         <ColumnInfo>
           <Column id="IMAGE" type="STRING" size="256"/>
         </ColumnInfo>

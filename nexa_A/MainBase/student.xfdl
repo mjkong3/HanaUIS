@@ -3,7 +3,7 @@
   <Form id="Form_Code" width="1280" height="720" titletext="New Form" onload="Form_Code_onload" onkeyup="Form_Code_onkeyup">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="Depart_Grd" taborder="0" left="24" top="100" width="276" height="524" binddataset="DEPARTMENT_List" autofittype="col">
+        <Grid id="Depart_Grd" taborder="0" left="24" top="70" width="276" height="524" binddataset="DEPARTMENT_List" autofittype="col" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -25,7 +25,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="Dtl_Grid" taborder="1" left="303" top="100" width="947" height="524" binddataset="DEPARTMENT_DTL_List" oncelldblclick="Dtl_Grid_oncelldblclick" onheadclick="Dtl_Grid_onheadclick" autofittype="col">
+        <Grid id="Dtl_Grid" taborder="1" left="303" top="70" width="947" height="524" binddataset="DEPARTMENT_DTL_List" oncelldblclick="Dtl_Grid_oncelldblclick" onheadclick="Dtl_Grid_onheadclick" autofittype="col" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -61,7 +61,7 @@
               <Band id="body">
                 <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:Check"/>
                 <Cell col="1" text="expr:currow + 1" textAlign="center"/>
-                <Cell col="2" text="bind:STUDENT_ID" textAlign="center"/>
+                <Cell col="2" text="bind:STUDENT_ID" textAlign="center" displaytype="mask" maskedittype="string"/>
                 <Cell col="3" text="bind:NAME" textAlign="center"/>
                 <Cell col="4" text="bind:PHONE"/>
                 <Cell col="5" text="bind:EMAIL"/>

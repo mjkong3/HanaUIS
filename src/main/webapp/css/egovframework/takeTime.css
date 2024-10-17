@@ -73,7 +73,7 @@ input[type="text"], textarea, select {
 /* 제출 버튼 스타일 */
 input[type="submit"] {
 	width: 100%;
-	background-color: #0056b3; /* 녹색으로 변경 */
+	background-color: #0056B3;
 	color: white;
 	padding: 12px 20px;
 	border: none;
@@ -81,11 +81,13 @@ input[type="submit"] {
 	cursor: pointer;
 	font-size: 16px;
 	text-align: center;
-	margin-top: 2rem;
+	margin: 1rem 0;
+	margin-bottom: 1rem;
+	
 }
 
 input[type="submit"]:hover {
-	background-color: navy; /* 더 어두운 녹색 */
+	background-color: navy;
 }
 
 /* 반응형 디자인 */

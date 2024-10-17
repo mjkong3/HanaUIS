@@ -38,22 +38,23 @@
             obj.set_font("30px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_board","49","100","1151","370",null,null,null,null,null,null,this);
+            obj = new Grid("grd_board","49","70","1151","370",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("boardList_ds");
+            obj.set_cssclass("ATEAM");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"238\"/><Column size=\"478\"/><Column size=\"196\"/><Column size=\"236\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"게시번호\"/><Cell col=\"1\" text=\"제 목\"/><Cell col=\"2\" text=\"작성자\"/><Cell col=\"3\" text=\"게시 날짜\"/></Band><Band id=\"body\"><Cell text=\"bind:BOARD_CODE\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:TITLE\"/><Cell col=\"2\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:CRE_DTM\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_Search","348","69","115","26",null,null,null,null,null,null,this);
+            obj = new Button("btn_Search","995","39","100","26",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_text("검색");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_Search","188","69","150","26",null,null,null,null,null,null,this);
+            obj = new Edit("edt_Search","840","39","150","26",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_Search","50","69","135","26",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_Search","702","39","135","26",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             obj.set_innerdataset("searchType_ds");
             obj.set_datacolumn("DATA");
@@ -63,9 +64,9 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_add","1100","69","100","26",null,null,null,null,null,null,this);
+            obj = new Button("btn_add","1100","39","100","26",null,null,null,null,null,null,this);
             obj.set_taborder("5");
-            obj.set_text("공지사항 작성");
+            obj.set_text("추가");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -177,7 +178,6 @@
         	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
          	//popup.style.set_overlaycolor("#6666664C");
          	//popup.form.style.set_border("1 solid #4c5a6f");
-
         }
 
         // 검색 필터 박스 값

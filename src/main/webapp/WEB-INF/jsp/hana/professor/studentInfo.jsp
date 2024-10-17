@@ -61,10 +61,10 @@
 						<select name="searchType">
 							<option value="id" ${searchType == 'id' ? 'selected' : ''}>학번</option>
 							<option value="name" ${searchType == 'name' ? 'selected' : ''}>이름</option>
-						</select> <input type="text" name="searchKeyword"
+						</select> <input type="text" name="searchKeyword" 
 							placeholder="학번 또는 이름으로 검색" value="${searchKeyword}"> <input
 							type="hidden" name="selectedNo" value="${classCode}" />
-						<button type="submit">검색</button>
+						<button type="submit" class="searchBtn" >검색</button>
 					</div>
 				</form>
 
@@ -120,9 +120,9 @@
 				<div class="pagination">
 				    <!-- 첫 페이지로 이동 -->
 				    <a href="?page=1&selectedNo=${classCode}"
-				        class="${pageHandler.firstPage ? 'disabled' : ''}">처음</a>
+				        class="${pageHandler.firstPage ? 'disabled' : ''}">&lt;&lt;</a>
 				    <a href="?page=${pageHandler.page - 1}&selectedNo=${classCode}"
-				        class="${pageHandler.firstPage ? 'disabled' : ''}">이전</a>
+				        class="${pageHandler.firstPage ? 'disabled' : ''}">&lt;</a>
 				
 				    <!-- 중간 페이지 목록 (1~5 or 6~10) -->
 				    <c:forEach begin="${pageHandler.beginPage}" end="${pageHandler.endPage}" var="i">
@@ -132,11 +132,11 @@
 				
 				    <!-- 다음 페이지로 이동 -->
 				    <a href="?page=${pageHandler.page + 1}&selectedNo=${classCode}"
-				        class="${pageHandler.page >= pageHandler.totalPage ? 'disabled' : ''}">다음</a>
+				        class="${pageHandler.page >= pageHandler.totalPage ? 'disabled' : ''}">&gt;</a>
 				
 				    <!-- 마지막 페이지로 이동 -->
 				    <a href="?page=${pageHandler.totalPage}&selectedNo=${classCode}"
-				        class="${pageHandler.page >= pageHandler.totalPage ? 'disabled' : ''}">끝</a>
+				        class="${pageHandler.page >= pageHandler.totalPage ? 'disabled' : ''}">&gt;&gt;</a>
 				</div>
                <%-- </c:if> --%>
                 

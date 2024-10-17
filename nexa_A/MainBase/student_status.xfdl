@@ -3,10 +3,11 @@
   <Form id="student_status" width="1280" height="720" titletext="New Form" onload="student_status_onload" enable="true">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="grd_applicationList" taborder="0" left="50" top="100" width="594" height="433" binddataset="ds_StudentList" autofittype="col" onheadclick="grd_applicationList_onheadclick" oncellclick="cell_student_onclick">
+        <Grid id="grd_applicationList" taborder="0" left="50" top="100" width="594" height="433" binddataset="ds_StudentList" autofittype="col" onheadclick="grd_applicationList_onheadclick" oncellclick="cell_student_onclick" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
+                <Column size="48" band="left"/>
                 <Column size="43"/>
                 <Column size="156"/>
                 <Column size="80"/>
@@ -19,20 +20,22 @@
                 <Row size="24"/>
               </Rows>
               <Band id="head">
-                <Cell text="No" tooltiptext="expr:"/>
-                <Cell col="1" text="신청일" calendardateformat="yyyy-MM-dd"/>
-                <Cell col="2" text="학번"/>
-                <Cell col="3" text="신청유형"/>
-                <Cell col="4" text="승인여부"/>
-                <Cell col="5" text="이름"/>
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:CHECK"/>
+                <Cell col="1" text="No" tooltiptext="expr:"/>
+                <Cell col="2" text="신청일" calendardateformat="yyyy-MM-dd"/>
+                <Cell col="3" text="학번"/>
+                <Cell col="4" text="신청유형"/>
+                <Cell col="5" text="승인여부"/>
+                <Cell col="6" text="이름"/>
               </Band>
               <Band id="body" cssclass="expr:APPROVED=='C'?'aaa':'bbb'">
-                <Cell text="expr:currow + 1 " textAlign="center"/>
-                <Cell col="1" text="bind:REG_DTM" calendardateformat="yyyy-MM-dd" textAlign="center"/>
-                <Cell col="2" text="bind:STUDENT_ID" textAlign="center"/>
-                <Cell col="3" text="bind:STATUS_TYPE" textAlign="center"/>
-                <Cell col="4" textAlign="center" text="bind:APPROVED" cssclass="expr:APPROVED=='미확인'?'backgroundRed':''"/>
-                <Cell col="5" text="bind:NAME" textAlign="center"/>
+                <Cell edittype="checkbox" displaytype="checkboxcontrol" text="bind:CHECK"/>
+                <Cell col="1" text="expr:currow + 1 " textAlign="center"/>
+                <Cell col="2" text="bind:REG_DTM" calendardateformat="yyyy-MM-dd" textAlign="center"/>
+                <Cell col="3" text="bind:STUDENT_ID" textAlign="center" edittype="normal" maskedittype="string" displaytype="mask"/>
+                <Cell col="4" text="bind:STATUS_TYPE" textAlign="center"/>
+                <Cell col="5" textAlign="center" text="bind:APPROVED" cssclass="expr:APPROVED=='미확인'?'backgroundRed':''"/>
+                <Cell col="6" text="bind:NAME" textAlign="center"/>
               </Band>
             </Format>
           </Formats>
@@ -128,6 +131,7 @@
           <Column id="APPROVED" type="STRING" size="256"/>
           <Column id="NAME" type="STRING" size="256"/>
           <Column id="STATUS_CODE" type="STRING" size="256"/>
+          <Column id="CHECK" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
           <Row>
@@ -346,6 +350,7 @@ this.btn_Create_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 //삭제버튼 클릭
 this.btn_Delete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
+
 	  if(confirm("정말로 삭제하시겠습니까?")){
 		 var statusCode = this.ds_StudentDetail.getColumn(0, "STATUS_CODE");
          this.fn_statusDelete(statusCode);
@@ -405,6 +410,7 @@ this.btn_Save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
    trace("하하핳ㅎ");
    }
 };
+
 //그리드 내 학생 클릭
 this.cell_student_onclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
@@ -542,7 +548,34 @@ this.fn_setReadonly = function(isReadonly) {
 ///////////////////////////////////////////////// 그리드 필터 정렬기능 : 구자명
 this.grd_applicationList_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
-   this.fn_sort(obj, e);
+  // 체크박스 컬럼 헤더 셀 클릭 시 전체 선택/해제
+    if (obj.getCellProperty("head", e.cell, "displaytype") == "checkboxcontrol") {
+      
+      // 아래 속성에서 0은 그리드에서 0번쨰 column을 의미하며 text 값을 가져오라는 의미입니다.
+      var chkVal = obj.getCellProperty("head", 0, "text"); 
+      
+      // 0이면 체크 안된 상태이고 1이면 체크된 상태임을 의미합니다.
+      if (chkVal == "1") { // 이미 체크된 상태라면 체크 해지로 변환
+         chkVal   = "0";
+         obj.setCellProperty("head", 0, "text", chkVal); //프론트에 적용 HEAD 부분
+         for (var i=0; i<this.ds_StudentList.rowcount; i++) { //프론트에 적용 ROW 부분
+            this.ds_StudentList.setColumn(i,"CHECK","0");
+         }
+      } else {
+         chkVal   = "1"; //체크 안 된 상태라면 체크 표시
+         obj.setCellProperty("head", 0, "text", chkVal); //프론트에 HEAD 적용
+         for (var i=0; i<this.ds_StudentList.rowcount; i++) { //프론트에 적용 ROW 부분
+            this.ds_StudentList.setColumn(i,"CHECK","1");
+         }
+         
+      }
+    } else {
+        // 정렬 기능 실행
+        this.fn_sort(obj, e);
+    }
+
+    obj.clearSelect();   // 선택된 셀 해제
+    obj.setFocus(false); // 포커스 해제
 };
 
 
@@ -590,19 +623,6 @@ this.fn_sort = function(obj:Grid, e:GridClickEventInfo)
    this.nPrevCell = e.cell;
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ]]></Script>
     <Bind>

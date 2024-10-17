@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="findPwd" width="500" height="420" titletext="New Form">
+    <Layouts>
+      <Layout height="420" width="500">
+        <Static id="stt_findPwd" taborder="0" text="비밀번호 찾기" left="77" top="0" width="126" height="35" font="18px/normal &quot;Gulim&quot;"/>
+        <Static id="stt_id" taborder="1" text="관리자 코드" left="77" top="65" width="90" height="30" font="16px/normal &quot;Gulim&quot;"/>
+        <Edit id="edt_id" taborder="2" left="187" top="65" width="101" height="30"/>
+        <Static id="stt_name" taborder="3" text="이름" left="77" top="115" width="90" height="30" font="16px/normal &quot;Gulim&quot;"/>
+        <Edit id="edt_name" taborder="4" left="187" top="115" width="101" height="30"/>
+        <Static id="stt_pwd1" taborder="5" text="새 비밀번호" left="77" top="220" width="110" height="30" font="16px/normal &quot;Gulim&quot;"/>
+        <Edit id="edt_pwd1" taborder="6" left="187" top="220" width="130" height="30" readonly="true"/>
+        <Static id="stt_pwd2" taborder="7" text="비밀번호 확인" left="77" top="270" width="110" height="30" font="16px/normal &quot;Gulim&quot;"/>
+        <Edit id="edt_pwd2" taborder="8" left="187" top="270" width="130" height="30" readonly="true"/>
+        <Static id="stt_code" taborder="9" text="인증 번호" left="77" top="165" width="90" height="30" font="16px/normal &quot;Gulim&quot;"/>
+        <Edit id="edt_code" taborder="10" left="187" top="165" width="101" height="30" readonly="true"/>
+        <Button id="btn_sendCode" taborder="11" text="인증번호 발송" left="330" top="115" width="100" height="30" onclick="btn_sendCode_onclick"/>
+        <Button id="btn_checkCode" taborder="12" text="인증번호 확인" left="330" top="165" width="100" height="30" onclick="btn_checkCode_onclick"/>
+        <Button id="btn_update" taborder="13" text="수정" left="188" top="345" width="50" height="30" onclick="btn_update_onclick"/>
+        <Button id="btn_close" taborder="14" text="닫기" left="263" top="345" width="50" height="30" onclick="btn_close_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+
+
+
+
+/************************************************************************
+ * 								 트랜잭션
+ ************************************************************************/
+
+// 유저가 db에 있는지 확인 후 이메일 보내기 이후 fnCallbackSendMail
+this.fnCheckUser = function() {
+	var strSvcId    = "userCheck";
+    var strSvcUrl   = "svc::userCheck.do";
+    var inData      = "ds_check=ds_check";
+    var outData     = "ds_check=ds_check";  // 결과를 받을 데이터셋
+    var strArg      = ""
+    var callBackFnc = "fnCallbackSendMail";
+    var isAsync     = false;
+
+    this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+}
+
+// 코드 
+this.fnCallbackSendMail = function() {
+	this.edt_code.set_readonly(false);
+}
+
+
+/************************************************************************
+ *								버튼 이벤트 
+ ************************************************************************/
+
+
+//인증번호 발송 버튼
+this.btn_sendCode_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_check.setColumn(0, "ADMIN_CODE", this.edt_code.value);
+	this.ds_check.setColumn(0, "NAME", this.edt_name.value);
+};
+
+//인증번호 확인 버튼
+this.btn_checkCode_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+
+//수정 버튼
+this.btn_update_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+//닫기 버튼
+this.btn_close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close;
+};
+
+
+]]></Script>
+    <Objects>
+      <Dataset id="ds_check">
+        <ColumnInfo>
+          <Column id="ADMIN_CODE" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
+          <Column id="VERICODE" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

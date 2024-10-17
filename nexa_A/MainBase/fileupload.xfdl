@@ -3,155 +3,341 @@
   <Form id="sample05" width="800" height="700" titletext="New Form">
     <Layouts>
       <Layout height="700" width="800" stepcount="0">
-        <Static id="Static00" taborder="2" text="Drop Files Here" left="20" top="80" width="482" height="150" visible="true" background="aliceblue" color="dodgerblue" font="normal 30pt/normal &quot;Arial&quot;" textAlign="center" verticalAlign="middle"/>
-        <Button id="Button00" taborder="0" text="open" left="20" top="20" width="120" height="50" onclick="Button00_onclick"/>
-        <Grid id="Grid00" taborder="1" left="20" top="80" width="482" height="150" binddataset="Dataset00" ondragenter="Grid00_ondragenter" ondragleave="Grid00_ondragleave" ondrop="Grid00_ondrop">
+        <Button id="btnExportBasic" taborder="0" text="Export Basic" left="280" top="35" width="70" height="30" onclick="btnExportBasic_onclick"/>
+        <Button id="btnImportBasic" taborder="1" text="Import Basic" left="420" top="35" width="70" height="30" onclick="btnImportBasic_onclick"/>
+        <Button id="btnAddItemExport" taborder="2" text="Export Additem" left="550" top="35" width="70" height="30" onclick="btnAddItemExport_onclick"/>
+        <Grid id="grdList01" taborder="3" left="110" top="90" width="520" height="190" binddataset="dsList01">
           <Formats>
-            <Format id="default">
-              <Columns>
-                <Column size="380"/>
-                <Column size="100"/>
-              </Columns>
-              <Rows>
-                <Row size="24" band="head"/>
-                <Row size="24"/>
-              </Rows>
-              <Band id="head">
-                <Cell text="name"/>
-                <Cell col="1" text="size"/>
-              </Band>
-              <Band id="body">
-                <Cell text="bind:name"/>
-                <Cell col="1" text="bind:size" textAlign="right"/>
-              </Band>
-            </Format>
+            <Format id="default"/>
           </Formats>
         </Grid>
-        <Button id="Button01" taborder="3" text="upload" left="150" top="20" width="120" height="50" onclick="Button01_onclick"/>
-        <TextArea id="TextArea00" taborder="4" left="20" top="240" width="482" height="120"/>
+        <Grid id="grdList02" taborder="4" left="110" top="290" width="520" height="190" binddataset="dsList02">
+          <Formats>
+            <Format id="default"/>
+          </Formats>
+        </Grid>
+        <TextArea id="txtLog" taborder="5" left="111" top="509" width="524" height="171"/>
       </Layout>
     </Layouts>
     <Objects>
-      <FileDialog id="FileDialog00" onclose="FileDialog00_onclose"/>
-      <Dataset id="Dataset00">
+      <Dataset id="dsList01"/>
+      <Dataset id="dsList02">
         <ColumnInfo>
-          <Column id="name" type="STRING" size="256"/>
-          <Column id="size" type="STRING" size="256"/>
+          <Column id="학번" type="STRING" size="256"/>
+          <Column id="비밀번호" type="STRING" size="256"/>
+          <Column id="이름" type="STRING" size="256"/>
+          <Column id="학년" type="STRING" size="256"/>
+          <Column id="연락처" type="STRING" size="256"/>
+          <Column id="이메일" type="STRING" size="256"/>
+          <Column id="생년월일" type="STRING" size="256"/>
+          <Column id="성별" type="STRING" size="256"/>
+          <Column id="학적상태" type="STRING" size="256"/>
+          <Column id="학과" type="STRING" size="256"/>
+          <Column id="주소" type="STRING" size="256"/>
+          <Column id="우편번호" type="STRING" size="256"/>
         </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
       </Dataset>
-      <FileUpTransfer id="FileUpTransfer00" onprogress="FileUpTransfer00_onprogress" onsuccess="FileUpTransfer00_onsuccess" onerror="FileUpTransfer00_onerror"/>
     </Objects>
-    <Script type="xscript5.1"><![CDATA[
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* FORM 변수 선언 영역
+**************************************************************************/
+//nexacro-xeni call url 
+this.exportUrl = "http://localhost:8082/HanaUIS/nexa_A/XExportImport"; 
+this.importUrl = "http://localhost:8082/HanaUIS/nexa_A/XImport"; 
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+/**
+* Function Name : gfnCreateExportObject
+* Description   : create ExcelExportObject and return object
+* Arguments     : pFileName - save file name
+* Return        : objExport - ExcelExportObject
+*/
+this.gfnCreateExportObject = function (pFileName)
 {
-	this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);
+    //excel export object id
+    var sExportId = "objExcelExport";
+
+    //ExcelExportObject : invisible object
+    var objExport = this.objects[sExportId];
+
+    //already created ExcelExportObject
+    if(!this.gfnIsNull(objExport))
+    {
+        return objExport;
+    }
+
+    objExport = new ExcelExportObject();
+
+    //ExcelExportObject set property
+    objExport.set_exporttype(nexacro.ExportTypes.EXCEL2007);
+    objExport.set_exporturl(this.exportUrl);  
+    objExport.set_exportfilename(pFileName);
+
+    //add event - onsuccess, onerror
+    objExport.addEventHandler("onprogress", this.Export_onprogress, this);
+    objExport.addEventHandler("onsuccess", this.Export_onsuccess, this); 
+    objExport.addEventHandler("onerror", this.Export_onerror, this);
+
+    return objExport;
 };
 
-this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+/**
+* Function Name : gfnCreateImportObject
+* Description   : create ExcelImportObject and return object
+* Arguments     : none
+* Return        : objImport - ExcelImportObject 
+*/
+this.gfnCreateImportObject = function ()
 {
-	trace("Selected files: " + e.virtualfiles.length);  // 파일이 선택되었는지 확인
-	this.addFileList(e.virtualfiles);
-	trace(e.virtualfiles[0].filesize);
-	this.FileUpTransfer00.upload('http://localhost:8082/AdminFileUpload');
+    var sImportId = "objExcelImport";
+
+    //ExcelImportObject : invisible object
+    var objImport = this.objects[sImportId];
+
+    //already created ExcelImportObject
+    if(!this.gfnIsNull(objImport))
+    {
+        return objImport;
+    }
+
+    objImport = new ExcelImportObject();
+
+    objImport.set_importurl(this.importUrl);
+    objImport.set_importtype(nexacro.ImportTypes.EXCEL2007);
+
+    //add event - onsuccess, onerror
+    objImport.addEventHandler("onsuccess", this.Import_onsuccess, this);
+    objImport.addEventHandler("onerror", this.Import_onerror, this);
+
+    return objImport;
 };
 
-this.addFileList = function(filelist)
+/**
+* Function Name : gfnBasicExport
+* Description   : Export Basic Export / ExcelExportObject.addExportItem(constExportItemType, source, range)
+* Arguments     : pFileName : save file name (null - "ExportData(BasicExport)")
+* Return        : none
+*/
+this.gfnBasicExport = function(pFileName)
 {
-	for (var i = 0, len = filelist.length, vFile; i < len; i++)
-	{
-		vFile = filelist[i];
-		vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
-		vFile.addEventHandler("onerror", this.FileList_onerror , this);
-		
-		vFile.open(null, 1);
-	}
-}
+    var sFileName = "ExportData(BasicExport)";
+    if(!this.gfnIsNull(pFileName))
+    {
+        sFileName = pFileName;
+    }
 
-this.FileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileEventInfo)
-{
-	switch (e.reason)
-	{
-		case 1:
-			obj.getFileSize();
-			trace("dejfnej"+e.filesize);
-			break;
-		case 9:
-			var nRowIdx = this.Dataset00.addRow();
-			trace("efnwkjfwnekjfnewkjfnewkjfn"+e.filesize);
-			this.Dataset00.setColumn(nRowIdx, 0, obj.filename);
-			this.Dataset00.setColumn(nRowIdx, 1, this.cutFileSize(e.filesize));
-			this.FileUpTransfer00.addFile(obj.filename, obj);
-			break;
-	}
-}
+    //ExcelExportObject
+    var objExport = this.gfnCreateExportObject(sFileName);
 
-this.FileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileErrorEventInfo)
-{
-	trace("errortype: "+e.errortype);
-	trace("errormsg: "+e.errormsg);
-	trace("statuscode: "+e.statuscode);
-}
+    //export Grid = export item source
+    var objGrid1 = this.grdList01;
+    var objGrid2 = this.grdList02;
 
-// https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_file(s)_size
-this.cutFileSize = function(filesize)
-{
-	var sOutput = filesize + " bytes";
-	for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) 
-	{
-		sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
-	}
-	return sOutput;
-};
-this.Grid00_ondragenter = function(obj:nexacro.Grid,e:nexacro.DragEventInfo)
-{
-	if(e.datatype == "file")
-	{
-		this.Grid00.set_opacity(0.5);
-	}
+    // Trace grid data before export
+    trace("Grid 1 data before export: " + objGrid1.saveXML());
+    trace("Grid 2 data before export: " + objGrid2.saveXML());
+
+    //export item ranges : sheet1 - grid1, grid2
+    var sExportCommand1 = "Sheet1!A1";
+    var sExportCommand2 = "Sheet1!A12";
+
+    //addExportItem
+    objExport.addExportItem(nexacro.ExportItemTypes.GRID, objGrid1, sExportCommand1);
+    objExport.addExportItem(nexacro.ExportItemTypes.GRID, objGrid2, sExportCommand2);
+    objExport.exportData();
 };
 
-this.Grid00_ondragleave = function(obj:nexacro.Grid,e:nexacro.DragEventInfo)
+/**
+* Function Name : gfnAddItemExport
+* Description   : Export Basic Import / ExcelExportObject.addExportItem(constExportItemType, objExportItem)
+* Arguments     : pFileName : save file name (null - "ExportData(AddItemExport)")
+* Return        : none
+*/
+this.gfnAddItemExport = function (pFileName)
 {
-	this.Grid00.set_opacity(1);
+    var sFileName = "ExportData(AddItemExport)";
+    if(!this.gfnIsNull(pFileName))
+    {
+        sFileName = pFileName;
+    }
+
+    var objExport = this.gfnCreateExportObject(sFileName);
+
+    //export Grid = export item source
+    var objGrid1 = this.grdList01;
+    var objGrid2 = this.grdList02;
+
+    // Trace grid data before export
+    trace("Grid 1 data before export: " + objGrid1.saveXML());
+    trace("Grid 2 data before export: " + objGrid2.saveXML());
+
+    //export item ranges : sheet1 - grid1 , sheet2 - grid2
+    var sExportCommand1 = "Sheet1!A1";
+    var sExportCommand2 = "Sheet2!A1";
+
+    //create export item
+    var objExportItem1 = new ExportItem();
+    objExportItem1.set_source(objGrid1);  
+    objExportItem1.set_range(sExportCommand1);
+
+    var objExportItem2 = new ExportItem();
+    objExportItem2.set_source(objGrid2);    
+    objExportItem2.set_range(sExportCommand2);
+
+  //add export item object
+    objExport.addExportItem(nexacro.ExportItemTypes.GRID,objExportItem1);
+    objExport.addExportItem(nexacro.ExportItemTypes.GRID,objExportItem2);
+    objExport.exportData();  
 };
 
-this.Grid00_ondrop = function(obj:nexacro.Grid,e:nexacro.GridDragEventInfo)
+/**
+* Function Name : gfnBasicImport
+* Description   : Import Basic button onclick event / ExcelImportObject.importData(source, range, output dataset)
+* Arguments     : none
+* Return        : none
+*/
+this.gfnBasicImport = function()
 {
-	this.Grid00.set_opacity(1);
-	if(e.datatype == "file")
-	{
-		this.addFileList(e.filelist);
-	}
+    //excel import object
+    var objImport = this.gfnCreateImportObject();
+
+    var sImportCommand  = "[Command=getsheetdata;Output=output1; Head=!A2:G2; Body=Sheet1!A3:G9]";
+    var sDatasetList = "dsList02=output1";
+    
+    // Trace before import to check the command and dataset list
+    trace("Import Command: " + sImportCommand);
+    trace("Dataset List: " + sDatasetList);
+    
+    objImport.importData("", sImportCommand, sDatasetList);
 };
 
-this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+/**
+* @description ExcelExportObject onsuccess event
+*/
+this.Export_onsuccess = function (obj:ExcelExportObject, e:nexacro.ExcelExportEventInfo)
 {
-	this.TextArea00.set_value("");
-	this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/showfileupload.jsp");
+    // Trace to confirm successful export
+    trace("Export Success: " + e.eventid);
+    
+    this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Export_onsuccess\n");
 };
 
-this.FileUpTransfer00_onprogress = function(obj:nexacro.FileUploadTransfer,e:nexacro.FileUploadTransferProgressEventInfo)
+/**
+* @description ExcelExportObject onerror event
+*/
+this.Export_onerror = function (obj:ExcelExportObject, e:nexacro.ExcelExportErrorEventInfo)
 {
-	this.fn_addlog(e.loaded+"/"+e.total);
+    // Trace to confirm export error
+    trace("Export Error: " + e.eventid + " - Error Message: " + e.errormsg);
+    
+    this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Export_onerror\n");
 };
 
-this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUploadTransfer,e:nexacro.FileUploadTransferEventinfo)
+/**
+* @description ExcelExportObject onprogress event
+*/
+this.Export_onprogress = function(obj:nexacro.ExcelExportObject,e:nexacro.ExcelExportProgressEventInfo)
 {
-	this.fn_addlog(e.code);
-	this.fn_addlog(e.message);
+    this.txtLog.set_value(this.txtLog.value
+                          + e.eventid +  "  Export_onprogress : " 
+                          + "recordindex " + e.recordindex + "\n");
 };
 
-this.FileUpTransfer00_onerror = function(obj:nexacro.FileUploadTransfer,e:nexacro.FileUploadTransferErrorEventInfo)
+/**
+* @description ExcelImportObject onsuccess event
+*/
+this.Import_onsuccess = function (obj:ExcelImportObject, e:nexacro.ExcelImportEventInfo)
 {
-	this.fn_addlog(e.errormsg);
-	this.fn_addlog(e.statuscode);
+    // Trace to confirm successful import
+    trace("Import Success: " + e.eventid);
+    
+    // Trace dataset to check the data after import
+    trace("Dataset after import: " + this.dsList02.saveXML());
+    
+    this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Import_onsuccess\n");
 };
 
-this.fn_addlog = function(strMessage)
+/**
+* @description ExcelImportObject onerror event
+*/
+this.Import_onerror = function (obj:ExcelImportObject, e:nexacro.ExcelImportErrorEventInfo)
 {
-	this.TextArea00.insertText(strMessage + '\n');
-	
-}
+    // Trace to confirm import error
+    trace("Import Error: " + e.eventid + " - Error Message: " + e.errormsg);
+    
+    this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Import_onerror\n");
+};
+
+/**
+* @description btnExportBasic onclick event
+*/
+this.btnExportBasic_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+  //ExcelExportObject.addExportItem(constExportItemType, source, range)
+    this.gfnBasicExport();
+};
+
+/**
+* @description btnImportBasic onclick event
+*/
+this.btnImportBasic_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    this.gfnBasicImport();
+};
+
+/**
+* @description btnAddItemExport onclick event
+*/
+this.btnAddItemExport_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+  //ExcelExportObject.addExportItem(constExportItemType, ExportItem object)
+    this.gfnAddItemExport();
+};
+
+/**************************************************************************
+*  공통 함수 처리 영역
+해당 함수의 경우 프로젝트 사용 시 프로젝트 공통함수로 전환을 권장 드립니다.
+**************************************************************************/
+/**
+* Function Name : gfnIsNull
+* Description   : 입력값이 null에 해당하는 경우 모두를 한번에 체크한다.
+* Arguments     : sValue - 체크할 문자열( 예 : null 또는 undefined 또는 "" 또는 "abc" )
+* Return        : Boolean sValue이 undefined, null, NaN, "", Array.length = 0인 경우 true
+*/
+this.gfnIsNull = function (sValue)
+{
+    if (new String(sValue).valueOf() == "undefined") 
+    {
+        return true;
+    }
+
+    if (sValue == null) 
+    {
+        return true;
+    }
+
+    var v_ChkStr = new String(sValue);
+
+    if (v_ChkStr == null) 
+    {
+        return true;
+    }
+
+    if (v_ChkStr.toString().length == 0) 
+    {
+        return true;
+    }
+
+    return false;
+};
 ]]></Script>
   </Form>
 </FDL>

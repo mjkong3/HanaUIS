@@ -73,7 +73,7 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Grid("class_Grd","39","95","502","222",null,null,null,null,null,null,this);
+            obj = new Grid("class_Grd","49","95","502","225",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_binddataset("classroom_ds");
             obj.set_autofittype("col");
@@ -82,7 +82,7 @@
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"93\"/><Column size=\"142\"/><Column size=\"48\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"강의실코드\"/><Cell col=\"1\" text=\"강의실\"/><Cell col=\"2\" text=\"정원\"/></Band><Band id=\"body\"><Cell text=\"bind:CLASSROOM_ID\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:CLASSROOM_NAME\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:MAX_PEOPLE\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("classcourse_grd","39","377","1029","208",null,null,null,null,null,null,this);
+            obj = new Grid("classcourse_grd","49","364","1029","208",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("classcourse_ds");
             obj.set_selecttype("row");
@@ -91,31 +91,31 @@
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"27\" band=\"left\"/><Column size=\"166\"/><Column size=\"144\"/><Column size=\"92\"/><Column size=\"78\"/><Column size=\"103\"/><Column size=\"71\"/><Column size=\"73\"/><Column size=\"125\"/><Column size=\"132\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"29\"/></Rows><Band id=\"head\"><Cell displaytype=\"imagecontrol\" edittype=\"none\"/><Cell col=\"1\" displaytype=\"normal\" edittype=\"none\" text=\"강의실\"/><Cell col=\"2\" text=\"강의이름\"/><Cell col=\"3\" text=\"강의 요일\"/><Cell col=\"4\" text=\"강의 교시\"/><Cell col=\"5\" text=\"교수\"/><Cell col=\"6\" text=\"학기\"/><Cell col=\"7\" text=\"학점\"/><Cell col=\"8\" text=\"개강일\"/><Cell col=\"9\" text=\"종강일\"/></Band><Band id=\"body\"><Cell displaytype=\"imagecontrol\" edittype=\"none\" imagestretch=\"fixaspectratio\" text=\"expr:CHECK==1 ? &apos;image::수정.png&apos; : &apos;image::체크.png&apos;\"/><Cell col=\"1\" displaytype=\"combocontrol\" edittype=\"combo\" combodataset=\"classroom_ds\" combodatacol=\"CLASSROOM_NAME\" combocodecol=\"CLASSROOM_ID\" text=\"bind:CLASSROOM_ID\" combodisplaynulltext=\"bind:CLASSROOM_ID\"/><Cell col=\"2\" text=\"bind:CLASS_NAME\"/><Cell col=\"3\" displaytype=\"combocontrol\" edittype=\"combo\" combodataset=\"classweek_ds\" combocodecol=\"Code\" combodatacol=\"Data\" comboautoselect=\"false\" text=\"bind:CLASS_WEEK\"/><Cell col=\"4\" text=\"bind:TIME_NUMBER\" displaytype=\"combocontrol\" edittype=\"combo\" combodataset=\"classti_ds\" combodatacol=\"data\" combocodecol=\"code\"/><Cell col=\"5\" text=\"bind:PROFESSOR_NAME\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:SEMESTER\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:CLASS_GRADE\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:CLASS_START\" displaytype=\"calendarcontrol\"/><Cell col=\"9\" text=\"bind:CLASS_END\" displaytype=\"calendarcontrol\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Button("reset_btn","947","347","58","26",null,null,null,null,null,null,this);
+            obj = new Button("reset_btn","957","334","58","26",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_text("리셋");
             this.addChild(obj.name, obj);
 
-            obj = new Button("apply_btn","1009","347","58","26",null,null,null,null,null,null,this);
+            obj = new Button("apply_btn","1019","334","58","26",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_text("저장");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_copy","885","347","58","26",null,null,null,null,null,null,this);
+            obj = new Button("btn_copy","895","334","58","26",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             obj.set_text("추가");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_delete","823","347","58","26",null,null,null,null,null,null,this);
+            obj = new Button("btn_delete","833","334","58","26",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_text("제거");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_search","159","347","185","26",null,null,null,null,null,null,this);
+            obj = new Edit("edt_search","169","334","185","26",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_course","39","347","118","26",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_course","49","334","118","26",null,null,null,null,null,null,this);
             obj.set_taborder("7");
             obj.set_codecolumn("codecolumn");
             obj.set_datacolumn("datacolumn");
@@ -127,7 +127,7 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_se","194","64","151","26",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_se","204","64","151","26",null,null,null,null,null,null,this);
             obj.set_taborder("8");
             obj.set_innerdataset("ds_classsem");
             obj.set_codecolumn("SEMESTER");
@@ -137,7 +137,7 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Combo("cmb_year","39","64","151","26",null,null,null,null,null,null,this);
+            obj = new Combo("cmb_year","49","64","151","26",null,null,null,null,null,null,this);
             obj.set_taborder("9");
             obj.set_innerdataset("ds_classyear");
             obj.set_codecolumn("YEAR");
@@ -147,7 +147,7 @@
             obj.set_index("0");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_popclassplus","449","64","91","26",null,null,null,null,null,null,this);
+            obj = new Button("btn_popclassplus","459","64","91","26",null,null,null,null,null,null,this);
             obj.set_taborder("10");
             obj.set_text("강의실 추가");
             this.addChild(obj.name, obj);
@@ -159,7 +159,7 @@
             obj.set_formscrolltype("none");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("classtime_Grid","20","35","502","222",null,null,null,null,null,null,this.Div00.form);
+            obj = new Grid("classtime_Grid","30","35","502","225",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("0");
             obj.set_binddataset("classtime_ds");
             obj.set_autofittype("col");
@@ -170,16 +170,16 @@
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/><Column size=\"93\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"39\"/></Rows><Band id=\"head\"><Cell text=\"교시\"/><Cell col=\"1\" text=\"월요일\"/><Cell col=\"2\" text=\"화요일\"/><Cell col=\"3\" text=\"수요일\"/><Cell col=\"4\" text=\"목요일\"/><Cell col=\"5\" text=\"금요일\"/></Band><Band id=\"body\"><Cell text=\"bind:교시\" textAlign=\"center\"/><Cell col=\"1\" text=\"bind:월요일\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:화요일\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:수요일\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:목요일\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:금요일\" textAlign=\"center\"/></Band></Format></Formats>");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Static("stc_classroom","22","4","137","27",null,null,null,null,null,null,this.Div00.form);
+            obj = new Static("stc_classroom","32","4","137","27",null,null,null,null,null,null,this.Div00.form);
             obj.set_taborder("1");
             this.Div00.addChild(obj.name, obj);
 
-            obj = new Button("btn_print","920","64","74","26",null,null,null,null,null,null,this);
+            obj = new Button("btn_print","930","64","74","26",null,null,null,null,null,null,this);
             obj.set_taborder("11");
             obj.set_text("인쇄");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_browser_print00","998","64","72","26",null,null,null,null,null,null,this);
+            obj = new Button("btn_browser_print00","1008","64","72","26",null,null,null,null,null,null,this);
             obj.set_taborder("13");
             obj.set_text("전체 인쇄");
             this.addChild(obj.name, obj);

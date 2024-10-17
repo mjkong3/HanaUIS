@@ -3,7 +3,7 @@
   <Form id="classroom" width="1280" height="720" titletext="New Form" onload="classroom_onload" onbeforeclose="classroom_onbeforeclose">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
-        <Grid id="class_Grd" taborder="0" left="39" top="95" width="502" height="222" binddataset="classroom_ds" autofittype="col" scrollbartype="none" cssclass="ATEAM">
+        <Grid id="class_Grd" taborder="0" left="49" top="95" width="502" height="225" binddataset="classroom_ds" autofittype="col" scrollbartype="none" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -28,7 +28,7 @@
             </Format>
           </Formats>
         </Grid>
-        <Grid id="classcourse_grd" taborder="1" left="39" top="377" width="1029" height="208" binddataset="classcourse_ds" selecttype="row" ondropdown="classcourse_grd_ondropdown" autofittype="col" cssclass="ATEAM">
+        <Grid id="classcourse_grd" taborder="1" left="49" top="364" width="1029" height="208" binddataset="classcourse_ds" selecttype="row" ondropdown="classcourse_grd_ondropdown" autofittype="col" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
@@ -74,12 +74,12 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="reset_btn" taborder="2" text="리셋" left="947" top="347" width="58" height="26" onclick="reset_btn_onclick"/>
-        <Button id="apply_btn" taborder="3" text="저장" left="1009" top="347" width="58" height="26" onclick="apply_btn_onclick"/>
-        <Button id="btn_copy" taborder="4" text="추가" left="885" top="347" width="58" height="26" onclick="btn_copy_onclick"/>
-        <Button id="btn_delete" taborder="5" text="제거" left="823" top="347" width="58" height="26" onclick="btn_delete_onclick"/>
-        <Edit id="edt_search" taborder="6" left="159" top="347" width="185" height="26" onchanged="edt_search_onchanged"/>
-        <Combo id="cmb_course" taborder="7" text="전체" left="39" top="347" width="118" height="26" index="0" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" value="CLASSROOM_NAME + CLASSROOM_ID + CLASS_NAME  + PROFESSOR_NAME">
+        <Button id="reset_btn" taborder="2" text="리셋" left="957" top="334" width="58" height="26" onclick="reset_btn_onclick"/>
+        <Button id="apply_btn" taborder="3" text="저장" left="1019" top="334" width="58" height="26" onclick="apply_btn_onclick"/>
+        <Button id="btn_copy" taborder="4" text="추가" left="895" top="334" width="58" height="26" onclick="btn_copy_onclick"/>
+        <Button id="btn_delete" taborder="5" text="제거" left="833" top="334" width="58" height="26" onclick="btn_delete_onclick"/>
+        <Edit id="edt_search" taborder="6" left="169" top="334" width="185" height="26" onchanged="edt_search_onchanged"/>
+        <Combo id="cmb_course" taborder="7" text="전체" left="49" top="334" width="118" height="26" index="0" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" value="CLASSROOM_NAME + CLASSROOM_ID + CLASS_NAME  + PROFESSOR_NAME">
           <Dataset id="innerdataset">
             <ColumnInfo>
               <Column id="codecolumn" size="256"/>
@@ -109,7 +109,7 @@
             </Rows>
           </Dataset>
         </Combo>
-        <Combo id="cmb_se" taborder="8" text="1학기" left="194" top="64" width="151" height="26" innerdataset="ds_classsem" codecolumn="SEMESTER" datacolumn="SEMESTERN" index="0" value="1" onitemchanged="cmb_se_onitemchanged">
+        <Combo id="cmb_se" taborder="8" text="1학기" left="204" top="64" width="151" height="26" innerdataset="ds_classsem" codecolumn="SEMESTER" datacolumn="SEMESTERN" index="0" value="1" onitemchanged="cmb_se_onitemchanged">
           <Dataset id="innerdataset">
             <ColumnInfo>
               <Column id="codecolumn" size="256"/>
@@ -127,7 +127,7 @@
             </Rows>
           </Dataset>
         </Combo>
-        <Combo id="cmb_year" taborder="9" text="" left="39" top="64" width="151" height="26" innerdataset="ds_classyear" codecolumn="YEAR" datacolumn="YEARN" index="0" value="" onitemchanged="cmb_year_onitemchanged">
+        <Combo id="cmb_year" taborder="9" text="" left="49" top="64" width="151" height="26" innerdataset="ds_classyear" codecolumn="YEAR" datacolumn="YEARN" index="0" value="" onitemchanged="cmb_year_onitemchanged">
           <Dataset id="innerdataset">
             <ColumnInfo>
               <Column id="codecolumn" size="256"/>
@@ -145,11 +145,11 @@
             </Rows>
           </Dataset>
         </Combo>
-        <Button id="btn_popclassplus" taborder="10" text="강의실 추가" left="449" top="64" width="91" height="26" onclick="btn_popclassplus_onclick"/>
+        <Button id="btn_popclassplus" taborder="10" text="강의실 추가" left="459" top="64" width="91" height="26" onclick="btn_popclassplus_onclick"/>
         <Div id="Div00" taborder="12" text="Div00" left="550" top="60" width="537" height="290" formscrollbartype="default default" formscrolltype="none">
           <Layouts>
             <Layout>
-              <Grid id="classtime_Grid" taborder="0" left="20" top="35" width="502" height="222" binddataset="classtime_ds" autofittype="col" autosizingtype="none" selecttype="cell" autosizebandtype="body" cssclass="ATEAM">
+              <Grid id="classtime_Grid" taborder="0" left="30" top="35" width="502" height="225" binddataset="classtime_ds" autofittype="col" autosizingtype="none" selecttype="cell" autosizebandtype="body" cssclass="ATEAM">
                 <Formats>
                   <Format id="default">
                     <Columns>
@@ -183,12 +183,12 @@
                   </Format>
                 </Formats>
               </Grid>
-              <Static id="stc_classroom" taborder="1" left="22" top="4" width="137" height="27" onclick="Div00_stc_classroom_onclick"/>
+              <Static id="stc_classroom" taborder="1" left="32" top="4" width="137" height="27" onclick="Div00_stc_classroom_onclick"/>
             </Layout>
           </Layouts>
         </Div>
-        <Button id="btn_print" taborder="11" text="인쇄" left="920" top="64" width="74" height="26" onclick="btn_print_onclick"/>
-        <Button id="btn_browser_print00" taborder="13" text="전체 인쇄" left="998" top="64" width="72" height="26" onclick="btn_browser_print_onclick2"/>
+        <Button id="btn_print" taborder="11" text="인쇄" left="930" top="64" width="74" height="26" onclick="btn_print_onclick"/>
+        <Button id="btn_browser_print00" taborder="13" text="전체 인쇄" left="1008" top="64" width="72" height="26" onclick="btn_browser_print_onclick2"/>
         <Static id="stt_board" taborder="14" text="강의실 관리" left="49" top="10" width="191" height="50" font="30px/normal &quot;Gulim&quot;"/>
       </Layout>
     </Layouts>

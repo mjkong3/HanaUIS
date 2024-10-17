@@ -14,8 +14,6 @@
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script type="text/javaScript" language="javascript" defer="defer">
 	
-	let verificationCode = "";
-
 	/* 학생  로그인*/
 	
 	// 인증코드 보내기 버튼 클릭 이벤트
@@ -210,8 +208,8 @@
 
 								<td>
 									<div class="form-group">
-										<input type="password" id="password" name="password" autoComplete="off" 
-											placeholder="비밀번호">
+										<input type="password" id="password" name="password"
+											autoComplete="off" placeholder="비밀번호">
 									</div>
 								</td>
 							</tr>
@@ -233,6 +231,11 @@
 						</tbody>
 					</table>
 				</form>
+				
+				<div class="">
+					<a href="javascript:fn_findPassword()">비밀번호 찾기</a>
+				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -249,10 +252,8 @@
 
 		str_1 += `<div class="login_div">
 			<div class="input-group">
-				<button type="button" onclick="fn_stuLogin();"
-					style="background-color: #EBEAE8;">학생 로그인</button>
-				<button type="button" onclick="fn_proLogin();"
-					style="color: #ffffff;">교수 로그인</button>
+				<button type="button" onclick="fn_stuLogin();" style="background-color: #EBEAE8;">학생 로그인</button>
+				<button type="button" onclick="fn_proLogin();" style="color: #ffffff;">교수 로그인</button>
 			</div>
 
 			<form id="form_login" method="post">
@@ -265,14 +266,12 @@
 						<tr>
 							<td>
 								<div class="form-group" style="padding-top: 1rem;">
-									<input type="text" id="id" name="id"
-										placeholder="학생 아이디">
+									<input type="text" id="id" name="id" placeholder="학생 아이디">
 								</div>
 							</td>
 							<td rowspan="2">
 								<div class="form-group">
-									<button type="button" id="mail-Check-Btn"
-										style="height: 78px;">인증코드받기</button>
+									<button type="button" id="mail-Check-Btn" style="height: 78px;">인증코드받기</button>
 								</div>
 
 							</td>
@@ -281,30 +280,29 @@
 
 							<td>
 								<div class="form-group">
-									<input type="password" id="password" name="password" autoComplete="off" 
-										placeholder="비밀번호">
+									<input type="password" id="password" name="password" autoComplete="off" placeholder="비밀번호">
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<div class="mail-check-box">
-									<input type="text" id="emailCheck" name="emailCheck"
-										placeholder="인증번호 6자리를 입력해주세요" disabled="disabled">
+									<input type="text" id="emailCheck" name="emailCheck" placeholder="인증번호 6자리를 입력해주세요" disabled="disabled">
 								</div>
 							</td>
 							<td>
 								<div class="form-group">
-									<button type="button" id="loginSubmit"
-										style="height: 39px;">로그인</button>
-									<button type="button" id="proLoginSubmit"
-										style="height: 39px; display:none;">로그인</button>
+									<button type="button" id="loginSubmit" style="height: 39px;">로그인</button>
+									<button type="button" id="proLoginSubmit" style="height: 39px; display:none;">로그인</button>
 								</div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</form>
+			<div class="">
+				<a href="javascript:fn_findPassword()">비밀번호 찾기</a>
+			</div>
 		</div>`
 		change.insertAdjacentHTML('afterbegin', str_1);
 	}
@@ -319,10 +317,8 @@
 
 		str_2 += `<div class="login_div">
 			<div class="input-group">
-				<button type="button" onclick="fn_stuLogin();"
-					style="color: #ffffff;">학생 로그인</button>
-				<button type="button" onclick="fn_proLogin();"
-					style="background-color: #EBEAE8;">교수 로그인</button>
+				<button type="button" onclick="fn_stuLogin();" style="color: #ffffff;">학생 로그인</button>
+				<button type="button" onclick="fn_proLogin();" style="background-color: #EBEAE8;">교수 로그인</button>
 			</div>
 
 			<form id="form_login" method="post">
@@ -375,6 +371,9 @@
 					</tbody>
 				</table>
 			</form>
+			<div class="">
+				<a href="javascript:fn_findPassword()">비밀번호 찾기</a>
+			</div>
 		</div>`
 		change.insertAdjacentHTML('afterbegin', str_2);
 	}	

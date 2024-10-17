@@ -17,48 +17,45 @@
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
-            obj = new Dataset("Dataset00", this);
-            obj._setContents("<ColumnInfo><Column id=\"name\" type=\"STRING\" size=\"256\"/><Column id=\"size\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj = new Dataset("dsList01", this);
+            obj._setContents("");
             this.addChild(obj.name, obj);
 
 
-            obj = new FileDialog("FileDialog00", this);
-            this.addChild(obj.name, obj);
-
-
-            obj = new FileUpTransfer("FileUpTransfer00", this);
+            obj = new Dataset("dsList02", this);
+            obj._setContents("<ColumnInfo><Column id=\"학번\" type=\"STRING\" size=\"256\"/><Column id=\"비밀번호\" type=\"STRING\" size=\"256\"/><Column id=\"이름\" type=\"STRING\" size=\"256\"/><Column id=\"학년\" type=\"STRING\" size=\"256\"/><Column id=\"연락처\" type=\"STRING\" size=\"256\"/><Column id=\"이메일\" type=\"STRING\" size=\"256\"/><Column id=\"생년월일\" type=\"STRING\" size=\"256\"/><Column id=\"성별\" type=\"STRING\" size=\"256\"/><Column id=\"학적상태\" type=\"STRING\" size=\"256\"/><Column id=\"학과\" type=\"STRING\" size=\"256\"/><Column id=\"주소\" type=\"STRING\" size=\"256\"/><Column id=\"우편번호\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Static("Static00","20","80","482","150",null,null,null,null,null,null,this);
-            obj.set_taborder("2");
-            obj.set_text("Drop Files Here");
-            obj.set_visible("true");
-            obj.set_background("aliceblue");
-            obj.set_color("dodgerblue");
-            obj.set_font("normal 30pt/normal \"Arial\"");
-            obj.set_textAlign("center");
-            obj.set_verticalAlign("middle");
-            this.addChild(obj.name, obj);
-
-            obj = new Button("Button00","20","20","120","50",null,null,null,null,null,null,this);
+            obj = new Button("btnExportBasic","280","35","70","30",null,null,null,null,null,null,this);
             obj.set_taborder("0");
-            obj.set_text("open");
+            obj.set_text("Export Basic");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("Grid00","20","80","482","150",null,null,null,null,null,null,this);
+            obj = new Button("btnImportBasic","420","35","70","30",null,null,null,null,null,null,this);
             obj.set_taborder("1");
-            obj.set_binddataset("Dataset00");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"380\"/><Column size=\"100\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"name\"/><Cell col=\"1\" text=\"size\"/></Band><Band id=\"body\"><Cell text=\"bind:name\"/><Cell col=\"1\" text=\"bind:size\" textAlign=\"right\"/></Band></Format></Formats>");
+            obj.set_text("Import Basic");
             this.addChild(obj.name, obj);
 
-            obj = new Button("Button01","150","20","120","50",null,null,null,null,null,null,this);
+            obj = new Button("btnAddItemExport","550","35","70","30",null,null,null,null,null,null,this);
+            obj.set_taborder("2");
+            obj.set_text("Export Additem");
+            this.addChild(obj.name, obj);
+
+            obj = new Grid("grdList01","110","90","520","190",null,null,null,null,null,null,this);
             obj.set_taborder("3");
-            obj.set_text("upload");
+            obj.set_binddataset("dsList01");
+            obj._setContents("<Formats><Format id=\"default\"/></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new TextArea("TextArea00","20","240","482","120",null,null,null,null,null,null,this);
+            obj = new Grid("grdList02","110","290","520","190",null,null,null,null,null,null,this);
             obj.set_taborder("4");
+            obj.set_binddataset("dsList02");
+            obj._setContents("<Formats><Format id=\"default\"/></Formats>");
+            this.addChild(obj.name, obj);
+
+            obj = new TextArea("txtLog","111","509","524","171",null,null,null,null,null,null,this);
+            obj.set_taborder("5");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -80,132 +77,312 @@
         
         // User Script
         this.registerScript("fileupload.xfdl", function() {
+        /**************************************************************************
+        * FORM 변수 선언 영역
+        **************************************************************************/
+        //nexacro-xeni call url
+        this.exportUrl = "http://localhost:8082/HanaUIS/nexa_A/XExportImport";
+        this.importUrl = "http://localhost:8082/HanaUIS/nexa_A/XImport";
 
-        this.Button00_onclick = function(obj,e)
+        /**************************************************************************
+        * 사용자 FUNCTION 영역
+        **************************************************************************/
+        /**
+        * Function Name : gfnCreateExportObject
+        * Description   : create ExcelExportObject and return object
+        * Arguments     : pFileName - save file name
+        * Return        : objExport - ExcelExportObject
+        */
+        this.gfnCreateExportObject = function (pFileName)
         {
-        	this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);
+            //excel export object id
+            var sExportId = "objExcelExport";
+
+            //ExcelExportObject : invisible object
+            var objExport = this.objects[sExportId];
+
+            //already created ExcelExportObject
+            if(!this.gfnIsNull(objExport))
+            {
+                return objExport;
+            }
+
+            objExport = new ExcelExportObject();
+
+            //ExcelExportObject set property
+            objExport.set_exporttype(nexacro.ExportTypes.EXCEL2007);
+            objExport.set_exporturl(this.exportUrl);
+            objExport.set_exportfilename(pFileName);
+
+            //add event - onsuccess, onerror
+            objExport.addEventHandler("onprogress", this.Export_onprogress, this);
+            objExport.addEventHandler("onsuccess", this.Export_onsuccess, this);
+            objExport.addEventHandler("onerror", this.Export_onerror, this);
+
+            return objExport;
         };
 
-        this.FileDialog00_onclose = function(obj,e)
+        /**
+        * Function Name : gfnCreateImportObject
+        * Description   : create ExcelImportObject and return object
+        * Arguments     : none
+        * Return        : objImport - ExcelImportObject
+        */
+        this.gfnCreateImportObject = function ()
         {
-        	trace("Selected files: " + e.virtualfiles.length);  // 파일이 선택되었는지 확인
-        	this.addFileList(e.virtualfiles);
-        	trace(e.virtualfiles[0].filesize);
-        	this.FileUpTransfer00.upload('http://localhost:8082/AdminFileUpload');
+            var sImportId = "objExcelImport";
+
+            //ExcelImportObject : invisible object
+            var objImport = this.objects[sImportId];
+
+            //already created ExcelImportObject
+            if(!this.gfnIsNull(objImport))
+            {
+                return objImport;
+            }
+
+            objImport = new ExcelImportObject();
+
+            objImport.set_importurl(this.importUrl);
+            objImport.set_importtype(nexacro.ImportTypes.EXCEL2007);
+
+            //add event - onsuccess, onerror
+            objImport.addEventHandler("onsuccess", this.Import_onsuccess, this);
+            objImport.addEventHandler("onerror", this.Import_onerror, this);
+
+            return objImport;
         };
 
-        this.addFileList = function(filelist)
+        /**
+        * Function Name : gfnBasicExport
+        * Description   : Export Basic Export / ExcelExportObject.addExportItem(constExportItemType, source, range)
+        * Arguments     : pFileName : save file name (null - "ExportData(BasicExport)")
+        * Return        : none
+        */
+        this.gfnBasicExport = function(pFileName)
         {
-        	for (var i = 0, len = filelist.length, vFile; i < len; i++)
-        	{
-        		vFile = filelist[i];
-        		vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
-        		vFile.addEventHandler("onerror", this.FileList_onerror , this);
+            var sFileName = "ExportData(BasicExport)";
+            if(!this.gfnIsNull(pFileName))
+            {
+                sFileName = pFileName;
+            }
 
-        		vFile.open(null, 1);
-        	}
-        }
+            //ExcelExportObject
+            var objExport = this.gfnCreateExportObject(sFileName);
 
-        this.FileList_onsuccess = function(obj, e)
-        {
-        	switch (e.reason)
-        	{
-        		case 1:
-        			obj.getFileSize();
-        			trace("dejfnej"+e.filesize);
-        			break;
-        		case 9:
-        			var nRowIdx = this.Dataset00.addRow();
-        			trace("efnwkjfwnekjfnewkjfnewkjfn"+e.filesize);
-        			this.Dataset00.setColumn(nRowIdx, 0, obj.filename);
-        			this.Dataset00.setColumn(nRowIdx, 1, this.cutFileSize(e.filesize));
-        			this.FileUpTransfer00.addFile(obj.filename, obj);
-        			break;
-        	}
-        }
+            //export Grid = export item source
+            var objGrid1 = this.grdList01;
+            var objGrid2 = this.grdList02;
 
-        this.FileList_onerror = function(obj, e)
-        {
-        	trace("errortype: "+e.errortype);
-        	trace("errormsg: "+e.errormsg);
-        	trace("statuscode: "+e.statuscode);
-        }
+            // Trace grid data before export
+            trace("Grid 1 data before export: " + objGrid1.saveXML());
+            trace("Grid 2 data before export: " + objGrid2.saveXML());
 
-        // https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Showing_file(s)_size
-        this.cutFileSize = function(filesize)
-        {
-        	var sOutput = filesize + " bytes";
-        	for (var aMultiples = ["KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"], nMultiple = 0, nApprox = filesize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++)
-        	{
-        		sOutput = nApprox.toFixed(3) + " " + aMultiples[nMultiple];
-        	}
-        	return sOutput;
-        };
-        this.Grid00_ondragenter = function(obj,e)
-        {
-        	if(e.datatype == "file")
-        	{
-        		this.Grid00.set_opacity(0.5);
-        	}
+            //export item ranges : sheet1 - grid1, grid2
+            var sExportCommand1 = "Sheet1!A1";
+            var sExportCommand2 = "Sheet1!A12";
+
+            //addExportItem
+            objExport.addExportItem(nexacro.ExportItemTypes.GRID, objGrid1, sExportCommand1);
+            objExport.addExportItem(nexacro.ExportItemTypes.GRID, objGrid2, sExportCommand2);
+            objExport.exportData();
         };
 
-        this.Grid00_ondragleave = function(obj,e)
+        /**
+        * Function Name : gfnAddItemExport
+        * Description   : Export Basic Import / ExcelExportObject.addExportItem(constExportItemType, objExportItem)
+        * Arguments     : pFileName : save file name (null - "ExportData(AddItemExport)")
+        * Return        : none
+        */
+        this.gfnAddItemExport = function (pFileName)
         {
-        	this.Grid00.set_opacity(1);
+            var sFileName = "ExportData(AddItemExport)";
+            if(!this.gfnIsNull(pFileName))
+            {
+                sFileName = pFileName;
+            }
+
+            var objExport = this.gfnCreateExportObject(sFileName);
+
+            //export Grid = export item source
+            var objGrid1 = this.grdList01;
+            var objGrid2 = this.grdList02;
+
+            // Trace grid data before export
+            trace("Grid 1 data before export: " + objGrid1.saveXML());
+            trace("Grid 2 data before export: " + objGrid2.saveXML());
+
+            //export item ranges : sheet1 - grid1 , sheet2 - grid2
+            var sExportCommand1 = "Sheet1!A1";
+            var sExportCommand2 = "Sheet2!A1";
+
+            //create export item
+            var objExportItem1 = new ExportItem();
+            objExportItem1.set_source(objGrid1);
+            objExportItem1.set_range(sExportCommand1);
+
+            var objExportItem2 = new ExportItem();
+            objExportItem2.set_source(objGrid2);
+            objExportItem2.set_range(sExportCommand2);
+
+          //add export item object
+            objExport.addExportItem(nexacro.ExportItemTypes.GRID,objExportItem1);
+            objExport.addExportItem(nexacro.ExportItemTypes.GRID,objExportItem2);
+            objExport.exportData();
         };
 
-        this.Grid00_ondrop = function(obj,e)
+        /**
+        * Function Name : gfnBasicImport
+        * Description   : Import Basic button onclick event / ExcelImportObject.importData(source, range, output dataset)
+        * Arguments     : none
+        * Return        : none
+        */
+        this.gfnBasicImport = function()
         {
-        	this.Grid00.set_opacity(1);
-        	if(e.datatype == "file")
-        	{
-        		this.addFileList(e.filelist);
-        	}
+            //excel import object
+            var objImport = this.gfnCreateImportObject();
+
+            var sImportCommand  = "[Command=getsheetdata;Output=output1; Head=!A2:G2; Body=Sheet1!A3:G9]";
+            var sDatasetList = "dsList02=output1";
+
+            // Trace before import to check the command and dataset list
+            trace("Import Command: " + sImportCommand);
+            trace("Dataset List: " + sDatasetList);
+
+            objImport.importData("", sImportCommand, sDatasetList);
         };
 
-        this.Button01_onclick = function(obj,e)
+        /**************************************************************************
+        * 각 COMPONENT 별 EVENT 영역
+        **************************************************************************/
+        /**
+        * @description ExcelExportObject onsuccess event
+        */
+        this.Export_onsuccess = function (obj, e)
         {
-        	this.TextArea00.set_value("");
-        	this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/showfileupload.jsp");
+            // Trace to confirm successful export
+            trace("Export Success: " + e.eventid);
+
+            this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Export_onsuccess\n");
         };
 
-        this.FileUpTransfer00_onprogress = function(obj,e)
+        /**
+        * @description ExcelExportObject onerror event
+        */
+        this.Export_onerror = function (obj, e)
         {
-        	this.fn_addlog(e.loaded+"/"+e.total);
+            // Trace to confirm export error
+            trace("Export Error: " + e.eventid + " - Error Message: " + e.errormsg);
+
+            this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Export_onerror\n");
         };
 
-        this.FileUpTransfer00_onsuccess = function(obj,e)
+        /**
+        * @description ExcelExportObject onprogress event
+        */
+        this.Export_onprogress = function(obj,e)
         {
-        	this.fn_addlog(e.code);
-        	this.fn_addlog(e.message);
+            this.txtLog.set_value(this.txtLog.value
+                                  + e.eventid +  "  Export_onprogress : "
+                                  + "recordindex " + e.recordindex + "\n");
         };
 
-        this.FileUpTransfer00_onerror = function(obj,e)
+        /**
+        * @description ExcelImportObject onsuccess event
+        */
+        this.Import_onsuccess = function (obj, e)
         {
-        	this.fn_addlog(e.errormsg);
-        	this.fn_addlog(e.statuscode);
+            // Trace to confirm successful import
+            trace("Import Success: " + e.eventid);
+
+            // Trace dataset to check the data after import
+            trace("Dataset after import: " + this.dsList02.saveXML());
+
+            this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Import_onsuccess\n");
         };
 
-        this.fn_addlog = function(strMessage)
+        /**
+        * @description ExcelImportObject onerror event
+        */
+        this.Import_onerror = function (obj, e)
         {
-        	this.TextArea00.insertText(strMessage + '\n');
+            // Trace to confirm import error
+            trace("Import Error: " + e.eventid + " - Error Message: " + e.errormsg);
 
-        }
+            this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Import_onerror\n");
+        };
+
+        /**
+        * @description btnExportBasic onclick event
+        */
+        this.btnExportBasic_onclick = function(obj,e)
+        {
+          //ExcelExportObject.addExportItem(constExportItemType, source, range)
+            this.gfnBasicExport();
+        };
+
+        /**
+        * @description btnImportBasic onclick event
+        */
+        this.btnImportBasic_onclick = function(obj,e)
+        {
+            this.gfnBasicImport();
+        };
+
+        /**
+        * @description btnAddItemExport onclick event
+        */
+        this.btnAddItemExport_onclick = function(obj,e)
+        {
+          //ExcelExportObject.addExportItem(constExportItemType, ExportItem object)
+            this.gfnAddItemExport();
+        };
+
+        /**************************************************************************
+        *  공통 함수 처리 영역
+        해당 함수의 경우 프로젝트 사용 시 프로젝트 공통함수로 전환을 권장 드립니다.
+        **************************************************************************/
+        /**
+        * Function Name : gfnIsNull
+        * Description   : 입력값이 null에 해당하는 경우 모두를 한번에 체크한다.
+        * Arguments     : sValue - 체크할 문자열( 예 : null 또는 undefined 또는 "" 또는 "abc" )
+        * Return        : Boolean sValue이 undefined, null, NaN, "", Array.length = 0인 경우 true
+        */
+        this.gfnIsNull = function (sValue)
+        {
+            if (new String(sValue).valueOf() == "undefined")
+            {
+                return true;
+            }
+
+            if (sValue == null)
+            {
+                return true;
+            }
+
+            var v_ChkStr = new String(sValue);
+
+            if (v_ChkStr == null)
+            {
+                return true;
+            }
+
+            if (v_ChkStr.toString().length == 0)
+            {
+                return true;
+            }
+
+            return false;
+        };
 
         });
         
         // Regist UI Components Event
         this.on_initEvent = function()
         {
-            this.Button00.addEventHandler("onclick",this.Button00_onclick,this);
-            this.Grid00.addEventHandler("ondragenter",this.Grid00_ondragenter,this);
-            this.Grid00.addEventHandler("ondragleave",this.Grid00_ondragleave,this);
-            this.Grid00.addEventHandler("ondrop",this.Grid00_ondrop,this);
-            this.Button01.addEventHandler("onclick",this.Button01_onclick,this);
-            this.FileDialog00.addEventHandler("onclose",this.FileDialog00_onclose,this);
-            this.FileUpTransfer00.addEventHandler("onprogress",this.FileUpTransfer00_onprogress,this);
-            this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);
-            this.FileUpTransfer00.addEventHandler("onerror",this.FileUpTransfer00_onerror,this);
+            this.btnExportBasic.addEventHandler("onclick",this.btnExportBasic_onclick,this);
+            this.btnImportBasic.addEventHandler("onclick",this.btnImportBasic_onclick,this);
+            this.btnAddItemExport.addEventHandler("onclick",this.btnAddItemExport_onclick,this);
         };
         this.loadIncludeScript("fileupload.xfdl");
         this.loadPreloadList();

@@ -32,6 +32,7 @@
             obj.set_taborder("0");
             obj.set_binddataset("ds_classroom");
             obj.set_autofittype("col");
+            obj.set_cssclass("ATEAM");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"132\"/><Column size=\"241\"/><Column size=\"134\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"강의실 코드\"/><Cell col=\"1\" text=\"강의실\"/><Cell col=\"2\" text=\"정원\"/></Band><Band id=\"body\"><Cell textAlign=\"center\" text=\"bind:CLASSROOM_ID\" imagestretch=\"fixaspectratio\"/><Cell col=\"1\" text=\"expr:CLASSROOM_NAME ==null ? &apos;image::plusbtn.png&apos; : CLASSROOM_NAME\" textAlign=\"center\" displaytype=\"expr:CLASSROOM_NAME==null ? &apos;imagecontrol&apos; : &apos;text&apos;\" imagestretch=\"fixaspectratio\"/><Cell col=\"2\" text=\"bind:MAX_PEOPLE\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 

@@ -53,14 +53,15 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Grid("Depart_Grd","24","100","276","524",null,null,null,null,null,null,this);
+            obj = new Grid("Depart_Grd","24","70","276","524",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_binddataset("DEPARTMENT_List");
             obj.set_autofittype("col");
+            obj.set_cssclass("ATEAM");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"93\"/><Column size=\"142\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell text=\"학과코드\"/><Cell col=\"1\" text=\"학과명\"/></Band><Band id=\"body\"><Cell text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\" displaytype=\"mask\" maskeditformat=\"00\"/><Cell col=\"1\" text=\"bind:DEPARTMENT_NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("Dtl_Grid","303","100","947","524",null,null,null,null,null,null,this);
+            obj = new Grid("Dtl_Grid","303","70","947","524",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("DEPARTMENT_DTL_List");
             obj.set_autofittype("col");
@@ -86,12 +87,12 @@
             obj.set_taborder("4");
             this.addChild(obj.name, obj);
 
-            obj = new Button("plus_btn","1115","70","66","25",null,null,null,null,null,null,this);
+            obj = new Button("plus_btn","1115","40","66","25",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_text("등록");
             this.addChild(obj.name, obj);
 
-            obj = new Button("delete_btn","1184","70","66","25",null,null,null,null,null,null,this);
+            obj = new Button("delete_btn","1184","40","66","25",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("삭제");
             obj.set_visible("true");

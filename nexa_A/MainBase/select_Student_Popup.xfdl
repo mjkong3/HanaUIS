@@ -3,12 +3,12 @@
   <Form id="select_Student_Popup" width="960" height="610" titletext="New Form" onload="select_Student_Popup_onload">
     <Layouts>
       <Layout height="610" width="960">
-        <ImageViewer id="ImageViewer00" taborder="0" left="66" top="82" width="177" height="236" stretch="fit"/>
-        <Button id="Stu_Add_btn" taborder="1" text="수정" left="493" top="537" width="77" height="38" onclick="Stu_Add_btn_onclick"/>
-        <Button id="return_btn" taborder="2" text="리셋" left="382" top="537" width="77" height="38" onclick="return_btn_onclick" enable="false"/>
-        <Button id="save_btn" taborder="3" text="저장" left="493" top="537" width="77" height="38" onclick="save_btn_onclick" visible="false"/>
-        <Edit id="edt_filename" taborder="4" left="64" top="327" width="136" height="21" visible="false" readonly="true"/>
-        <Button id="btn_addfile" taborder="5" text="등록" left="203" top="327" width="43" height="20" onclick="btn_addfile_onclick" visible="false"/>
+        <ImageViewer id="ImageViewer00" taborder="0" left="66" top="62" width="177" height="236" stretch="fit"/>
+        <Button id="Stu_Add_btn" taborder="1" text="수정" left="443" top="537" width="77" height="38" onclick="Stu_Add_btn_onclick"/>
+        <Button id="return_btn" taborder="2" text="리셋" left="332" top="537" width="77" height="38" onclick="return_btn_onclick" enable="false"/>
+        <Button id="save_btn" taborder="3" text="저장" left="443" top="537" width="77" height="38" onclick="save_btn_onclick" visible="false"/>
+        <Edit id="edt_filename" taborder="4" left="64" top="307" width="136" height="21" visible="false" readonly="true"/>
+        <Button id="btn_addfile" taborder="5" text="등록" left="203" top="307" width="43" height="20" onclick="btn_addfile_onclick" visible="false"/>
         <Button id="btn_mypage" taborder="6" text="사용자 페이지" left="820" top="27" width="107" height="26" onclick="btn_mypage_onclick"/>
         <Static id="Static00_03_00_00_00_00_00" taborder="7" left="670" top="209" width="257" height="50" background="white" border="1px solid #d3d3d4"/>
         <Static id="Static00_03_01_00_00_00_00_00" taborder="8" left="670" top="258" width="257" height="49" background="white" border="1px solid #d3d3d4"/>
@@ -56,7 +56,7 @@
         <Edit id="edt_ZipCd" taborder="50" left="410" top="365" width="153" height="30" displaynulltext="우편번호" enable="true" readonly="true" cssclass="edt_Adr"/>
         <Static id="Static00_00_01_00_02_00_00_00" taborder="51" left="302" top="355" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   우편번호"/>
         <WebBrowser id="wb_Adress" taborder="52" left="130" top="404" width="100" height="100" visible="false" onusernotify="wb_Adress_onusernotify"/>
-        <Button id="btn_close" taborder="53" text="닫기" left="602" top="537" width="77" height="38" onclick="btn_close_onclick"/>
+        <Button id="btn_close" taborder="53" text="닫기" left="552" top="537" width="77" height="38" onclick="btn_close_onclick"/>
       </Layout>
     </Layouts>
     <Bind>

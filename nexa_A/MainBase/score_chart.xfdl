@@ -3,24 +3,24 @@
   <Form id="score_chart" width="1280" height="720" titletext="New Form" onload="score_chart_onload" enable="true">
     <Layouts>
       <Layout height="720" width="1280">
-        <Div id="Div00" taborder="1" left="90" top="70" width="1060" height="55" background="#004AAD" border="0px none darkcyan">
+        <Div id="Div00" taborder="1" left="24" top="72" width="1080" height="55" border="1px solid #001414">
           <Layouts>
             <Layout>
-              <Combo id="cmb_Dept" taborder="0" text="Combo00" left="50" top="16" width="130" height="29" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" onitemchanged="Div00_cmb_Dept_onitemchanged" displaynulltext="학과를 선택하세요"/>
-              <Combo id="cmb_Class" taborder="1" text="" left="540" top="16" width="160" height="29" innerdataset="ds_class" codecolumn="CLASS_CODE" datacolumn="CLASS_NAME" onitemchanged="Div00_cmb_Class_onitemchanged" displaynulltext="강의가 없습니다"/>
-              <Static id="Static00" taborder="2" text="학과" left="18" top="20" width="32" height="20" color="WHITE"/>
-              <Static id="Static00_00" taborder="3" text="강의" left="508" top="20" width="32" height="20" color="WHITE"/>
-              <Static id="Static00_01" taborder="4" text="학기" left="358" top="20" width="32" height="20" color="WHITE"/>
-              <Combo id="cmb_Semester" taborder="5" left="390" top="16" width="80" height="29" innerdataset="ds_semester" codecolumn="SEMESTER" datacolumn="data" onitemchanged="Div00_cmb_Semester_onitemchanged" text=""/>
-              <Static id="Static00_01_00" taborder="6" text="연도" left="208" top="20" width="32" height="20" color="WHITE"/>
-              <Combo id="cmb_Year" taborder="7" text="" left="240" top="16" width="80" height="29" innerdataset="ds_year" codecolumn="YEAR" datacolumn="DATA" onitemchanged="Div00_cmb_Year_onitemchanged"/>
-              <Button id="btn_Search" taborder="8" text="조회" left="965" top="16" width="60" height="29" onclick="Div00_btn_Search_onclick"/>
-              <Static id="Static01" taborder="9" text="" left="780" top="16" width="146" height="29" background="white" textAlign="center" font="bold 14px/normal &quot;Gulim&quot;"/>
-              <Static id="Static00_00_00" taborder="10" text="교수" left="748" top="20" width="36" height="20" color="WHITE"/>
+              <Combo id="cmb_Dept" taborder="0" text="Combo00" left="50" top="11" width="130" height="29" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" onitemchanged="Div00_cmb_Dept_onitemchanged" displaynulltext="학과를 선택하세요"/>
+              <Combo id="cmb_Class" taborder="1" text="" left="540" top="11" width="160" height="29" innerdataset="ds_class" codecolumn="CLASS_CODE" datacolumn="CLASS_NAME" onitemchanged="Div00_cmb_Class_onitemchanged" displaynulltext="강의가 없습니다"/>
+              <Static id="Static00" taborder="2" text="학과" left="18" top="15" width="32" height="20"/>
+              <Static id="Static00_00" taborder="3" text="강의" left="508" top="15" width="32" height="20"/>
+              <Static id="Static00_01" taborder="4" text="학기" left="358" top="15" width="32" height="20"/>
+              <Combo id="cmb_Semester" taborder="5" left="390" top="11" width="80" height="29" innerdataset="ds_semester" codecolumn="SEMESTER" datacolumn="data" onitemchanged="Div00_cmb_Semester_onitemchanged" text=""/>
+              <Static id="Static00_01_00" taborder="6" text="연도" left="208" top="15" width="32" height="20"/>
+              <Combo id="cmb_Year" taborder="7" text="" left="240" top="11" width="80" height="29" innerdataset="ds_year" codecolumn="YEAR" datacolumn="DATA" onitemchanged="Div00_cmb_Year_onitemchanged"/>
+              <Button id="btn_Search" taborder="8" text="조회" left="965" top="11" width="60" height="29" onclick="Div00_btn_Search_onclick"/>
+              <Static id="Static01" taborder="9" text="" left="780" top="11" width="146" height="29" background="white" textAlign="left" font="12px/normal &quot;Gulim&quot;" border="1px solid #c9c9c9" padding="0px 0px 0px 10px"/>
+              <Static id="Static00_00_00" taborder="10" text="교수" left="748" top="15" width="36" height="20"/>
             </Layout>
           </Layouts>
         </Div>
-        <BasicChart id="cht_Score" taborder="0" left="49" top="140" width="1101" height="440" binddataset="ds_chart" categorycolumn="bind:등급" visible="true" bargrouping="true" stacktype="none" titlespacing="0px">
+        <BasicChart id="cht_Score" taborder="0" left="33" top="142" width="1101" height="440" binddataset="ds_chart" categorycolumn="bind:등급" visible="true" bargrouping="true" stacktype="none" titlespacing="0px">
           <Contents><![CDATA[{
 	"tooltip": {
 		"id": "tooltip",
@@ -141,11 +141,11 @@
 	}
 }]]></Contents>
         </BasicChart>
-        <Static id="stt_board" taborder="2" text="성적 통계" left="49" top="10" width="191" height="50" font="30px/normal &quot;Gulim&quot;" onclick="stt_board_onclick"/>
+        <Static id="stt_board" taborder="2" text="성적 통계" left="24" top="10" width="191" height="50" font="30px/normal &quot;Gulim&quot;" onclick="stt_board_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
-      <Dataset id="ds_chart">
+      <Dataset id="ds_chart" useclientlayout="true">
         <ColumnInfo>
           <Column id="등급" type="STRING" size="256"/>
           <Column id="중간" type="STRING" size="256"/>
@@ -154,41 +154,7 @@
           <Column id="총합" type="STRING" size="256"/>
         </ColumnInfo>
         <Rows>
-          <Row>
-            <Col id="등급">A</Col>
-            <Col id="중간">1</Col>
-            <Col id="기말">1</Col>
-            <Col id="과제">7</Col>
-            <Col id="총합">4</Col>
-          </Row>
-          <Row>
-            <Col id="등급">B</Col>
-            <Col id="중간">2</Col>
-            <Col id="기말">2</Col>
-            <Col id="과제">5</Col>
-            <Col id="총합">6</Col>
-          </Row>
-          <Row>
-            <Col id="등급">C</Col>
-            <Col id="중간">3</Col>
-            <Col id="기말">3</Col>
-            <Col id="과제">4</Col>
-            <Col id="총합">10</Col>
-          </Row>
-          <Row>
-            <Col id="등급">D</Col>
-            <Col id="중간">4</Col>
-            <Col id="기말">4</Col>
-            <Col id="과제">2</Col>
-            <Col id="총합">11</Col>
-          </Row>
-          <Row>
-            <Col id="등급">F</Col>
-            <Col id="중간">5</Col>
-            <Col id="기말">5</Col>
-            <Col id="과제">1</Col>
-            <Col id="총합">5</Col>
-          </Row>
+          <Row/>
         </Rows>
       </Dataset>
       <Dataset id="ds_dept">

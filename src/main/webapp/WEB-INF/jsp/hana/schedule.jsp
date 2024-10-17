@@ -71,7 +71,7 @@
 						                        <div class="class-info">
 						                            <strong>${schedule.subject}</strong>
 						                            <br/>
-						                            ${schedule.professor}
+						                             ${schedule.professor}
 						                            <br/>
 						                            ${schedule.location}
 						                        </div>
@@ -80,10 +80,8 @@
 						            </td>
 						           </c:forEach>
 						           
-						           
 			                    </tr>
 			                </c:forEach>
-			                
 			                
 			            </tbody>
 			        </table>

@@ -12,10 +12,11 @@ public class EnrollmentDTO {
 	private int middleTest;
 	private int FinalTest;
 	private int report;
-	private Date regDate;
 	private int adminCode;
 	private int studentId;
 	private int semester;
+	private int studentYear;
+	private Date regDtm;
 	
 	/*
 	 * private String className; private String classType; private String
@@ -66,12 +67,6 @@ public class EnrollmentDTO {
 	public void setReport(int report) {
 		this.report = report;
 	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
 	public int getAdminCode() {
 		return adminCode;
 	}
@@ -108,5 +103,17 @@ public class EnrollmentDTO {
 	 * departmertName; } public void setDepartmertName(String departmertName) {
 	 * this.departmertName = departmertName; }
 	 */
+	public int getStudentYear() {
+		return studentYear;
+	}
+	public void setStudentYear(int studentYear) {
+		this.studentYear = studentYear;
+	}
+	public Date getRegDtm() {
+		return regDtm;
+	}
+	public void setRegDtm(Date regDtm) {
+		this.regDtm = regDtm;
+	}
 	
 }
