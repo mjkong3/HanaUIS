@@ -203,7 +203,7 @@
 									</div>
 								</td>
 								<td rowspan="2">
-									<div class="form-group">
+									<div class="form-group" style="padding-top: 15px; margin-right: 4px;">
 										<button type="button" id="mail-Check-Btn"
 											style="height: 78px;">인증코드받기</button>
 									</div>
@@ -227,7 +227,7 @@
 									</div>
 								</td>
 								<td>
-									<div class="form-group">
+									<div class="form-group" style="margin-right: 4px;">
 										<button type="button" id="loginSubmit" style="height: 39px;">로그인</button>
 										<button type="button" id="proLoginSubmit"
 											style="height: 39px; display: none;">로그인</button>
@@ -235,13 +235,11 @@
 								</td>
 							</tr>
 						</tbody>
-					</table>
+					</table>		
 				</form>
-				
-				<div class="">
+				<div class="searchPwd">
 					<a href="javascript:fn_findPassword()">비밀번호 찾기</a>
-				</div>
-				
+				</div>	
 			</div>
 		</div>
 	</div>
@@ -276,7 +274,7 @@
 								</div>
 							</td>
 							<td rowspan="2">
-								<div class="form-group">
+								<div class="form-group" style="padding-top: 15px; margin-right: 4px;">
 									<button type="button" id="mail-Check-Btn" style="height: 78px;">인증코드받기</button>
 								</div>
 
@@ -297,7 +295,7 @@
 								</div>
 							</td>
 							<td>
-								<div class="form-group">
+								<div class="form-group" style="margin-right: 4px;">
 									<button type="button" id="loginSubmit" style="height: 39px;">로그인</button>
 									<button type="button" id="proLoginSubmit" style="height: 39px; display:none;">로그인</button>
 								</div>
@@ -306,9 +304,9 @@
 					</tbody>
 				</table>
 			</form>
-			<div class="">
+			<div class="searchPwd">
 				<a href="javascript:fn_findPassword()">비밀번호 찾기</a>
-			</div>
+			</div>	
 		</div>`
 		change.insertAdjacentHTML('afterbegin', str_1);
 	}
@@ -338,11 +336,11 @@
 							<td>
 								<div class="form-group" style="padding-top: 1rem;">
 									<input type="text" id="id" name="id"
-										placeholder="교수/교직원 아이디">
+										placeholder="교수 아이디">
 								</div>
 							</td>
 							<td rowspan="2">
-								<div class="form-group">
+								<div class="form-group" style="padding-top: 15px; margin-right: 4px;">
 									<button type="button" id="proMail-Check-Btn"
 										style="height: 78px;">인증코드받기</button>
 								</div>
@@ -366,7 +364,7 @@
 								</div>
 							</td>
 							<td>
-								<div class="form-group">
+								<div class="form-group" style="margin-right: 4px;">
 									<button type="button" id="loginSubmit"
 										style="height: 39px; display:none;">로그인</button>
 									<button type="button" id="proLoginSubmit"
@@ -377,9 +375,9 @@
 					</tbody>
 				</table>
 			</form>
-			<div class="">
+			<div class="searchPwd">
 				<a href="javascript:fn_findPassword()">비밀번호 찾기</a>
-			</div>
+			</div>	
 		</div>`
 		change.insertAdjacentHTML('afterbegin', str_2);
 	}	

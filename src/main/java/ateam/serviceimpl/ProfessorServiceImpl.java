@@ -20,7 +20,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 	@Inject
 	LoginDAO loginDao;
 
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인
+	// 로그인 페이지
 	// 로그인 (이름 대신 StudentDTO 전체 반환)
 	@Override
 	public ProfessorDTO proLoginCheck(ProfessorDTO dto, HttpSession session) {
@@ -44,7 +44,7 @@ public class ProfessorServiceImpl implements ProfessorService {
 	
 	
 
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마이페이지
+	// 마이페이지 조회하기
 	// 연락처 수정
 	@Override
 	public int updatePhone(Map<String, Object> param) {

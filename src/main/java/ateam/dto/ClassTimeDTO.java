@@ -30,20 +30,29 @@ public class ClassTimeDTO {
 	public void setClassroomName(String classroomName) {
 		this.classroomName = classroomName;
 	}
-	public void setClassCode(String classCode) {
-		this.classCode = classCode;
-	}
-	public void setClassTimeCode(String classTimeCode) {
-		this.classTimeCode = classTimeCode;
-	}
-	public void setClassWeek(String classWeek) {
-		this.classWeek = classWeek;
-	}
 	public int getTimeNumber() {
 		return timeNumber;
 	}
 	public void setTimeNumber(int timeNumber) {
 		this.timeNumber = timeNumber;
+	}
+	public String getClassCode() {
+		return classCode;
+	}
+	public void setClassCode(String classCode) {
+		this.classCode = classCode;
+	}
+	public String getClassTimeCode() {
+		return classTimeCode;
+	}
+	public void setClassTimeCode(String classTimeCode) {
+		this.classTimeCode = classTimeCode;
+	}
+	public String getClassWeek() {
+		return classWeek;
+	}
+	public void setClassWeek(String classWeek) {
+		this.classWeek = classWeek;
 	}
 
 

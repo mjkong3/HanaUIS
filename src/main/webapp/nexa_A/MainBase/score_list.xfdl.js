@@ -144,6 +144,20 @@
             obj.set_text("성적 관리");
             obj.set_font("30px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
+
+            obj = new Static("sta_RowCnt","97","556","33","28",null,null,null,null,null,null,this);
+            obj.set_taborder("11");
+            obj.set_text("");
+            obj.set_background("white");
+            obj.set_textAlign("right");
+            obj.set_font("bold 14px/normal \"Gulim\"");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("Static00_00","55","556","56","28",null,null,null,null,null,null,this);
+            obj.set_taborder("12");
+            obj.set_text("총원 :");
+            obj.set_font("14px/normal \"Gulim\"");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",1280,720,this,function(p){});
@@ -403,7 +417,7 @@
         	var inData      = "ds_updateScore = ds_updateScore";
         	var outData     = "";
         	var strArg      = "";
-        	var callBackFnc = "fnCallBack_update";
+        	var callBackFnc = "fnCallBack";
         	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
@@ -411,11 +425,17 @@
 
         }
 
-        this.fnCallBack_update = function (svcID, errCD, errMsg)
+        this.fnCallBack = function (svcID, errCD, errMsg)
         {
         	if(svcID == "updateScStudent" && errCD == 0){
         		trace("잘 받아왔나?");
         		this.fn_searchStudent();
+        	} else if (errCD == -1){
+        		alert(errMsg);
+        	}
+        	if(svcID == "selectScStudent" && errCD == 0){
+        		var cRow = this.ds_scoreList.rowcount;
+        		this.sta_RowCnt.set_text(cRow);
         	} else if (errCD == -1){
         		alert(errMsg);
         	}
@@ -431,7 +451,7 @@
         	var inData      = "ds_searchSttudent=ds_searchSttudent";
         	var outData     = "ds_scoreList = ds_scoreList";
         	var strArg      = "";
-        	var callBackFnc = "fnCallBack_deptInfo";
+        	var callBackFnc = "fnCallBack";
         	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
@@ -486,6 +506,7 @@
             this.btn_update.addEventHandler("onclick",this.btn_update_onclick,this);
             this.cmb_semester.addEventHandler("onitemchanged",this.cmb_semester_onitemchanged,this);
             this.stt_board.addEventHandler("onclick",this.stt_board_onclick,this);
+            this.Static00_00.addEventHandler("onclick",this.Static00_onclick,this);
             this.ds_dept.addEventHandler("onrowposchanged",this.ds_dept_onrowposchanged,this);
         };
         this.loadIncludeScript("score_list.xfdl");
