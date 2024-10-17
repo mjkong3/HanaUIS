@@ -229,6 +229,7 @@
         						objCombo	: this.cmb_course,
         						objEdit		: this.edt_search
         					 }
+        	//오토 필터 사용
         	this.fnInitForm(obj, objConfig);
 
         };
@@ -258,12 +259,13 @@
         				this.classcourse_ds.setColumn(i, "ADMIN_CODE", adCode);
         				this.classcourse_ds.setColumn(i, "REGDATE", regdt);
         			}
-        			trace("아이디 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "ADMIN_CODE"));
-        			trace("일시 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "REGDATE"));
+        // 			trace("아이디 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "ADMIN_CODE"));
+        // 			trace("일시 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "REGDATE"));
         			//trace(this.classcourse_ds.saveXML());
         			this.topnull();
         			break;
         		case "SelectAdminClassroom":
+        			// 콤보 첫번째 잡아주기
         			this.cmb_year.set_index(0);
         			this.cmb_se.set_index(0);
 
@@ -271,6 +273,7 @@
         			this.fn_classcourse();
         			break;
         		case "saveAdminClasscourse":
+        			// 강의 목록 불러오기
         			this.fn_classcourse();
         			break;
         		default:
@@ -281,26 +284,19 @@
         this.topnull = function()
         {
         	this.classcourse_ds.set_keystring("S:-CLASSROOM_ID-CLASS_WEEK-TIME_NUMBER-CLASS_NAME");
-        // 	if(this.classcourse_ds.getCaseCount("CLASSROOM_ID == undefined")){
-        // 	this.classcourse_ds.set_keystring("S:-CLASSROOM_ID");
-        // 	}
-        // 	else if(this.classcourse_ds.getCaseCount("CLASS_WEEK == undefined")){
-        // 		this.classcourse_ds.set_keystring("S:-CLASS_WEEK");
-        // 	}
-        // 	else if(this.classcourse_ds.getCaseCount("TIME_NUMBER == undefined")){
-        // 		this.classcourse_ds.set_keystring("S:-TIME_NUMBER");
-        // 	}
         }
-        //검색 필터링
+
+        //검색 필터링 함수 -- 필터 바꿀 시에 넣는 함수
         this.searchfilter = function()
         {
         	if(this.edt_search.value == null || this.edt_search.value == 'undefined' || this.edt_search.value == ''){
          		this.classcourse_ds.set_filterstr();
          		this.classcourse_ds.filter("SEMESTER == '"+ this.cmb_se.value +"'");
         	} else{
-        		this.classcourse_ds.filter("String("+ this.cmb_course.value +").indexOf('"+this.edt_search.value+"') >= 0 && SEMESTER == '"+ this.cmb_se.value +"' || CLASSROOM_ID == null || CLASS_WEEK == null || TIME_NUMBER == null");
+        		this.classcourse_ds.filter("String("+ this.cmb_course.value +").indexOf('"+this.edt_search.value+"') >= 0 || CLASSROOM_ID == null || CLASS_WEEK == null || TIME_NUMBER == null");
         	}
         }
+
         //초기 불러올 데이터들 : 강의실, 년도, 학기
         this.fn_classroom = function(){
         	var strSvcId    = "SelectAdminClassroom";
@@ -328,14 +324,32 @@
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
 
-        // 시간표 부분
+
+        // 학기 바꾸기
+        this.cmb_se_onitemchanged = function(obj,e)
+        {
+        	// 강의 목록 불러오기
+        	this.fn_classcourse();
+        };
+
+        // 년도 바꾸기
+        this.cmb_year_onitemchanged = function(obj,e)
+        {
+        	// 강의 목록 불러오기
+        	this.fn_classcourse();
+        };
+
+        // 그리드 변경 시 시간표
         this.classroom_ds_onrowposchanged = function(obj,e)
         {
         	// 현재 선택된 강의실 ID 가져오기
         	var CLASSROOM_ID = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_ID");
         	var CLASSROOM_NAME = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_NAME");
         	var grade = this.cmb_se.value;
+
+        	// 강의실 이름 표시
         	this.Div00.form.stc_classroom.set_text(CLASSROOM_NAME);
+
         	// 요일을 나타내는 숫자를 요일 컬럼 ID로 변환하는 함수
         	function getDayColumnId(dayNumber) {
         		switch(dayNumber) {
@@ -351,6 +365,7 @@
         	// classtime_ds 초기화
         	var rowCount = this.classtime_ds.getRowCount();  // classtime_ds의 총 행 수
 
+        	// 초기화 안할 시에 값이 남아 있는 문제
         	for (var i = 0; i < rowCount; i++) {
         		// 각 요일의 값을 빈 문자열로 초기화
         		this.classtime_ds.setColumn(i, "월요일", "");
@@ -364,19 +379,20 @@
         	var classroom_code = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_ID");
         	this.classcourse_ds.filter("CLASSROOM_ID == '" + classroom_code + "' && SEMESTER == '"+grade+"'");
 
-        	// classcourse_ds의 첫 번째 행의 CLASSROOM_ID 출력
-        	//console.log(this.classcourse_ds.getColumn(0, "CLASSROOM_ID"));
 
         	// classcourse_ds의 모든 행을 반복
         	var courseRowCount = this.classcourse_ds.getRowCount();  // classcourse_ds의 총 행 수
         	for (var i = 0; i < courseRowCount; i++) {
         		// 각 행의 TIME_NUMBER, CLASS_WEEK (숫자), CLASS_NAME 값 가져오기
         		var rowIndex = this.classcourse_ds.getColumn(i, "TIME_NUMBER");  // 교시 번호
+
         		var weekNumber = this.classcourse_ds.getColumn(i, "CLASS_WEEK");  // 요일 숫자
         		var columnId = getDayColumnId(weekNumber);  // 숫자를 요일 컬럼 ID로 변환
+
         		var className = this.classcourse_ds.getColumn(i, "CLASS_NAME");  // 수업 이름
         		var professorName = this.classcourse_ds.getColumn(i, "PROFESSOR_NAME");  // 교수 이름
         		var newValue = className + "\n" + professorName;  // 수업과 교수 이름 조합
+
         		if(rowIndex == null || weekNumber == null){
 
         		}else{
@@ -388,10 +404,13 @@
         	// classcourse_ds에서 필터링
         	this.searchfilter();
 
-
         };
 
-        //리셋 버튼
+        /************************************************************************
+         * 리셋, 추가, 삭제, 저장 버튼
+         ************************************************************************/
+
+        // 리셋 버튼
         this.reset_btn_onclick = function(obj,e)
         {
         	this.classcourse_ds.reset();
@@ -401,16 +420,68 @@
         	this.topnull();
         };
 
-        //저장 버튼
+        // 추가버튼
+        this.btn_copy_onclick = function(obj,e)
+        {
+        	// 그리드와 연결된 데이터셋에서 선택된 행 번호 가져오기
+            var selectedRow = this.classcourse_ds.rowposition;
+
+            // 선택된 행이 없을 경우 처리
+            if (selectedRow < 0) {
+                alert("행이 선택되지 않았습니다.");
+                return;
+            }
+
+            // 새로운 행 추가
+            var newRow = this.classcourse_ds.insertRow(selectedRow+1);
+        	var sCol = "CLASSROOM_ID=CLASSROOM_ID, CLASS_NAME=CLASS_NAME, PROFESSOR_ID=PROFESSOR_ID, CLASSROOM_NAME=CLASSROOM_NAME, DEPARTMENT_CODE=DEPARTMENT_CODE, CLASS_CODE=CLASS_CODE, PROFESSOR_NAME=PROFESSOR_NAME, SEMESTER=SEMESTER, CLASS_GRADE=CLASS_GRADE, CLASS_START=CLASS_START, CLASS_END=CLASS_END, ADMIN_CODE=ADMIN_CODE";
+
+            // 선택된 행의 데이터를 새로운 행으로 복사
+            this.classcourse_ds.copyRow(newRow, this.classcourse_ds, selectedRow, sCol);
+            this.classcourse_ds.setColumn(newRow, "CHECK", 1);  // 해당 행의 check 컬럼을 1로 설정
+        };
+
+
+        // 삭제버튼
+        this.btn_delete_onclick = function(obj,e)
+        {
+        	// 없앨 데이터 row 추가
+        	this.classcoursedelete_ds.addRow();
+
+        	var count = this.classcoursedelete_ds.rowcount;
+
+        	var rowPos = this.classcourse_ds.rowposition;
+
+        	// classcourse_ds의 rowposition이 유효한지 확인
+        	if (rowPos >= 0) {
+        		// 해당 row 복사
+        		this.classcoursedelete_ds.copyRow(count - 1, this.classcourse_ds, rowPos);
+
+        		// 복사 후 classcourse_ds에서 해당 행 삭제
+        		this.classcourse_ds.deleteRow(rowPos);
+
+        		// 복사된 데이터 확인
+        		//var classTimeCode = this.classcoursedelete_ds.getColumn(count - 1, "CLASS_TIME_CODE");
+
+        	} else {
+        		this.alert("유효한 행이 선택되지 않았습니다.");
+        	}
+
+        };
+
+
+        // 저장 버튼
         this.apply_btn_onclick = function(obj,e)
         {
         	// 유효성 검사
          	var count = 0;
         	var count2 = 0;
-        	var classname = [];
-        	var classpro = [];
-        //
+        	var classname = []; // 강의실 겹치는 이름 출력
+        	var classpro = []; // 교사 겹치는 이름 출력
+        	// 모든 데이터 검사
         	this.classcourse_ds.filter("");
+
+        	// 강의실 일정 확인
          	for (var i = 0; i < this.classcourse_ds.rowcount; i++) {
 
          		var classroomId = this.classcourse_ds.getColumn(i, "CLASSROOM_ID");
@@ -427,6 +498,7 @@
         		}
 
          	}
+        	// 교사 일정 확인
         	for (var i = 0; i < this.classcourse_ds.rowcount; i++) {
         		var prossId = this.classcourse_ds.getColumn(i, "PROFESSOR_ID");
         		var classWeek = this.classcourse_ds.getColumn(i, "CLASS_WEEK");
@@ -453,15 +525,16 @@
         	else if(count2 > 0){
         		this.alert("교사 일정 중복이 있습니다. 다시 확인해 주세요." + "\n" + "중복된 교수 : " + classpro.join(", "));
         	} else{
-
+        		//ds 저장
         		this.classcourse_ds.applyChange();
+        		// 바꾼 내용 체크
         		this.classcourse_ds.filter("CHECK==1");
-
+        		// 데이터 카피
         		this.ds_classcourein.copyData(this.classcourse_ds, true);
 
         		//this.classroom_ds_onrowposchanged();
          		if(confirm("등록하시겠습니까?")){
-         				console.log(this.ds_classcourein.saveXML());
+         				//console.log(this.ds_classcourein.saveXML());
           				this.fn_classcouserdelete();
          				this.fn_classcoursesave();
          		}
@@ -473,7 +546,7 @@
         };
 
 
-        // 등록 시 삭제 트렌젝션
+        // 저장 시 삭제 트렌젝션
         this.fn_classcouserdelete = function(){
         	var strSvcId    = "deleteAdminClasscourse";
         	var strSvcUrl   = "svc::deleteAdminClasscourse.do";
@@ -487,7 +560,7 @@
 
         }
 
-        // 등록 시 저장 트랜젝션
+        // 저장 시 저장 트랜젝션
         this.fn_classcoursesave = function(){
         	var strSvcId    = "saveAdminClasscourse";
         	var strSvcUrl   = "svc::saveAdminClasscourse.do";
@@ -501,53 +574,6 @@
 
         }
 
-        // 추가버튼
-        this.btn_copy_onclick = function(obj,e)
-        {
-        	// 그리드와 연결된 데이터셋에서 선택된 행 번호 가져오기
-            var selectedRow = this.classcourse_ds.rowposition;
-
-            // 선택된 행이 없을 경우 처리
-            if (selectedRow < 0) {
-                alert("행이 선택되지 않았습니다.");
-                return;
-            }
-
-            // 새로운 행 추가
-            var newRow = this.classcourse_ds.insertRow(selectedRow+1);
-        	var sCol = "CLASSROOM_ID=CLASSROOM_ID, CLASS_NAME=CLASS_NAME, PROFESSOR_ID=PROFESSOR_ID, CLASSROOM_NAME=CLASSROOM_NAME, DEPARTMENT_CODE=DEPARTMENT_CODE, CLASS_CODE=CLASS_CODE, PROFESSOR_NAME=PROFESSOR_NAME, SEMESTER=SEMESTER, CLASS_GRADE=CLASS_GRADE, CLASS_START=CLASS_START, CLASS_END=CLASS_END, ADMIN_CODE=ADMIN_CODE";
-
-            // 선택된 행의 데이터를 새로운 행으로 복사
-            this.classcourse_ds.copyRow(newRow, this.classcourse_ds, selectedRow, sCol);
-            this.classcourse_ds.setColumn(newRow, "CHECK", 1);  // 해당 행의 check 컬럼을 1로 설정
-        };
-
-        // 삭제버튼
-        this.btn_delete_onclick = function(obj,e)
-        {
-        	this.classcoursedelete_ds.addRow();
-
-        	var count = this.classcoursedelete_ds.rowcount;
-
-        	var rowPos = this.classcourse_ds.rowposition;
-
-        	// classcourse_ds의 rowposition이 유효한지 확인
-        	if (rowPos >= 0) {
-
-        		this.classcoursedelete_ds.copyRow(count - 1, this.classcourse_ds, rowPos);
-
-        		// 복사 후 classcourse_ds에서 해당 행 삭제
-        		this.classcourse_ds.deleteRow(rowPos);
-
-        		// 복사된 데이터 확인
-        		//var classTimeCode = this.classcoursedelete_ds.getColumn(count - 1, "CLASS_TIME_CODE");
-
-        	} else {
-        		this.alert("유효한 행이 선택되지 않았습니다.");
-        	}
-
-        };
-
 
         // 변경 선택시 체크 바꾸기
         this.classcourse_grd_ondropdown = function(obj,e)
@@ -556,20 +582,23 @@
             this.classcourse_ds.setColumn(row, "CHECK", 1);  // 해당 행의 check 컬럼을 1로 설정
 
         };
-        // 학기 바꾸기
-        this.cmb_se_onitemchanged = function(obj,e)
-        {
-        	this.fn_classcourse();
-        };
-        // 년도 바꾸기
-        this.cmb_year_onitemchanged = function(obj,e)
-        {
-        	this.fn_classcourse();
-        };
 
-        this.edt_search_onchanged = function(obj,e)
+
+        /************************************************************************
+         * 강의실 추가 버튼
+         ************************************************************************/
+        this.btn_popclassplus_onclick = function(obj,e)
         {
-        	//this.searchfilter();
+        	// 팝업으로 넘길 파라미터 (데이터셋 전체와 선택된 학과의 코드)
+            var objParam = {
+        		param1 : this.classroom_ds
+            };
+
+            // 팝업 창 경로 설정
+            var surl = "MainBase::classroomadd.xfdl";
+
+            // 팝업 호출 (데이터셋과 선택된 학과 코드 전달)
+            this.showPopup(objParam, surl);
         };
 
         // 팝업호출
@@ -588,6 +617,7 @@
            popup.style.set_overlaycolor("#6666664C");
            popup.form.style.set_border("1 solid #4c5a6f");
         }
+
         // 팝업콜백 함수
         this.fn_popupCallback = function(strPopupID, strReturn)
         {
@@ -598,28 +628,13 @@
         		return;
             }
         };
-        this.btn_popclassplus_onclick = function(obj,e)
-        {
-        	// 팝업으로 넘길 파라미터 (데이터셋 전체와 선택된 학과의 코드)
-            var objParam = {
-        		param1 : this.classroom_ds
-            };
 
-            // 팝업 창 경로 설정
-            var surl = "MainBase::classroomadd.xfdl";
 
-            // 팝업 호출 (데이터셋과 선택된 학과 코드 전달)
-            this.showPopup(objParam, surl);
-        };
+        /************************************************************************
+         * 인쇄, 전체 인쇄 버튼
+         ************************************************************************/
 
-        this.classroom_onbeforeclose = function(obj,e)
-        {
-        	if (this.classcourse_ds.getCaseCount("CHECK == 1") > 0) {
-                var comt = "저장 안된 부분이 있습니다. 이동하겠습니까?";
-        		return comt;
-            }
-        };
-
+        // 인쇄 버튼
         this.btn_print_onclick = function(obj,e)
         {
             // 그리드를 프린트
@@ -631,7 +646,7 @@
         	var CLASSROOM_NAME = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_NAME");
 
 
-
+        	// 브라우저에 넣을 시간표 넣기
         	htmlContent += this.convertGridDataToHTML(this.Div00.form.classtime_Grid, 1, CLASSROOM_ID, CLASSROOM_NAME); // 한 번만 변환
         	//this.classtime_ds.onrowposchanged()
 
@@ -646,6 +661,8 @@
             htmlWindow.close();           // 창 닫기
         };
 
+
+        // 전체 인쇄 버튼
         this.btn_browser_print_onclick2 = function(obj, e) {
 
             var rowCount = this.classroom_ds.getRowCount();
@@ -731,6 +748,21 @@
             html += "</table><br>";  // 각 테이블 사이에 여백 추가
 
             return html;
+        };
+
+
+
+        /************************************************************************
+         * 다른 폼 이동 시
+         ************************************************************************/
+
+        // 다른 폼 이동 시 이벤트
+        this.classroom_onbeforeclose = function(obj,e)
+        {
+        	if (this.classcourse_ds.getCaseCount("CHECK == 1") > 0) {
+                var comt = "저장 안된 부분이 있습니다. 이동하겠습니까?";
+        		return comt;
+            }
         };
         });
         

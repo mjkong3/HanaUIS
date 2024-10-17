@@ -303,7 +303,6 @@
 		      WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
 		      ELSE 2
 		  END
-		  AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
 		  AND NOT EXISTS (
 		      SELECT 1
 		      FROM ENROLLMENT H
@@ -339,6 +338,8 @@
 			FINAL_TEST,
 			REPORT,
 			STUDENT_YEAR,
+			SCORE,
+			GRADE,
 			REG_DTM,
 			CRE_DTM,
 			CRE_USR
@@ -350,8 +351,10 @@
 				WHEN MONTH(NOW()) BETWEEN 2 AND 6 THEN 1
 				ELSE 2
 			END,
-			#{studentYear},
 			0,
+			0,
+			0,
+			#{studentYear},
 			0,
 			0,
 			SYSDATE(),
@@ -426,7 +429,6 @@
 		      WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
 		      ELSE 2
 		  END
-		  AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
 		  AND NOT EXISTS (
 		      SELECT 1
 		      FROM ENROLLMENT H
@@ -531,7 +533,6 @@
 		      WHEN MONTH(CURRENT_DATE()) BETWEEN 2 AND 6 THEN 1
 		      ELSE 2
 		  END
-		  AND C.MAX_PEOPLE >= COALESCE(E.CNT, 0)
 		  AND EXISTS (
 		      SELECT 1
 		      FROM ENROLLMENT H

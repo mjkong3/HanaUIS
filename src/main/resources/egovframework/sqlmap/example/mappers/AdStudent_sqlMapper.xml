@@ -8,61 +8,64 @@
    </select>
 
    <select id="selectAdStudent" parameterType="java.util.Map" resultType="java.util.Map">
-      SELECT STUDENT_ID,
-			NAME,
-			UNIV_YEAR,
-			PHONE,
-			EMAIL,
-			DATE_FORMAT(BIRTHDAY, '%Y-%m-%d') AS BIRTHDAY,
-			GENDER,
-			ADDRESS,
-			STATUS,
-			DEPARTMENT_CODE,
+      SELECT a.STUDENT_ID as STUDENT_ID,
+			a.NAME as NAME,
+			a.UNIV_YEAR as UNIV_YEAR,
+			a.PHONE as PHONE,
+			a.EMAIL as EMAIL,
+			DATE_FORMAT(a.BIRTHDAY, '%Y-%m-%d') AS BIRTHDAY,
+			a.GENDER as GENDER,
+			a.ADDRESS as ADDRESS,
+			a.STATUS as STATUS,
+			a.DEPARTMENT_CODE as DEPARTMENT_CODE,
+			d.DEPARTMENT_NAME as DEPARTMENT_NAME,
 			0 AS 'Check'
-      FROM STUDENT
+      FROM STUDENT a
+      LEFT JOIN DEPARTMENT d
+      	on a.DEPARTMENT_CODE = d.DEPARTMENT_CODE
       WHERE 1=1
       <if test="DEPARTMENT_CODE != 00">
-      AND DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+      AND a.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
       </if>
       
       <if test="SEARCH_WORD != null">
          <if test="SEARCH_TYPE == 'ALL'"> 
-            AND (STUDENT_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR UNIV_YEAR LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR PHONE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR EMAIL LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR BIRTHDAY LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR GENDER LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR ADDRESS LIKE CONCAT('%', #{SEARCH_WORD}, '%')
-            OR STATUS LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
+            AND (a.STUDENT_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR a.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR a.UNIV_YEAR LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR a.PHONE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR a.EMAIL LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR a.BIRTHDAY LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR a.GENDER LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR a.ADDRESS LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            OR a.STATUS LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
          </if>
          <if test="SEARCH_TYPE == 'STUDENT_ID'">
-            AND STUDENT_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND a.STUDENT_ID LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'NAME'">
-            AND NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND a.NAME LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'STATUS'">
-            AND STATUS LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND a.STATUS LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'EMAIL'">
-            AND EMAIL LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND a.EMAIL LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'PHONE'">
-            AND PHONE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND a.PHONE LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'UNIV_YEAR'">
-            AND UNIV_YEAR LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND a.UNIV_YEAR LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'BIRTHDAY'">
-            AND BIRTHDAY LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND a.BIRTHDAY LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'GENDER'">
-            AND GENDER LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND a.GENDER LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
          <if test="SEARCH_TYPE == 'ADDRESS'">
-            AND ADDRESS LIKE CONCAT('%', #{SEARCH_WORD}, '%')
+            AND a.ADDRESS LIKE CONCAT('%', #{SEARCH_WORD}, '%')
          </if>
       </if>
       
@@ -189,4 +192,44 @@
 		WHERE STUDENT_ID = #{studentId}
 			AND PASSWORD = #{password}
 	</select>
+	
+	<select id="checkStudentExcel" parameterType="java.util.List" resultType="hashMap">
+		SELECT STUDENT_ID
+		FROM STUDENT
+		WHERE STUDENT_ID IN 
+		<foreach collection="list" item="student" open="(" separator="," close=")">
+	        #{student.학번}
+	    </foreach>
+	</select>
+	
+	<insert id="insertexcelStu" parameterType="java.util.Map">
+      INSERT INTO STUDENT (STUDENT_ID,
+               PASSWORD,
+               NAME,
+               UNIV_YEAR,
+               PHONE,
+               EMAIL,
+               BIRTHDAY,
+               GENDER,
+               ADDRESS,
+               STATUS,
+               DEPARTMENT_CODE,
+               CRE_DTM,
+               CRE_USR,
+               ZIPCODE)
+               VALUES (#{학번},
+                     SHA2(#{비밀번호}, 256),
+                     #{이름},
+                     #{학년},
+                     #{연락처},
+                     #{이메일},
+                     #{생년월일},
+                     #{성별},
+                     #{주소},
+                     #{학적상태},
+                     #{학과코드},
+                     NOW(),
+                     #{ADMIN_CODE},
+                     #{우편번호})   
+   </insert>
 </mapper>

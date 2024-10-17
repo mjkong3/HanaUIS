@@ -99,7 +99,7 @@
 					<td>
 						<table class="schedule-table">
 							<tr>
-								<td style="border: none;">
+								<td colspan="3" style="border: none;">
 									<fmt:formatDate value="${classInfo.classStart}" pattern="yyyy년  MM월  dd일" />
 										~
 									<fmt:formatDate value="${classInfo.classEnd}" pattern="yyyy년  MM월  dd일" />
@@ -107,15 +107,16 @@
 							</tr>
 							<c:forEach var="schedule" items="${timetable}">
 								<tr>
-									<td><c:choose>
+									<td class="schdule-week-border">
+										<c:choose>
 											<c:when test="${schedule.weekDay == 1}">월요일</c:when>
 											<c:when test="${schedule.weekDay == 2}">화요일</c:when>
 											<c:when test="${schedule.weekDay == 3}">수요일</c:when>
 											<c:when test="${schedule.weekDay == 4}">목요일</c:when>
 											<c:when test="${schedule.weekDay == 5}">금요일</c:when>
 										</c:choose></td>
-									<td>${schedule.classHour}교시</td>
-									<td>${schedule.location}</td>
+									<td class="schdule-week-border">${schedule.classHour}교시</td>
+									<td class="schdule-week-border">${schedule.location}</td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -123,28 +124,30 @@
 				</tr>
 				<tr class="classInfoTD">
 					<th>&ensp;강의 개요</th>
-					<td class="classInfo"><c:choose>
-						<c:when test="${not empty student}">
-							<c:out value="${classInfo.classInfo}" />
-						</c:when>
-
-						<c:when test="${not empty professor}">
-							<form id="infoForm">
-								<input type="hidden" id="classCode"
-									value="${classInfo.classCode}">
-								<textarea id="classInfo" class="classInfo">${classInfo.classInfo}</textarea>
-								<a href="javascript:fn_updateClassInfo()" class="button-like">수정</a>
-							</form>
-						</c:when>
-					</c:choose></td>
+					<td class="classInfo">
+						<c:choose>
+						
+							<c:when test="${not empty student}">
+								<textarea class="classInfo" readonly>${classInfo.classInfo}</textarea>
+							</c:when>
+	
+							<c:when test="${not empty professor}">
+								<form id="infoForm">
+								    <input type="hidden" id="classCode" value="${classInfo.classCode}">
+								    <textarea id="classInfo" class="classInfo">${classInfo.classInfo}</textarea>
+								    <button type="button" class="button-like" onclick="fn_updateClassInfo()">수정</button>
+								</form>
+							</c:when>
+							
+						</c:choose>
+					</td>
 				</tr>
 			</table>
+			<br>
 			<c:choose>
-
 				<c:when test="${not empty student}">
-
 					<div class="back-button">
-						<a href="javascript:fn_classList()">목록</a>
+						<button type="button" class="button-like2" onclick="fn_classList()">목록</button>
 					</div>
 				</c:when>
 			</c:choose>

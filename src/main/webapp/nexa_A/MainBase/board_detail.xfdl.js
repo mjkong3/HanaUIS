@@ -183,6 +183,7 @@
             obj = new Calendar("cal_Dtm","638","65","171","35",null,null,null,null,null,null,this);
             obj.set_taborder("18");
             obj.set_font("12px/normal \"Gulim\"");
+            obj.set_readonly("true");
             this.addChild(obj.name, obj);
 
             obj = new Button("btn_addContentPhoto","625","355","90","35",null,null,null,null,null,null,this);
@@ -328,6 +329,7 @@
 
                 p.cal_Dtm.set_taborder("18");
                 p.cal_Dtm.set_font("12px/normal \"Gulim\"");
+                p.cal_Dtm.set_readonly("true");
                 p.cal_Dtm.move("638","65","171","35",null,null);
 
                 p.btn_addContentPhoto.set_taborder("19");

@@ -39,7 +39,7 @@
         <Button id="btn_addFile" taborder="15" text="첨부" left="720" top="451" width="90" height="34" onclick="btn_addFile_onclick" font="12px/normal &quot;Gulim&quot;"/>
         <Button id="btn_deleteFile" taborder="16" text="삭제" left="720" top="486" width="90" height="34" onclick="btn_deleteFile_onclick" font="12px/normal &quot;Gulim&quot;"/>
         <Button id="btn_deleteBoard" taborder="17" text="삭제" left="387" top="530" width="90" height="35" onclick="btn_deleteBoard_onclick"/>
-        <Calendar id="cal_Dtm" taborder="18" left="638" top="65" width="171" height="35" font="12px/normal &quot;Gulim&quot;"/>
+        <Calendar id="cal_Dtm" taborder="18" left="638" top="65" width="171" height="35" font="12px/normal &quot;Gulim&quot;" readonly="true"/>
         <Button id="btn_addContentPhoto" taborder="19" text="삽입" left="625" top="355" width="90" height="35" onclick="btn_addContentPhoto_onclick" font="12px/normal &quot;Gulim&quot;"/>
         <ImageViewer id="ImageViewer00" taborder="20" left="219" top="395" width="590" height="11" visible="false" onload="ImageViewer00_onload" stretch="none"/>
         <Button id="btn_delContentPhoto" taborder="21" text="삭제" left="720" top="355" width="90" height="35" onclick="btn_delContentPhoto_onclick"/>
