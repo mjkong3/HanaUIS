@@ -54,11 +54,10 @@
        <a href="javascript:fn_notice()"><img src="<c:url value='/images/egovframework/logo.png'/>" alt=""/></a>
     </div>
     
-    <div>
-    	<div class="stuproName">${professor.name} <span style="font-weight: normal;">교수</span></div>
-     	<button onclick="javascript:fn_logout()">로그아웃</button>
-    </div>
-    
+ 
+    <div class="stuproName">${professor.name} <span style="font-weight: normal;">교수</span></div>
+    <button onclick="javascript:fn_logout()">로그아웃</button>
+  
     <form name="listForm" method="post">
    		<input type="hidden" name="selectedNo" />
     

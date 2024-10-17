@@ -18,13 +18,6 @@ public class EnrollmentDTO {
 	private int studentYear;
 	private Date regDtm;
 	
-	/*
-	 * private String className; private String classType; private String
-	 * classGrade; private String name; private String classWeek; private String
-	 * classroomName; private int people; private int maxPeople; private String
-	 * departmertName;
-	 */
-	
 	public int getEnrollmentCode() {
 		return enrollmentCode;
 	}

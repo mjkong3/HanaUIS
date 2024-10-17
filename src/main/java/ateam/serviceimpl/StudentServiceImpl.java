@@ -27,7 +27,7 @@ public class StudentServiceImpl implements StudentService {
 	public StudentMapper mapper;
 
 	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인
+	// 로그인 기능
 	// 학생 로그인 (이름 대신 StudentDTO 전체 반환)
     public StudentDTO loginCheck(StudentDTO dto, HttpSession session) {
         StudentDTO studentDTO = loginDao.loginCheck(dto);
@@ -48,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
     
     
     
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마이페이지 수정
+	// 마이페이지 수정하기
 	//연락처 수정
     @Override
     public int updatePhone(Map<String, Object> param) {
@@ -69,7 +69,7 @@ public class StudentServiceImpl implements StudentService {
 
     
     
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 휴복학 신청
+    // 휴복학 신청기능 페이지
 	// 학생 휴학/복학 신청 & 정보 조회하기
 	public StudentDTO stuStatus(int studentId) {
 		// DB에서 학생 상태를 조회하여 반환
@@ -89,7 +89,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 성적조회
+	// 성적조회하는 기능 페이지
 	@Override
 	public List<Map<String, Object>> myGradeList(Map<String, Object> map) {
 		return mapper.myGradeList(map);
@@ -113,7 +113,7 @@ public class StudentServiceImpl implements StudentService {
 	
 	
 	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 수강신청
+	// 수강신청하는 기능 페이지
 	// 수업신청 1.수강목록 조회
 	@Override
 	public List<Map<String, Object>> selectClass(int studentId) {
@@ -127,43 +127,28 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 
-	// 수강신청 4.학과별 수강목록 조회
+	// 수강신청 3.학과별 수강목록 조회
 	@Override
 	public List<Map<String, Object>> selectClasses(@Param("studentId") int studentId,
 			@Param("departmentCode") int departmentCode) {
 		return mapper.selectClasses(departmentCode, studentId);
 	}
 
-	// 수강신청 5. insert전 총 신청 학점
+	// 수강신청 4. insert전 총 신청 학점
 	@Override
 	public int totalGrades(int studentId) {
 		return mapper.totalGrades(studentId);
 	}
-	// 6.기존 수강신청 + 학과별 수강목록 조회
+	// 수강신청 5.기존 수강신청 + 학과별 수강목록 조회
 	   @Override
 	   public List<Map<String, Object>> selectedClasses(@Param("studentId") int studentId,
 	         @Param("departmentCode") int departmentCode) {
 	      return mapper.selectedClasses(departmentCode, studentId);
 	   }
-	// 수강신청 7. 학년 보내주기
+	// 수강신청 6. 학년 보내주기
 	@Override
 	public int stuWhatYear(int studentId) {
 		return mapper.stuWhatYear(studentId);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
 
 }
