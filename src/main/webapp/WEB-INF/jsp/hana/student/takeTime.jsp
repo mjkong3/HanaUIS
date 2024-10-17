@@ -31,6 +31,13 @@
 			submenu.style.display = "block";
 		}
 	}
+	
+	// 완료시 알림 호출
+    $(document).ready(function() {   
+        <c:if test="${leaveComplete == 'success'}">
+        	alert('신청이 완료되었습니다.');
+     	</c:if>
+    });
 
 	// 복학&휴학 신청일자
 	$(document).ready(function() {
@@ -87,7 +94,6 @@
 
 		// confirm 창 띄우기
 		if (confirm("신청하시겠습니까?")) {
-			alert("정상적으로 신청되었습니다.");
 		} else {
 			alert("취소되었습니다.");
 		}
@@ -97,8 +103,6 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/hana/includes/header.jsp"%>
-
-	<!-- @@@ 휴학/복학 승인 여부는 아직 구현되지 않았습니다  @@@ -->
 
 	<div class="content">
 		<div class="container">
@@ -123,8 +127,7 @@
 					<th>&nbsp;전공</th>
 					<td>${student.departmentName}</td>
 					<th>&nbsp;학적 상태</th>
-					<td><font style="font-weight: bold;">${student.status}</font>
-					</td>
+					<td>${student.status}</td>
 				</tr>
 			</table>
 			<form name="returnForm" action="/HanaUIS/std/leaveReturn.do"
