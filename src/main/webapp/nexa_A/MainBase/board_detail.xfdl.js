@@ -14,7 +14,7 @@
             this.set_border("0px none");
             if (Form == this.constructor)
             {
-                this._setFormPosition(960,720);
+                this._setFormPosition(900,600);
             }
             
             // Object(Dataset, ExcelExportObject) Initialize
@@ -60,155 +60,361 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Static("stt_boardTop","427","13","167","74",null,null,null,null,null,null,this);
+            obj = new Static("stt_boardTop","378","6","113","74",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_text("공지사항");
-            obj.set_font("30pt/normal \"Arial\"");
+            obj.set_font("20pt/normal \"Arial\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01","29","111","172","53",null,null,null,null,null,null,this);
+            obj = new Static("Static01","61","65","148","35",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_text("제목");
             obj.set_textAlign("center");
-            obj.set_font("16pt \"Arial\"");
+            obj.set_font("12pt \"Arial\"");
             obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01_00","29","171","172","53",null,null,null,null,null,null,this);
+            obj = new Static("Static01_00","60","105","149","35",null,null,null,null,null,null,this);
             obj.set_taborder("2");
             obj.set_text("작성자");
             obj.set_textAlign("center");
-            obj.set_font("16pt \"Arial\"");
+            obj.set_font("12pt \"Arial\"");
             obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_Content","29","237","172","170",null,null,null,null,null,null,this);
+            obj = new Static("stt_Content","60","145","149","198",null,null,null,null,null,null,this);
             obj.set_taborder("3");
             obj.set_text("내용");
             obj.set_textAlign("center");
-            obj.set_font("16pt \"Arial\"");
+            obj.set_font("12pt \"Arial\"");
             obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_file","29","440","172","150",null,null,null,null,null,null,this);
+            obj = new Static("stt_file","61","416","149","104",null,null,null,null,null,null,this);
             obj.set_taborder("4");
             obj.set_text("첨부파일");
             obj.set_textAlign("center");
-            obj.set_font("16pt \"Arial\"");
+            obj.set_font("12pt \"Arial\"");
             obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_file","234","497","450","95",null,null,null,null,null,null,this);
+            obj = new Grid("grd_file","219","416","496","104",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_binddataset("ds_file");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"447\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"32\"/></Rows><Band id=\"head\"><Cell text=\"파 일\"/></Band><Band id=\"body\"><Cell text=\"bind:FILE_NAME\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_closeBoard","568","612","72","33",null,null,null,null,null,null,this);
+            obj = new Button("btn_closeBoard","484","530","90","35",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("닫기");
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_uploader","244","177","250","40",null,null,null,null,null,null,this);
+            obj = new Static("stt_uploader","219","105","245","35",null,null,null,null,null,null,this);
             obj.set_taborder("7");
-            obj.set_font("16px/normal \"Gulim\"");
+            obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01_00_01","514","114","172","53",null,null,null,null,null,null,this);
+            obj = new Static("Static01_00_01","522","65","106","35",null,null,null,null,null,null,this);
             obj.set_taborder("8");
             obj.set_text("게시일");
             obj.set_textAlign("center");
-            obj.set_font("16pt \"Arial\"");
+            obj.set_font("12pt \"Arial\"");
             obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("Static01_00_01_00","514","174","172","53",null,null,null,null,null,null,this);
+            obj = new Static("Static01_00_01_00","522","105","106","35",null,null,null,null,null,null,this);
             obj.set_taborder("9");
             obj.set_text("게시번호");
             obj.set_textAlign("center");
-            obj.set_font("16pt \"Arial\"");
+            obj.set_font("12pt \"Arial\"");
             obj.set_border("0px none,10px darkblue solid,0px none,0px none");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_boardCode","752","180","145","40",null,null,null,null,null,null,this);
+            obj = new Static("stt_boardCode","638","105","171","35",null,null,null,null,null,null,this);
             obj.set_taborder("10");
-            obj.set_font("16px/normal \"Gulim\"");
+            obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_updateBoard","488","612","72","33",null,null,null,null,null,null,this);
+            obj = new Button("btn_updateBoard","290","530","90","35",null,null,null,null,null,null,this);
             obj.set_taborder("11");
             obj.set_text("수정");
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new FileDownload("btn_fileDown","704","497","90","95",null,null,null,null,null,null,this);
+            obj = new FileDownload("btn_fileDown","720","416","90","34",null,null,null,null,null,null,this);
             obj.set_taborder("12");
-            obj.set_text("파일 다운");
+            obj.set_text("다운");
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new TextArea("txt_Title","234","114","283","46",null,null,null,null,null,null,this);
+            obj = new TextArea("txt_Title","219","65","288","35",null,null,null,null,null,null,this);
             obj.set_taborder("13");
-            obj.set_font("16px/normal \"Gulim\"");
+            obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new TextArea("txt_Content","234","237","666","170",null,null,null,null,null,null,this);
+            obj = new TextArea("txt_Content","219","145","591","198",null,null,null,null,null,null,this);
             obj.set_taborder("14");
             obj.set_scrolltype("vertical");
             obj.set_tooltiptype("hover");
             obj.set_scrollbartype("auto auto");
             obj.set_scrollbarsize("10");
-            obj.set_font("16px/normal \"Gulim\"");
+            obj.set_font("12px/normal \"Gulim\"");
             obj.set_wordWrap("english");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_addFile","810","497","90","40",null,null,null,null,null,null,this);
+            obj = new Button("btn_addFile","720","451","90","34",null,null,null,null,null,null,this);
             obj.set_taborder("15");
-            obj.set_text("파일 첨부");
+            obj.set_text("첨부");
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_deleteFile","810","552","90","40",null,null,null,null,null,null,this);
+            obj = new Button("btn_deleteFile","720","486","90","34",null,null,null,null,null,null,this);
             obj.set_taborder("16");
-            obj.set_text("파일 삭제");
+            obj.set_text("삭제");
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_deleteBoard","807","612","90","33",null,null,null,null,null,null,this);
+            obj = new Button("btn_deleteBoard","387","530","90","35",null,null,null,null,null,null,this);
             obj.set_taborder("17");
             obj.set_text("삭제");
             this.addChild(obj.name, obj);
 
-            obj = new Calendar("cal_Dtm","744","117","153","47",null,null,null,null,null,null,this);
+            obj = new Calendar("cal_Dtm","638","65","171","35",null,null,null,null,null,null,this);
             obj.set_taborder("18");
-            obj.set_font("16px/normal \"Gulim\"");
-            this.addChild(obj.name, obj);
-
-            obj = new Button("btn_addContentPhoto","704","440","90","35",null,null,null,null,null,null,this);
-            obj.set_taborder("19");
-            obj.set_text("본문 파일 삽입");
             obj.set_font("12px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new ImageViewer("ImageViewer00","234","422","666","10",null,null,null,null,null,null,this);
+            obj = new Button("btn_addContentPhoto","625","355","90","35",null,null,null,null,null,null,this);
+            obj.set_taborder("19");
+            obj.set_text("삽입");
+            obj.set_font("12px/normal \"Gulim\"");
+            this.addChild(obj.name, obj);
+
+            obj = new ImageViewer("ImageViewer00","219","395","590","11",null,null,null,null,null,null,this);
             obj.set_taborder("20");
             obj.set_visible("false");
             obj.set_stretch("none");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_delContentPhoto","810","440","90","35",null,null,null,null,null,null,this);
+            obj = new Button("btn_delContentPhoto","720","355","90","35",null,null,null,null,null,null,this);
             obj.set_taborder("21");
-            obj.set_text("본문 파일 삭제");
+            obj.set_text("삭제");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_filename","234","447","450","20",null,null,null,null,null,null,this);
+            obj = new Edit("edt_filename","219","355","401","35",null,null,null,null,null,null,this);
             obj.set_taborder("22");
             obj.set_readonly("true");
             this.addChild(obj.name, obj);
+
+            obj = new Static("stt_boarder00","61","355","149","35",null,null,null,null,null,null,this);
+            obj.set_taborder("23");
+            obj.set_text("이미지");
+            obj.set_textAlign("center");
+            obj.set_font("12pt \"Arial\"");
+            obj.set_border("0px none,10px darkblue solid,0px none,0px none");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
-            obj = new Layout("default","",960,720,this,function(p){});
+            obj = new Layout("default","",900,600,this,
+            	//-- Layout function
+            	function(p)
+            	{
+                var rootobj = p;
+                p = rootobj;
+                p.set_titletext("New Form");
+                p.set_border("0px none");
+
+                p.stt_boardTop.set_taborder("0");
+                p.stt_boardTop.set_text("공지사항");
+                p.stt_boardTop.set_font("20pt/normal \"Arial\"");
+                p.stt_boardTop.move("378","6","113","74",null,null);
+
+                p.Static01.set_taborder("1");
+                p.Static01.set_text("제목");
+                p.Static01.set_textAlign("center");
+                p.Static01.set_font("12pt \"Arial\"");
+                p.Static01.set_border("0px none,10px darkblue solid,0px none,0px none");
+                p.Static01.move("61","65","148","35",null,null);
+
+                p.Static01_00.set_taborder("2");
+                p.Static01_00.set_text("작성자");
+                p.Static01_00.set_textAlign("center");
+                p.Static01_00.set_font("12pt \"Arial\"");
+                p.Static01_00.set_border("0px none,10px darkblue solid,0px none,0px none");
+                p.Static01_00.move("60","105","149","35",null,null);
+
+                p.stt_Content.set_taborder("3");
+                p.stt_Content.set_text("내용");
+                p.stt_Content.set_textAlign("center");
+                p.stt_Content.set_font("12pt \"Arial\"");
+                p.stt_Content.set_border("0px none,10px darkblue solid,0px none,0px none");
+                p.stt_Content.move("60","145","149","198",null,null);
+
+                p.stt_file.set_taborder("4");
+                p.stt_file.set_text("첨부파일");
+                p.stt_file.set_textAlign("center");
+                p.stt_file.set_font("12pt \"Arial\"");
+                p.stt_file.set_border("0px none,10px darkblue solid,0px none,0px none");
+                p.stt_file.move("61","416","149","104",null,null);
+
+                p.grd_file.set_taborder("5");
+                p.grd_file.set_binddataset("ds_file");
+                p.grd_file.move("219","416","496","104",null,null);
+
+                p.btn_closeBoard.set_taborder("6");
+                p.btn_closeBoard.set_text("닫기");
+                p.btn_closeBoard.set_font("12px/normal \"Gulim\"");
+                p.btn_closeBoard.move("484","530","90","35",null,null);
+
+                p.stt_uploader.set_taborder("7");
+                p.stt_uploader.set_font("12px/normal \"Gulim\"");
+                p.stt_uploader.move("219","105","245","35",null,null);
+
+                p.Static01_00_01.set_taborder("8");
+                p.Static01_00_01.set_text("게시일");
+                p.Static01_00_01.set_textAlign("center");
+                p.Static01_00_01.set_font("12pt \"Arial\"");
+                p.Static01_00_01.set_border("0px none,10px darkblue solid,0px none,0px none");
+                p.Static01_00_01.move("522","65","106","35",null,null);
+
+                p.Static01_00_01_00.set_taborder("9");
+                p.Static01_00_01_00.set_text("게시번호");
+                p.Static01_00_01_00.set_textAlign("center");
+                p.Static01_00_01_00.set_font("12pt \"Arial\"");
+                p.Static01_00_01_00.set_border("0px none,10px darkblue solid,0px none,0px none");
+                p.Static01_00_01_00.move("522","105","106","35",null,null);
+
+                p.stt_boardCode.set_taborder("10");
+                p.stt_boardCode.set_font("12px/normal \"Gulim\"");
+                p.stt_boardCode.move("638","105","171","35",null,null);
+
+                p.btn_updateBoard.set_taborder("11");
+                p.btn_updateBoard.set_text("수정");
+                p.btn_updateBoard.set_font("12px/normal \"Gulim\"");
+                p.btn_updateBoard.move("290","530","90","35",null,null);
+
+                p.btn_fileDown.set_taborder("12");
+                p.btn_fileDown.set_text("다운");
+                p.btn_fileDown.set_font("12px/normal \"Gulim\"");
+                p.btn_fileDown.move("720","416","90","34",null,null);
+
+                p.txt_Title.set_taborder("13");
+                p.txt_Title.set_font("12px/normal \"Gulim\"");
+                p.txt_Title.move("219","65","288","35",null,null);
+
+                p.txt_Content.set_taborder("14");
+                p.txt_Content.set_scrolltype("vertical");
+                p.txt_Content.set_tooltiptype("hover");
+                p.txt_Content.set_scrollbartype("auto auto");
+                p.txt_Content.set_scrollbarsize("10");
+                p.txt_Content.set_font("12px/normal \"Gulim\"");
+                p.txt_Content.set_wordWrap("english");
+                p.txt_Content.move("219","145","591","198",null,null);
+
+                p.btn_addFile.set_taborder("15");
+                p.btn_addFile.set_text("첨부");
+                p.btn_addFile.set_font("12px/normal \"Gulim\"");
+                p.btn_addFile.move("720","451","90","34",null,null);
+
+                p.btn_deleteFile.set_taborder("16");
+                p.btn_deleteFile.set_text("삭제");
+                p.btn_deleteFile.set_font("12px/normal \"Gulim\"");
+                p.btn_deleteFile.move("720","486","90","34",null,null);
+
+                p.btn_deleteBoard.set_taborder("17");
+                p.btn_deleteBoard.set_text("삭제");
+                p.btn_deleteBoard.move("387","530","90","35",null,null);
+
+                p.cal_Dtm.set_taborder("18");
+                p.cal_Dtm.set_font("12px/normal \"Gulim\"");
+                p.cal_Dtm.move("638","65","171","35",null,null);
+
+                p.btn_addContentPhoto.set_taborder("19");
+                p.btn_addContentPhoto.set_text("삽입");
+                p.btn_addContentPhoto.set_font("12px/normal \"Gulim\"");
+                p.btn_addContentPhoto.move("625","355","90","35",null,null);
+
+                p.ImageViewer00.set_taborder("20");
+                p.ImageViewer00.set_visible("false");
+                p.ImageViewer00.set_stretch("none");
+                p.ImageViewer00.move("219","395","590","11",null,null);
+
+                p.btn_delContentPhoto.set_taborder("21");
+                p.btn_delContentPhoto.set_text("삭제");
+                p.btn_delContentPhoto.move("720","355","90","35",null,null);
+
+                p.edt_filename.set_taborder("22");
+                p.edt_filename.set_readonly("true");
+                p.edt_filename.move("219","355","401","35",null,null);
+
+                p.stt_boarder00.set_taborder("23");
+                p.stt_boarder00.set_text("이미지");
+                p.stt_boarder00.set_textAlign("center");
+                p.stt_boarder00.set_font("12pt \"Arial\"");
+                p.stt_boarder00.set_border("0px none,10px darkblue solid,0px none,0px none");
+                p.stt_boarder00.move("61","355","149","35",null,null);
+            	}
+            );
+            this.addLayout(obj.name, obj);
+
+            //-- Normal Layout : this
+            obj = new Layout("Layout2","",900,600,this,
+            	//-- Layout function
+            	function(p)
+            	{
+                var rootobj = p;
+                p = rootobj;
+                p.stt_boardTop.move("328","6","113","74",null,null);
+
+                p.Static01.move("11","65","148","35",null,null);
+
+                p.Static01_00.move("10","105","149","35",null,null);
+
+                p.stt_Content.move("10","145","149","198",null,null);
+
+                p.stt_file.move("11","416","149","104",null,null);
+
+                p.grd_file.move("169","416","496","104",null,null);
+
+                p.btn_closeBoard.move("434","530","90","35",null,null);
+
+                p.stt_uploader.move("169","105","245","35",null,null);
+
+                p.Static01_00_01.move("472","65","106","35",null,null);
+
+                p.Static01_00_01_00.move("472","105","106","35",null,null);
+
+                p.stt_boardCode.move("588","105","171","35",null,null);
+
+                p.btn_updateBoard.move("240","530","90","35",null,null);
+
+                p.btn_fileDown.move("670","416","90","34",null,null);
+
+                p.txt_Title.move("169","65","288","35",null,null);
+
+                p.txt_Content.move("169","145","591","198",null,null);
+
+                p.btn_addFile.move("670","451","90","34",null,null);
+
+                p.btn_deleteFile.move("670","486","90","34",null,null);
+
+                p.btn_deleteBoard.move("337","530","90","35",null,null);
+
+                p.cal_Dtm.move("588","65","171","35",null,null);
+
+                p.btn_addContentPhoto.move("575","355","90","35",null,null);
+
+                p.ImageViewer00.move("169","395","590","11",null,null);
+
+                p.btn_delContentPhoto.move("670","355","90","35",null,null);
+
+                p.edt_filename.move("169","355","401","35",null,null);
+
+                p.stt_boarder00.move("11","355","149","35",null,null);
+            	}
+            );
+            obj.set_mobileorientation("landscape");
             this.addLayout(obj.name, obj);
             
             // BindItem Information
@@ -666,18 +872,18 @@
         		this.ImageViewer00.set_top(contentY + 5);
 
         		// 이미지뷰어 아래 컴포넌트들 이미지 위치 아래로 변경
-        		this.edt_filename.set_top(contimgbot + 22.5);
+        		this.edt_filename.set_top(contimgbot + 15);
         		this.btn_addContentPhoto.set_top(contimgbot + 15.5);
         		this.btn_delContentPhoto.set_top(contimgbot + 15.5);
 
         		this.grd_file.set_top(contimgbot + 52.5);
         		this.btn_fileDown.set_top(this.grd_file.getOffsetTop());
         		this.btn_addFile.set_top(this.grd_file.getOffsetTop());
-        		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 55);
+        		this.btn_deleteFile.set_top(this.grd_file.getOffsetTop() + 35);
 
-        		this.btn_updateBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
-        		this.btn_deleteBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
-        		this.btn_closeBoard.set_top(this.edt_filename.getOffsetBottom() + 165);
+        		this.btn_updateBoard.set_top(this.edt_filename.getOffsetBottom() + 100);
+        		this.btn_deleteBoard.set_top(this.edt_filename.getOffsetBottom() + 100);
+        		this.btn_closeBoard.set_top(this.edt_filename.getOffsetBottom() + 100);
 
         		this.stt_file.set_top(this.btn_addContentPhoto.getOffsetTop());
         	}
@@ -903,6 +1109,8 @@
         		}
         	}
         };
+
+
         });
         
         // Regist UI Components Event
@@ -914,12 +1122,14 @@
             this.btn_updateBoard.addEventHandler("onclick",this.btn_updateBoard_onclick,this);
             this.btn_fileDown.addEventHandler("onclick",this.btn_fileDown_onclick,this);
             this.txt_Content.addEventHandler("onkeyup",this.txt_Content_onkeyup,this);
+            this.txt_Content.addEventHandler("onchanged",this.txt_Content_onchanged,this);
             this.btn_addFile.addEventHandler("onclick",this.btn_addFile_onclick,this);
             this.btn_deleteFile.addEventHandler("onclick",this.btn_deleteFile_onclick,this);
             this.btn_deleteBoard.addEventHandler("onclick",this.btn_deleteBoard_onclick,this);
             this.btn_addContentPhoto.addEventHandler("onclick",this.btn_addContentPhoto_onclick,this);
             this.ImageViewer00.addEventHandler("onload",this.ImageViewer00_onload,this);
             this.btn_delContentPhoto.addEventHandler("onclick",this.btn_delContentPhoto_onclick,this);
+            this.stt_boarder00.addEventHandler("onclick",this.Static01_00_onclick,this);
             this.FileDownTransfer00.addEventHandler("onerror",this.FileDownTransfer00_onerror,this);
             this.FileDownTransfer00.addEventHandler("onsuccess",this.FileDownTransfer00_onsuccess,this);
             this.FileUpTransfer00.addEventHandler("onsuccess",this.FileUpTransfer00_onsuccess,this);

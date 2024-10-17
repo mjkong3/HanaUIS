@@ -122,7 +122,7 @@
 					</td>
 				</tr>
 				<tr class="classInfoTD">
-					<th>&ensp;<span class="redDot">*</span>강의 개요</th>
+					<th>&ensp;강의 개요</th>
 					<td class="classInfo"><c:choose>
 						<c:when test="${not empty student}">
 							<c:out value="${classInfo.classInfo}" />
