@@ -275,8 +275,13 @@ this.checkstudentexcel = function()
 
 // 비교하는 거
 this.checkds = function() {
+	// 데이터베이스에 있는 학번
 	var count =0;
+	// 엑셀 학번
 	var count2 =0;
+	// CHECK 열 추가
+	this.ds_test.addColumn("CHECK", "String", "256");
+	
 	// excel
 	for (var i = 0; i < this.ds_test.getRowCount(); i++) {
 		var value1 = this.ds_test.getColumn(i, "학번");
@@ -290,8 +295,6 @@ this.checkds = function() {
 			count++;
 		}
 	}
-	// CHECK 열 추가
-	this.ds_test.addColumn("CHECK", "String", "256");
 	
 	
 	// ds_check의 모든 STUDENT_ID를 확인
@@ -315,8 +318,8 @@ this.checkds = function() {
 			this.ds_test.filter("");
 		}
 	}
-	this.Static00_00.set_text("기존 학생 중복 : " + count);
-	this.Static00.set_text("엑셀 내 중복 : " + count2);
+	this.Static00_00.set_text("기존 학생 중복 : " + count2);
+	this.Static00.set_text("엑셀 내 중복 : " + count);
 }
 
 

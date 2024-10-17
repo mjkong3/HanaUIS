@@ -44,6 +44,7 @@
             mainframe.set_showtitlebar("true");
             mainframe.set_showstatusbar("true");
             mainframe.set_titletext("TopLeftFrame");
+            mainframe.set_statustext("");
             mainframe.on_createBodyFrame = this.mainframe_createBodyFrame;
             // tray
 

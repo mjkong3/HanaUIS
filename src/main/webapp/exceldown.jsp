@@ -35,7 +35,7 @@
             "학년",          // UNIV_YEAR
             "상태",          // STATUS
             "성별",          // GENDER
-            "생일",          // BIRTHDAY
+            "생년월일",          // BIRTHDAY
             "이메일",        // EMAIL
             "연락처",      // PHONE
             "주소",          // ADDRESS
