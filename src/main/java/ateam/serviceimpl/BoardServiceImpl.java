@@ -20,20 +20,21 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	public BoardMapper mapper;
 
-
 	@Override
-	public int getBoardCount() {
-		return mapper.getBoardCount();
+	public int getBoardCount(String searchKeyword) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("searchKeyword",searchKeyword);
+		return mapper.getBoardCount(param);
 	}
 
 	@Override
-	public List<BoardDTO> boardList(int page, int pageSize) {
+	public List<Map<String, Object>> boardList(int page, int pageSize) {
 	      int offset = (page - 1) * pageSize;
 
 	      Map<String, Object> params = new HashMap<>();
 	      params.put("pageSize", pageSize);
 	      params.put("offset", offset);
-	      List<BoardDTO> board = mapper.boardList(params);
+
 	      
 	      return mapper.boardList(params);
   	}
@@ -51,6 +52,20 @@ public class BoardServiceImpl implements BoardService{
 		
 		return map;
 	}
+
+	@Override
+	public List<Map<String, Object>> searchNoticeByTitle(String searchKeyword, int pageSize, int page) {
+	      int offset = (page - 1) * pageSize;
+
+	      Map<String, Object> params = new HashMap<>();
+	      params.put("pageSize", pageSize);
+	      params.put("offset", offset);
+	      params.put("searchKeyword",searchKeyword);
+		return mapper.boardList(params);
+	}
+
+	
+
 
 
 }

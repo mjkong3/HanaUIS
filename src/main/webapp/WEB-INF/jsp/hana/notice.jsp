@@ -51,7 +51,25 @@
        
    <div class="content">
        <div class="container">
-           <h3>공지사항</h3>
+	       <h3>공지사항</h3>
+	           <div class="search">
+				    <c:choose>
+				        <c:when test="${not empty student}">
+				            <!-- 학생용 검색 폼 -->
+				            <form action="<c:url value='/noticeSearch.do'/>" method="get">
+				                <input type="text" name="searchKeyword" placeholder="학생용 제목 검색" value="${param.searchKeyword}">
+				                <button type="submit">검색</button>
+				            </form>
+				        </c:when>
+				        <c:when test="${not empty professor}">
+				            <!-- 교수용 검색 폼 -->
+				            <form action="<c:url value='/pfs/noticeSearch.do'/>" method="get">
+				                <input type="text" name="searchKeyword" placeholder="교수용 제목 검색" value="${param.searchKeyword}">
+				                <button type="submit">검색</button>
+				            </form>
+				        </c:when>
+				    </c:choose>
+				</div>
            
            <table>
                <tr>
@@ -64,20 +82,20 @@
                   <!-- 공지사항 데이터를 반복하여 출력 -->
                   <c:forEach var="notice" items="${notice}">
                       <tr>
-                          <td>${notice.boardCode}</td>
+                          <td>${notice.BOARD_CODE}</td>
 							<td>
 								<c:choose>
 									<c:when test="${not empty student}">
-										<a href="javascript:fn_noticeDetailStd('<c:out value= "${notice.boardCode}"/>')">
-								<c:out value="${notice.title}" /></a>
+										<a href="javascript:fn_noticeDetailStd('<c:out value= "${notice.BOARD_CODE}"/>')">
+								<c:out value="${notice.TITLE}" /></a>
 									</c:when>
 									<c:when test="${not empty professor}">
-										<a href="javascript:fn_noticeDetailPfs('<c:out value= "${notice.boardCode}"/>')">
-								<c:out value="${notice.title}" /></a>
+										<a href="javascript:fn_noticeDetailPfs('<c:out value= "${notice.BOARD_CODE}"/>')">
+								<c:out value="${notice.TITLE}" /></a>
 									</c:when>
 								</c:choose> 
 							</td>
-							<td name="date"><fmt:formatDate value="${notice.regDtm}" pattern="yyyy년  MM월  dd일"/></td>
+							<td name="date"><fmt:formatDate value="${notice.REG_DTM}" pattern="yyyy년  MM월  dd일"/></td>
                       </tr>
                   </c:forEach>
                </form>
