@@ -47,39 +47,42 @@
 	      location.href = "/HanaUIS/";
 	   }
 		
-	
-
-
 </script>
 <div class="menu">
 
     <div class="logo">
        <a href="javascript:fn_notice()"><img src="<c:url value='/images/egovframework/logo.png'/>" alt=""/></a>
     </div>
+    
     <div>
-     	<button onclick="javascript:fn_logout()">${professor.name}<br>로그아웃</button>
+    	<div class="stuproName">${professor.name} <span style="font-weight: normal;">교수</span></div>
+     	<button onclick="javascript:fn_logout()">로그아웃</button>
     </div>
+    
     <form name="listForm" method="post">
    		<input type="hidden" name="selectedNo" />
     
 	    <ul>
-	        <li> <a href="javascript:fn_myPage()">마이페이지</a></li>
+	        <li>
+	        	<a href="javascript:fn_myPage()">마이페이지</a>
+        	</li>
 	    
-	        <li><a onclick="toggleSubmenu(event)">강의 조회</a>
-	            	<ul class="submenu">
-	            		<c:forEach var="professorClass" items="${professorClass}" varStatus="status">
-				          	<li>
-				                <!-- 강의 클릭 시 fn_classInfo 호출 -->
-				                <a href="javascript:fn_classInfo('<c:out value="${professorClass.classCode}"/>')">
-                               		 ${professorClass.semester}학기 ${professorClass.className}
-				                </a>
-				            </li>
-			            </c:forEach>
-	            	</ul>
-	             
+	        <li>
+	        	<a onclick="toggleSubmenu(event)">강의 조회</a>
+            	<ul class="submenu">
+            		<c:forEach var="professorClass" items="${professorClass}" varStatus="status">
+			          	<li>
+			                <!-- 강의 클릭 시 fn_classInfo 호출 -->
+			                <a href="javascript:fn_classInfo('<c:out value="${professorClass.classCode}"/>')">
+                              		 ${professorClass.semester}학기 ${professorClass.className}
+			                </a>
+			            </li>
+		            </c:forEach>
+            	</ul>
 	        </li>
 	        
-	        <li> <a onclick="toggleSubmenu(event)">성적관리</a>
+	        <li>
+	        	<a onclick="toggleSubmenu(event)">성적관리</a>
 	            <ul class="submenu">
            			<c:forEach var="professorClass" items="${professorClass}" varStatus="status">
 			          	<li>
@@ -92,7 +95,8 @@
 	            </ul>
 	        </li>
 	        
-	        <li> <a onclick="toggleSubmenu(event)">학생관리</a>
+	        <li>
+	        	<a onclick="toggleSubmenu(event)">학생관리</a>
 	            <ul class="submenu">
            			<c:forEach var="professorClass" items="${professorClass}" varStatus="status">
 			          	<li>
