@@ -36,11 +36,11 @@
 	</context-param>
 	<context-param>
 		<param-name>export-path</param-name>
-		<param-value>C:/exceltest/export</param-value>
+		<param-value>/export</param-value>
 	</context-param>
 	<context-param>
 		<param-name>import-path</param-name>
-		<param-value>C:/exceltest/import</param-value>
+		<param-value>/import</param-value>
 	</context-param>
 	<context-param>
 		<param-name>monitor-enabled</param-name>
@@ -69,11 +69,11 @@
 	</servlet>
 	<servlet>
 		<servlet-name>XExportImport</servlet-name>
-		<servlet-class>ateam.web.XExportImportServlet</servlet-class>
+		<servlet-class>com.nexacro17.xeni.services.GridExportImportServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>XImport</servlet-name>
-		<servlet-class>ateam.web.XImportServlet</servlet-class>
+		<servlet-class>com.nexacro17.xeni.services.GridExportImportServlet</servlet-class>
 	</servlet>    
     
 	<servlet-mapping>
@@ -88,7 +88,6 @@
 		<servlet-name>XImport</servlet-name>
 		<url-pattern>/nexa_A/XImport</url-pattern>
 	</servlet-mapping>    
-
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>

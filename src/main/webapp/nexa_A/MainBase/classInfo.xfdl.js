@@ -18,7 +18,7 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("ds_cmb", this);
-            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">ALL</Col><Col id=\"data\">전체</Col></Row><Row><Col id=\"code\">CLASS_CODE</Col><Col id=\"data\">강의코드</Col></Row><Row><Col id=\"code\">CLASS_NAME</Col><Col id=\"data\">강의명</Col></Row><Row><Col id=\"code\">CLASS_START</Col><Col id=\"data\">개강일</Col></Row><Row><Col id=\"code\">CLASS_END</Col><Col id=\"data\">종강일</Col></Row><Row><Col id=\"code\">SEMESTER</Col><Col id=\"data\">학기</Col></Row><Row><Col id=\"code\">CLASS_GRADE</Col><Col id=\"data\">학년</Col></Row><Row><Col id=\"code\">CLASSROOM_ID</Col><Col id=\"data\">강의실</Col></Row><Row><Col id=\"code\">PROFESSOR_ID</Col><Col id=\"data\">담당교수</Col></Row><Row><Col id=\"code\">CLASS_TYPE</Col><Col id=\"data\">이수구분</Col></Row><Row><Col id=\"code\">ADMIN_CODE</Col><Col id=\"data\">관리자</Col></Row><Row><Col id=\"code\">REGDATE</Col><Col id=\"data\">등록일</Col></Row></Rows>");
+            obj._setContents("<ColumnInfo><Column id=\"code\" type=\"STRING\" size=\"256\"/><Column id=\"data\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"code\">ALL</Col><Col id=\"data\">전체</Col></Row><Row><Col id=\"code\">CLASS_CODE</Col><Col id=\"data\">강의코드</Col></Row><Row><Col id=\"code\">CLASS_NAME</Col><Col id=\"data\">강의명</Col></Row><Row><Col id=\"code\">CLASS_START</Col><Col id=\"data\">개강일</Col></Row><Row><Col id=\"code\">CLASS_END</Col><Col id=\"data\">종강일</Col></Row><Row><Col id=\"code\">SEMESTER</Col><Col id=\"data\">학기</Col></Row><Row><Col id=\"code\">CLASS_GRADE</Col><Col id=\"data\">학년</Col></Row><Row><Col id=\"code\">CLASSROOM_ID</Col><Col id=\"data\">강의실</Col></Row><Row><Col id=\"code\">NAME</Col><Col id=\"data\">담당교수</Col></Row><Row><Col id=\"code\">CLASS_TYPE</Col><Col id=\"data\">이수구분</Col></Row></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -33,7 +33,7 @@
 
 
             obj = new Dataset("ds_list", this);
-            obj._setContents("<ColumnInfo><Column id=\"CLASS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_START\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_END\" type=\"STRING\" size=\"256\"/><Column id=\"SEMESTER\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_GRADE\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"10\"/><Column id=\"CLASS_INFO\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_USR\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_DTM\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"CLASS_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_START\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_END\" type=\"STRING\" size=\"256\"/><Column id=\"SEMESTER\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_GRADE\" type=\"STRING\" size=\"256\"/><Column id=\"DEPARTMENT_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"CLASSROOM_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PROFESSOR_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CLASS_TYPE\" type=\"STRING\" size=\"256\"/><Column id=\"CHECK\" type=\"INT\" size=\"10\"/><Column id=\"CLASS_INFO\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_USR\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -60,7 +60,7 @@
             obj.set_autofittype("none");
             obj.set_binddataset("ds_list");
             obj.set_cssclass("ATEAM");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"48\"/><Column size=\"70\"/><Column size=\"99\"/><Column size=\"120\"/><Column size=\"118\"/><Column size=\"48\"/><Column size=\"71\"/><Column size=\"78\"/><Column size=\"80\"/><Column size=\"90\"/><Column size=\"58\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\"/><Cell col=\"1\" text=\"No\"/><Cell col=\"2\" text=\"강의코드\"/><Cell col=\"3\" text=\"강의명\"/><Cell col=\"4\" text=\"개강일\"/><Cell col=\"5\" text=\"종강일\"/><Cell col=\"6\" text=\"학기\"/><Cell col=\"7\" text=\"이수학점\"/><Cell col=\"8\" text=\"이수구분\"/><Cell col=\"9\" text=\"강의실\"/><Cell col=\"10\" text=\"담당교수\"/><Cell col=\"11\" text=\"학과\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"expr:currow + 1\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:CLASS_CODE\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:CLASS_NAME\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:CLASS_START\" displaytype=\"calendarcontrol\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:CLASS_END\" displaytype=\"calendarcontrol\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:SEMESTER\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:CLASS_GRADE\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:CLASS_TYPE\" textAlign=\"center\"/><Cell col=\"9\" text=\"bind:CLASSROOM_ID\" textAlign=\"center\"/><Cell col=\"10\" text=\"bind:PROFESSOR_ID\" textAlign=\"center\"/><Cell col=\"11\" text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"48\"/><Column size=\"70\"/><Column size=\"99\"/><Column size=\"120\"/><Column size=\"118\"/><Column size=\"48\"/><Column size=\"71\"/><Column size=\"78\"/><Column size=\"80\"/><Column size=\"90\"/><Column size=\"58\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\"/><Cell col=\"1\" text=\"No\"/><Cell col=\"2\" text=\"강의코드\"/><Cell col=\"3\" text=\"강의명\"/><Cell col=\"4\" text=\"개강일\"/><Cell col=\"5\" text=\"종강일\"/><Cell col=\"6\" text=\"학기\"/><Cell col=\"7\" text=\"이수학점\"/><Cell col=\"8\" text=\"이수구분\"/><Cell col=\"9\" text=\"강의실\"/><Cell col=\"10\" text=\"담당교수\"/><Cell col=\"11\" text=\"학과\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:CHECK\"/><Cell col=\"1\" text=\"expr:currow + 1\" textAlign=\"center\"/><Cell col=\"2\" text=\"bind:CLASS_CODE\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:CLASS_NAME\" textAlign=\"center\"/><Cell col=\"4\" text=\"bind:CLASS_START\" displaytype=\"calendarcontrol\" textAlign=\"center\"/><Cell col=\"5\" text=\"bind:CLASS_END\" displaytype=\"calendarcontrol\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:SEMESTER\" textAlign=\"center\"/><Cell col=\"7\" text=\"bind:CLASS_GRADE\" textAlign=\"center\"/><Cell col=\"8\" text=\"bind:CLASS_TYPE\" textAlign=\"center\"/><Cell col=\"9\" text=\"bind:CLASSROOM_ID\" textAlign=\"center\"/><Cell col=\"10\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"11\" text=\"bind:DEPARTMENT_CODE\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Combo("cmb_Search","700","40","116","26",null,null,null,null,null,null,this);
@@ -506,16 +506,13 @@
 
         };
 
-
         // 엔터키 검색기능
-        this.professor_onkeyup = function(obj,e)
+        this.classInfo_onkeyup = function(obj,e)
         {
         	if(e.keycode==13){
         		this.btn_Search.click();
         	}
         };
-
-
 
         });
         
@@ -523,6 +520,7 @@
         this.on_initEvent = function()
         {
             this.addEventHandler("onload",this.classInfo_onload,this);
+            this.addEventHandler("onkeyup",this.classInfo_onkeyup,this);
             this.grd_List.addEventHandler("onheadclick",this.grd_List_onheadclick,this);
             this.grd_List.addEventHandler("oncelldblclick",this.grd_List_oncelldblclick,this);
             this.btn_Search.addEventHandler("onclick",this.btn_Search_onclick,this);

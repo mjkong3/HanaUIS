@@ -8,20 +8,132 @@
         <Button id="btnAddItemExport" taborder="2" text="Export Additem" left="550" top="35" width="70" height="30" onclick="btnAddItemExport_onclick"/>
         <Grid id="grdList01" taborder="3" left="110" top="90" width="520" height="190" binddataset="dsList01">
           <Formats>
-            <Format id="default"/>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="학번"/>
+                <Cell col="1" text="비밀번호"/>
+                <Cell col="2" text="이름"/>
+                <Cell col="3" text="학년"/>
+                <Cell col="4" text="연락처"/>
+                <Cell col="5" text="이메일"/>
+                <Cell col="6" text="생년월일"/>
+                <Cell col="7" text="성별"/>
+                <Cell col="8" text="학적상태"/>
+                <Cell col="9" text="학과"/>
+                <Cell col="10" text="주소"/>
+                <Cell col="11" text="우편번호"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:학번"/>
+                <Cell col="1" text="bind:비밀번호"/>
+                <Cell col="2" text="bind:이름"/>
+                <Cell col="3" text="bind:학년"/>
+                <Cell col="4" text="bind:연락처"/>
+                <Cell col="5" text="bind:이메일"/>
+                <Cell col="6" text="bind:생년월일"/>
+                <Cell col="7" text="bind:성별"/>
+                <Cell col="8" text="bind:학적상태"/>
+                <Cell col="9" text="bind:학과"/>
+                <Cell col="10" text="bind:주소"/>
+                <Cell col="11" text="bind:우편번호"/>
+              </Band>
+            </Format>
           </Formats>
         </Grid>
         <Grid id="grdList02" taborder="4" left="110" top="290" width="520" height="190" binddataset="dsList02">
           <Formats>
-            <Format id="default"/>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="학번"/>
+                <Cell col="1" text="비밀번호"/>
+                <Cell col="2" text="이름"/>
+                <Cell col="3" text="학년"/>
+                <Cell col="4" text="연락처"/>
+                <Cell col="5" text="이메일"/>
+                <Cell col="6" text="생년월일"/>
+                <Cell col="7" text="성별"/>
+                <Cell col="8" text="학적상태"/>
+                <Cell col="9" text="학과"/>
+                <Cell col="10" text="주소"/>
+                <Cell col="11" text="우편번호"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:학번"/>
+                <Cell col="1" text="bind:비밀번호"/>
+                <Cell col="2" text="bind:이름"/>
+                <Cell col="3" text="bind:학년"/>
+                <Cell col="4" text="bind:연락처"/>
+                <Cell col="5" text="bind:이메일"/>
+                <Cell col="6" text="bind:생년월일"/>
+                <Cell col="7" text="bind:성별"/>
+                <Cell col="8" text="bind:학적상태"/>
+                <Cell col="9" text="bind:학과"/>
+                <Cell col="10" text="bind:주소"/>
+                <Cell col="11" text="bind:우편번호"/>
+              </Band>
+            </Format>
           </Formats>
         </Grid>
         <TextArea id="txtLog" taborder="5" left="111" top="509" width="524" height="171"/>
       </Layout>
     </Layouts>
     <Objects>
-      <Dataset id="dsList01"/>
       <Dataset id="dsList02">
+        <ColumnInfo>
+          <Column id="학번" type="STRING" size="256"/>
+          <Column id="비밀번호" type="STRING" size="256"/>
+          <Column id="이름" type="STRING" size="256"/>
+          <Column id="학년" type="STRING" size="256"/>
+          <Column id="연락처" type="STRING" size="256"/>
+          <Column id="이메일" type="STRING" size="256"/>
+          <Column id="생년월일" type="STRING" size="256"/>
+          <Column id="성별" type="STRING" size="256"/>
+          <Column id="학적상태" type="STRING" size="256"/>
+          <Column id="학과" type="STRING" size="256"/>
+          <Column id="주소" type="STRING" size="256"/>
+          <Column id="우편번호" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="dsList01">
         <ColumnInfo>
           <Column id="학번" type="STRING" size="256"/>
           <Column id="비밀번호" type="STRING" size="256"/>
@@ -59,21 +171,15 @@ this.importUrl = "http://localhost:8082/HanaUIS/nexa_A/XImport";
 */
 this.gfnCreateExportObject = function (pFileName)
 {
-    //excel export object id
     var sExportId = "objExcelExport";
-
-    //ExcelExportObject : invisible object
     var objExport = this.objects[sExportId];
 
-    //already created ExcelExportObject
     if(!this.gfnIsNull(objExport))
     {
         return objExport;
     }
 
     objExport = new ExcelExportObject();
-
-    //ExcelExportObject set property
     objExport.set_exporttype(nexacro.ExportTypes.EXCEL2007);
     objExport.set_exporturl(this.exportUrl);  
     objExport.set_exportfilename(pFileName);
@@ -95,18 +201,14 @@ this.gfnCreateExportObject = function (pFileName)
 this.gfnCreateImportObject = function ()
 {
     var sImportId = "objExcelImport";
-
-    //ExcelImportObject : invisible object
     var objImport = this.objects[sImportId];
 
-    //already created ExcelImportObject
     if(!this.gfnIsNull(objImport))
     {
         return objImport;
     }
 
     objImport = new ExcelImportObject();
-
     objImport.set_importurl(this.importUrl);
     objImport.set_importtype(nexacro.ImportTypes.EXCEL2007);
 
@@ -119,8 +221,8 @@ this.gfnCreateImportObject = function ()
 
 /**
 * Function Name : gfnBasicExport
-* Description   : Export Basic Export / ExcelExportObject.addExportItem(constExportItemType, source, range)
-* Arguments     : pFileName : save file name (null - "ExportData(BasicExport)")
+* Description   : Export Basic Export
+* Arguments     : pFileName : save file name
 * Return        : none
 */
 this.gfnBasicExport = function(pFileName)
@@ -131,89 +233,61 @@ this.gfnBasicExport = function(pFileName)
         sFileName = pFileName;
     }
 
-    //ExcelExportObject
     var objExport = this.gfnCreateExportObject(sFileName);
-
-    //export Grid = export item source
     var objGrid1 = this.grdList01;
     var objGrid2 = this.grdList02;
 
-    // Trace grid data before export
     trace("Grid 1 data before export: " + objGrid1.saveXML());
     trace("Grid 2 data before export: " + objGrid2.saveXML());
 
-    //export item ranges : sheet1 - grid1, grid2
     var sExportCommand1 = "Sheet1!A1";
     var sExportCommand2 = "Sheet1!A12";
 
-    //addExportItem
     objExport.addExportItem(nexacro.ExportItemTypes.GRID, objGrid1, sExportCommand1);
     objExport.addExportItem(nexacro.ExportItemTypes.GRID, objGrid2, sExportCommand2);
     objExport.exportData();
 };
 
 /**
-* Function Name : gfnAddItemExport
-* Description   : Export Basic Import / ExcelExportObject.addExportItem(constExportItemType, objExportItem)
-* Arguments     : pFileName : save file name (null - "ExportData(AddItemExport)")
-* Return        : none
-*/
-this.gfnAddItemExport = function (pFileName)
-{
-    var sFileName = "ExportData(AddItemExport)";
-    if(!this.gfnIsNull(pFileName))
-    {
-        sFileName = pFileName;
-    }
-
-    var objExport = this.gfnCreateExportObject(sFileName);
-
-    //export Grid = export item source
-    var objGrid1 = this.grdList01;
-    var objGrid2 = this.grdList02;
-
-    // Trace grid data before export
-    trace("Grid 1 data before export: " + objGrid1.saveXML());
-    trace("Grid 2 data before export: " + objGrid2.saveXML());
-
-    //export item ranges : sheet1 - grid1 , sheet2 - grid2
-    var sExportCommand1 = "Sheet1!A1";
-    var sExportCommand2 = "Sheet2!A1";
-
-    //create export item
-    var objExportItem1 = new ExportItem();
-    objExportItem1.set_source(objGrid1);  
-    objExportItem1.set_range(sExportCommand1);
-
-    var objExportItem2 = new ExportItem();
-    objExportItem2.set_source(objGrid2);    
-    objExportItem2.set_range(sExportCommand2);
-
-  //add export item object
-    objExport.addExportItem(nexacro.ExportItemTypes.GRID,objExportItem1);
-    objExport.addExportItem(nexacro.ExportItemTypes.GRID,objExportItem2);
-    objExport.exportData();  
-};
-
-/**
 * Function Name : gfnBasicImport
-* Description   : Import Basic button onclick event / ExcelImportObject.importData(source, range, output dataset)
+* Description   : Import Basic button onclick event
 * Arguments     : none
 * Return        : none
 */
-this.gfnBasicImport = function()
-{
-    //excel import object
+this.gfnBasicImport = function() {
+    trace("Starting Basic Import...");
+    
+    // Import Object 생성
     var objImport = this.gfnCreateImportObject();
 
-    var sImportCommand  = "[Command=getsheetdata;Output=output1; Head=!A2:G2; Body=Sheet1!A3:G9]";
+    // Import 명령어와 데이터셋 리스트 설정
+    var sImportCommand  = "[Command=getsheetdata;Output=output1;Head=;Body=]";
     var sDatasetList = "dsList02=output1";
-    
-    // Trace before import to check the command and dataset list
+
+    // Import 데이터 전송 전 로그 출력
     trace("Import Command: " + sImportCommand);
     trace("Dataset List: " + sDatasetList);
-    
+    trace("Before import - dsList02: " + this.dsList02.saveXML());
+
+    // Import 데이터 실행
     objImport.importData("", sImportCommand, sDatasetList);
+
+    // Import 성공 핸들러
+    objImport.addEventHandler("onsuccess", function() {
+        trace("Import Success!");
+        trace("Dataset after import: " + this.dsList02.saveXML());
+    }, this);
+
+    // Import 에러 핸들러 (순환 구조를 피해서 특정한 정보를 출력)
+    objImport.addEventHandler("onerror", function(obj, e) {
+        trace("Import Error: " + e.errormsg);
+
+        // 순환 구조 방지를 위해 error 객체에서 필요한 정보만 추출
+        trace("Error Event ID: " + e.eventid);
+        trace("Error Message: " + e.errormsg);
+        trace("Error StatusCode: " + e.statuscode);
+        trace("Dataset before import: " + this.dsList02.saveXML());
+    }, this);
 };
 
 /**************************************************************************
@@ -224,9 +298,7 @@ this.gfnBasicImport = function()
 */
 this.Export_onsuccess = function (obj:ExcelExportObject, e:nexacro.ExcelExportEventInfo)
 {
-    // Trace to confirm successful export
     trace("Export Success: " + e.eventid);
-    
     this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Export_onsuccess\n");
 };
 
@@ -235,9 +307,7 @@ this.Export_onsuccess = function (obj:ExcelExportObject, e:nexacro.ExcelExportEv
 */
 this.Export_onerror = function (obj:ExcelExportObject, e:nexacro.ExcelExportErrorEventInfo)
 {
-    // Trace to confirm export error
     trace("Export Error: " + e.eventid + " - Error Message: " + e.errormsg);
-    
     this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Export_onerror\n");
 };
 
@@ -246,9 +316,7 @@ this.Export_onerror = function (obj:ExcelExportObject, e:nexacro.ExcelExportErro
 */
 this.Export_onprogress = function(obj:nexacro.ExcelExportObject,e:nexacro.ExcelExportProgressEventInfo)
 {
-    this.txtLog.set_value(this.txtLog.value
-                          + e.eventid +  "  Export_onprogress : " 
-                          + "recordindex " + e.recordindex + "\n");
+    this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Export_onprogress : " + "recordindex " + e.recordindex + "\n");
 };
 
 /**
@@ -256,12 +324,9 @@ this.Export_onprogress = function(obj:nexacro.ExcelExportObject,e:nexacro.ExcelE
 */
 this.Import_onsuccess = function (obj:ExcelImportObject, e:nexacro.ExcelImportEventInfo)
 {
-    // Trace to confirm successful import
     trace("Import Success: " + e.eventid);
-    
-    // Trace dataset to check the data after import
     trace("Dataset after import: " + this.dsList02.saveXML());
-    
+    console.log("Import successful. Dataset XML: ", this.dsList02.saveXML());
     this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Import_onsuccess\n");
 };
 
@@ -270,18 +335,19 @@ this.Import_onsuccess = function (obj:ExcelImportObject, e:nexacro.ExcelImportEv
 */
 this.Import_onerror = function (obj:ExcelImportObject, e:nexacro.ExcelImportErrorEventInfo)
 {
-    // Trace to confirm import error
     trace("Import Error: " + e.eventid + " - Error Message: " + e.errormsg);
-    
+    console.log("Import Error:", e.errormsg);
     this.txtLog.set_value(this.txtLog.value + e.eventid +  "  Import_onerror\n");
 };
 
+/**************************************************************************
+* 각 버튼별 이벤트 처리 영역
+**************************************************************************/
 /**
 * @description btnExportBasic onclick event
 */
 this.btnExportBasic_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-  //ExcelExportObject.addExportItem(constExportItemType, source, range)
     this.gfnBasicExport();
 };
 
@@ -293,23 +359,13 @@ this.btnImportBasic_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventIn
     this.gfnBasicImport();
 };
 
-/**
-* @description btnAddItemExport onclick event
-*/
-this.btnAddItemExport_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-  //ExcelExportObject.addExportItem(constExportItemType, ExportItem object)
-    this.gfnAddItemExport();
-};
-
 /**************************************************************************
 *  공통 함수 처리 영역
-해당 함수의 경우 프로젝트 사용 시 프로젝트 공통함수로 전환을 권장 드립니다.
 **************************************************************************/
 /**
 * Function Name : gfnIsNull
 * Description   : 입력값이 null에 해당하는 경우 모두를 한번에 체크한다.
-* Arguments     : sValue - 체크할 문자열( 예 : null 또는 undefined 또는 "" 또는 "abc" )
+* Arguments     : sValue - 체크할 문자열
 * Return        : Boolean sValue이 undefined, null, NaN, "", Array.length = 0인 경우 true
 */
 this.gfnIsNull = function (sValue)

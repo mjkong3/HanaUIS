@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="classInfo" width="1280" height="720" titletext="New Form" onload="classInfo_onload">
+  <Form id="classInfo" width="1280" height="720" titletext="New Form" onload="classInfo_onload" onkeyup="classInfo_onkeyup">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
         <Grid id="grd_Depart" left="51" top="70" width="187" height="480" taborder="0" autofittype="none" binddataset="ds_dept" cssclass="ATEAM">
@@ -71,7 +71,7 @@
                 <Cell col="7" text="bind:CLASS_GRADE" textAlign="center"/>
                 <Cell col="8" text="bind:CLASS_TYPE" textAlign="center"/>
                 <Cell col="9" text="bind:CLASSROOM_ID" textAlign="center"/>
-                <Cell col="10" text="bind:PROFESSOR_ID" textAlign="center"/>
+                <Cell col="10" text="bind:NAME" textAlign="center"/>
                 <Cell col="11" text="bind:DEPARTMENT_CODE" textAlign="center"/>
               </Band>
             </Format>
@@ -127,20 +127,12 @@
             <Col id="data">강의실</Col>
           </Row>
           <Row>
-            <Col id="code">PROFESSOR_ID</Col>
+            <Col id="code">NAME</Col>
             <Col id="data">담당교수</Col>
           </Row>
           <Row>
             <Col id="code">CLASS_TYPE</Col>
             <Col id="data">이수구분</Col>
-          </Row>
-          <Row>
-            <Col id="code">ADMIN_CODE</Col>
-            <Col id="data">관리자</Col>
-          </Row>
-          <Row>
-            <Col id="code">REGDATE</Col>
-            <Col id="data">등록일</Col>
           </Row>
         </Rows>
       </Dataset>
@@ -178,6 +170,7 @@
           <Column id="CRE_DTM" type="STRING" size="256"/>
           <Column id="UPD_USR" type="STRING" size="256"/>
           <Column id="UPD_DTM" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="ds_delete"/>
@@ -559,16 +552,13 @@ this.fn_sort = function(obj:Grid, e:GridClickEventInfo)
 	
 };
 
-
 // 엔터키 검색기능
-this.professor_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+this.classInfo_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
 {
 	if(e.keycode==13){
 		this.btn_Search.click();
-	}
+	}	
 };
-
-
 ]]></Script>
   </Form>
 </FDL>

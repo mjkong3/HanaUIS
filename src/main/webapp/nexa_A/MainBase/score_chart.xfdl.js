@@ -299,12 +299,20 @@
         
         // User Script
         this.registerScript("score_chart.xfdl", function() {
+        /* 필요 기능 정리
+        * 1. 화면진입 - onload event
+        * 2. 조회 - 강의목록 우선 조회 -> 성적통계 조회
+        * 3. 콜백 - 단순 콜백 + 트랜잭션 후 ds 및 이벤트 제어용 콜백
+        * 4. 기타기능 - 정렬 + 체크박스 + 엔터
+        */
 
+        // 1. 온로드
         this.score_chart_onload = function(obj,e)
         {
         	// 온로드 시 dept code 받아오기
         	this.fn_searchDept();
 
+        	// 검색조건 중 하나인 연도를 스크립트에서 자동으로 설정
             // 현재 연도 가져오기
             var currentYear = new Date().getFullYear();
             // ds_year 초기화
@@ -320,31 +328,34 @@
         	this.Div00.form.btn_Search.set_enable(false);
         };
 
+        // 학과조회 함수
         this.fn_searchDept = function() {
 
-           var strSvcId    = "searchDept";
-           var strSvcUrl   = "svc::selectAdDept.do";
-           var inData      = "";
-           var outData     = "ds_dept = ds_dept";
-           var strArg      = "";
-           var callBackFnc = "fnCallBack_deptInfo";
-           var isAsync     = true;
+        	var strSvcId    = "searchDept";
+        	var strSvcUrl   = "svc::selectAdDept.do";
+        	var inData      = "";
+        	var outData     = "ds_dept = ds_dept";
+        	var strArg      = "";
+        	var callBackFnc = "fnCallBack_deptInfo";
+        	var isAsync     = true;
 
-           this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 
         }
 
+        // 학과조회 콜백 - 콤보박스 기본값 설정(1학기, 현재연도)
         this.fnCallBack_deptInfo = function (svcID, errCD, errMsg)
         {
         	if (svcID == "searchDept" && errCD == 0){
-        	this.ds_search.setColumn(0, "SEMESTER", 1);
-        	this.ds_search.setColumn(0, "YEAR", 2024);
+        		this.ds_search.setColumn(0, "SEMESTER", 1);
+        		this.ds_search.setColumn(0, "YEAR", this.ds_year.getColumn(0, "YEAR"));
         	} else {
-        	trace(errMsg);
+        		trace(errMsg);
         	}
         };
 
-        // 강의목록 검색
+        // 2. 조회
+        // 2-1. 강의목록 검색
         this.Div00_cmb_Dept_onitemchanged = function(obj,e)
         {
         	// 강의목록 검색 함수
@@ -386,15 +397,15 @@
         // 강의목록 검색 함수
         this.fn_searchClass = function ()
         {
-           var strSvcId    = "searchClass";
-           var strSvcUrl   = "svc::selectAdClass.do";
-           var inData      = "ds_search=ds_search";
-           var outData     = "ds_class=ds_class";
-           var strArg      = "";
-           var callBackFnc = "fnCallBack";
-           var isAsync     = true;
+        	var strSvcId    = "searchClass";
+        	var strSvcUrl   = "svc::selectAdClass.do";
+        	var inData      = "ds_search=ds_search";
+        	var outData     = "ds_class=ds_class";
+        	var strArg      = "";
+        	var callBackFnc = "fnCallBack";
+        	var isAsync     = true;
 
-           this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
 
         this.fnCallBack = function (svcID, errCD, errMsg)
@@ -440,15 +451,15 @@
 
         this.fn_searchChart = function ()
         {
-           var strSvcId    = "searchChart";
-           var strSvcUrl   = "svc::selectAdScoreChart.do";
-           var inData      = "ds_search=ds_search";
-           var outData     = "ds_chart=ds_chart";
-           var strArg      = "";
-           var callBackFnc = "fnCallBack";
-           var isAsync     = true;
+        	var strSvcId    = "searchChart";
+        	var strSvcUrl   = "svc::selectAdScoreChart.do";
+        	var inData      = "ds_search=ds_search";
+        	var outData     = "ds_chart=ds_chart";
+        	var strArg      = "";
+        	var callBackFnc = "fnCallBack";
+        	var isAsync     = true;
 
-           this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
+        	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
 
 
