@@ -7,8 +7,8 @@
     	<when test="id.length() == 4">	
             SELECT EMAIL
             FROM ADMIN
-            WHERE ADMIN_CODE = #{ADMIN_CODE}
-            AND NAME = #{NAME}
+            WHERE ADMIN_CODE = #{id}
+            AND NAME = #{name}
         </when>
         <when test="id.length() == 5">	
             SELECT EMAIL
@@ -30,6 +30,9 @@
 	
 	<update id="updatePwd" parameterType="java.util.Map">
 		<choose>
+			<when test="id.length() == 4">	
+	            UPDATE ADMIN SET PASSWORD = SHA2(#{password}, 256) WHERE ADMIN_CODE = #{id}
+	        </when>
 	        <when test="id.length() == 5">	
 	            UPDATE PROFESSOR SET PASSWORD = SHA2(#{password}, 256) WHERE PROFESSOR_ID = #{id}
 	        </when>

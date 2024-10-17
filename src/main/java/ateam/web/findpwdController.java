@@ -64,7 +64,7 @@ public class findpwdController {
 
 			// 세션에서 저장된 인증번호를 가져옴
 			String savedCode = (String) session.getAttribute("verificationCode");
-			System.out.println(savedCode + "왕머리ㅏ;ㄴ어ㅏㅣ;ㅁ럴이;ㅓㅁ;ㅣㅏㅓㅣㅇ넘;ㅣㅏㅓ라ㅣㅓ22222222222222222222222222222222");
+			System.out.println(savedCode + "@@@@@@!!!@@@");
 
 
 			if (inputCode.equals(savedCode)) {

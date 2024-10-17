@@ -106,7 +106,7 @@
             url: '/HanaUIS/changepwd.do',
             data: {
                 id: $("#id").val(),
-                pwd: hashedpwd
+                pwd: firpwd
             },
             success: function(data) {
                 if (data.result === 'success') {

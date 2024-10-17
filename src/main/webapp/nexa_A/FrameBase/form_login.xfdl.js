@@ -308,6 +308,7 @@
         this.stt_findPwd_onclick = function(obj,e)
         {
         	var surl = "MainBase::findPwd.xfdl";
+        	var objParam="";
         	this.showPopup(objParam, surl);
         };
 
