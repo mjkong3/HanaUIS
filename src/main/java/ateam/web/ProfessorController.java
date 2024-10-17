@@ -53,8 +53,9 @@ public class ProfessorController {
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 공지사항
 	// 공지사항 화면
 	@RequestMapping(value = "/notice.do")
-	public String noticeView(@RequestParam(value = "page", defaultValue = "1") int page, Model model,
-			HttpSession session) {
+	public String noticeView(@RequestParam(value = "page", defaultValue = "1") int page,
+							 @RequestParam(value ="searchKeyword", defaultValue = "ALL") String searchKeyword,
+							 Model model, HttpSession session) {
 
 		System.out.println("교수 정보가 확인되었습니다: " + session.getAttribute("professor"));
 
@@ -64,16 +65,38 @@ public class ProfessorController {
 		model.addAttribute("professorClass", classList);
 
 		// 페이징 처리
-		int totalCnt = boardService.getBoardCount(); // 공지사항 총 개수 가져오는 메서드 필요
+		int totalCnt = boardService.getBoardCount(searchKeyword); // 공지사항 총 개수 가져오는 메서드 필요
 		int pageSize = 10;
 		PageHandler pageHandler = new PageHandler(totalCnt, pageSize, page);
 		model.addAttribute("pageHandler", pageHandler);
-		List<BoardDTO> board = boardService.boardList(page, pageSize);
+		List<Map<String, Object>> board = boardService.boardList(page, pageSize);
 
 		model.addAttribute("notice", board);
 
 		return "hana/notice";
 	}
+	
+    @RequestMapping(value = "/noticeSearch.do", method = RequestMethod.GET)
+    public String searchNotice(@RequestParam("searchKeyword") String searchKeyword,
+					    	   @RequestParam(value = "page", defaultValue = "1") int page,
+					    	   Model model,HttpSession session) {
+    	
+		// 교수, 교수 강의 정보 가져오기
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
+		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
+		model.addAttribute("professorClass", classList);
+		
+		// 페이징 처리
+		int totalCnt = boardService.getBoardCount(searchKeyword); // 공지사항 총 개수 가져오는 메서드 필요
+		int pageSize = 10;
+		
+		PageHandler pageHandler = new PageHandler(totalCnt, pageSize, page);
+		model.addAttribute("pageHandler", pageHandler);
+        List<Map<String, Object>> noticeList = boardService.searchNoticeByTitle(searchKeyword, pageSize, page);
+        model.addAttribute("notice", noticeList);
+        
+        return "hana/notice";
+    }
 
 	// 공지사항 상세 페이지
 	@RequestMapping(value = "/noticeDetail.do")
@@ -93,8 +116,7 @@ public class ProfessorController {
 
 		return "hana/noticeDetail";
 	}
-	
-	
+
 	
 	
 	

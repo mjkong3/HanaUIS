@@ -10,11 +10,13 @@ import egovframework.rte.psl.dataaccess.mapper.Mapper;
 @Mapper("BoardMapper")
 public interface BoardMapper {
 
-	public List<BoardDTO> boardList(Map<String, Object> params);
+	public List<Map<String, Object>> boardList(Map<String, Object> params);
 	
 	public BoardDTO selectBoard(int id);
-
-	public int getBoardCount();
+	
+	public int getBoardCount(Map<String, Object> param);
 	
 	public List<FileDTO> selectFile(int BoardCode);
+
+	
 }
