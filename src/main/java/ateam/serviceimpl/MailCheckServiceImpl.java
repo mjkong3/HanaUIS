@@ -29,7 +29,7 @@ public class MailCheckServiceImpl extends EgovAbstractServiceImpl implements Mai
         // 난수의 범위 111111 ~ 999999 (6자리 난수)
         Random r = new Random();
         int checkNum = 1234; // r.nextInt(888888) + 111111;
-        System.out.println("인증번호 : " + checkNum);
+
         authNumber = checkNum;
     }
 
@@ -51,7 +51,6 @@ public class MailCheckServiceImpl extends EgovAbstractServiceImpl implements Mai
 		                 "COPYRIGHT 2024 HANA UNIVERSITY. ALL RIGHTS RESERVED";
        
         mailSend(setFrom, toMail, title, content);
-        System.out.println("이메인 발송완료");
         //난수를 리턴(인증번호)
         return Integer.toString(authNumber);
     }

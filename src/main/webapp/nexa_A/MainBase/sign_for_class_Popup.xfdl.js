@@ -358,8 +358,7 @@
         		break;
 
         	case "searchClassInfo":
-        		// trace(this.ds_listPopup.saveXML());
-        		// this.ds_listPopup.set_keystring("S:+NAME");
+
         		break;
             }
         };
@@ -385,8 +384,7 @@
         				for (var i = 0; i < this.ds_listPopup.rowcount; i++) { // 프론트에 적용 ROW 부분
         					this.ds_listPopup.setColumn(i, "CHECK", "0");
         				}
-        				// 체크 해제된 경우의 trace 코드
-        				// trace("체크박스가 해제되었습니다.");
+
         			}
         			else {
         				chkVal = "1"; // 체크 안 된 상태라면 체크 표시
@@ -394,8 +392,7 @@
         				for (var i = 0; i < this.ds_listPopup.rowcount; i++) { // 프론트에 적용 ROW 부분
         					this.ds_listPopup.setColumn(i, "CHECK", "1");
         				}
-        				// 체크된 경우의 trace 코드
-        				// trace("체크박스가 선택되었습니다.");
+
         			}
         		}
             } else {
@@ -421,7 +418,6 @@
                     return
                 }
         		else {
-        			// trace("강의 추가됨");
         		}
                 // 데이터가 있을 때만 체크된 항목을 복사
                 this.fn_copyCheckedRows();
@@ -519,7 +515,7 @@
         	if (errorCode == 0) {
                 var totalGrades = this.ds_totalGrade.getColumn(0, "TOTAL_GRADES");
                 if (totalGrades !== undefined) {
-                    trace("누적학점: " + totalGrades);
+                    trace("누적학점: ");
                 } else {
                     trace("TOTAL_GRADES가 정의되지 않았습니다."); // 데이터가 정상적으로 받아졌는지 확인
                 }
@@ -528,8 +524,8 @@
             }
         };
 
-        // 총합 학점 계산
-        this.fn_caculatingGrade = function () {
+        // 총합 학점 계산`
+this.fn_caculatingGrade = function () {
             var calculatingGrade1 = 0;
         	var calculatingGrade2 = 0;
 
@@ -547,7 +543,6 @@
             // caculatingGrade와 기존 총 성적을 더합니다.
             var totalGrades = calculatingGrade1 + calculatingGrade2;
             // ds_totalGrade의 TOTAL_GRADES 열에 총 성적을 설정합니다.
-        	trace("ds_confirmed 학점 : " + calculatingGrade1 + " @ " + "ds_enroll 학점 : " + calculatingGrade2)
             this.ds_totalGrade.setColumn(0, "TOTAL_GRADES", totalGrades);
         };
 
@@ -575,11 +570,9 @@
         // 신청한 강의리스트 콜백
         this.confirmed_fnCallback = function(svcID, errorCode, errorMsg) {
             if (errorCode == 0) {
-        		// trace("xxxxxxxxxxxxxxxx테스트xxxxxxxxxxxxxxxxxx"+this.ds_confirmed.saveXML());
+
                 this.fn_filterConfirmedClasses();
-        		// 		if(this.ds_confirmed.getRowCount() == 0){
-        		// 			alert("없네?");
-        		// 		}
+
             } else {
                 trace("Error: " + errorMsg);
             }
@@ -720,7 +713,6 @@
 
         // 수강신청하기
         this.btn_Add_onclick = function (){
-        	trace("신청하는 강의목록 : " + this.ds_enroll.saveXML());
 
         	if(this.edt_ProId_2.value == null){
         		alert("수강신청할 학생을 선택해주세요.");
@@ -758,7 +750,6 @@
         		for (var i = 0; i < this.ds_listPopup.getRowCount(); i++) {
         			this.ds_listPopup.setColumn(i, "CHECK", "0");
         		}
-        		trace("수강신청이 완료되었습니다.");
             } else {
                 trace("Error: " + errorMsg);
             }

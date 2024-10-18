@@ -21,9 +21,9 @@
 
 	<select id="studentDepartment" resultType="String">
 		SELECT
-		D.DEPARTMENT_NAME
+			D.DEPARTMENT_NAME
 		FROM DEPARTMENT D
-		JOIN STUDENT S ON D.DEPARTMENT_CODE = S.DEPARTMENT_CODE
+			JOIN STUDENT S ON D.DEPARTMENT_CODE = S.DEPARTMENT_CODE
 		WHERE S.STUDENT_ID = #{studentId}
 	</select>
 
@@ -39,6 +39,8 @@
 				UPD_USR = #{studentId}	
 		WHERE STUDENT_ID = #{studentId}
 	</update>
+	
+	
 	<update id="updateEmail" parameterType="map">
 		UPDATE STUDENT
 			SET EMAIL = #{email},
@@ -72,31 +74,29 @@
 	<!-- 학생 휴학/복학 신청 & 정보 조회하기 -->
 	<select id="stuStatus" parameterType="int"
 		resultType="ateam.dto.StudentDTO">
-		SELECT A.STUDENT_ID,
-		A.NAME,
-		A.STATUS,
-		B.DEPARTMENT_NAME
+		SELECT 	A.STUDENT_ID,
+				A.NAME,
+				A.STATUS,
+				B.DEPARTMENT_NAME
 		FROM STUDENT A
-		INNER JOIN DEPARTMENT B ON A.DEPARTMENT_CODE =
-		B.DEPARTMENT_CODE
+			INNER JOIN DEPARTMENT B ON A.DEPARTMENT_CODE =B.DEPARTMENT_CODE
 		WHERE A.STUDENT_ID = #{studentId};
 	</select>
 
 	<!-- 휴학/복학 신청 리스트 -->
 	<select id="statusList" parameterType="int" resultType="Map">
 		SELECT STATUS_TYPE,
-		REASON,
-		REG_DTM,
-		CASE
-		WHEN APPROVED = 'N' THEN '승인대기'
-		WHEN APPROVED = 'Y' THEN '승인완료'
-		WHEN APPROVED = 'C' THEN '승인거부'
-		ELSE ''
-		END AS APPROVED
+			REASON,
+			REG_DTM,
+			CASE
+				WHEN APPROVED = 'N' THEN '승인대기'
+				WHEN APPROVED = 'Y' THEN '승인완료'
+				WHEN APPROVED = 'C' THEN '승인거부'
+				ELSE ''
+			END AS APPROVED
 		FROM STUDENT_STATUS
 		WHERE STUDENT_ID = #{studentId}
-		ORDER BY
-		STATUS_CODE DESC;
+		ORDER BY STATUS_CODE DESC;
 	</select>
 
 	<!-- 휴학/복학 상태 넣기 -->
@@ -221,10 +221,9 @@
 		resultType="int">
 		SELECT COUNT(*)
 		FROM ENROLLMENT E
-		INNER JOIN STUDENT S ON S.STUDENT_ID = E.STUDENT_ID
-		INNER JOIN CLASS C ON C.CLASS_CODE = E.CLASS_CODE
-		WHERE
-		S.STUDENT_ID = #{studentId}
+			INNER JOIN STUDENT S ON S.STUDENT_ID = E.STUDENT_ID
+			INNER JOIN CLASS C ON C.CLASS_CODE = E.CLASS_CODE
+		WHERE S.STUDENT_ID = #{studentId}
 		<if test="year !='' and year != NULL">
 			AND E.STUDENT_YEAR = #{year}
 			AND E.SEMESTER = #{semester}

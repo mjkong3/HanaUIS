@@ -405,7 +405,6 @@
         	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
         	this.ds_class.setColumn(0, "CRE_USR", adCode);
         	this.ds_class.setColumn(0, "UPD_USR", adCode);
-        	trace("아이디 제대로 들어갔나? " + this.ds_class.getColumn(0, "CRE_USR"));
         };
 
         // 2. 등록
@@ -428,7 +427,6 @@
         	// 교수 null 검사
         	var proId = this.ds_class.getColumn(0, "PROFESSOR_ID");
         	var proId2 = this.ds_class.getColumn(1, "PROFESSOR_ID");
-        	trace("교수들어가있나? " + proId);
         	if (proId == null || proId == '' || proId == 'undefined'){
         		alert("교수를 선택해주세요1");
         		return;
@@ -454,9 +452,7 @@
         this.cmb_Dept_onitemchanged = function(obj,e)
         {
         	var deptCd = obj.value;
-        	trace("무슨 값 선택했어? " + deptCd);
         	this.ds_getDept.setColumn(0, "DEPARTMENT_CODE", deptCd)
-        	trace("뭔가요?" + this.ds_getDept.getColumn(0, "DEPARTMENT_CODE"));
         	this.fn_selectProId();
         };
 
@@ -495,13 +491,11 @@
         	switch(svcID) {
         	// 등록버튼
         	case "insertAdClsInfo":
-        		trace("등록완료")
         		alert("등록에 성공하였습니다!");
         		this.close("success");
         		break;
         	// 교수선택
         	case "selectProId":
-        		trace("뭘가져왔니? " + this.ds_proId.saveXML());
         		break;
         	}
         };

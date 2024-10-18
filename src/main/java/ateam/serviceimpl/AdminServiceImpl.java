@@ -21,11 +21,6 @@ public class AdminServiceImpl extends EgovAbstractServiceImpl implements AdminSe
 	@Resource(name = "AdminMapper")
 	private AdminMapper mapper;
 
-	@Override
-	public List<Map<String, Object>> selectCodeMst(Map<String, Object> param) {
-		// TODO Auto-generated method stub
-		return mapper.selectCodeMst(param);
-	}
 
 	@Override
 	public Map<String, Object> selectLogin(Map<String, Object> param) {
@@ -34,7 +29,6 @@ public class AdminServiceImpl extends EgovAbstractServiceImpl implements AdminSe
 
 	@Override
 	public List<Map<String, Object>> selectAdDept() {
-		// TODO Auto-generated method stub
 		return mapper.selectAdDept();
 	}
 

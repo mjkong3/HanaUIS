@@ -188,8 +188,6 @@
         {
         	this.fn_searchDept(); // 학과코드 불러오기
 
-
-
         	var currentYear = new Date().getFullYear(); // 해당년도 가져오기
             // ds_year 초기화
             this.ds_year.clearData();
@@ -203,7 +201,6 @@
                 this.ds_year.setColumn(nRow, "YEAR", year);  // 데이터값 (검색에 사용될 값)
                 this.ds_year.setColumn(nRow, "DATA", year);  // 콤보박스에 표시될 값
             }
-        	trace(this.ds_year.getColumn(0,"DATA"))
         	var nYear = this.ds_year.getColumn(0,"YEAR");
         	this.cmb_year.set_value(nYear);  //  콤보박스 기본값을 해당년도로 지정
         	this.cmb_searchType.set_value(0); // 콤보박스 기본값을 0번컬럼으로 지정
@@ -215,34 +212,29 @@
         this.ds_dept_onrowposchanged = function(obj,e) // 학과코드 그리드에 컬럼 클릭시 이벤트 발동
         {
         	var row = this.ds_dept.rowposition;
-        	trace(row);	var deptcd = this.ds_dept.getColumn(row, "DEPARTMENT_CODE");
-
-        	this.ds_searchClass.setColumn(0,"DEPARTMENT_CODE",deptcd);
-        	trace("로우값은 ? " + this.ds_searchClass.getColumn(0, "DEPARTMENT_CODE"));
-
+        	var deptcd = this.ds_dept.getColumn(row, "DEPARTMENT_CODE");
+        	this.ds_searchClass.setColumn(0,"DEPARTMENT_CODE", deptcd);
 
         	this.fn_searchClass();
-        }; // 원하는 컬럼클릭시 해당 컬럼을 포지션으로 찾고 그 값에 해당하는 모든 수업들을 찾아서 ds_class에 넣어주는 역할
+        };
 
         this.grd_class_oncellclick = function(obj,e)
         {
 
+        	var row = this.ds_class.rowposition;
+        	var yearsm = this.ds_class.getColumn(row,"CLASS_START");;
+        	var semesterm = this.ds_class.getColumn(row,"SEMESTER");;
+        	var clascd = this.ds_class.getColumn(row,"CLASS_CODE");
+        	// 년도 학기 강의코드 선언 (트랜젝션해서 가져온ds_class 내부 값들에서 빼옴)
 
 
-        		var row = this.ds_class.rowposition;
-        		var yearsm = this.ds_class.getColumn(row,"CLASS_START");;
-        		var semesterm = this.ds_class.getColumn(row,"SEMESTER");;
-        		var clascd = this.ds_class.getColumn(row,"CLASS_CODE");
-        		// 년도 학기 강의코드 선언 (트랜젝션해서 가져온ds_class 내부 값들에서 빼옴)
+        	this.ds_searchSttudent.setColumn(0,"YEAR",yearsm);
+        	this.ds_searchSttudent.setColumn(0,"SEMESTER",semesterm);
+        	this.ds_searchSttudent.setColumn(0,"CLASS_CODE",clascd);
+        	// 위에서 선언한 친구들을 ds_searchStudent로 감싸서 트랜젝션 실행
 
 
-        		this.ds_searchSttudent.setColumn(0,"YEAR",yearsm);
-        		this.ds_searchSttudent.setColumn(0,"SEMESTER",semesterm);
-        		this.ds_searchSttudent.setColumn(0,"CLASS_CODE",clascd);
-        		// 위에서 선언한 친구들을 ds_searchStudent로 감싸서 트랜젝션 실행
-
-
-        		this.fn_searchStudent();   // 트랜젝션 실행 하여
+        	this.fn_searchStudent();   // 트랜젝션 실행 하여
 
         };
 
@@ -320,14 +312,11 @@
         // 수정목록 필터링
         this.updateCheck = function() {
             this.ds_updateScore.clearData();
-            trace("필터링 전 " + this.ds_scoreList.getRowCount());
             this.ds_scoreList.filter("CHECK==1");
-            trace("필터링 후 " + this.ds_scoreList.getRowCount());
 
             var nRow = this.ds_scoreList.getRowCount();
             var gdsAd = nexacro.getApplication();
             var adCode = gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE");
-            trace("ad코드는? " + adCode);
 
             // 유효성 검사 추가
         	for (var i = 0; i < nRow; i++) {
@@ -357,7 +346,6 @@
 
         		// 모든 행의 작성자 설정
         		this.ds_scoreList.setColumn(i, "UPD_USR", adCode);
-        		trace("작성자?? " + this.ds_scoreList.getColumn(i, "UPD_USR"));
         	}
 
             this.ds_updateScore.copyData(this.ds_scoreList, true);
@@ -368,45 +356,34 @@
         this.cmb_year_onitemchanged = function(obj,e)
         {
             if(this.cmb_year.value != "ALL" && this.cmb_semester.value != "0"){
-                trace(this.cmb_year.value);
-                trace(this.cmb_semester.value);
                 this.ds_class.filter("CLASS_START == '" + this.cmb_year.value + "' && SEMESTER == '" + this.cmb_semester.value + "'");
             }
             else if(this.cmb_year.value == "ALL" && this.cmb_semester.value != "0"){
-                trace(this.cmb_year.value);
-                trace(this.cmb_semester.value);
                 this.ds_class.filter("SEMESTER == '" + this.cmb_semester.value + "'");
             }
             else if(this.cmb_year.value != "ALL" && this.cmb_semester.value == "0"){
-                trace(this.cmb_year.value);
-                trace(this.cmb_semester.value);
                 this.ds_class.filter("CLASS_START == '" + this.cmb_year.value + "'");
             } else {
-                trace(this.cmb_year.value);
-                trace(this.cmb_semester.value);
+
                 this.alert("연도 및 학기를 선택해주세요");
             }
         };
 
         this.cmb_semester_onitemchanged = function(obj,e)
         {
-        	    if(this.cmb_year.value != "ALL" && this.cmb_semester.value != "0"){
-                trace(this.cmb_year.value);
-                trace(this.cmb_semester.value);
+        	if(this.cmb_year.value != "ALL" && this.cmb_semester.value != "0"){
+
                 this.ds_class.filter("CLASS_START == '" + this.cmb_year.value + "' && SEMESTER == '" + this.cmb_semester.value + "'");
             }
             else if(this.cmb_year.value == "ALL" && this.cmb_semester.value != "0"){
-                trace(this.cmb_year.value);
-                trace(this.cmb_semester.value);
+
                 this.ds_class.filter("SEMESTER == '" + this.cmb_semester.value + "'");
             }
             else if(this.cmb_year.value != "ALL" && this.cmb_semester.value == "0"){
-                trace(this.cmb_year.value);
-                trace(this.cmb_semester.value);
+
                 this.ds_class.filter("CLASS_START == '" + this.cmb_year.value + "'");
             } else {
-                trace(this.cmb_year.value);
-                trace(this.cmb_semester.value);
+
                 this.alert("연도 및 학기를 선택해주세요");
             }
         };
@@ -434,7 +411,6 @@
         this.fnCallBack = function (svcID, errCD, errMsg)
         {
         	if(svcID == "updateScStudent" && errCD == 0){
-        		trace("잘 받아왔나?");
         		this.fn_searchStudent();
         	} else if (errCD == -1){
         		alert(errMsg);

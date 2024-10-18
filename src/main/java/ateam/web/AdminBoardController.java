@@ -25,15 +25,11 @@ public class AdminBoardController {
 	public NexacroResult selectBoardList(@ParamDataSet(name = "search_ds", required = false) Map<String, Object> param) {
 		NexacroResult result = new NexacroResult();
 		
-		System.out.println(param);
-		
 		try {
 			List<Map<String, Object>> boardList_ds = service.selectBoardList(param);
 					
 			result.addDataSet("boardList_ds", boardList_ds);
-			System.out.println(boardList_ds);
 		} catch(Exception ee) {
-			System.out.println(ee);
 			result.setErrorCode(01);
 			result.setErrorMsg("catch 조회 오류");
 		}
@@ -45,21 +41,14 @@ public class AdminBoardController {
 	public NexacroResult selectBoard(@ParamVariable(name = "id", required = false) String param) {
 		NexacroResult result = new NexacroResult();
 
-		System.out.println("@@@@@@@@@@@@@@@@@" + param);		
-		
 		Map<String, Object> ds_board = service.selectBoard(param);
-		
-		System.out.println(ds_board);
 		
 		Object File_Name = ds_board.get("FILES");
 		Object IMAGE = ds_board.get("IMAGE");
 		
-		System.out.println(IMAGE);
-		
 		result.addDataSet("ds_board", ds_board);
 		result.addDataSet("ds_file", File_Name);
 		result.addDataSet("ds_contentFile", IMAGE);
-		System.out.println(result.getDataSets());
 		
 		return result;
 	}

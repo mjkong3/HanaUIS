@@ -25,7 +25,7 @@ public interface ClassMapper {
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 강의 정보
 	
 	//모든 강의
-	public List<Map<String, Object>> allClass(Map map);
+	public List<Map<String, Object>> allClass(Map<String, Object> map);
 	public int countAllClass(Map<String, Object> map);
 	
 

@@ -198,10 +198,6 @@
         			gdsAd.gds_adminInfo.setColumn(0, "REGDATE", this.Certificate_Ds.getColumn(0,"REGDATE"));
         			gdsAd.gds_adminInfo.setColumn(0, "NAME", this.Certificate_Ds.getColumn(0, "NAME"));
 
-        			console.log("세션 설정되나1 " + gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE"));
-        			console.log("세션 설정되나2 " + gdsAd.gds_adminInfo.getColumn(0, "REGDATE"));
-        			console.log("세션 설정되나3 " + gdsAd.gds_adminInfo.getColumn(0, "NAME"));
-
         			let objApp = nexacro.getApplication();
         			objApp.mainframe.VFrameSet00.TopFrame.set_visible(true);
         			objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(true);
@@ -222,9 +218,6 @@
 
 
         this.fnLogin = function(){
-
-        	console.log("Login_Ds =" + this.Login_Ds.getColumn(0,"Id"));
-        	console.log("Login_Ds =" + this.Login_Ds.getColumn(0,"Password"));
 
         	if (isEmpty(this.Login_Ds.getColumn(0, "Id"))) {
         		alert("아이디를 입력해주세요.");
@@ -313,6 +306,7 @@
 
         this.stt_findPwd_onclick = function(obj,e)
         {
+        	var objParam;
         	var surl = "MainBase::findPwd.xfdl";
         	this.showPopup(objParam, surl);
         };

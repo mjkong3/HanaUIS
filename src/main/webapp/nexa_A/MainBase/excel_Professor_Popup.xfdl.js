@@ -127,19 +127,16 @@
 
         	this.FileUpTransfer00.clearFileList();
             this.addFileList(e.virtualfiles);
-        	trace(e.virtualfiles[0].filename);
         };
 
         // 파일 추가 처리 함수
         this.addFileList = function(filelist) {
             for (var i = 0, len = filelist.length, vFile; i < len; i++) {
                 vFile = filelist[i];
-                trace(vFile.filesize);
 
                 // 이벤트 핸들러 등록
                 vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
                 vFile.addEventHandler("onerror", this.FileList_onerror, this);
-                trace("여기는 오지");
 
                 // 파일 열기
                 vFile.open(null, 1);
@@ -177,16 +174,11 @@
 
         	this.ds_test.clearData();
         	this.ds_test.copyData(this.ds_copy);
-        	//this.Grid00.set_formats();
-        	trace(this.ds_test.rowcount);
 
             var responseXml = e.datasets[0]; // 서버에서 응답한 XML 데이터
 
-            trace("여기 오나? " + responseXml.rowcount); // 응답 로그
-        	//this.ds_test.copyData(responseXml);
         	this.ds_test.appendData(responseXml);
 
-            trace("현재 row count: " + this.ds_test.rowcount); // 로드된 데이터의 row count
         	this.ds_test.addColumn("CHECK", "String", 256, 0);
 
 
@@ -201,8 +193,6 @@
             // 현재 그리드 데이터셋을 가져옵니다.
             var ds = this.Grid00.getBindDataset();
             var data = ds.saveXML(); // 데이터셋의 데이터를 XML 형식으로 변환합니다.
-
-            trace(data); // XML 데이터가 잘 생성되었는지 확인
 
             // 서버로 transaction 호출
             var url = "http://localhost:8082/HanaUIS/excelExport.jsp?type=exPro"; // 다운로드 excel 요청
@@ -223,7 +213,6 @@
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link); // 링크를 제거합니다.
-                        trace("엑셀 파일 다운로드 완료");
                     } else {
                         trace("오류 발생: " + xhr.status);
                     }
@@ -259,7 +248,6 @@
         // 체크 트랜젝션
         this.checkstudentexcel = function()
         {
-        	/*console.log(this.ds_test.saveXML());*/
            var strSvcId    = "checkProexcel";
            var strSvcUrl   = "svc::checkProexcel.do";
            var inData      = "ds_test=ds_test";
@@ -311,7 +299,6 @@
         			// 필터링된 결과의 CHECK 열 값을 2로 설정
         			for (var j = 0; j < this.ds_test.rowcount; j++) {
         				this.ds_test.setColumn(j, "CHECK", "2");
-        				trace(this.ds_test.getColumn(j, "CHECK"));
         				count2++;
         			}
         			this.ds_test.filter("");

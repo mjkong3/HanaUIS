@@ -6,10 +6,18 @@
 	<!-- list grd에 목록 생성 -->
 	<select id="selectAdProList" parameterType="java.util.Map" resultType="java.util.Map">
 	
-		SELECT p.PROFESSOR_ID, p.NAME, p.PHONE, p.EMAIL, p.GENDER, p.ADDRESS, DATE_FORMAT(p.BIRTHDAY, '%Y-%m-%d') AS BIRTHDAY, p.STATUS, p.DEPARTMENT_CODE, p.CRE_USR, p.CRE_DTM, p.UPD_USR, p.UPD_DTM, d.DEPARTMENT_NAME, 0 AS 'CHECK'
+		SELECT p.PROFESSOR_ID, 
+			   p.NAME, p.PHONE, 
+			   p.EMAIL, p.GENDER, 
+			   p.ADDRESS, DATE_FORMAT(p.BIRTHDAY, '%Y-%m-%d') AS BIRTHDAY, 
+			   p.STATUS, p.DEPARTMENT_CODE, 
+			   p.CRE_USR, p.CRE_DTM, 
+			   p.UPD_USR, p.UPD_DTM,
+			   d.DEPARTMENT_NAME, 
+			   0 AS 'CHECK'
 		FROM PROFESSOR p
-		JOIN DEPARTMENT d
-		on p.DEPARTMENT_CODE = d.DEPARTMENT_CODE
+			JOIN DEPARTMENT d
+			on p.DEPARTMENT_CODE = d.DEPARTMENT_CODE
 		WHERE 1=1
 		
 		<if test="SEARCH_WORD != null">
@@ -70,24 +78,24 @@
 			UPD_USR,
 			UPD_DTM,
 			ZIPCODE)
-					 VALUES(
-							#{PROFESSOR_ID},
-							SHA2(#{PASSWORD}, 256),
-							#{NAME},
-							#{PHONE},
-							#{EMAIL},
-							#{BIRTHDAY},
-							#{GENDER},
-							#{ADDRESS},
-							#{STATUS},
-							#{DEPARTMENT_CODE},
-							#{PHOTO},
-							#{CRE_USR},
-							SYSDATE(),
-							#{UPD_USR},
-							SYSDATE(),
-							#{ZIPCODE}
-							)
+		 VALUES(
+				#{PROFESSOR_ID},
+				SHA2(#{PASSWORD}, 256),
+				#{NAME},
+				#{PHONE},
+				#{EMAIL},
+				#{BIRTHDAY},
+				#{GENDER},
+				#{ADDRESS},
+				#{STATUS},
+				#{DEPARTMENT_CODE},
+				#{PHOTO},
+				#{CRE_USR},
+				SYSDATE(),
+				#{UPD_USR},
+				SYSDATE(),
+				#{ZIPCODE}
+				)
 	
 	</insert>
 	
@@ -133,7 +141,7 @@
         	IFNULL(ZIPCODE, '') AS ZIPCODE
     	FROM PROFESSOR
     	WHERE 1=1
-    	AND PROFESSOR_ID = #{ProId}
+    		AND PROFESSOR_ID = #{ProId}
 	
 	</select>
 	
@@ -159,7 +167,7 @@
   		SELECT COUNT(1)
   		FROM PROFESSOR
   		WHERE EMAIL = #{EMAIL}
-  		AND PROFESSOR_ID != #{PROFESSOR_ID}
+  			AND PROFESSOR_ID != #{PROFESSOR_ID}
   		
   	</select>
   	
@@ -178,7 +186,7 @@
 				ZIPCODE
 		FROM PROFESSOR
 		WHERE PROFESSOR_ID = #{professorId}
-		AND PASSWORD = #{password}
+			AND PASSWORD = #{password}
   	
   	</select>
   	
@@ -192,7 +200,9 @@
 	</select>
 	
 	<insert id="insertexcelPro" parameterType="java.util.Map">
-      INSERT INTO PROFESSOR (PROFESSOR_ID,
+      INSERT INTO PROFESSOR 
+      		  (
+               PROFESSOR_ID,
                PASSWORD,
                NAME,
                PHONE,
@@ -205,19 +215,21 @@
                CRE_DTM,
                CRE_USR,
                ZIPCODE)
-               VALUES (#{교번},
-                     SHA2(#{비밀번호}, 256),
-                     #{이름},
-                     #{연락처},
-                     #{이메일},
-                     #{생년월일},
-                     #{성별},
-                     #{주소},
-                     #{재직여부},
-                     #{학과코드},
-                     NOW(),
-                     #{ADMIN_CODE},
-                     #{우편번호})   
+      VALUES (
+         	   #{교번},
+               SHA2(#{비밀번호}, 256),
+               #{이름},
+               #{연락처},
+               #{이메일},
+               #{생년월일},
+               #{성별},
+               #{주소},
+               #{재직여부},
+               #{학과코드},
+               NOW(),
+               #{ADMIN_CODE},
+               #{우편번호}
+             )   
    </insert>
   	
 </mapper>
