@@ -31,31 +31,19 @@ public class AdminUploadServiceImpl implements AdminUploadService {
 
 	@Override
 	public void updateBoard(Map<String, Object> param) {
-
-		System.out.println(param);
-		
 		mapper.deleteFile(param);
-		
-		System.out.println("파일딜리트완료");
-		
 		mapper.updateBoard(param);
-		
-		System.out.println("공지사항 업데이트 완료");
 	} 	
 
 	@Override
 	public void updateFile(Map<String, Object> param) {
-		
 		mapper.updateFile(param);
 		
 	}
 
 	@Override
 	public void deleteBoard(Map<String, Object> param) {
-		System.out.println("보드 딜리트 시작");
-		
 		mapper.deleteBoard(param);
-		
 		mapper.deleteFile(param);
 		
 	}

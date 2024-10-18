@@ -128,7 +128,6 @@
 
            //오픈할 메뉴 정보 가져오기
            var nFRow = objDsMenu.findRow("MENU_ID",sMenuId);
-        /*   var sMenuNm = objDsMenu.getColumn(nFRow, "MENU_NM");*/
            var sMenuPath = objDsMenu.getColumn(nFRow, "MENU_PATH");
 
            objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl(sMenuPath);
@@ -142,9 +141,6 @@
         		var gdsAd = nexacro.getApplication();
         		gdsAd.gds_adminInfo.clearData();
         		gdsAd.gds_adminInfo.addRow();
-        //  		gdsAd.gds_adminInfo.setColumn(0, "ADMIN_CODE", null);
-        //  		gdsAd.gds_adminInfo.setColumn(0, "REGDATE", null);
-        //  		gdsAd.gds_adminInfo.setColumn(0, "NAME", null);
 
         		this.stc_admin.set_text("");
 

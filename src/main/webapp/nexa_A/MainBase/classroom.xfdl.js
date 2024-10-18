@@ -247,8 +247,7 @@
         	switch(svcID)
         	{
         		case "SelectAdminClasscourse":
-        			//console.log(this.classcourse_ds.saveXML());
-        			//this.classcourse_ds.filter("");
+
         			this.classroom_ds_onrowposchanged();
 
         			// gds 호출로 등록일, 등록자 넣기
@@ -259,9 +258,7 @@
         				this.classcourse_ds.setColumn(i, "ADMIN_CODE", adCode);
         				this.classcourse_ds.setColumn(i, "REGDATE", regdt);
         			}
-        // 			trace("아이디 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "ADMIN_CODE"));
-        // 			trace("일시 제대로 들어갔나? " + this.classcourse_ds.getColumn(10, "REGDATE"));
-        			//trace(this.classcourse_ds.saveXML());
+
         			this.topnull();
         			break;
         		case "SelectAdminClassroom":
@@ -532,9 +529,9 @@
         		// 데이터 카피
         		this.ds_classcourein.copyData(this.classcourse_ds, true);
 
-        		//this.classroom_ds_onrowposchanged();
+
          		if(confirm("등록하시겠습니까?")){
-         				//console.log(this.ds_classcourein.saveXML());
+
           				this.fn_classcouserdelete();
          				this.fn_classcoursesave();
          		}
@@ -621,8 +618,6 @@
         // 팝업콜백 함수
         this.fn_popupCallback = function(strPopupID, strReturn)
         {
-           trace(strPopupID); // popwork
-           trace(strReturn); // saveAdStudent
             if(strPopupID == "popupWork"){
         		this.classroom_onload();
         		return;
@@ -637,9 +632,6 @@
         // 인쇄 버튼
         this.btn_print_onclick = function(obj,e)
         {
-            // 그리드를 프린트
-            //system.print(this.classtime_Grid, false, "middle", "left", false, "landscape");
-        	//system.print(this.Div00, false, "middle", "left", false, "landscape");
 
         	var htmlContent = "";
         	var CLASSROOM_ID = this.classroom_ds.getColumn(this.classroom_ds.rowposition, "CLASSROOM_ID");
@@ -648,7 +640,6 @@
 
         	// 브라우저에 넣을 시간표 넣기
         	htmlContent += this.convertGridDataToHTML(this.Div00.form.classtime_Grid, 1, CLASSROOM_ID, CLASSROOM_NAME); // 한 번만 변환
-        	//this.classtime_ds.onrowposchanged()
 
         	// 3. HTML을 새로운 브라우저 창에 표시
             var htmlWindow = window.open('', '', 'width=800,height=600');

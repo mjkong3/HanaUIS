@@ -205,13 +205,10 @@
         	var gdsApp = nexacro.getApplication();
         	var adName = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_NAME");
         	this.ds_board.setColumn(0, "ADMIN_NAME", adName);
-        	trace("이름 제대로 들어갔나? " + this.ds_board.getColumn(0, "ADMIN_NAME"));
 
         	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
         	this.ds_board.setColumn(0, "ADMIN_CODE", adCode);
-        	trace("코드 제대로 들어갔나? " + this.ds_board.getColumn(0, "ADMIN_CODE"));
 
-        	trace(this.ds_board.saveXML);
         };
 
         /************************************************************************
@@ -220,8 +217,6 @@
 
         // 이미지의 유무에 따라 컴포넌트 높이를 조정하는 함수
         this.adjustTextareaHeight = function() {
-
-        	//this.set_height(720); // 폼 길이 초기화
 
         	// 기준이 될 content tarea
         	var contentY = this.txt_content.getOffsetBottom();  // TextArea의 하단 y 좌표
@@ -300,7 +295,6 @@
         	this.addFileList2(e.virtualfiles);
         	var name = e.virtualfiles[0].filename;
         	this.ds_contentFile.setColumn(0, "IMAGE", e.virtualfiles[0].filename);
-        	trace(name + "@@@@@@@@@@@@@@@@@@@@@@");
 
         	this.edt_filename.set_value(name);
 
@@ -310,7 +304,6 @@
         		this.addFileList2(e.virtualfiles);
         		this.showImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"));
         	}.bind(this), 2500); // 2500ms 뒤 실행
-        	trace(this.ds_contentFile.saveXML());
         };
 
         this.showImagePreview = function(fileName) {
@@ -324,7 +317,6 @@
         };
 
         this.deleteFile = function(fileName) {
-        	trace("여기까지 왔나?");
             var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
             var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
 
@@ -368,19 +360,11 @@
         this.ImageViewer00_onload = function(obj,e)
         {
         	//this.ImageViewer00.imageheigh = 0;
-        	trace('이미지 온로드 시작');
         	this.fnContImg(obj, e);
 
         	this.adjustTextareaHeight();
         	this.resetScroll();
-        	/*
-        	var imgviehei = this.ImageViewer00.imageheight;
-        	var imgviewid = this.ImageViewer00.imagewidth;
-        	trace(imgviehei);
 
-        	this.ImageViewer00.set_height(imgviehei);
-        	this.ImageViewer00.set_width(imgviewid);
-        	*/
         };
 
 
@@ -388,7 +372,6 @@
         this.fnContImg = function(obj, e) {
         	// 본문 textarea의 너비 (본문이 존재하는 경우에만 적용)
         	var textareaWidth = this.txt_content.width;
-        	console.log("기능타냐 ");
 
         	obj.set_stretch("none");
 
@@ -396,9 +379,6 @@
         	var imgWidth = obj.imagewidth;
         	var imgHeight = obj.imageheight;
 
-        	console.log(textareaWidth);
-        	console.log(imgWidth);
-        	console.log(imgHeight);
 
         	// 이미지가 본문 textarea보다 가로가 크지 않도록 제한
         	var newWidth = textareaWidth;
@@ -407,7 +387,6 @@
         	// 이미지가 텍스트 영역보다 크면 크기를 줄임
         	obj.set_width(newWidth);   // 가로 크기 조정
         	obj.set_height(newHeight); // 세로는 비율에 맞게 자동 조정
-        	console.log(obj.imageheight);
 
         	obj.set_stretch("fit");
 
@@ -416,8 +395,6 @@
 
         	obj.set_top(contentY + 5);
 
-        	//trace(this.ds_file.saveXML());
-        	//trace(this.ds_fileInsert.saveXML());
 
         	this.resetScroll();
         };
@@ -457,16 +434,12 @@
         {
         	// 파일 첨부 창에서 선택한 파일들을 가상에 추가
             this.addFileList(e.virtualfiles);
-        	console.log(e.virtualfiles.length);
-        	trace(e.virtualfiles);
 
         	// 파일 제목들을 fileInsert_ds (FILE, BOARD db에 들어갈 ds)에 저장
         	for(var i=0;i<e.virtualfiles.length;i++){
         		var nRow = this.ds_fileInsert.addRow();
         		this.ds_fileInsert.setColumn(nRow, "FILE_NAME", e.virtualfiles[i].filename);
         	}
-        	console.log(this.ds_fileInsert.saveXML());
-        	console.log(this.ds_file.saveXML());
         };
 
         // 파일 추가 처리 함수 (파일 첨부 창에서 선택한 파일들을 vFile에 list로 삽입)
@@ -533,12 +506,9 @@
         // 업로드한 파일 전체 삭제
         this.btn_deleteFile_onclick = function(obj,e)
         {
-        	//selected file delete
-        	/*var nRow = this.ds_file.rowposition;*/
+
         	this.ds_file.clearData();
 
-        // 	var objFileList = this.fileUpTransfer00.find(nRow);	// 선택 파일 찾기
-        // 	this.fileUpTransfer00.removeFile(objFileList); // 선택 파일삭제
         	this.FileUpTransfer00.clearFileList();
         };
 
@@ -602,7 +572,6 @@
         // 파일 저장 후 게시물 저장 호출될 콜백 함수
         this.fnCallbackInsertFile = function(svcID, errorCode, errorMsg) {
             if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
-        		console.log("BOARD 테이블 작성 완료");
         		this.fnInsertFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
             } else {
                 alert("공지사항 등록 중 오류 발생: " + errorMsg);
@@ -626,7 +595,6 @@
         // 마지막 파일 첨부 이후 팝업 닫기
         this.fnCallbackClosePopup = function(svcID, errorCode, errorMsg) {
             if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
-        		console.log("FILE 테이블 작성 완료");
         		this.alert("공지사항이 게시되었습니다");
         		this.close;
             } else {

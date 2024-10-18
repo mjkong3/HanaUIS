@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="classInfo" width="1280" height="720" titletext="New Form" onload="classInfo_onload">
+  <Form id="classInfo" width="1280" height="720" titletext="New Form" onload="classInfo_onload" onkeyup="classInfo_onkeyup">
     <Layouts>
       <Layout height="720" mobileorientation="landscape" width="1280">
         <Grid id="grd_Depart" left="51" top="70" width="187" height="480" taborder="0" autofittype="none" binddataset="ds_dept" cssclass="ATEAM">
@@ -207,7 +207,6 @@ this.classInfo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
     */
 	
 	this.ds_search.setColumn(0,"SEARCH_TYPE","ALL");
-	trace("온로드 컬럼 들어갔나 : " + this.ds_search.getColumn(0, "SEARCH_TYPE"));
 	this.onRowKey = false; // onrow 이벤트 트리거(off)
 	
 	this.fn_searchDept(); // dept 검색 함수 호출
@@ -232,12 +231,9 @@ this.fn_searchDept = function() {
 // 2-1) 조회 - 학과클릭
 this.ds_dept_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
 {
-	trace("이벤트 발동 되는지?");
-	trace("트리거 값은? : " + this.onRowKey);
 	if (this.onRowKey == true){
 		
 		this.ds_search.setColumn(0,"DEPARTMENT_CODE", obj.getColumn(obj.rowposition,"DEPARTMENT_CODE"));
-		trace(" 트리거 발동시 search에 넣나? : " + this.ds_search.getColumn(0,"DEPARTMENT_CODE"));
 		// 조회함수 호출
 		this.fn_searchList();   
 	} 
@@ -255,7 +251,6 @@ this.btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 this.fn_searchList = function ()
 {
     var deptCode = this.ds_search.getColumn(0, "DEPARTMENT_CODE");
-    trace("DEPARTMENT_CODE: " + deptCode);  // 전체학과 선택 시 값 확인
 	
     if (deptCode == '' || deptCode == 'undefined' || deptCode == null) {
         alert("학과를 선택해주세요.");
@@ -358,7 +353,6 @@ this.grd_List_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEven
 {
 	// 현재 선택한 cell의 class_cdoe를 변수에 저장
     var clsCd = obj.getBindDataset().getColumn(e.row, "CLASS_CODE");
-    trace("찍히나? " + clsCd);
     // 해당 class_code를 함수에 전달
 	this.fn_searchClsInfo(clsCd);	
 };
@@ -422,7 +416,6 @@ this.fnCallback = function (svcID, errCD, errMsg)
 		this.ds_dept.setColumn(0, "DEPARTMENT_CODE", 0);
 		this.ds_dept.setColumn(0, "DEPARTMENT_NAME", "전체학과");
 		
-		trace("학과ds 내용확인 " + this.ds_dept.saveXML());
 		
 		// ds_dept에 row 추가 후 onrowpos이벤트 실행
 		this.onRowKey = true; // onrow 이벤트 트리거(on)
@@ -448,7 +441,6 @@ this.fnCallback = function (svcID, errCD, errMsg)
 			proNm: proNm
 		};
 		// 받아온 값 확인하기
-		trace("트랜잭션 결과값은?" + this.ds_class.saveXML());
 		// 팝업 창 경로 설정
 		var surl = "MainBase::select_ClassInfo_Popup.xfdl";
 		
@@ -560,7 +552,7 @@ this.fn_sort = function(obj:Grid, e:GridClickEventInfo)
 
 
 // 엔터키 검색기능
-this.professor_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+this.classInfo_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
 {
 	if(e.keycode==13){
 		this.btn_Search.click();

@@ -43,14 +43,11 @@ public class AdminController {
 	// 로그인 + 이메일인증
 	@RequestMapping(value = "/selectLogin.do")
     public NexacroResult selectLogin(@ParamDataSet(name = "Login_Ds", required = false) Map<String, Object> param, HttpServletRequest request, StudentDTO dto) {
-    	System.out.println("selectLogin.do");
     	NexacroResult result = new NexacroResult();
-    	System.out.println(param);
     	
     	try {
     		// 이메일 인증번호를 보내는 로직
     		Map<String, Object> Certificate_Ds = service.selectLogin(param);
-    		System.out.println("dkdkdkddkefewa"+ Certificate_Ds);
 
     		if(Certificate_Ds.get("LoginCheck").equals("Y")) {
     			HttpSession session = request.getSession();
@@ -74,7 +71,6 @@ public class AdminController {
     		result.addDataSet("Certificate_Ds", checkDs);
     		
     	}catch(Exception ee) {
-    		System.out.println(ee);
     		result.setErrorCode(-1);
     		result.setErrorMsg("catch 조회 오류");
     	}
@@ -85,17 +81,14 @@ public class AdminController {
 	// onloadEvent - dept grd에 바인딩된 ds에 data 전달
 	@RequestMapping(value = "/selectAdDept.do")
 	public NexacroResult selectAdDept() {
-
 		NexacroResult result = new NexacroResult();
 
 		try {
 			// dept list를 받아온다
 			List<Map<String, Object>> ds_dept = service.selectAdDept();
-
 			result.addDataSet("ds_dept", ds_dept);
 
 		} catch (Exception ee) {
-			System.out.println(ee);
 			result.setErrorCode(-1);
 			result.setErrorMsg("catch 조회 오류");
 		}
@@ -106,11 +99,14 @@ public class AdminController {
 
 	@RequestMapping(value = "/addSession.do")
 	public NexacroResult addSession(@ParamVariable(name = "EMAIL_CHECK", required = false)String email, HttpServletRequest request) {
-		
 		NexacroResult result = new NexacroResult();
+		
 		Map<String, Object> Certificate_Ds = new HashMap<>();
+		
 		HttpSession session = request.getSession();
+		
 		String sessCode = (String) session.getAttribute("check");
+		
 		try {
 			if(sessCode.equals(email)) {
 				String regDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm").format(new Date());
@@ -124,7 +120,6 @@ public class AdminController {
 				
 			}
 		} catch(Exception ee){
-			System.out.println(ee);
 			result.setErrorCode(-1);
 			result.setErrorMsg("catch 조회 오류");
 		}
@@ -134,25 +129,6 @@ public class AdminController {
 	}
 	
 	
-	@RequestMapping(value = "/selectCodeMst.do")
-	public NexacroResult selectCodMst(@ParamDataSet(name = "ds_Search", required = false) Map<String, Object> param) {
-
-		NexacroResult result = new NexacroResult();
-
-		System.out.println(param);
-
-		try {
-			List<Map<String, Object>> ds_CodeMstList = service.selectCodeMst(param);
-
-			result.addDataSet("ds_CodeMstList", ds_CodeMstList);
-		} catch (Exception ee) {
-			System.out.println(ee);
-			result.setErrorCode(01);
-			result.setErrorMsg("catch 조회 오류");
-		}
-
-		return result;
-	}
 	
 	
 }

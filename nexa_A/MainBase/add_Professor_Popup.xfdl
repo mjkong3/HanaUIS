@@ -107,13 +107,11 @@ this.btn_Add_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	var ePart = this.ds_pro.getColumn(0, "EMAIL_PART");
 	var dPart = this.ds_pro.getColumn(0, "DOMAIN_PART");
 	this.ds_pro.setColumn(0, "EMAIL", ePart + dPart);
-	trace("이메일은? " + this.ds_pro.getColumn(0, "EMAIL"));
 	
 	// 주소 파트 합치기
 	var fAddr = this.ds_address.getColumn(0, "FULLADDR");
 	var rAddr = this.ds_address.getColumn(0, "REMAINADDR");
 	this.ds_pro.setColumn(0, "ZIPCODE", this.ds_address.getColumn(0, "ZIPCODE"));
-	trace("우편주소는?" + this.ds_pro.getColumn(0, "ZIPCODE"));
 	this.ds_pro.setColumn(0, "ADDRESS", fAddr + "/" + rAddr);
 	
 	// id null 검사
@@ -176,7 +174,6 @@ this.fn_getGds = function ()
 	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
 	this.ds_pro.setColumn(0, "CRE_USR", adCode);
 	this.ds_pro.setColumn(0, "UPD_USR", adCode);
-	trace("아이디 제대로 들어갔나? " + this.ds_pro.getColumn(0, "CRE_USR"));
 };
 
 // 3. 초기화버튼
@@ -252,20 +249,17 @@ this.wb_Adress_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserN
 {
 	// 주소검색 결과 받아오기
     var receivedData = e.userdata;
-	trace("받아온 값은? = " + receivedData);
     var dataObj = JSON.parse(receivedData);
 	
     // 우편번호, 도로명 주소, 지번 주소, 참고 주소 ds에 넣기
     this.ds_address.setColumn(0, "ZIPCODE", dataObj.zonecode);
     this.ds_address.setColumn(0, "MAINADDR", dataObj.selectedAddress);
     this.ds_address.setColumn(0, "EXTRAADDR", dataObj.extraAddress);
-    trace(this.ds_address.saveXML());
 	
 	// 도로명(지번)주소 + 참고주소 합치기
 	var mAddr = this.ds_address.getColumn(0, "MAINADDR");
 	var eAddr = this.ds_address.getColumn(0, "EXTRAADDR");
 	this.ds_address.setColumn(0, "FULLADDR", mAddr + "" + eAddr);
-	trace(this.ds_address.getColumn(0, "FULLADDR"));
 };
 
 // 5. 유효성 검사
@@ -276,7 +270,6 @@ this.wb_Adress_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserN
 this.edt_ProId_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 {
 	var proId = obj.value;
-	trace(this.ds_pro.getRowType(0));
 	if(isNaN(proId)){
 		alert("숫자만 입력 가능합니다");
 		obj.set_value("");
@@ -286,7 +279,6 @@ this.edt_ProId_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 		obj.set_value("");
 		obj.setFocus();	
 	} else {
-		trace("실행되었나?");
 		this.fn_dupIdChk(proId);
 	}
 	
@@ -322,23 +314,22 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 		}	
 	};
 	
-// 5-4) 이메일 정규식
-this.fn_valiEmChk = function ()
-{
-	var email = this.ds_pro.getColumn(0, "EMAIL");
-	var regem = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	// 5-4) 이메일 정규식
+	this.fn_valiEmChk = function ()
+	{
+		var email = this.ds_pro.getColumn(0, "EMAIL");
+		var regem = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 		
-	if (!regem.test(email)) {
-		alert("유효한 이메일 주소를 입력하세요.");
-		this.edt_Email.set_value("");
-		this.edt_Email.setFocus();
-	} else {
-		trace("이메일값좀 보자1 " + email);
-		this.fn_dupEmChk();
-	}
-};
-// 5-5) 이메일 중복체크	
-this.fn_dupEmChk = function ()
+		if (!regem.test(email)) {
+			alert("유효한 이메일 주소를 입력하세요.");
+			this.edt_Email.set_value("");
+			this.edt_Email.setFocus();
+		} else {
+			this.fn_dupEmChk();
+		}
+	};
+	// 5-5) 이메일 중복체크	
+	this.fn_dupEmChk = function ()
 	{
 		var strSvcId    = "dupCheckEm";
 		var strSvcUrl   = "svc::dupCheckEm.do";
@@ -350,137 +341,128 @@ this.fn_dupEmChk = function ()
 		
 		this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
 	};
-
-// 5-6) 연락처 정규식
-this.fn_valiPhChk = function ()
-{
-	var phone = this.ds_pro.getColumn(0, "PHONE");
-	var regph = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
-	if(!regph.test(phone)){
-		alert("연락처는 다음과 같이 입력해주세요 : 01x-xxxx-xxxx");
-		this.edt_Phone.set_value("");
-		this.edt_Phone.setFocus();
-	} else {
-		this.fn_insertPro();
-	}	
-};
-
-// 6. 콜백함수
-this.fnCallback = function (svcID, errCD, errMsg)
-{	
-	if(errCD == -1) {
-		alert(errMsg);
-		return
-	}
 	
-	switch(svcID) {
-	// 등록버튼
-	case "insertPro":
-		trace("등록완료")
-		this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
-		alert("등록에 성공하였습니다!");
-		this.close("success");
-		break;
-	// id중복체크
-	case "dupCheckId":
-		trace("전체값은? " + this.ds_vali.saveXML());
-		var chkId = this.ds_vali.getColumn(0, "CHECK_ID");
-		trace("값은? " + chkId);
-		if (chkId == "Y"){
-			trace("사용가능한 교번입니다");
-			this.edt_Email.set_readonly(false);
+	// 5-6) 연락처 정규식
+	this.fn_valiPhChk = function ()
+	{
+		var phone = this.ds_pro.getColumn(0, "PHONE");
+		var regph = /^(01[016789]{1})-[0-9]{3,4}-[0-9]{4}$/;
+		if(!regph.test(phone)){
+			alert("연락처는 다음과 같이 입력해주세요 : 01x-xxxx-xxxx");
+			this.edt_Phone.set_value("");
+			this.edt_Phone.setFocus();
 		} else {
-			alert("중복된 교번입니다");
-		}
-		break;
-	// 이메일 중복체크
-	case "dupCheckEm":
-		var chkEm = this.ds_vali.getColumn(0, "CHECK_EM");
-		trace("이메일값?" + chkEm);
-		if (chkEm == "Y") {
-			// 연락처 유효성 정규식
-			this.fn_valiPhChk();
-		} else {
-			alert("중복된 email 입니다");
-		}
-		break;
-		}
-};
-
-// 7. 파일업로드
-
-// dialog 호출
-this.btn_addfile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);	
-};
-
-
-// 파일 트랜스퍼 및 미리보기 넣는 이벤트 - 유효성
-this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
-{
-	var filetype = e.virtualfiles[0].filename;
+			this.fn_insertPro();
+		}	
+	};
 	
-	if(e.virtualfiles.length > 1){
-		alert("파일이 두개 이상입니다.");
-	}
- 	else if(!this.gfnIsImageFile(filetype)){
-		alert("png, "+ "jpg, "+ "jpeg" + "가 아닙니다.");
- 	}
-	else{
-		// 파일 추가시 사이즈 체크용 함수
-		this.addFileList(e.virtualfiles);
-		trace(this.ds_file.getColumn(0, "FILE_SIZE"));
+	// 6. 콜백함수
+	this.fnCallback = function (svcID, errCD, errMsg)
+	{	
+		if(errCD == -1) {
+			alert(errMsg);
+			return
+		}
 		
-		
-		if(this.ds_file.getColumn(0, "FILE_SIZE") < 500000){
-			var name;
-			for (var i = 0; i < e.virtualfiles.length; i++) {    
-				this.ds_pro.setColumn(0, "PHOTO", e.virtualfiles[i].filename);
-				
-				name = e.virtualfiles[i].filename;
-				
-				// 파일을 서버에 업로드하는 함수 호출
-				this.uploadFileToServer(e.virtualfiles[i]);
-
+		switch(svcID) {
+			// 등록버튼
+		case "insertPro":
+			this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
+			alert("등록에 성공하였습니다!");
+			this.close("success");
+			break;
+			// id중복체크
+		case "dupCheckId":
+			var chkId = this.ds_vali.getColumn(0, "CHECK_ID");
+			if (chkId == "Y"){
+				this.edt_Email.set_readonly(false);
+			} else {
+				alert("중복된 교번입니다");
 			}
-			this.edt_filename.set_value(name);
-			this.ds_file.setColumn(0,"FILE_NAME", name);
-
-			setTimeout(function(){
-				this.showImagePreview(name);
-			}.bind(this), 100);
-	
-		}else{
-			alert("용량이 너무 큽니다. 500KB이하로 해주세요.");
-			var fileName = e.virtualfiles[0].filename;
-			this.ds_file.clearData();
-			this.ds_file.addRow();
-			
-			setTimeout(function(){
-				this.deleteFile(fileName);
-			}.bind(this), 100);
+			break;
+			// 이메일 중복체크
+		case "dupCheckEm":
+			var chkEm = this.ds_vali.getColumn(0, "CHECK_EM");
+			if (chkEm == "Y") {
+				// 연락처 유효성 정규식
+				this.fn_valiPhChk();
+			} else {
+				alert("중복된 email 입니다");
+			}
+			break;
 		}
-	}	
-};	
-
-// 파일 추가시 이벤트 호출 함수 - 커스텀이벤트로 사이즈 체크
-this.addFileList = function(filelist) {
-    for (var i = 0, len = filelist.length, vFile; i < len; i++) {
-        vFile = filelist[i];
-		trace(vFile.filesize);
-        vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
-        vFile.addEventHandler("onerror", this.FileList_onerror, this);
-		trace("여기는 오지");
+	};
+	
+	// 7. 파일업로드
+	
+	// dialog 호출
+	this.btn_addfile_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+	{
+		this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);	
+	};
+	
+	
+	// 파일 트랜스퍼 및 미리보기 넣는 이벤트 - 유효성
+	this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+	{
+		var filetype = e.virtualfiles[0].filename;
 		
-		vFile.open(null, 1);
-    }
-};
-
-
-// 커스텀 이벤트 발동 - 사이즈 체크
-this.FileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileEventInfo) {
-    switch (e.reason) {
+		if(e.virtualfiles.length > 1){
+			alert("파일이 두개 이상입니다.");
+		}
+		else if(!this.gfnIsImageFile(filetype)){
+			alert("png, "+ "jpg, "+ "jpeg" + "가 아닙니다.");
+		}
+		else{
+			// 파일 추가시 사이즈 체크용 함수
+			this.addFileList(e.virtualfiles);
+			
+			
+			if(this.ds_file.getColumn(0, "FILE_SIZE") < 500000){
+				var name;
+				for (var i = 0; i < e.virtualfiles.length; i++) {    
+					this.ds_pro.setColumn(0, "PHOTO", e.virtualfiles[i].filename);
+					
+					name = e.virtualfiles[i].filename;
+					
+					// 파일을 서버에 업로드하는 함수 호출
+					this.uploadFileToServer(e.virtualfiles[i]);
+					
+				}
+				this.edt_filename.set_value(name);
+				this.ds_file.setColumn(0,"FILE_NAME", name);
+				
+				setTimeout(function(){
+						this.showImagePreview(name);
+					}.bind(this), 100);
+				
+			}else{
+				alert("용량이 너무 큽니다. 500KB이하로 해주세요.");
+				var fileName = e.virtualfiles[0].filename;
+				this.ds_file.clearData();
+				this.ds_file.addRow();
+				
+				setTimeout(function(){
+						this.deleteFile(fileName);
+					}.bind(this), 100);
+			}
+		}	
+	};	
+	
+	// 파일 추가시 이벤트 호출 함수 - 커스텀이벤트로 사이즈 체크
+	this.addFileList = function(filelist) {
+		for (var i = 0, len = filelist.length, vFile; i < len; i++) {
+			vFile = filelist[i];
+			vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
+			vFile.addEventHandler("onerror", this.FileList_onerror, this);
+			vFile.open(null, 1);
+		}
+	};
+	
+	
+	// 커스텀 이벤트 발동 - 사이즈 체크
+	this.FileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileEventInfo) {
+		switch (e.reason) {
         case 1:
             obj.getFileSize();
             break;
@@ -488,80 +470,78 @@ this.FileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFil
             this.FileUpTransfer00.addFile(obj.filename, obj);
 			this.ds_file.setColumn(0, "FILE_SIZE", e.filesize);
             break;
-    }
-};
-
-// 커스텀 이벤트 발동 - 실패용 이벤트
-this.FileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileErrorEventInfo)
-{
-    trace("errortype: "+e.errortype);
-    trace("errormsg: "+e.errormsg);
-    trace("statuscode: "+e.statuscode);
-};
-
-// 파일 업로드 함수 - 트랜스퍼에 추가
-this.uploadFileToServer = function(vFile) {
-	this.FileUpTransfer00.clearFileList();
-    this.FileUpTransfer00.addFile(vFile.filename, vFile);
-    this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
-};
-
-// 이미지 미리보기 함수
-this.showImagePreview = function(fileName) {
-	trace(fileName);
-    var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
-    var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
-    this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
-	
-	// 이미지가 없을 때 나오는 text
-	if(this.ds_pro.getColumn(0, "PHOTO") == null || this.ds_pro.getColumn(0, "PHOTO") == "" || this.ds_pro.getColumn(0, "PHOTO") == "undefined"){
-		this.ImageViewer00.set_text("500KB 이하");
-	}else {
-		this.ImageViewer00.set_text("");
-	}
-	// 이미지가 뜬 이후 10초간 미리보기 폴더에 유지 - 이후 삭제
-	setTimeout(function(){
-		this.deleteFile(fileName);
-	}.bind(this), 10000);
-
-};
-
-// 이미지 등록 시 확장자 확인
-this.gfnIsImageFile = function(fileTxt) {
-    var imageExt = ["png", "jpg", "jpeg"];
-    var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
-    return imageExt.includes(extNm);
-};
-
-// 미리보기 폴더에서 파일 삭제 함수
-this.deleteFile = function(fileName) {
-	trace("여기까지 왔나?");
-    var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
-    var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
-	
-	var params = {
-		filename: fileName // 파일 이름을 파라미터로 전달
-	};
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", deleteUrl, true);
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.onreadystatechange = function () {
-		if (xhr.readyState === 4) {
-			if (xhr.status === 200) {
-				trace("서버 응답: " + xhr.responseText);
-			} else {
-				trace("오류 발생: " + xhr.status);
-			}
 		}
 	};
-	xhr.send("filename=" + encodeURIComponent(fileName));
-};
-this.btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	if(this.confirm("닫으시겠습니까?")){
-		this.close();
-	}
-};
+	
+	// 커스텀 이벤트 발동 - 실패용 이벤트
+	this.FileList_onerror = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFileErrorEventInfo)
+	{
+		trace("errortype: "+e.errortype);
+		trace("errormsg: "+e.errormsg);
+		trace("statuscode: "+e.statuscode);
+	};
+	
+	// 파일 업로드 함수 - 트랜스퍼에 추가
+	this.uploadFileToServer = function(vFile) {
+		this.FileUpTransfer00.clearFileList();
+		this.FileUpTransfer00.addFile(vFile.filename, vFile);
+		this.FileUpTransfer00.upload("http://localhost:8082/HanaUIS/showfileupload.jsp"); // JSP 파일 경로
+	};
+	
+	// 이미지 미리보기 함수
+	this.showImagePreview = function(fileName) {
+		var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+		var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
+		this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
+		
+		// 이미지가 없을 때 나오는 text
+		if(this.ds_pro.getColumn(0, "PHOTO") == null || this.ds_pro.getColumn(0, "PHOTO") == "" || this.ds_pro.getColumn(0, "PHOTO") == "undefined"){
+			this.ImageViewer00.set_text("500KB 이하");
+		}else {
+			this.ImageViewer00.set_text("");
+		}
+		// 이미지가 뜬 이후 10초간 미리보기 폴더에 유지 - 이후 삭제
+		setTimeout(function(){
+				this.deleteFile(fileName);
+			}.bind(this), 10000);
+		
+	};
+	
+	// 이미지 등록 시 확장자 확인
+	this.gfnIsImageFile = function(fileTxt) {
+		var imageExt = ["png", "jpg", "jpeg"];
+		var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
+		return imageExt.includes(extNm);
+	};
+	
+	// 미리보기 폴더에서 파일 삭제 함수
+	this.deleteFile = function(fileName) {
+		var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
+		var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
+		
+		var params = {
+			filename: fileName // 파일 이름을 파라미터로 전달
+		};
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", deleteUrl, true);
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					trace("서버 응답: ");
+				} else {
+					trace("오류 발생: " + xhr.status);
+				}
+			}
+		};
+		xhr.send("filename=" + encodeURIComponent(fileName));
+	};
+	this.btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+	{
+		if(this.confirm("닫으시겠습니까?")){
+			this.close();
+		}
+	};
 ]]></Script>
     <Objects>
       <Dataset id="ds_gender">

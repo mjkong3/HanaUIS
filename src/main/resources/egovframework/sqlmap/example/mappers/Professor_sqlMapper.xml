@@ -39,7 +39,7 @@
 	
 	
 	<!--마이 페이지에서 수정 -->
-	   <update id="updatePhone" parameterType="map" >
+   <update id="updatePhone" parameterType="map" >
       UPDATE PROFESSOR
          SET PHONE = #{phone},
 			 UPD_DTM = SYSDATE(),

@@ -155,7 +155,6 @@
             */
 
         	this.ds_search.setColumn(0,"SEARCH_TYPE","ALL");
-        	trace("온로드 컬럼 들어갔나 : " + this.ds_search.getColumn(0, "SEARCH_TYPE"));
         	this.onRowKey = false; // onrow 이벤트 트리거(off)
 
         	this.fn_searchDept(); // dept 검색 함수 호출
@@ -180,12 +179,9 @@
         // 2-1) 조회 - 학과클릭
         this.ds_dept_onrowposchanged = function(obj,e)
         {
-        	trace("이벤트 발동 되는지?");
-        	trace("트리거 값은? : " + this.onRowKey);
         	if (this.onRowKey == true){
 
         		this.ds_search.setColumn(0,"DEPARTMENT_CODE", obj.getColumn(obj.rowposition,"DEPARTMENT_CODE"));
-        		trace(" 트리거 발동시 search에 넣나? : " + this.ds_search.getColumn(0,"DEPARTMENT_CODE"));
         		// 조회함수 호출
         		this.fn_searchList();
         	}
@@ -203,7 +199,6 @@
         this.fn_searchList = function ()
         {
             var deptCode = this.ds_search.getColumn(0, "DEPARTMENT_CODE");
-            trace("DEPARTMENT_CODE: " + deptCode);  // 전체학과 선택 시 값 확인
 
             if (deptCode == '' || deptCode == 'undefined' || deptCode == null) {
                 alert("학과를 선택해주세요.");
@@ -306,7 +301,6 @@
         {
         	// 현재 선택한 cell의 class_cdoe를 변수에 저장
             var clsCd = obj.getBindDataset().getColumn(e.row, "CLASS_CODE");
-            trace("찍히나? " + clsCd);
             // 해당 class_code를 함수에 전달
         	this.fn_searchClsInfo(clsCd);
         };
@@ -370,7 +364,6 @@
         		this.ds_dept.setColumn(0, "DEPARTMENT_CODE", 0);
         		this.ds_dept.setColumn(0, "DEPARTMENT_NAME", "전체학과");
 
-        		trace("학과ds 내용확인 " + this.ds_dept.saveXML());
 
         		// ds_dept에 row 추가 후 onrowpos이벤트 실행
         		this.onRowKey = true; // onrow 이벤트 트리거(on)
@@ -396,7 +389,6 @@
         			proNm: proNm
         		};
         		// 받아온 값 확인하기
-        		trace("트랜잭션 결과값은?" + this.ds_class.saveXML());
         		// 팝업 창 경로 설정
         		var surl = "MainBase::select_ClassInfo_Popup.xfdl";
 
@@ -508,7 +500,7 @@
 
 
         // 엔터키 검색기능
-        this.professor_onkeyup = function(obj,e)
+        this.classInfo_onkeyup = function(obj,e)
         {
         	if(e.keycode==13){
         		this.btn_Search.click();
@@ -523,6 +515,7 @@
         this.on_initEvent = function()
         {
             this.addEventHandler("onload",this.classInfo_onload,this);
+            this.addEventHandler("onkeyup",this.classInfo_onkeyup,this);
             this.grd_List.addEventHandler("onheadclick",this.grd_List_onheadclick,this);
             this.grd_List.addEventHandler("oncelldblclick",this.grd_List_oncelldblclick,this);
             this.btn_Search.addEventHandler("onclick",this.btn_Search_onclick,this);

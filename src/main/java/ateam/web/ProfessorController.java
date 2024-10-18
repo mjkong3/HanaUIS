@@ -55,7 +55,6 @@ public class ProfessorController {
 	public String noticeView(@RequestParam(value = "page", defaultValue = "1") int page,
 							 @RequestParam(value ="searchKeyword", defaultValue = "ALL") String searchKeyword,
 							 Model model, HttpSession session, HttpServletRequest request) {
-		System.out.println("교수 정보가 확인되었습니다: " + session.getAttribute("professor"));
 
 		// 교수, 교수 강의 정보 가져오기
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
@@ -139,7 +138,6 @@ public class ProfessorController {
 		}
 		List<ClassDTO> classList = classService.selectClassList(professor.getProfessorId());
 		model.addAttribute("professorClass", classList);
-		System.out.println("@@@@@@@@@@@@!#!@#@!#!@#@!#");
 
 		int professorId = (int)session.getAttribute("professorId");
 		System.out.println(professorId);
@@ -355,7 +353,7 @@ public class ProfessorController {
 
 		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professor");
 		param.put("professroId", professor.getProfessorId());
-		System.out.println(param);
+
 		int middleTest = Integer.parseInt((String) param.get("middleTest"));
 		int finalTest = Integer.parseInt((String) param.get("finalTest"));
 		int report = Integer.parseInt((String) param.get("report"));
@@ -375,7 +373,6 @@ public class ProfessorController {
 		} else {
 			grade = "F";
 		}
-		System.out.println(grade);
 
 		param.put("grade", grade);
 		param.put("score", score);
@@ -383,9 +380,9 @@ public class ProfessorController {
 		param.put("professorId", professor.getProfessorId());
 
 		int result = classService.updateGrade(param);
-		System.out.println("result : " + result);
 
 		String message = "";
+		
 		if (result != 0) {
 			message = "ok";
 		}

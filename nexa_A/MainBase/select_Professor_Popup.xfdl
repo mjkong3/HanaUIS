@@ -208,7 +208,6 @@ this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
  	this.ds_pro.copyData(objParam1);
 	this.ds_dept.copyData(objParam2);
 	
-	trace("set컬럼 가능한지1" + this.ds_pro.saveXML());
 	
 	// 이메일 받아오기
 	var email = this.ds_pro.getColumn(0, "EMAIL");
@@ -226,7 +225,6 @@ this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
 	var pAddr = addr.split("/");
 	var fAddr = pAddr[0];
 	var rAddr = pAddr[1];
-	trace("각각의 값은? = " + addr + " || " + fAddr + " || " + rAddr);
 	this.ds_address.setColumn(0, "FULLADDR", fAddr);
 	this.ds_address.setColumn(0, "REMAINADDR", rAddr);
 	this.ds_address.setColumn(0, "ZIPCODE", this.ds_pro.getColumn(0, "ZIPCODE"));
@@ -249,7 +247,6 @@ this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
 	
 	// 미리보기 처음 실행
 	setTimeout(function(){
-			trace(this.ds_pro.getColumn(0,"PHOTO"));
 			this.showImagePreviewAdd(this.ds_pro.getColumn(0,"PHOTO"));
 		}.bind(this), 10);
 	
@@ -257,7 +254,6 @@ this.select_Professor_Popup_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
 
 // 이미지 미리보기 함수 -- 수정안할 시
 this.showImagePreviewAdd = function(fileName) {
-	trace(fileName);
     var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
     var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName; // 업로드한 파일 경로
     this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
@@ -290,7 +286,6 @@ this.btn_Add_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	var ePart = this.ds_pro.getColumn(0, "EMAIL_PART");
 	var dPart = this.ds_pro.getColumn(0, "DOMAIN_PART");
 	this.ds_pro.setColumn(0, "EMAIL", ePart + dPart);
-	trace("이메일은? " + this.ds_pro.getColumn(0, "EMAIL"));	
 	
 	// 주소 파트 합치기
 	var fAddr = this.ds_address.getColumn(0, "FULLADDR");
@@ -343,7 +338,6 @@ this.btn_Retrun_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	this.ds_pro.copyData(this.ds_resetPro);
 	this.ds_dept.copyData(this.ds_resetDept);
 	this.ds_address.copyData(this.ds_reAdr);
-	trace("set컬럼 가능한지2" + this.ds_pro.saveXML());
 	this.fn_getGds();
 	
 	this.btn_mypage.set_enable(true);
@@ -354,7 +348,6 @@ this.btn_Retrun_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	
 	// 재업로드
 	setTimeout(function(){
-			trace(this.ds_pro.getColumn(0,"PHOTO"));
 			this.showImagePreviewAdd(this.ds_pro.getColumn(0,"PHOTO"));
 		}.bind(this), 10);
 };
@@ -384,9 +377,7 @@ this.fn_getGds = function ()
 	// gds 호출로 등록일, 등록자 넣기
 	var gdsApp = nexacro.getApplication();
 	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
-	trace("set컬럼 가능?? " + this.ds_pro.getRowCount());
 	this.ds_pro.setColumn(0, "UPD_USR", adCode);
-	trace("아이디 제대로 들어갔나? " + this.ds_pro.getColumn(0, "UPD_USR"));
 };
 
 
@@ -425,22 +416,18 @@ this.wb_Adress_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserN
 {	
 	// 주소검색 결과 받아오기
 	var receivedData = e.userdata;
-	trace("받아온 값은? = " + receivedData);
     var dataObj = JSON.parse(receivedData);
 	
     // 우편번호, 도로명 주소, 지번 주소, 참고 주소 ds에 넣기
     this.ds_address.setColumn(0, "ZIPCODE", dataObj.zonecode);
     this.ds_address.setColumn(0, "MAINADDR", dataObj.selectedAddress);
     this.ds_address.setColumn(0, "EXTRAADDR", dataObj.extraAddress);
-    trace(this.ds_address.saveXML());
-    // 알림이나 추가 작업 수행
-    /*alert("주소 검색이 완료되었습니다.");*/
+	
 	
 	// 도로명(지번)주소 + 참고주소 합치기
 	var mAddr = this.ds_address.getColumn(0, "MAINADDR");
 	var eAddr = this.ds_address.getColumn(0, "EXTRAADDR");
 	this.ds_address.setColumn(0, "FULLADDR", mAddr + "" + eAddr);
-	trace(this.ds_address.getColumn(0, "FULLADDR"));
 };
 
 // 6. 유효성 검사
@@ -472,7 +459,6 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 			this.edt_Email.set_value("");
 			this.edt_Email.setFocus();
 		} else {
-			trace("이메일값좀 보자1 " + email);
 			this.fn_dupEmChk();
 		}
 	};
@@ -516,7 +502,6 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 		switch(svcID) {
 			// 등록버튼
 		case "updatePro":
-			trace("수정완료")
 			this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
 			alert("수정이 완료되었습니다!");
 			this.close("success");
@@ -524,7 +509,6 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 			// 이메일 중복체크
 		case "dupCheckEm":
 			var chkEm = this.ds_vali.getColumn(0, "CHECK_EM");
-			trace("이메일값?" + chkEm);
 			if (chkEm == "Y") {
 				// 연락처 유효성 정규식
 				this.fn_valiPhChk();
@@ -534,8 +518,8 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 			break;
 		case "AdProMypage":
 			window.open("http://localhost:8082/HanaUIS/pfs/notice.do"); // 세션 등록 성공 시 새탭으로 띄우기
-		 break;
-		
+			break;
+			
 		}
 	};
 	
@@ -562,7 +546,6 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 		else{
 			// 파일 추가시 사이즈 체크용 함수
 			this.addFileList(e.virtualfiles);
-			trace(this.ds_file.getColumn(0, "FILE_SIZE"));
 			
 			
 			if(this.ds_file.getColumn(0, "FILE_SIZE") < 500000){
@@ -600,10 +583,8 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 	this.addFileList = function(filelist) {
 		for (var i = 0, len = filelist.length, vFile; i < len; i++) {
 			vFile = filelist[i];
-			trace(vFile.filesize);
 			vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
 			vFile.addEventHandler("onerror", this.FileList_onerror, this);
-			trace("여기는 오지");
 			
 			vFile.open(null, 1);
 		}
@@ -640,7 +621,6 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 	
 	// 이미지 미리보기 함수
 	this.showImagePreview = function(fileName) {
-		trace(fileName);
 		var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
 		var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"; // 업로드한 파일 경로
 		this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
@@ -667,7 +647,6 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 	
 	// 미리보기 폴더에서 파일 삭제 함수
 	this.deleteFile = function(fileName) {
-		trace("여기까지 왔나?");
 		var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
 		var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
 		
@@ -680,7 +659,7 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-					trace("서버 응답: " + xhr.responseText);
+					trace("서버 응답: ");
 				} else {
 					trace("오류 발생: " + xhr.status);
 				}
@@ -688,36 +667,36 @@ this.edt_ProPw_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
 		};
 		xhr.send("filename=" + encodeURIComponent(fileName));
 	};
-
-// 9. 마이페이지
-this.btn_mypage_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	this.ds_mydata.setColumn(0,"PROFESSOR_ID", this.ds_pro.getColumn(0, "PROFESSOR_ID"));
-	this.ds_mydata.setColumn(0,"PASSWORD", this.ds_pro.getColumn(0, "PASSWORD"));
 	
-	this.fn_go();	
-};
-
-// 마이페이지 연결 함수
-this.fn_go = function()
-{
-   var strSvcId    = "AdProMypage";
-   var strSvcUrl   = "svc::AdProMypage.do";
-   var inData      = "ds_mydata=ds_mydata";
-   var outData     = "";
-   var strArg      = "";
-   var callBackFnc = "fnCallback";
-   var isAsync     = true;
-   
-   this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
-
-};
-this.btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-	if(this.confirm("닫으시겠습니까?")){
-		this.close();
-	}	
-};
+	// 9. 마이페이지
+	this.btn_mypage_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+	{
+		this.ds_mydata.setColumn(0,"PROFESSOR_ID", this.ds_pro.getColumn(0, "PROFESSOR_ID"));
+		this.ds_mydata.setColumn(0,"PASSWORD", this.ds_pro.getColumn(0, "PASSWORD"));
+		
+		this.fn_go();	
+	};
+	
+	// 마이페이지 연결 함수
+	this.fn_go = function()
+	{
+		var strSvcId    = "AdProMypage";
+		var strSvcUrl   = "svc::AdProMypage.do";
+		var inData      = "ds_mydata=ds_mydata";
+		var outData     = "";
+		var strArg      = "";
+		var callBackFnc = "fnCallback";
+		var isAsync     = true;
+		
+		this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
+		
+	};
+	this.btn_Close_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+	{
+		if(this.confirm("닫으시겠습니까?")){
+			this.close();
+		}	
+	};
 ]]></Script>
   </Form>
 </FDL>

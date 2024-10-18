@@ -89,15 +89,11 @@
 
         this.classroomadd_onload = function(obj,e)
         {
-        // 	var objParam1 = this.parent.param1;
-        // 	this.ds_classroom.copyData(objParam1);
         	this.fn_classroom();
         };
 
         this.ds_classroom_onrowposchanged = function(obj,e)
         {
-        	trace("아이디 제대로 들어갔나? " + this.ds_classroom.getColumn(this.ds_classroom.rowposition, "ADMIN_CODE"));
-        	trace("일시 제대로 들어갔나? " + this.ds_classroom.getColumn(this.ds_classroom.rowposition, "REGDATE"));
 
         	this.edt_classcode.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_ID"));
         	this.edt_classname.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_NAME"));
@@ -153,9 +149,6 @@
         	{
         		case "SelectAdminClassroom2":
         			this.ds_classroom.addRow();
-        			//this.grd_classroom.set
-        			//this.grd_classroom.setCellProperty("body", this.ds_classroom.rowcount-1, "displaytype", "imagecontrol");
-        			trace(this.ds_classroom.saveXML());
 
         			break;
         		case "saveAdminClassroom":

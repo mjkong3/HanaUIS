@@ -31,7 +31,7 @@ public class MailSendServiceImpl extends EgovAbstractServiceImpl implements Mail
         // 난수의 범위 111111 ~ 999999 (6자리 난수)
         Random r = new Random();
         int checkNum = r.nextInt(888888) + 111111;
-        System.out.println("인증번호 : " + checkNum);
+
         authNumber = checkNum;
     }
 
@@ -53,7 +53,7 @@ public class MailSendServiceImpl extends EgovAbstractServiceImpl implements Mail
                          "COPYRIGHT 2024 HANA UNIVERSITY. ALL RIGHTS RESERVED";
 
         mailSend(setFrom, toMail, title, content);
-        System.out.println("이메인 발송완료");
+
         return Integer.toString(authNumber);
     }
 
@@ -61,7 +61,7 @@ public class MailSendServiceImpl extends EgovAbstractServiceImpl implements Mail
     @Override
     public void mailSend(String setFrom, String toMail, String title, String content) {
         MimeMessage message = mailSender.createMimeMessage();
-        System.out.println("메일 전송준비??");
+
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
             helper.setFrom(setFrom);

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ateam.mapper.DepartmentMapper">
 
-<select id="allDepartment" parameterType="int" resultType="ateam.dto.DepartmentDTO">
-	SELECT DEPARTMENT_CODE, DEPARTMENT_NAME
-	FROM DEPARTMENT
-</select>
+	<select id="allDepartment" parameterType="int" resultType="ateam.dto.DepartmentDTO">
+		SELECT DEPARTMENT_CODE, DEPARTMENT_NAME
+		FROM DEPARTMENT
+	</select>
 </mapper>

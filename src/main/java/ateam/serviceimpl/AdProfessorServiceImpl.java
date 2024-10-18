@@ -25,7 +25,6 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 	
 	@Override
 	public List<Map<String, Object>> selectAdProList(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return mapper.selectAdProList(param);
 	}
 
@@ -36,19 +35,16 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 	
 	@Override
 	public void updateAdPro(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		mapper.updateAdPro(param);
 	}
 
 	@Override
 	public Map<String, Object> selectAdProInfo(String ProId) {
-		// TODO Auto-generated method stub
 		return mapper.selectAdProInfo(ProId);
 	}
 
 	@Override
 	public void deleteAdPro(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		   mapper.deleteAdPro(param);
 		
 	}
@@ -98,7 +94,6 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 	@Override
 	public void insertexcelPro(List<Map<String, Object>> param) {
 		for(int i=0; i<param.size(); i++) {
-			//System.out.println(param.get(i));
 			mapper.insertexcelPro(param.get(i));
 		}
 	}

@@ -349,19 +349,16 @@
         {
         	// 강의목록 검색 함수
         	this.fn_searchClass();
-        	trace("dept 실행");
         };
 
         this.Div00_cmb_Semester_onitemchanged = function(obj,e)
         {
         	this.fn_searchClass();
-        	trace("학기 실행");
         };
 
         this.Div00_cmb_Year_onitemchanged = function(obj,e)
         {
         	this.fn_searchClass();
-        	trace("연도 실행");
         };
 
         this.Div00_cmb_Class_onitemchanged = function(obj,e)
@@ -372,11 +369,9 @@
         	// findRow("찾을 컬럼(codecol)", obj.value)를 통해 ds의 실제 row찾기
             var nRow = this.ds_class.findRow("CLASS_CODE", obj.value);
             if (nRow >= 0) {
-                trace("찾은 행의 인덱스: " + nRow);
                 this.ds_search.setColumn(0, "PROFESSOR_ID", this.ds_class.getColumn(nRow, "PROFESSOR_ID"));
                 this.ds_search.setColumn(0, "NAME", this.ds_class.getColumn(nRow, "NAME"));
 
-                trace("선택된 교수명: " + this.ds_class.getColumn(nRow, "NAME"));
             } else {
                 trace("유효하지 않은 CLASS_CODE입니다.");
             }
@@ -400,8 +395,6 @@
         this.fnCallBack = function (svcID, errCD, errMsg)
         {
         	if (svcID == "searchClass" && errCD == 0) {
-        		trace("강의리스트는? = " + this.ds_class.saveXML());
-        		trace("강의리스트 첫번째 = " + this.ds_class.getColumn(0, "CLASS_NAME"));
 
         		// 콤보박스 초기화 및 스태틱 초기화
         		// 초기화하지 않을 경우 빈 데이터셋일때 이전 이름 남아있다
@@ -435,7 +428,6 @@
         this.Div00_btn_Search_onclick = function(obj,e)
         {
         	this.fn_searchChart();
-        	trace("search값 들어갔나? : " + this.ds_search.saveXML());
         };
 
         this.fn_searchChart = function ()

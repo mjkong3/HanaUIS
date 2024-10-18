@@ -182,11 +182,11 @@ public class StudentController {
 	// 휴학&재학 처리
 	@RequestMapping(value = "/leaveReturn.do", method = RequestMethod.POST)
 	public String studentStatus(@RequestParam Map<String, Object> map, RedirectAttributes redirectAttributes) {
-		System.out.println(map.get("studentId"));
+
 		studentService.insertStatus(map); // status_date 테이블에 insert
-		// studentService.updateLeave(map); // student 테이블에 update
-		System.out.println("휴학/복학 신청 확인");
+		
 		redirectAttributes.addFlashAttribute("leaveComplete", "success");
+		
 		return "redirect:/std/leave.do";
 	}
 
@@ -262,13 +262,16 @@ public class StudentController {
 		List<DepartmentDTO> department = departmentService.allDepartment();
 		// 전체 or 해당 학과
 		List<Map<String, Object>> classItem;
+		
 		if (departmentCode == 0) {
 			classItem = studentService.selectClass(student.getStudentId());
 		} else {
 			classItem = studentService.selectClasses(departmentCode, student.getStudentId());
 		}
+		
 		// 이전에 신청한 총 학점
 		int totalGrades = studentService.totalGrades(student.getStudentId());
+		
 		// 신청해둔 수강목록 리스트
 		List<Map<String, Object>> selectedClass = studentService.selectedClasses(departmentCode,
 				student.getStudentId());
@@ -277,8 +280,7 @@ public class StudentController {
 		model.addAttribute("totalGrades", totalGrades); // 누적학점 보내기
 		model.addAttribute("selectedClass", selectedClass); // 신청했던 수강목록 리스트 보내기
 		model.addAttribute("studentYear", studentService.stuWhatYear(student.getStudentId())); // 학년 보내기
-		System.out.print(departmentCode + " studentId 보내기 완료");
-		System.out.print("보내는 학년 : "+studentService.stuWhatYear(student.getStudentId()));
+
 		return "hana/student/signForClass";
 	}
 
