@@ -4,14 +4,14 @@
     <Layouts>
       <Layout height="600" width="1100">
         <ImageViewer id="ImageViewer00" taborder="10" left="0" top="0" width="940" height="550" image="url('image::그림1.png')" stretch="fit"/>
-        <Button id="Test_Btn" taborder="6" text="바로넘어가기" left="715" top="460" width="205" height="72" onclick="Test_Btn_onclick" visible="true"/>
+        <Button id="Test_Btn" taborder="6" text="바로넘어가기" left="715" top="460" width="205" height="72" onclick="Test_Btn_onclick" visible="false"/>
         <Static id="Static05" taborder="9" left="55" top="70" width="450" height="420" background="#fffff" opacity="0.7" cssclass="sta_WF_DetailArea" text=""/>
-        <Edit id="Edit00_01" taborder="0" left="185" top="408" width="190" height="30" font="18px/normal &quot;Gulim&quot;"/>
+        <Edit id="Edit00_01" taborder="0" left="185" top="408" width="190" height="30" font="18px/normal &quot;Gulim&quot;" readonly="true" cssclass="edt_Adr"/>
         <Static id="Static03" taborder="1" text="아이디    :" left="80" top="312" width="88" height="38" font="18px/normal &quot;Gulim&quot;" onclick="Static03_onclick" textAlign="right"/>
         <Static id="Static03_00" taborder="2" text="비밀번호 :" left="80" top="355" width="88" height="46" font="18px/normal &quot;Gulim&quot;" onclick="Static03_00_onclick" textAlign="right"/>
         <Edit id="txt_Id" taborder="7" left="185" top="316" width="190" height="30" text="fddfd" font="18px/normal &quot;Gulim&quot;"/>
         <Static id="Static03_01" taborder="3" text="인증번호 :" left="76" top="400" width="92" height="46" font="18px/normal &quot;Gulim&quot;" textAlign="right"/>
-        <Button id="Mail_Btn" taborder="4" text="인증번호" left="398" top="408" width="82" height="30" font="16px/normal &quot;Gulim&quot;" onclick="Mail_Btn_onclick" cssclass="btnLogin"/>
+        <Button id="Mail_Btn" taborder="4" text="인증번호" left="398" top="408" width="82" height="30" font="16px/normal &quot;Gulim&quot;" onclick="Mail_Btn_onclick" cssclass="btnLogin" enable="false"/>
         <Button id="Login_btn" taborder="5" text="로그인" left="398" top="363" width="82" height="30" font="16px/normal &quot;Gulim&quot;" onclick="Login_btn_onclick" defaultbutton="false" cssclass="btnLogin"/>
         <Edit id="txt_Password" taborder="8" left="185" top="363" width="190" height="30" password="true" font="18px/normal &quot;Gulim&quot;"/>
         <Static id="Static00_00" taborder="11" text="하나대학교" left="109" top="130" width="342" height="70" onclick="Static00_onclick" textAlign="center" letterSpacing="5px" font="60px/normal &quot;Gulim&quot;"/>
@@ -23,14 +23,17 @@
     <Script type="xscript5.1"><![CDATA[//처리콜백 함수
 this.fnCallback = function(svcID,errorCode,errorMsg)
 {
-	/*this.alert(" ErrorCode -->" + errorCode + "  ErrorMsg : " + errorMsg);*/
-	console.log("svcID = " + svcID);
-	 
+	if (errorCode == -1) {
+		this.alert(errorMsg)
+		return;
+	}
+	
 	switch(svcID) {
 	case "selectLogin":
 		if (this.Certificate_Ds.getColumn(0, "LoginCheck") == 'Y') {
 			this.alert("인증번호가 이메일로 발송 되었습니다.");
-			
+			this.Edit00_01.set_readonly(false);
+			this.Mail_Btn.set_enable(true);
 			return;
 		}
 		else{
@@ -38,6 +41,29 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 			return;
 		}
 		break;
+	case "addSession":
+		if (this.Certificate_Ds.getColumn(0, "Check") == 'N') {
+			this.alert("인증번호가 일치하지 않습니다.");
+			return;
+		} else {
+			// 글로벌ds에 값 넣기
+			var gdsAd = nexacro.getApplication();
+			gdsAd.gds_adminInfo.setColumn(0, "ADMIN_CODE", this.Certificate_Ds.getColumn(0,"ADMIN_CODE"));
+			gdsAd.gds_adminInfo.setColumn(0, "REGDATE", this.Certificate_Ds.getColumn(0,"REGDATE"));
+			gdsAd.gds_adminInfo.setColumn(0, "NAME", this.Certificate_Ds.getColumn(0, "NAME"));
+			
+			console.log("세션 설정되나1 " + gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE"));
+			console.log("세션 설정되나2 " + gdsAd.gds_adminInfo.getColumn(0, "REGDATE"));
+			console.log("세션 설정되나3 " + gdsAd.gds_adminInfo.getColumn(0, "NAME"));
+			
+			let objApp = nexacro.getApplication();
+			objApp.mainframe.VFrameSet00.TopFrame.set_visible(true);
+			objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(true);
+			objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::Form_Work.xfdl");
+			
+			var LeftFrame = objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.form;
+      LeftFrame.stc_admin.set_text("환영합니다 "+gdsAd.gds_adminInfo.getColumn(0, "NAME")+"관리자님");
+		}
 	default:
 	}
 };
@@ -72,12 +98,12 @@ this.fnLogin = function(){
 	var isAsync     = false;
 	
 	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 
-
+	
 }
 
 this.Login_btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-
+	
 	this.fnLogin(); // 로그인 처리
 	
 };
@@ -98,54 +124,31 @@ this.Mail_Btn_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	if (isEmpty(this.email_Ds.getColumn(0, "Check"))) {
 		alert("인증번호를 입력해주세요.");
 		return;
+	} else {
+		var email = this.email_Ds.getColumn(0, "Check");
+		this.fn_addSession(email);
 	}
-	else if(this.email_Ds.getColumn(0, "Check") == this.Certificate_Ds.getColumn(0,"Check")){
-		alert("인증번호 확인되었습니다.");
-		// 글로벌ds에 값 넣기
-		var gdsAd = nexacro.getApplication();
-		gdsAd.gds_adminInfo.setColumn(0, "ADMIN_CODE", this.Certificate_Ds.getColumn(0,"ADMIN_CODE"));
-		gdsAd.gds_adminInfo.setColumn(0, "REGDATE", this.Certificate_Ds.getColumn(0,"REGDATE"));
-		gdsAd.gds_adminInfo.setColumn(0, "NAME", this.Certificate_Ds.getColumn(0, "NAME"));
-		
-		console.log("세션 설정되나1 " + gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE"));
-		console.log("세션 설정되나2 " + gdsAd.gds_adminInfo.getColumn(0, "REGDATE"));
-		console.log("세션 설정되나3 " + gdsAd.gds_adminInfo.getColumn(0, "NAME"));
-		// 세션 설정하기
-		var adminCode = gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE");
-		this.fn_addSession(adminCode);
-		let objApp = nexacro.getApplication();
-		objApp.mainframe.VFrameSet00.TopFrame.set_visible(true);
-		objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(true);
-		objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::Form_Work.xfdl");
-		
-		
-		var LeftFrame = objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.form;
-		LeftFrame.stc_admin.set_text("환영합니다 "+gdsAd.gds_adminInfo.getColumn(0, "NAME")+"관리자님");
-
-	}
-	else{
-		alert("인증번호를 다시 확인해주세요.");
-	}
+	
 	
 };
 
-this.fn_addSession = function (adminCode)
+this.fn_addSession = function (email)
 {
 	var strSvcId    = "addSession";
 	var strSvcUrl   = "svc::addSession.do";
 	var inData      = "";
-	var outData     = "";
-	var strArg      = "ADMIN_CODE="+adminCode;
-	var callBackFnc = "fnCallBack_add";
+	var outData     = "Certificate_Ds=Certificate_Ds";
+	var strArg      = "EMAIL_CHECK="+email;
+	var callBackFnc = "fnCallback";
 	var isAsync     = true;
 	
 	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync); 	
 };
 
 /************************************************************************
- * 		비밀번호 찾기
- ************************************************************************/
-	// 팝업 설정 및 호출
+* 		비밀번호 찾기
+************************************************************************/
+// 팝업 설정 및 호출
 this.showPopup = function (objParam, surl) 
 {		  
 	popup = new nexacro.ChildFrame;
@@ -164,11 +167,9 @@ this.showPopup = function (objParam, surl)
 
 this.stt_findPwd_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
 {
-	var surl = "MainBase::findPwd.xfdl";
-	var objParam="";
+	var surl = "MainBase::findPwd.xfdl";	
 	this.showPopup(objParam, surl);
-};
-]]></Script>
+};]]></Script>
     <Objects>
       <Dataset id="Login_Ds" useclientlayout="true">
         <ColumnInfo>
@@ -185,6 +186,7 @@ this.stt_findPwd_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
           <Column id="Check" type="STRING" size="256"/>
           <Column id="ADMIN_CODE" type="STRING" size="256"/>
           <Column id="REGDATE" type="STRING" size="256"/>
+          <Column id="NAME" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
       <Dataset id="email_Ds">

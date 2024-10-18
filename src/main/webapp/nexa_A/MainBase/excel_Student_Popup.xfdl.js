@@ -89,6 +89,12 @@
             obj.set_taborder("8");
             obj.set_background("#B0E0E6");
             this.addChild(obj.name, obj);
+
+            obj = new Static("stt_boardTop","28","6","113","74",null,null,null,null,null,null,this);
+            obj.set_taborder("9");
+            obj.set_text("엑셀 등록");
+            obj.set_font("20pt/normal \"Arial\"");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",850,460,this,function(p){});
@@ -107,7 +113,7 @@
         };
         
         // User Script
-        this.registerScript("excel_popup.xfdl", function() {
+        this.registerScript("excel_Student_Popup.xfdl", function() {
         // 엑셀 파일 넣을 때
         this.btn_excel_onclick = function(obj, e) {
             this.FileDialog00.open('nexacro17', FileDialog.MULTILOAD);
@@ -151,7 +157,7 @@
                     this.FileUpTransfer00.addFile(obj.filename, obj);
 
                     // 파일 업로드 처리
-                    var uploadUrl = "http://localhost:8082/HanaUIS/test.jsp";
+                    var uploadUrl = "http://localhost:8082/HanaUIS/excelImport.jsp";
                     this.FileUpTransfer00.upload(uploadUrl);
 
                     // 업로드가 성공하면 DataSet에 XML 데이터 로드
@@ -193,29 +199,6 @@
         };
 
 
-        this.Button01_onclick = function(obj, e) {
-            // 현재 그리드 데이터셋을 가져옵니다.
-            var ds = this.Grid00.getBindDataset();
-            var data = ds.saveXML(); // 데이터셋의 데이터를 XML 형식으로 변환합니다.
-
-            trace(data); // XML 데이터가 잘 생성되었는지 확인
-
-            // 서버로 transaction 호출
-            var url = "http://localhost:8082/HanaUIS/exceldown.jsp"; // Excel을 생성하는 JSP/Servlet 경로
-
-            // transaction 함수 호출
-            this.transaction(
-                "downloadExcel",      // 호출 식별자
-                url,                  // 요청할 URL
-                "",                   // 전송할 데이터셋 (필요 없으면 공백)
-                "",                   // 받을 데이터셋 (필요 없으면 공백)
-                "data=" + encodeURIComponent(data),  // 추가로 전송할 인자 (XML 데이터를 인코딩하여 전달)
-                "fnCallback",         // 성공 콜백 함수
-                "fnCallbackError"     // 오류 콜백 함수
-            );
-        };
-
-
         this.FileDownload00_onclick = function (obj, e) {
             // 현재 그리드 데이터셋을 가져옵니다.
             var ds = this.Grid00.getBindDataset();
@@ -224,7 +207,7 @@
             trace(data); // XML 데이터가 잘 생성되었는지 확인
 
             // 서버로 transaction 호출
-            var url = "http://localhost:8082/HanaUIS/exceldown.jsp?type=ex"; // 다운로드 excel 요청
+            var url = "http://localhost:8082/HanaUIS/excelExport.jsp?type=exStu"; // 다운로드 excel 요청
 
             // XMLHttpRequest 객체 생성
             var xhr = new XMLHttpRequest();
@@ -411,7 +394,7 @@
             this.btn_check.addEventHandler("onclick",this.btn_check_onclick,this);
             this.FileDialog00.addEventHandler("onclose",this.FileDialog00_onclose,this);
         };
-        this.loadIncludeScript("excel_popup.xfdl");
+        this.loadIncludeScript("excel_Student_Popup.xfdl");
         this.loadPreloadList();
         
         // Remove Reference

@@ -396,7 +396,6 @@ public class StudentController {
 		if (studentDTO != null) {
 			// 로그인 성공 시 처리
 			session = request.getSession();
-
 			session.setAttribute("student", studentDTO); // 임시 사용자 정보 세션 저장
 			session.setMaxInactiveInterval(1800); // 로그인 세션 만료 시간 = 30분
 
@@ -406,7 +405,7 @@ public class StudentController {
 
 			// 응답 데이터 설정
 			view.addObject("result", "success");
-			view.addObject("verificationCode", verificationCode); // 인증코드 전달
+			
 		} 
 		else {
 			// 로그인 실패 시 처리
@@ -416,4 +415,31 @@ public class StudentController {
 		view.setViewName("jsonView");
 		return view;
 	}
+	
+	// 인증번호 확인 및 로그인 완료
+		@RequestMapping(value = "/signIn.do", method = RequestMethod.POST)
+		public ModelAndView verifyCode(@RequestParam String inputCode, HttpSession session) {
+			ModelAndView view = new ModelAndView();
+
+			// 세션에서 저장된 인증번호를 가져옴
+			String savedCode = (String) session.getAttribute("verificationCode");
+
+			if (inputCode.equals(savedCode)) {
+				
+				session.removeAttribute("verificationCode"); // 인증코드 삭제
+
+				// 성공 응답 데이터 추가
+				view.addObject("result", "success");
+				System.out.print("로그인 성공!!!");
+
+			} else {
+				// 실패 응답 데이터 추가
+				view.addObject("result", "failure");
+				view.addObject("message", "인증번호가 일치하지 않습니다.");
+			}
+
+			// JSON 응답을 위한 jsonView 설정
+			view.setViewName("jsonView");
+			return view;
+		}
 }

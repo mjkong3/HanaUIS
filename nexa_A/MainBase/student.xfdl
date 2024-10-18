@@ -53,7 +53,7 @@
                 <Cell col="5" text="생년월일"/>
                 <Cell col="6" text="성별"/>
                 <Cell col="7" text="주소"/>
-                <Cell col="8" text="상태여부"/>
+                <Cell col="8" text="학적상태"/>
                 <Cell col="9" text="학과"/>
               </Band>
               <Band id="body">
@@ -415,7 +415,7 @@ this.btn_excel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
     };
     
     // 팝업 창 경로 설정
-    var surl = "MainBase::excel_popup.xfdl";
+    var surl = "MainBase::excel_Student_Popup.xfdl";
 
     // 팝업 호출 (데이터셋과 선택된 학과 코드 전달)
     this.showPopup(objParam, surl);
@@ -430,7 +430,7 @@ this.btn_excelexp_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
     trace(data); // XML 데이터가 잘 생성되었는지 확인
 
     // 서버로 transaction 호출
-    var url = "http://localhost:8082/HanaUIS/exceldown.jsp"; // 다운로드 excel 요청
+    var url = "http://localhost:8082/HanaUIS/excelExport.jsp?type=stu"; // 다운로드 excel 요청
 
     // XMLHttpRequest 객체 생성
     var xhr = new XMLHttpRequest();

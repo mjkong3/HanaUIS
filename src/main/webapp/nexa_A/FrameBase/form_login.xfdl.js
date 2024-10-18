@@ -25,7 +25,7 @@
 
 
             obj = new Dataset("Certificate_Ds", this);
-            obj._setContents("<ColumnInfo><Column id=\"LoginCheck\" type=\"STRING\" size=\"256\"/><Column id=\"Check\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj._setContents("<ColumnInfo><Column id=\"LoginCheck\" type=\"STRING\" size=\"256\"/><Column id=\"Check\" type=\"STRING\" size=\"256\"/><Column id=\"ADMIN_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"REGDATE\" type=\"STRING\" size=\"256\"/><Column id=\"NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
             this.addChild(obj.name, obj);
 
 
@@ -43,7 +43,7 @@
             obj = new Button("Test_Btn","715","460","205","72",null,null,null,null,null,null,this);
             obj.set_taborder("6");
             obj.set_text("바로넘어가기");
-            obj.set_visible("true");
+            obj.set_visible("false");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static05","55","70","450","420",null,null,null,null,null,null,this);
@@ -57,6 +57,8 @@
             obj = new Edit("Edit00_01","185","408","190","30",null,null,null,null,null,null,this);
             obj.set_taborder("0");
             obj.set_font("18px/normal \"Gulim\"");
+            obj.set_readonly("true");
+            obj.set_cssclass("edt_Adr");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static03","80","312","88","38",null,null,null,null,null,null,this);
@@ -91,6 +93,7 @@
             obj.set_text("인증번호");
             obj.set_font("16px/normal \"Gulim\"");
             obj.set_cssclass("btnLogin");
+            obj.set_enable("false");
             this.addChild(obj.name, obj);
 
             obj = new Button("Login_btn","398","363","82","30",null,null,null,null,null,null,this);
@@ -166,14 +169,17 @@
         //처리콜백 함수
         this.fnCallback = function(svcID,errorCode,errorMsg)
         {
-        	/*this.alert(" ErrorCode -->" + errorCode + "  ErrorMsg : " + errorMsg);*/
-        	console.log("svcID = " + svcID);
+        	if (errorCode == -1) {
+        		this.alert(errorMsg)
+        		return;
+        	}
 
         	switch(svcID) {
         	case "selectLogin":
         		if (this.Certificate_Ds.getColumn(0, "LoginCheck") == 'Y') {
         			this.alert("인증번호가 이메일로 발송 되었습니다.");
-
+        			this.Edit00_01.set_readonly(false);
+        			this.Mail_Btn.set_enable(true);
         			return;
         		}
         		else{
@@ -181,6 +187,29 @@
         			return;
         		}
         		break;
+        	case "addSession":
+        		if (this.Certificate_Ds.getColumn(0, "Check") == 'N') {
+        			this.alert("인증번호가 일치하지 않습니다.");
+        			return;
+        		} else {
+        			// 글로벌ds에 값 넣기
+        			var gdsAd = nexacro.getApplication();
+        			gdsAd.gds_adminInfo.setColumn(0, "ADMIN_CODE", this.Certificate_Ds.getColumn(0,"ADMIN_CODE"));
+        			gdsAd.gds_adminInfo.setColumn(0, "REGDATE", this.Certificate_Ds.getColumn(0,"REGDATE"));
+        			gdsAd.gds_adminInfo.setColumn(0, "NAME", this.Certificate_Ds.getColumn(0, "NAME"));
+
+        			console.log("세션 설정되나1 " + gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE"));
+        			console.log("세션 설정되나2 " + gdsAd.gds_adminInfo.getColumn(0, "REGDATE"));
+        			console.log("세션 설정되나3 " + gdsAd.gds_adminInfo.getColumn(0, "NAME"));
+
+        			let objApp = nexacro.getApplication();
+        			objApp.mainframe.VFrameSet00.TopFrame.set_visible(true);
+        			objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(true);
+        			objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::Form_Work.xfdl");
+
+        			var LeftFrame = objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.form;
+              LeftFrame.stc_admin.set_text("환영합니다 "+gdsAd.gds_adminInfo.getColumn(0, "NAME")+"관리자님");
+        		}
         	default:
         	}
         };
@@ -241,54 +270,31 @@
         	if (isEmpty(this.email_Ds.getColumn(0, "Check"))) {
         		alert("인증번호를 입력해주세요.");
         		return;
+        	} else {
+        		var email = this.email_Ds.getColumn(0, "Check");
+        		this.fn_addSession(email);
         	}
-        	else if(this.email_Ds.getColumn(0, "Check") == this.Certificate_Ds.getColumn(0,"Check")){
-        		alert("인증번호 확인되었습니다.");
-        		// 글로벌ds에 값 넣기
-        		var gdsAd = nexacro.getApplication();
-        		gdsAd.gds_adminInfo.setColumn(0, "ADMIN_CODE", this.Certificate_Ds.getColumn(0,"ADMIN_CODE"));
-        		gdsAd.gds_adminInfo.setColumn(0, "REGDATE", this.Certificate_Ds.getColumn(0,"REGDATE"));
-        		gdsAd.gds_adminInfo.setColumn(0, "NAME", this.Certificate_Ds.getColumn(0, "NAME"));
 
-        		console.log("세션 설정되나1 " + gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE"));
-        		console.log("세션 설정되나2 " + gdsAd.gds_adminInfo.getColumn(0, "REGDATE"));
-        		console.log("세션 설정되나3 " + gdsAd.gds_adminInfo.getColumn(0, "NAME"));
-        		// 세션 설정하기
-        		var adminCode = gdsAd.gds_adminInfo.getColumn(0, "ADMIN_CODE");
-        		this.fn_addSession(adminCode);
-        		let objApp = nexacro.getApplication();
-        		objApp.mainframe.VFrameSet00.TopFrame.set_visible(true);
-        		objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.set_visible(true);
-        		objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame.set_formurl("FrameBase::Form_Work.xfdl");
-
-
-        		var LeftFrame = objApp.mainframe.VFrameSet00.HFrameSet00.LeftFrame.form;
-        		LeftFrame.stc_admin.set_text("환영합니다 "+gdsAd.gds_adminInfo.getColumn(0, "NAME")+"관리자님");
-
-        	}
-        	else{
-        		alert("인증번호를 다시 확인해주세요.");
-        	}
 
         };
 
-        this.fn_addSession = function (adminCode)
+        this.fn_addSession = function (email)
         {
         	var strSvcId    = "addSession";
         	var strSvcUrl   = "svc::addSession.do";
         	var inData      = "";
-        	var outData     = "";
-        	var strArg      = "ADMIN_CODE="+adminCode;
-        	var callBackFnc = "fnCallBack_add";
+        	var outData     = "Certificate_Ds=Certificate_Ds";
+        	var strArg      = "EMAIL_CHECK="+email;
+        	var callBackFnc = "fnCallback";
         	var isAsync     = true;
 
         	this.transaction(strSvcId, strSvcUrl, inData, outData, strArg, callBackFnc, isAsync);
         };
 
         /************************************************************************
-         * 		비밀번호 찾기
-         ************************************************************************/
-        	// 팝업 설정 및 호출
+        * 		비밀번호 찾기
+        ************************************************************************/
+        // 팝업 설정 및 호출
         this.showPopup = function (objParam, surl)
         {
         	popup = new nexacro.ChildFrame;
@@ -308,10 +314,8 @@
         this.stt_findPwd_onclick = function(obj,e)
         {
         	var surl = "MainBase::findPwd.xfdl";
-        	var objParam="";
         	this.showPopup(objParam, surl);
         };
-
         });
         
         // Regist UI Components Event

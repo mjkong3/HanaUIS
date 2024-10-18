@@ -24,73 +24,67 @@
 	
 	// 인증코드 보내기 버튼 클릭 이벤트
 	$(document).on("click", "#mail-Check-Btn", function() {
-    const id = $("#id").val();
-    const password = $("#password").val();
-
-    // 학번과 비밀번호 입력 확인
-    if (id === "" || password === "") {
-        alert("학번과 비밀번호를 입력해주세요.");
-        return;
-    }
-
-    // 서버로 인증코드 요청
-    $.ajax({
-        type: 'POST',
-        url: '/HanaUIS/std/sign.do',
-        data: {
-        	id: id,
-        	password: password
-        },
-        success: function(data) {
-        	 console.log(id); // 받은거 확인
-        	 console.log(password);
-            if (data.result === 'success') {
-                alert("인증코드가 이메일로 발송되었습니다.");
-                location.href = "/HanaUIS/std/notice.do"; 
-               <!-- verificationCode = data.verificationCode;  // 서버에서 받은 인증코드 저장
-                $("#emailCheck").attr("disabled", false);  // 인증번호 입력란 활성화
-                $("#loginSubmit").attr("disabled", false);   // 로그인 버튼 활성화 -->
-            } else {
-                alert("아이디 또는 비밀번호가 잘못되었습니다.");
-            }
-        },
-        error: function(request, status, error) {
-            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-        	}
-    	});
-	});
+	    const id = $("#id").val();
+	    const password = $("#password").val();
+	
+	    // 학번과 비밀번호 입력 확인
+	    if (id === "" || password === "") {
+	        alert("아이디와 비밀번호를 입력해주세요.");
+	        return;
+	    }
+	
+	    // 서버로 인증코드 요청
+	    $.ajax({
+	        type: 'POST',
+	        url: '/HanaUIS/std/sign.do',
+	        data: {
+	        	id: id,
+	        	password: password
+	        },
+	        success: function(data) {
+	        	 console.log(id); // 받은거 확인
+	        	 console.log(password);
+	            if (data.result === 'success') {
+	                alert("인증코드가 이메일로 발송되었습니다.");
+	                $("#emailCheck").attr("disabled", false);  // 인증번호 입력란 활성화
+	                $("#loginSubmit").attr("disabled", false);   // 로그인 버튼 활성화 
+	            } else {
+	                alert("아이디 또는 비밀번호가 잘못되었습니다.");
+	            }
+	        },
+	        error: function(request, status, error) {
+	            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+	        	}
+	    	});
+		});
 
 	// 로그인 버튼 클릭 이벤트
 	$(document).on("click", "#loginSubmit", function() {
     const inputCode = $("#emailCheck").val();  // 사용자가 입력한 인증번호
 
-    // 인증코드 확인
-    if (inputCode === verificationCode) {
-        // 인증번호가 맞으면 로그인 처리
-        $.ajax({
-            type: 'POST',
-            url: '/HanaUIS/std/signIn.do',
-            data: {
-                studentId: $("#id").val(),
-                password: $("#password").val(),
-                inputCode: inputCode
-            },
-            success: function(data) {
-                if (data.result === 'success') {
-                    alert("인증이 완료되었습니다.");
-                    location.href = "/HanaUIS/notice/notice.do";  // 메인 페이지로 이동
-                } else {
-                    alert("로그인 실패: " + data.message);
-                }
-            },
-            error: function(request, status, error) {
-                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+
+    // 인증번호가 맞으면 로그인 처리
+    $.ajax({
+        type: 'POST',
+        url: '/HanaUIS/std/signIn.do',
+        data: {
+            studentId: $("#id").val(),
+            password: $("#password").val(),
+            inputCode: inputCode
+        },
+        success: function(data) {
+            if (data.result === 'success') {
+                alert("인증이 완료되었습니다.");
+                location.href = "/HanaUIS/std/notice.do";  // 메인 페이지로 이동
+            } else {
+                alert(data.message);
             }
-        });
-    } else {
-        alert("인증번호가 일치하지 않습니다.");
-    	}
-	});
+        },
+        error: function(request, status, error) {
+            alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+   	});
+});
 
 	// ---------------------------------------------------------------------------------------------- //
 	
@@ -103,7 +97,7 @@
 
     // 학번과 비밀번호 입력 확인
     if (id === "" || password === "") {
-        alert("학번과 비밀번호를 입력해주세요.");
+        alert("아이디와 비밀번호를 입력해주세요.");
         return;
     }
 
@@ -120,10 +114,8 @@
         	 console.log(password);
             if (data.result === 'success') {
                 alert("인증코드가 이메일로 발송되었습니다.");
-                location.href = "/HanaUIS/pfs/notice.do";  // 메인 페이지로 이동
-              <!--   verificationCode = data.verificationCode;  // 서버에서 받은 인증코드 저장
                 $("#emailCheck").attr("disabled", false);  // 인증번호 입력란 활성화
-                $("#loginSubmit").attr("disabled", false);  // 로그인 버튼 활성화 -->
+                $("#loginSubmit").attr("disabled", false);  // 로그인 버튼 활성화
             } else {
                 alert("아이디 또는 비밀번호가 잘못되었습니다.");
             }
@@ -136,11 +128,8 @@
 
 	// 로그인 버튼 클릭 이벤트
 	$(document).on("click", "#proLoginSubmit", function() {
-    const inputCode = $("#emailCheck").val();  // 사용자가 입력한 인증번호
-
-    // 인증코드 확인
-    if (inputCode === verificationCode) {
-        // 인증번호가 맞으면 로그인 처리
+	    const inputCode = $("#emailCheck").val();  // 사용자가 입력한 인증번호
+	
         $.ajax({
             type: 'POST',
             url: '/HanaUIS/pfs/signIn.do',
@@ -152,18 +141,15 @@
             success: function(data) {
                 if (data.result === 'success') {
                     alert("인증이 완료되었습니다.");
-                    location.href = "/HanaUIS/notice/notice.do";  // 메인 페이지로 이동
+                    location.href = "/HanaUIS/pfs/notice.do";  // 메인 페이지로 이동
                 } else {
-                    alert("로그인 실패: " + data.message);
+                    alert(data.message);
                 }
             },
             error: function(request, status, error) {
                 alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
             }
         });
-    } else {
-        alert("인증번호가 일치하지 않습니다.");
-    	}
 	});
 	</script>
 </head>

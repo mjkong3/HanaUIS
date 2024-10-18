@@ -146,7 +146,7 @@
           </Dataset>
         </Combo>
         <Button id="btn_popclassplus" taborder="10" text="강의실 추가" left="459" top="64" width="91" height="26" onclick="btn_popclassplus_onclick"/>
-        <Div id="Div00" taborder="12" text="Div00" left="550" top="60" width="537" height="290" formscrollbartype="default default" formscrolltype="none">
+        <Div id="Div00" taborder="12" text="Div00" left="550" top="60" width="537" height="264" formscrollbartype="default default" formscrolltype="none">
           <Layouts>
             <Layout>
               <Grid id="classtime_Grid" taborder="0" left="30" top="35" width="502" height="225" binddataset="classtime_ds" autofittype="col" autosizingtype="none" selecttype="cell" autosizebandtype="body" cssclass="ATEAM">

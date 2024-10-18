@@ -203,4 +203,36 @@ public class AdProfessorController {
 	      return result;
 	      
 	   }	
+	   
+	   @RequestMapping(value = "/checkProexcel.do")
+	    public NexacroResult checkProexcel(@ParamDataSet(name = "ds_test", required = false) List<Map<String, Object>> param) {
+	      NexacroResult result = new NexacroResult();
+	      System.out.println(param);
+	      try {
+	    	  List<Map<String, Object>> list = null;
+	    	  list = service.checkProfessorExcel(param);
+	    	  System.out.println(list);
+	    	  result.addDataSet("ds_check", list);
+	      }catch(Exception ee) {
+	    	  System.out.println(ee);
+	      }
+	       return result;
+	    }
+	   
+	   @RequestMapping(value = "/insertexcelPro.do")
+	   public NexacroResult insertexcelStu(@ParamDataSet(name = "ds_test", required = false) List<Map<String, Object>> param) {
+	     NexacroResult result = new NexacroResult();
+	      System.out.println(param);
+
+	      try {
+	         service.insertexcelPro(param);
+	      }catch(Exception ee) {
+	         System.out.println(ee);
+	      }
+	      System.out.println("뭘 리턴하지? " + result);
+	      return result;
+	      
+	   }
+	  
+
 }

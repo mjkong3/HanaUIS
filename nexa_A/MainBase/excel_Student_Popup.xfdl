@@ -66,6 +66,7 @@
         <Static id="Static00_00" taborder="6" text="기존 학생 중복 : 0" left="510" top="415" width="135" height="40"/>
         <Static id="Static01" taborder="7" left="240" top="430" width="45" height="11" background="#FFCEDA"/>
         <Static id="Static01_00" taborder="8" left="460" top="430" width="45" height="11" background="#B0E0E6"/>
+        <Static id="stt_boardTop" taborder="9" text="엑셀 등록" left="28" top="6" width="113" height="74" font="20pt/normal &quot;Arial&quot;"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -133,7 +134,7 @@ this.FileList_onsuccess = function(obj:nexacro.VirtualFile, e:nexacro.VirtualFil
             this.FileUpTransfer00.addFile(obj.filename, obj);
             
             // 파일 업로드 처리
-            var uploadUrl = "http://localhost:8082/HanaUIS/test.jsp";
+            var uploadUrl = "http://localhost:8082/HanaUIS/excelImport.jsp";
             this.FileUpTransfer00.upload(uploadUrl);
             
             // 업로드가 성공하면 DataSet에 XML 데이터 로드
@@ -175,29 +176,6 @@ this.onUploadSuccess = function(obj, e) {
 };
 
 
-this.Button01_onclick = function(obj:nexacro.Button, e:nexacro.ClickEventInfo) {
-    // 현재 그리드 데이터셋을 가져옵니다.
-    var ds = this.Grid00.getBindDataset();
-    var data = ds.saveXML(); // 데이터셋의 데이터를 XML 형식으로 변환합니다.
-
-    trace(data); // XML 데이터가 잘 생성되었는지 확인
-
-    // 서버로 transaction 호출
-    var url = "http://localhost:8082/HanaUIS/exceldown.jsp"; // Excel을 생성하는 JSP/Servlet 경로
-
-    // transaction 함수 호출
-    this.transaction(
-        "downloadExcel",      // 호출 식별자
-        url,                  // 요청할 URL
-        "",                   // 전송할 데이터셋 (필요 없으면 공백)
-        "",                   // 받을 데이터셋 (필요 없으면 공백)
-        "data=" + encodeURIComponent(data),  // 추가로 전송할 인자 (XML 데이터를 인코딩하여 전달)
-        "fnCallback",         // 성공 콜백 함수
-        "fnCallbackError"     // 오류 콜백 함수
-    );
-};
-
-
 this.FileDownload00_onclick = function (obj:nexacro.Button, e:nexacro.ClickEventInfo) {
     // 현재 그리드 데이터셋을 가져옵니다.
     var ds = this.Grid00.getBindDataset();
@@ -206,7 +184,7 @@ this.FileDownload00_onclick = function (obj:nexacro.Button, e:nexacro.ClickEvent
     trace(data); // XML 데이터가 잘 생성되었는지 확인
 
     // 서버로 transaction 호출
-    var url = "http://localhost:8082/HanaUIS/exceldown.jsp?type=ex"; // 다운로드 excel 요청
+    var url = "http://localhost:8082/HanaUIS/excelExport.jsp?type=exStu"; // 다운로드 excel 요청
 
     // XMLHttpRequest 객체 생성
     var xhr = new XMLHttpRequest();

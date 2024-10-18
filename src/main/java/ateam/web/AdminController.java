@@ -2,6 +2,7 @@ package ateam.web;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nexacro.uiadapter17.spring.core.annotation.ParamDataSet;
 import com.nexacro.uiadapter17.spring.core.annotation.ParamVariable;
@@ -50,10 +50,11 @@ public class AdminController {
     	try {
     		// 이메일 인증번호를 보내는 로직
     		Map<String, Object> Certificate_Ds = service.selectLogin(param);
-    		//Map<String, Object> welcome = service.welcome(param);
     		System.out.println("dkdkdkddkefewa"+ Certificate_Ds);
 
     		if(Certificate_Ds.get("LoginCheck").equals("Y")) {
+    			HttpSession session = request.getSession();
+    			
     			
     			// DB로부터 받은 email 주소를 변수에 대입
     			Object check = Certificate_Ds.get("email");
@@ -61,17 +62,16 @@ public class AdminController {
     			String email = check.toString();
     			// 인증번호 생성
     			String email_Check = mailService.joinEmail(email);
-    			// 인증번호 ds에 저장
-    			Certificate_Ds.put("Check", email_Check);
+    			// 로그인정보 + 인증번호 세션에 저장
+    			session.setAttribute("check", email_Check);
+    			session.setAttribute("admin", Certificate_Ds.get("ADMIN_CODE"));
+    			session.setAttribute("name", Certificate_Ds.get("NAME"));
     			// 등록일 생성 및 ds에 저장
-    			String regDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm").format(new Date());
-    		    System.out.println("현재 날짜?" + regDate);
-    			Certificate_Ds.put("REGDATE", regDate);
-    			System.out.println(Certificate_Ds.get("email"));
-    			System.out.println(Certificate_Ds.get("ADMIN_CODE"));
+    			
     		}
-    		
-    		result.addDataSet("Certificate_Ds", Certificate_Ds);
+    		Map<String, Object> checkDs = new HashMap<>();
+    		checkDs.put("LoginCheck", Certificate_Ds.get("LoginCheck"));
+    		result.addDataSet("Certificate_Ds", checkDs);
     		
     	}catch(Exception ee) {
     		System.out.println(ee);
@@ -105,13 +105,31 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/addSession.do")
-	public NexacroResult addSession(@ParamVariable(name = "ADMIN_CODE", required = false)String adminCode, HttpServletRequest request) {
+	public NexacroResult addSession(@ParamVariable(name = "EMAIL_CHECK", required = false)String email, HttpServletRequest request) {
 		
 		NexacroResult result = new NexacroResult();
+		Map<String, Object> Certificate_Ds = new HashMap<>();
 		HttpSession session = request.getSession();
-		System.out.println("받아온 ad코드 = " + adminCode);
-		session.setAttribute("ADMIN_CODE", adminCode);
-		System.out.println("세션값은 : " + session.getAttribute("ADMIN_CODE"));
+		String sessCode = (String) session.getAttribute("check");
+		try {
+			if(sessCode.equals(email)) {
+				String regDate = new SimpleDateFormat("yyyy-MM-dd-HH:mm").format(new Date());
+				Certificate_Ds.put("ADMIN_CODE", session.getAttribute("admin"));
+				Certificate_Ds.put("NAME", session.getAttribute("name"));
+				Certificate_Ds.put("REGDATE", regDate);
+				Certificate_Ds.put("Check", "Y");
+				
+			} else {
+				Certificate_Ds.put("Check", "N");
+				
+			}
+		} catch(Exception ee){
+			System.out.println(ee);
+			result.setErrorCode(-1);
+			result.setErrorMsg("catch 조회 오류");
+		}
+		
+		result.addDataSet("Certificate_Ds", Certificate_Ds);
 		return result;
 	}
 	

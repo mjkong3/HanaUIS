@@ -24,6 +24,10 @@ public interface AdProfessorMapper {
 	void deleteAdPro(Map<String, Object> param);
 
 	ProfessorDTO proLoginCheck(ProfessorDTO dto);
+	
+	List<Map<String, Object>> checkProfessorExcel(List<Map<String, Object>> param);
+	
+	void insertexcelPro(Map<String, Object>param);
 
 	
 }

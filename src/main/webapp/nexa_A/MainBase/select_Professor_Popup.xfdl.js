@@ -226,7 +226,7 @@
 
             obj = new Edit("edt_ProPw","682","72","239","30",null,null,null,null,null,null,this);
             obj.set_taborder("22");
-            obj.set_password("false");
+            obj.set_password("true");
             obj.set_readonly("false");
             this.addChild(obj.name, obj);
 
@@ -822,7 +822,7 @@
         			}
         			break;
         		case "AdProMypage":
-        			window.open("http://localhost:8082/HanaUIS/std/notice.do"); // 세션 등록 성공 시 새탭으로 띄우기
+        			window.open("http://localhost:8082/HanaUIS/pfs/notice.do"); // 세션 등록 성공 시 새탭으로 띄우기
         		 break;
 
         		}

@@ -14,34 +14,38 @@
     //System.out.println(xmlData);
     String type = request.getParameter("type");
     System.out.println(type);
-            // 영어 헤더 정의
-        String[] headers = {
-            "NAME", 
-            "STUDENT_ID",
-            "UNIV_YEAR",
-            "STATUS",
-            "GENDER",
-            "BIRTHDAY", 
-            "EMAIL", 
-            "PHONE", 
-            "ADDRESS",  
-            "DEPARTMENT_NAME"
-        };
-
-        // 한국어 헤더 정의
-        String[] koreanHeaders = {
-            "이름",          // NAME
-            "학번",          // STUDENT_ID
-            "학년",          // UNIV_YEAR
-            "상태",          // STATUS
-            "성별",          // GENDER
-            "생년월일",          // BIRTHDAY
-            "이메일",        // EMAIL
-            "연락처",      // PHONE
-            "주소",          // ADDRESS
-            "학과"      // DEPARTMENT_NAME
-        };
-        if("ex".equals(type)) {
+    
+    String[] headers = {};
+    String[] koreanHeaders = {};
+    if("stu".equals(type)){
+        // 영어 헤더 정의
+	    headers = new String[] {
+	    	"STUDENT_ID",
+	    	"NAME",
+	    	"PHONE",
+	    	"EMAIL", 
+	    	"BIRTHDAY",
+	    	"GENDER",
+	    	"ADDRESS",
+	    	"STATUS",
+	        "DEPARTMENT_NAME"
+	    };
+	
+	    // 한국어 헤더 정의
+	    koreanHeaders = new String[]{
+	    	"학번",
+	    	"이름",      
+	    	"연락처",     
+	    	"이메일",
+	    	"생년월일",	
+	    	"성별",
+	        "주소",          
+	        "학적상태", 
+	        "학과"     
+	    };	
+    	
+    }    
+        if("exStu".equals(type)) {
         	koreanHeaders = new String[]{
        	        "학번",          // STUDENT_ID
        	        "비밀번호",      // PASSWORD (추가된 헤더)
@@ -52,10 +56,53 @@
        	        "생년월일",    // BIRTHDAY (표현 변경)
        	        "성별",          // GENDER
        	        "학적상태",    // STATUS (표현 변경)
-       	        "학과코드",          // DEPARTMENT_NAME
+       	        "학과코드",          // DEPARTMENT_CODE
        	        "주소",          // ADDRESS
        	        "우편번호"      // POSTAL_CODE (추가된 헤더)
        	    };
+        }
+        if("pro".equals(type)){
+            // 영어 헤더 정의
+    	    headers = new String[] {
+    	    	"PROFESSOR_ID",
+    	    	"NAME",
+    	    	"PHONE",
+    	    	"EMAIL", 
+    	    	"BIRTHDAY",
+    	    	"GENDER",
+    	    	"ADDRESS",
+    	    	"STATUS",
+    	        "DEPARTMENT_NAME"
+    	    };
+    	
+    	    // 한국어 헤더 정의
+    	    koreanHeaders = new String[]{
+    	    	"교번",
+    	    	"이름",      
+    	    	"연락처",     
+    	    	"이메일",
+    	    	"생년월일",	
+    	    	"성별",
+    	        "주소",          
+    	        "재직여부", 
+    	        "학과"     
+    	    };	
+        	
+        }        
+        if("exPro".equals(type)) {
+            koreanHeaders = new String[]{
+                "교번",            // STUDENT_ID (기존 '학번'에서 '교번'으로 수정)
+                "비밀번호",        // PASSWORD
+                "이름",            // NAME
+                "연락처",          // PHONE (기존 '학년'에서 '연락처'로 수정)
+                "이메일",          // EMAIL
+                "생년월일",        // BIRTHDAY
+                "성별",            // GENDER
+                "재직여부",        // STATUS (기존 '학적상태'에서 '재직여부'로 수정)
+                "학과코드",        // DEPARTMENT_CODE
+                "주소",            // ADDRESS
+                "우편번호"         // POSTAL_CODE
+            };
         }
     try {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
