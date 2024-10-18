@@ -89,6 +89,19 @@ public class AdProfessorServiceImpl extends EgovAbstractServiceImpl implements A
 		return professorDTO;
 		
 	}
+
+	@Override
+	public List<Map<String, Object>> checkProfessorExcel(List<Map<String, Object>> param) {
+		return mapper.checkProfessorExcel(param);
+	}
+
+	@Override
+	public void insertexcelPro(List<Map<String, Object>> param) {
+		for(int i=0; i<param.size(); i++) {
+			//System.out.println(param.get(i));
+			mapper.insertexcelPro(param.get(i));
+		}
+	}
 	
 
 }

@@ -18,7 +18,7 @@
         <Edit id="edt_name" taborder="12" left="411" top="121" width="152" height="30" onchanged="edt_name_onchanged"/>
         <Static id="Static00_00" taborder="13" left="302" top="111" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   이름"/>
         <Static id="Static00_01" taborder="14" left="574" top="62" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   비밀번호"/>
-        <Edit id="edt_password" taborder="15" left="683" top="72" width="233" height="30" onchanged="edt_password_onchanged"/>
+        <Edit id="edt_password" taborder="15" left="683" top="72" width="233" height="30" onchanged="edt_password_onchanged" password="true"/>
         <Static id="Static00_00_00" taborder="16" left="574" top="111" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학과"/>
         <Static id="Static00_02" taborder="17" left="302" top="160" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   학년"/>
         <Static id="Static00_01_00" taborder="18" left="574" top="160" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   핸드폰"/>

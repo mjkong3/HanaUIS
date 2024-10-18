@@ -66,7 +66,7 @@
             obj.set_binddataset("DEPARTMENT_DTL_List");
             obj.set_autofittype("col");
             obj.set_cssclass("ATEAM");
-            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"52\"/><Column size=\"65\"/><Column size=\"73\"/><Column size=\"141\"/><Column size=\"70\"/><Column size=\"36\"/><Column size=\"187\"/><Column size=\"47\"/><Column size=\"68\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"성명\"/><Cell col=\"3\" text=\"연락처\"/><Cell col=\"4\" text=\"이메일\"/><Cell col=\"5\" text=\"생년월일\"/><Cell col=\"6\" text=\"성별\"/><Cell col=\"7\" text=\"주소\"/><Cell col=\"8\" text=\"상태여부\"/><Cell col=\"9\" text=\"학과\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\" textAlign=\"center\" displaytype=\"mask\" maskedittype=\"string\"/><Cell col=\"2\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:PHONE\"/><Cell col=\"4\" text=\"bind:EMAIL\"/><Cell col=\"5\" text=\"bind:BIRTHDAY\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:GENDER\" textAlign=\"center\" expr=\"expr:GENDER==&apos;M&apos; ? &apos;남자&apos; : GENDER==&apos;F&apos; ? &apos;여자&apos; : &apos;&apos;\"/><Cell col=\"7\" text=\"bind:ADDRESS\"/><Cell col=\"8\" text=\"bind:STATUS\" textAlign=\"center\"/><Cell col=\"9\" text=\"bind:DEPARTMENT_NAME\" textAlign=\"center\"/></Band></Format></Formats>");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"48\" band=\"left\"/><Column size=\"52\"/><Column size=\"65\"/><Column size=\"73\"/><Column size=\"141\"/><Column size=\"70\"/><Column size=\"36\"/><Column size=\"187\"/><Column size=\"47\"/><Column size=\"68\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/></Rows><Band id=\"head\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"학번\"/><Cell col=\"2\" text=\"성명\"/><Cell col=\"3\" text=\"연락처\"/><Cell col=\"4\" text=\"이메일\"/><Cell col=\"5\" text=\"생년월일\"/><Cell col=\"6\" text=\"성별\"/><Cell col=\"7\" text=\"주소\"/><Cell col=\"8\" text=\"학적상태\"/><Cell col=\"9\" text=\"학과\"/></Band><Band id=\"body\"><Cell displaytype=\"checkboxcontrol\" edittype=\"checkbox\" text=\"bind:Check\"/><Cell col=\"1\" text=\"bind:STUDENT_ID\" textAlign=\"center\" displaytype=\"mask\" maskedittype=\"string\"/><Cell col=\"2\" text=\"bind:NAME\" textAlign=\"center\"/><Cell col=\"3\" text=\"bind:PHONE\"/><Cell col=\"4\" text=\"bind:EMAIL\"/><Cell col=\"5\" text=\"bind:BIRTHDAY\" textAlign=\"center\"/><Cell col=\"6\" text=\"bind:GENDER\" textAlign=\"center\" expr=\"expr:GENDER==&apos;M&apos; ? &apos;남자&apos; : GENDER==&apos;F&apos; ? &apos;여자&apos; : &apos;&apos;\"/><Cell col=\"7\" text=\"bind:ADDRESS\"/><Cell col=\"8\" text=\"bind:STATUS\" textAlign=\"center\"/><Cell col=\"9\" text=\"bind:DEPARTMENT_NAME\" textAlign=\"center\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
             obj = new Combo("Search_Cmb","766","50","116","26",null,null,null,null,null,null,this);
@@ -487,7 +487,7 @@
             };
 
             // 팝업 창 경로 설정
-            var surl = "MainBase::excel_popup.xfdl";
+            var surl = "MainBase::excel_Student_Popup.xfdl";
 
             // 팝업 호출 (데이터셋과 선택된 학과 코드 전달)
             this.showPopup(objParam, surl);
@@ -502,7 +502,7 @@
             trace(data); // XML 데이터가 잘 생성되었는지 확인
 
             // 서버로 transaction 호출
-            var url = "http://localhost:8082/HanaUIS/exceldown.jsp"; // 다운로드 excel 요청
+            var url = "http://localhost:8082/HanaUIS/excelExport.jsp?type=stu"; // 다운로드 excel 요청
 
             // XMLHttpRequest 객체 생성
             var xhr = new XMLHttpRequest();

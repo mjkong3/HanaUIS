@@ -24,4 +24,8 @@ public interface AdProfessorService {
 	String dupCheckEm(Map<String, Object>param);
 
 	ProfessorDTO proLoginCheck(ProfessorDTO dto, HttpSession session);
+	
+	List<Map<String, Object>> checkProfessorExcel(List<Map<String, Object>> param);
+	
+	   void insertexcelPro(List<Map<String, Object>> param);
 }

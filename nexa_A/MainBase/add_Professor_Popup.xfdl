@@ -26,7 +26,7 @@
         <Static id="Static00_00_01_00_00" taborder="19" left="574" top="161" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   생년월일"/>
         <Static id="Static00_00_01_00_01" taborder="20" left="302" top="357" width="98" height="50" background="#e7e7e8" border="1px solid #d3d3d4" text="   주소"/>
         <Edit id="edt_ProId" taborder="21" left="411" top="72" width="153" height="30" readonly="false" onkillfocus="edt_ProId_onkillfocus" onchanged="edt_ProId_onchanged"/>
-        <Edit id="edt_ProPw" taborder="22" left="682" top="72" width="239" height="30" password="false" readonly="false" onchanged="edt_ProPw_onchanged"/>
+        <Edit id="edt_ProPw" taborder="22" left="682" top="72" width="239" height="30" password="true" readonly="false" onchanged="edt_ProPw_onchanged"/>
         <Edit id="edt_ProName" taborder="23" left="411" top="122" width="153" height="30" readonly="false"/>
         <Combo id="cmb_Dept" taborder="24" text="" left="682" top="122" width="239" height="31" index="0" innerdataset="ds_dept" codecolumn="DEPARTMENT_CODE" datacolumn="DEPARTMENT_NAME" value="" readonly="false" onitemchanged="cmb_Dept_onitemchanged" displaynulltext="학과를 선택하세요"/>
         <Edit id="edt_Email" taborder="25" left="682" top="269" width="119" height="30" readonly="true" onkillfocus="edt_Email_onkillfocus" cssclass="edt_Adr" displaynulltext="교번이 필요합니다"/>

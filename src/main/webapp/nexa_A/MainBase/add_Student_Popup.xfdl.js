@@ -172,6 +172,7 @@
 
             obj = new Edit("edt_password","683","72","233","30",null,null,null,null,null,null,this);
             obj.set_taborder("15");
+            obj.set_password("true");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static00_00_00","574","111","98","50",null,null,null,null,null,null,this);

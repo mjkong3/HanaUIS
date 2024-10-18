@@ -182,4 +182,42 @@
   	
   	</select>
   	
+  	<select id="checkProfessorExcel" parameterType="java.util.List" resultType="hashMap">
+		SELECT PROFESSOR_ID
+		FROM PROFESSOR
+		WHERE PROFESSOR_ID IN 
+		<foreach collection="list" item="professor" open="(" separator="," close=")">
+	        #{professor.교번}
+	    </foreach>
+	</select>
+	
+	<insert id="insertexcelPro" parameterType="java.util.Map">
+      INSERT INTO PROFESSOR (PROFESSOR_ID,
+               PASSWORD,
+               NAME,
+               PHONE,
+               EMAIL,
+               BIRTHDAY,
+               GENDER,
+               ADDRESS,
+               STATUS,
+               DEPARTMENT_CODE,
+               CRE_DTM,
+               CRE_USR,
+               ZIPCODE)
+               VALUES (#{교번},
+                     SHA2(#{비밀번호}, 256),
+                     #{이름},
+                     #{연락처},
+                     #{이메일},
+                     #{생년월일},
+                     #{성별},
+                     #{주소},
+                     #{재직여부},
+                     #{학과코드},
+                     NOW(),
+                     #{ADMIN_CODE},
+                     #{우편번호})   
+   </insert>
+  	
 </mapper>

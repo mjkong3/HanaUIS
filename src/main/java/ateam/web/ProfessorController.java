@@ -486,12 +486,11 @@ public class ProfessorController {
 			session.setMaxInactiveInterval(1800); // 로그인 세션 만료 시간 = 30분
 
 			// 이메일로 인증번호 발송
-//			String verificationCode = mailService.joinEmail(professorDTO.getEmail());
-//			session.setAttribute("verificationCode", verificationCode); // 인증코드 세션 저장
+			String verificationCode = mailService.joinEmail(professorDTO.getEmail());
+			session.setAttribute("verificationCode", verificationCode); // 인증코드 세션 저장
 
 			// 응답 데이터 설정
 			view.addObject("result", "success");
-//			view.addObject("verificationCode", verificationCode); // 인증코드 전달
 		} else {
 			// 로그인 실패 시 처리
 			view.addObject("result", "failure");
@@ -513,9 +512,7 @@ public class ProfessorController {
 		String savedCode = (String) session.getAttribute("verificationCode");
 
 		if (inputCode.equals(savedCode)) {
-			// 인증번호가 맞으면 로그인 완료 처리
-			ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professorTemp");
-			session.setAttribute("professor", professor); // 실제 사용자 정보 세션 저장
+
 			session.removeAttribute("verificationCode"); // 인증코드 삭제
 
 			// 성공 응답 데이터 추가
@@ -525,6 +522,7 @@ public class ProfessorController {
 		} else {
 			// 실패 응답 데이터 추가
 			view.addObject("result", "failure");
+			view.addObject("message", "인증번호가 일치하지 않습니다.");
 		}
 
 		// JSON 응답을 위한 jsonView 설정

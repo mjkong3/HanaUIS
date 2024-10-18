@@ -230,7 +230,7 @@
 
             obj = new Edit("edt_ProPw","682","72","239","30",null,null,null,null,null,null,this);
             obj.set_taborder("22");
-            obj.set_password("false");
+            obj.set_password("true");
             obj.set_readonly("false");
             this.addChild(obj.name, obj);
 

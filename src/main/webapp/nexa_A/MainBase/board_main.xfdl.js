@@ -38,7 +38,7 @@
             obj.set_font("30px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Grid("grd_board","49","70","1151","370",null,null,null,null,null,null,this);
+            obj = new Grid("grd_board","49","70","1151","480",null,null,null,null,null,null,this);
             obj.set_taborder("1");
             obj.set_binddataset("boardList_ds");
             obj.set_cssclass("ATEAM");

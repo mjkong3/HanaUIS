@@ -308,6 +308,9 @@ this.updateCheck = function() {
 		// 숫자만 입력 가능하도록 체크 (각 열에 대해)
 		if (!/^\d*$/.test(inputValue) || !/^\d*$/.test(inputValue2) || !/^\d*$/.test(inputValue3)) {
 			alert("숫자만 입력 가능합니다. 행: " + (i + 1));
+			this.ds_scoreList.setColumn(i,"MIDDLE_TEST", this.ds_scoreList.getOrgColumn(i, "MIDDLE_TEST"));
+			this.ds_scoreList.setColumn(i,"FINAL_TEST", this.ds_scoreList.getOrgColumn(i, "FINAL_TEST"));
+			this.ds_scoreList.setColumn(i,"REPORT", this.ds_scoreList.getOrgColumn(i, "REPORT"));
 			this.ds_scoreList.filter(""); // 필터 초기화
 			return; // 유효성 검사 실패 시 함수 종료
 		}
@@ -315,6 +318,9 @@ this.updateCheck = function() {
 		// 100 미만의 숫자만 허용 (각 열에 대해)
 		if (parseInt(inputValue, 10) >= 100 || parseInt(inputValue2, 10) >= 100 || parseInt(inputValue3, 10) >= 100) {
 			alert("100 미만의 숫자만 입력 가능합니다. 행: " + (i + 1));
+			this.ds_scoreList.setColumn(i,"MIDDLE_TEST", this.ds_scoreList.getOrgColumn(i, "MIDDLE_TEST"));
+			this.ds_scoreList.setColumn(i,"FINAL_TEST", this.ds_scoreList.getOrgColumn(i, "FINAL_TEST"));
+			this.ds_scoreList.setColumn(i,"REPORT", this.ds_scoreList.getOrgColumn(i, "REPORT"));
 			this.ds_scoreList.filter(""); // 필터 초기화
 			return; // 유효성 검사 실패 시 함수 종료
 		}

@@ -50,7 +50,7 @@
                 $("#veritext").attr("disabled", false);  // 인증번호 입력란 활성화
                 $("#veriCode").attr("disabled", false);  // 인증번호 입력란 활성화
             } else {
-                alert("일치하는 회원정보가 존재하지 않습니다.");
+                alert("일치하는 회원정보가 없습니다.");
             }
         },
         error: function(request, status, error) {
@@ -206,7 +206,7 @@
 				</table>
 			</form>
 			<div class="cancelPwd">
-				<a href="javascript:fn_cancelPwd()">변경 취소</a>
+				<a href="javascript:fn_cancelPwd()">로그인 하기</a>
 			</div>	
 		</div>
 	</div>

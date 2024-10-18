@@ -152,7 +152,7 @@
             obj.set_text("강의실 추가");
             this.addChild(obj.name, obj);
 
-            obj = new Div("Div00","550","60","537","290",null,null,null,null,null,null,this);
+            obj = new Div("Div00","550","60","537","264",null,null,null,null,null,null,this);
             obj.set_taborder("12");
             obj.set_text("Div00");
             obj.set_formscrollbartype("default default");

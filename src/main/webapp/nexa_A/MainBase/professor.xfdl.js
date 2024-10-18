@@ -110,6 +110,16 @@
             obj.set_text("교수 관리");
             obj.set_font("30px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
+
+            obj = new Button("btn_excel","201","46","66","25",null,null,null,null,null,null,this);
+            obj.set_taborder("10");
+            obj.set_text("엑셀 등록");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_excelexp","270","46","66","25",null,null,null,null,null,null,this);
+            obj.set_taborder("11");
+            obj.set_text("엑셀 받기");
+            this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
             obj = new Layout("default","",1280,720,this,function(p){});
@@ -143,6 +153,7 @@
         * 5. 상세보기 - 셀 더블클릭 + 상세페이지 팝업 + 수정은 팝업에서
         * 6. 콜백 - 단순 콜백 + 트랜잭션 후 ds 및 이벤트 제어용 콜백
         * 7. 기타기능 - 정렬 + 체크박스 + 엔터
+        * 8. 엑셀 IMPORT / EXPROT
         */
 
         // 1. 화면진입
@@ -542,6 +553,73 @@
         	}
         };
 
+        // 8. 엑셀 IMPORT / EXPORT
+        this.excelPop = function (objParam, surl)
+        {
+        	popup = new nexacro.ChildFrame;
+        	popup.init("excelPop", 0, 0, 800, 700, null, null, surl);
+        	popup.set_dragmovetype("all");
+        	popup.set_layered("true");
+        	popup.set_autosize(true);
+        	popup.set_showtitlebar("Popup Title");
+        	popup.set_showstatusbar(false);
+        	popup.set_resizable(true);
+        	popup.set_openalign("center middle");
+        	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
+        	popup.style.set_overlaycolor("#6666664C");
+        	popup.form.style.set_border("1 solid #4c5a6f");
+        }
+        this.btn_excel_onclick = function(obj,e)
+        {
+        	// 팝업으로 넘길 파라미터 (데이터셋 전체와 선택된 학과의 코드)
+            var objParam = {
+            };
+
+            // 팝업 창 경로 설정
+            var surl = "MainBase::excel_Professor_Popup.xfdl";
+
+            // 팝업 호출 (데이터셋과 선택된 학과 코드 전달)
+            this.excelPop(objParam, surl);
+        };
+
+        this.btn_excelexp_onclick = function(obj,e)
+        {
+            // 현재 그리드 데이터셋을 가져옵니다.
+            var ds = this.grd_List.getBindDataset();
+            var data = ds.saveXML(); // 데이터셋의 데이터를 XML 형식으로 변환합니다.
+
+            trace(data); // XML 데이터가 잘 생성되었는지 확인
+
+            // 서버로 transaction 호출
+            var url = "http://localhost:8082/HanaUIS/excelExport.jsp?type=pro"; // 다운로드 excel 요청
+
+            // XMLHttpRequest 객체 생성
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // 서버 응답이 성공적이면 엑셀 파일을 다운로드합니다.
+                        var blob = new Blob([xhr.response], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+                        var link = document.createElement("a");
+                        link.href = window.URL.createObjectURL(blob);
+                        link.download = "professor_data.xlsx"; // 다운로드할 파일 이름
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link); // 링크를 제거합니다.
+                        trace("엑셀 파일 다운로드 완료");
+                    } else {
+                        trace("오류 발생: " + xhr.status);
+                    }
+                }
+            };
+
+            // 데이터 전송
+            xhr.responseType = "blob"; // 응답 유형을 blob으로 설정
+            xhr.send("data=" + encodeURIComponent(data));
+        };
         });
         
         // Regist UI Components Event
@@ -554,6 +632,8 @@
             this.btn_Search.addEventHandler("onclick",this.btn_Search_onclick,this);
             this.btn_Add.addEventHandler("onclick",this.btn_Add_onclick,this);
             this.btn_Delete.addEventHandler("onclick",this.btn_Delete_onclick,this);
+            this.btn_excel.addEventHandler("onclick",this.btn_excel_onclick,this);
+            this.btn_excelexp.addEventHandler("onclick",this.btn_excelexp_onclick,this);
             this.ds_dept.addEventHandler("onrowposchanged",this.ds_dept_onrowposchanged,this);
         };
         this.loadIncludeScript("professor.xfdl");

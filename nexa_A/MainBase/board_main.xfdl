@@ -4,7 +4,7 @@
     <Layouts>
       <Layout height="720" width="1280">
         <Static id="stt_board" taborder="0" text="공지 사항" left="49" top="10" width="191" height="49" font="30px/normal &quot;Gulim&quot;"/>
-        <Grid id="grd_board" taborder="1" left="49" top="70" width="1151" height="370" binddataset="boardList_ds" oncelldblclick="grd_board_oncelldblclick" cssclass="ATEAM">
+        <Grid id="grd_board" taborder="1" left="49" top="70" width="1151" height="480" binddataset="boardList_ds" oncelldblclick="grd_board_oncelldblclick" cssclass="ATEAM">
           <Formats>
             <Format id="default">
               <Columns>
