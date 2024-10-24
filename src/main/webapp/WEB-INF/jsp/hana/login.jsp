@@ -113,9 +113,10 @@
         	 console.log(id); // 받은거 확인
         	 console.log(password);
             if (data.result === 'success') {
-                alert("인증코드가 이메일로 발송되었습니다.");
+                /* alert("인증코드가 이메일로 발송되었습니다.");
                 $("#emailCheck").attr("disabled", false);  // 인증번호 입력란 활성화
-                $("#loginSubmit").attr("disabled", false);  // 로그인 버튼 활성화
+                $("#loginSubmit").attr("disabled", false);  // 로그인 버튼 활성화 */
+                location.href = "pfs/notice.do"
             } else {
                 alert("아이디 또는 비밀번호가 잘못되었습니다.");
             }

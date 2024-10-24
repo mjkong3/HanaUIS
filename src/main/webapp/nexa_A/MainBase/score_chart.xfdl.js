@@ -226,7 +226,7 @@
             		},
             		{
             			"id": "series3",
-            			"titletext": "총합",
+            			"titletext": "총점",
             			"barvisible": true,
             			"barsize": "65",
             			"itemtextvisible": true,

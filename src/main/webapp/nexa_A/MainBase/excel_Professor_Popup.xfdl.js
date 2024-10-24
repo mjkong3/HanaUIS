@@ -57,7 +57,7 @@
 
             obj = new Static("Static00_00","510","415","135","40",null,null,null,null,null,null,this);
             obj.set_taborder("3");
-            obj.set_text("기존 학생 중복 : 0");
+            obj.set_text("기존 교수 중복 : 0");
             this.addChild(obj.name, obj);
 
             obj = new Static("Static01","240","430","45","11",null,null,null,null,null,null,this);

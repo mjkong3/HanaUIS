@@ -10,12 +10,11 @@
         <TextArea id="txt_content" taborder="4" left="220" top="145" width="590" height="220" textAlign="left" font="12px/1.2 &quot;Gulim&quot;" scrolltype="vertical" readonly="false" wordWrap="english" scrollbartype="auto auto" scrollbarsize="10" onkeydown="txt_content_onkeydown"/>
         <Static id="stt_file" taborder="5" text="첨부파일" left="60" top="430" width="150" height="90" textAlign="center" font="12pt &quot;Arial&quot;" border="0px none,10px darkblue solid,0px none,0px none" onclick="Static01_00_onclick"/>
         <ImageViewer id="ImageViewer00" taborder="12" left="220" top="415" width="590" height="5" visible="false" onload="ImageViewer00_onload" stretch="none" fittocontents="none"/>
-        <Grid id="grd_file" taborder="6" left="219" top="430" width="500" height="90" binddataset="ds_file" onclick="grd_file_onclick" ondrop="grd_file_ondrop" ondragenter="grd_file_ondragenter" ondragleave="grd_file_ondragleave">
+        <Grid id="grd_file" taborder="6" left="219" top="430" width="500" height="90" binddataset="ds_file" onclick="grd_file_onclick" ondrop="grd_file_ondrop" ondragenter="grd_file_ondragenter" ondragleave="grd_file_ondragleave" autofittype="col">
           <Formats>
             <Format id="default">
               <Columns>
                 <Column size="378"/>
-                <Column size="100"/>
               </Columns>
               <Rows>
                 <Row size="24" band="head"/>
@@ -23,11 +22,9 @@
               </Rows>
               <Band id="head">
                 <Cell text="파일명"/>
-                <Cell col="1" text="파일용량"/>
               </Band>
               <Band id="body">
                 <Cell text="bind:file"/>
-                <Cell col="1" text="bind:filepac"/>
               </Band>
             </Format>
           </Formats>

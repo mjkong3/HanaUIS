@@ -131,14 +131,6 @@
             <Col id="code">CLASS_TYPE</Col>
             <Col id="data">이수구분</Col>
           </Row>
-          <Row>
-            <Col id="code">ADMIN_CODE</Col>
-            <Col id="data">관리자</Col>
-          </Row>
-          <Row>
-            <Col id="code">REGDATE</Col>
-            <Col id="data">등록일</Col>
-          </Row>
         </Rows>
       </Dataset>
       <Dataset id="ds_search">

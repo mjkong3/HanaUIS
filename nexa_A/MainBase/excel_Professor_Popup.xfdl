@@ -6,7 +6,7 @@
         <Button id="btn_excel" taborder="0" text="엑셀등록" left="569" top="37" width="80" height="33" onclick="btn_excel_onclick"/>
         <FileDownload id="FileDownload00" taborder="1" text="샘플 다운로드" left="480" top="37" width="79" height="32" onclick="FileDownload00_onclick"/>
         <Static id="Static00" taborder="2" text="엑셀 내 중복 : 0" left="290" top="415" width="135" height="40"/>
-        <Static id="Static00_00" taborder="3" text="기존 학생 중복 : 0" left="510" top="415" width="135" height="40"/>
+        <Static id="Static00_00" taborder="3" text="기존 교수 중복 : 0" left="510" top="415" width="135" height="40"/>
         <Static id="Static01" taborder="4" left="240" top="430" width="45" height="11" background="#FFCEDA"/>
         <Static id="Static01_00" taborder="5" left="460" top="430" width="45" height="11" background="#B0E0E6"/>
         <Grid id="Grid00" taborder="6" left="30" top="75" width="789" height="335" binddataset="ds_test" autofittype="col">

@@ -19,7 +19,8 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("ds_board", this);
-            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/><Column id=\"IMAGE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"BOARD_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj.set_useclientlayout("true");
+            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/><Column id=\"IMAGE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"BOARD_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_USR\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -30,7 +31,7 @@
 
 
             obj = new Dataset("ds_copyCat", this);
-            obj._setContents("");
+            obj._setContents("<ColumnInfo><Column id=\"BOARD_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -101,6 +102,7 @@
             obj = new Grid("grd_file","219","416","496","104",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_binddataset("ds_file");
+            obj.set_autofittype("col");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"447\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"32\"/></Rows><Band id=\"head\"><Cell text=\"파 일\"/></Band><Band id=\"body\"><Cell text=\"bind:FILE_NAME\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
@@ -261,6 +263,7 @@
 
                 p.grd_file.set_taborder("5");
                 p.grd_file.set_binddataset("ds_file");
+                p.grd_file.set_autofittype("col");
                 p.grd_file.move("219","416","496","104",null,null);
 
                 p.btn_closeBoard.set_taborder("6");
@@ -679,22 +682,22 @@
         };
 
         // 파일 처리 진행, 오류, 완료 이벤트 함수
-        this.FileUpTransfer00_onprogress = function(obj,e)
-        {
-            this.fn_addlog(e.loaded+"/"+e.total);
-        };
-
-        this.FileUpTransfer00_onsuccess = function(obj,e)
-        {
-            this.fn_addlog(e.code);
-            this.fn_addlog(e.message);
-        };
-
-        this.FileUpTransfer00_onerror = function(obj,e)
-        {
-            this.fn_addlog(e.errormsg);
-            this.fn_addlog(e.statuscode);
-        };
+        // this.FileUpTransfer00_onprogress = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferProgressEventInfo)
+        // {
+        //     this.fn_addlog(e.loaded+"/"+e.total);
+        // };
+        //
+        // this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventinfo)
+        // {
+        //     this.fn_addlog(e.code);
+        //     this.fn_addlog(e.message);
+        // };
+        //
+        // this.FileUpTransfer00_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferErrorEventInfo)
+        // {
+        //     this.fn_addlog(e.errormsg);
+        //     this.fn_addlog(e.statuscode);
+        // };
 
         /************************************************************************
          * 							수정 버튼 이벤트
@@ -703,26 +706,9 @@
           // 공지사항 업데이트 기능
           this.fnUdateBoardData = function() {
 
-        	// 제목 및 공지사항이 비었을 때 처리
-        	if(this.txt_Title.value == ''
-        		 || this.txt_Title.value == 'undefined'
-        		 || this.txt_Title.value == null) {
-        			alert("제목을 입력해주세요.");
-        			return;
-        	}
-        		if(this.txt_Content.value == ''
-        		 || this.txt_Content.value == 'undefined'
-        		 || this.txt_Content.value == null) {
-        			alert("내용을 입력해주세요.");
-        			return;
-        	}
-
-        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
-        	this.ds_board.setColumn(0, "CRE_USR", adCode);
-
             var strSvcId    = "updateBoard";
             var strSvcUrl   = "svc::updateBoard.do";
-            var inData      = "ds_board=ds_board ds_copyCat=ds_copyCat";
+            var inData      = "ds_board=ds_board";
             var outData     = "";  // 결과를 받을 데이터셋
             var strArg      = ""
             var callBackFnc = "fnCallbackUpdateFile";
@@ -763,7 +749,7 @@
         this.fnCallbackUpdated = function(svcID, errorCode, errorMsg) {
         	if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
         		alert("게시글이 수정 되었습니다");
-        		this.close;
+        		this.close();
             } else {
                 alert("게시글 저장 중 오류 발생: " + errorMsg);
             }
@@ -773,6 +759,27 @@
 
         this.btn_updateBoard_onclick = function(obj,e)
         {
+        	this.ds_board.setColumn(0, "IMAGE", this.ds_contentFile.getColumn(0, "IMAGE"));
+        	var gdsApp = nexacro.getApplication();
+        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        	this.ds_board.setColumn(0, "CRE_USR", adCode);
+        	this.ds_board.setColumn(0, "UPD_USR", adCode);
+
+
+        		// 제목 및 공지사항이 비었을 때 처리
+        	if(this.txt_Title.value == ''
+        		 || this.txt_Title.value == 'undefined'
+        		 || this.txt_Title.value == null) {
+        			alert("제목을 입력해주세요.");
+        			return;
+        	}
+        		if(this.txt_Content.value == ''
+        		 || this.txt_Content.value == 'undefined'
+        		 || this.txt_Content.value == null) {
+        			alert("내용을 입력해주세요.");
+        			return;
+        	}
+
         	this.fnUdateBoardData();
         };
 
@@ -783,7 +790,7 @@
         this.fnDeleteBoardData = function() {
             var strSvcId    = "deleteBoard";
             var strSvcUrl   = "svc::deleteBoard.do";
-            var inData      = "ds_copyCat = ds_copyCat";  // 넘어가는 데이터셋
+            var inData      = "ds_copyCat=ds_copyCat";  // 넘어가는 데이터셋
             var outData     = "";  // 결과를 받을 데이터셋
             var strArg      = ""
             var callBackFnc = "fnCallbackDeleteBoard";
@@ -794,6 +801,8 @@
 
         this.btn_deleteBoard_onclick = function(obj,e)
         {
+        	this.ds_copyCat.setColumn(0, "BOARD_CODE", this.ds_board.getColumn(0, "BOARD_CODE"));
+
         	var confirmPopup = this.confirm("삭제하시겠습니까?");
 
         	if (confirmPopup) {
@@ -804,7 +813,7 @@
         this.fnCallbackDeleteBoard = function(svcID, errorCode, errorMsg) {
         	if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
         		alert("게시글이 삭제 되었습니다");
-        		this.close;
+        		this.close();
             } else {
                 alert("게시글 삭제 중 오류 발생: " + errorMsg);
             }
@@ -927,7 +936,7 @@
         		//var imgName = this.ds_contentFile.getColumn(0, "IMAGE");
         		var imgName = e.virtualfiles[0].filename;
         		this.showImagePreview(imgName);
-        	}.bind(this), 2500); // 2500ms 뒤 실행
+        	}.bind(this), 5000); // 2500ms 뒤 실행
 
 
 
@@ -1046,7 +1055,7 @@
         		alert("본문에 들어간 파일이 없습니다.");
         	} else {
         		this.deleteFile(this.ds_contentFile.getColumn(0, "IMAGE"));
-
+        		this.ds_contentFile.clearData();
         		this.edt_filename.set_value("");
         		this.ImageViewer00.set_visible(false);
         		this.ImageViewer00.set_image(null);

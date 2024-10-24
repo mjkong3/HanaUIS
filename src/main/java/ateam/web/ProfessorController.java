@@ -483,8 +483,8 @@ public class ProfessorController {
 			session.setMaxInactiveInterval(1800); // 로그인 세션 만료 시간 = 30분
 
 			// 이메일로 인증번호 발송
-			String verificationCode = mailService.joinEmail(professorDTO.getEmail());
-			session.setAttribute("verificationCode", verificationCode); // 인증코드 세션 저장
+//			String verificationCode = mailService.joinEmail(professorDTO.getEmail());
+//			session.setAttribute("verificationCode", verificationCode); // 인증코드 세션 저장
 
 			// 응답 데이터 설정
 			view.addObject("result", "success");
