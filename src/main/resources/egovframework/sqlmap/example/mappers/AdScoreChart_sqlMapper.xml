@@ -19,105 +19,105 @@
 	
 	<select id="selectAdScoreChart" parameterType="java.util.Map" resultType="java.util.Map">
 
-	SELECT 'A' AS 등급,
-        SUM(CASE 
-            WHEN e.MIDDLE_TEST * 0.4 >= 36 THEN 1 ELSE 0 END) AS 중간,
-        SUM(CASE 
-            WHEN e.FINAL_TEST * 0.4 >= 36 THEN 1 ELSE 0 END) AS 기말,
-        SUM(CASE 
-            WHEN e.REPORT * 0.2 >= 18 THEN 1 ELSE 0 END) AS 과제,
-        SUM(CASE 
-            WHEN e.SCORE >= 90 THEN 1 ELSE 0 END) AS 총합
-    FROM ENROLLMENT e
-    JOIN CLASS c ON e.CLASS_CODE = c.CLASS_CODE
-    JOIN PROFESSOR f ON c.PROFESSOR_ID = f.PROFESSOR_ID
-    WHERE c.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
-    AND c.SEMESTER = #{SEMESTER}
-    AND c.CLASS_CODE = #{CLASS_CODE}
-    AND YEAR(e.REG_DTM) = #{YEAR}
-    AND c.PROFESSOR_ID = #{PROFESSOR_ID}
-    
-    UNION ALL
-    
-    SELECT 'B' AS 등급,
-        SUM(CASE 
-            WHEN e.MIDDLE_TEST * 0.4 >= 32 AND e.MIDDLE_TEST * 0.4 &lt; 36 THEN 1 ELSE 0 END) AS 중간,
-        SUM(CASE 
-            WHEN e.FINAL_TEST * 0.4 >= 32 AND e.FINAL_TEST * 0.4 &lt; 36 THEN 1 ELSE 0 END) AS 기말,
-        SUM(CASE 
-            WHEN e.REPORT * 0.2 >= 16 AND e.REPORT * 0.2 &lt; 18 THEN 1 ELSE 0 END) AS 과제,
-        SUM(CASE 
-            WHEN e.SCORE >= 80 AND e.SCORE &lt; 90 THEN 1 ELSE 0 END) AS 총합
-    FROM ENROLLMENT e
-    JOIN CLASS c ON e.CLASS_CODE = c.CLASS_CODE
-    JOIN PROFESSOR f ON c.PROFESSOR_ID = f.PROFESSOR_ID
-    WHERE c.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
-    AND c.SEMESTER = #{SEMESTER}
-    AND c.CLASS_CODE = #{CLASS_CODE}
-    AND YEAR(e.REG_DTM) = #{YEAR}
-    AND c.PROFESSOR_ID = #{PROFESSOR_ID}
-    
-    UNION ALL
-    
-    SELECT 'C' AS 등급,
-        SUM(CASE 
-            WHEN e.MIDDLE_TEST * 0.4 >= 28 AND e.MIDDLE_TEST * 0.4 &lt; 32 THEN 1 ELSE 0 END) AS 중간,
-        SUM(CASE 
-            WHEN e.FINAL_TEST * 0.4 >= 28 AND e.FINAL_TEST * 0.4 &lt; 32 THEN 1 ELSE 0 END) AS 기말,
-        SUM(CASE 
-            WHEN e.REPORT * 0.2 >= 14 AND e.REPORT * 0.2 &lt; 16 THEN 1 ELSE 0 END) AS 과제,
-        SUM(CASE 
-            WHEN e.SCORE >= 70 AND e.SCORE &lt; 80 THEN 1 ELSE 0 END) AS 총합
-    FROM ENROLLMENT e
-    JOIN CLASS c ON e.CLASS_CODE = c.CLASS_CODE
-    JOIN PROFESSOR f ON c.PROFESSOR_ID = f.PROFESSOR_ID
-    WHERE c.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
-    AND c.SEMESTER = #{SEMESTER}
-    AND c.CLASS_CODE = #{CLASS_CODE}
-    AND YEAR(e.REG_DTM) = #{YEAR}
-    AND c.PROFESSOR_ID = #{PROFESSOR_ID}
-    
-    UNION ALL
-    
-    SELECT 'D' AS 등급,
-        SUM(CASE 
-            WHEN e.MIDDLE_TEST * 0.4 >= 24 AND e.MIDDLE_TEST * 0.4 &lt; 28 THEN 1 ELSE 0 END) AS 중간,
-        SUM(CASE 
-            WHEN e.FINAL_TEST * 0.4 >= 24 AND e.FINAL_TEST * 0.4 &lt; 28 THEN 1 ELSE 0 END) AS 기말,
-        SUM(CASE 
-            WHEN e.REPORT * 0.2 >= 12 AND e.REPORT * 0.2 &lt; 14 THEN 1 ELSE 0 END) AS 과제,
-        SUM(CASE 
-            WHEN e.SCORE >= 60 AND e.SCORE &lt; 70 THEN 1 ELSE 0 END) AS 총합
-    FROM ENROLLMENT e
-    JOIN CLASS c ON e.CLASS_CODE = c.CLASS_CODE
-    JOIN PROFESSOR f ON c.PROFESSOR_ID = f.PROFESSOR_ID
-    WHERE c.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
-    AND c.SEMESTER = #{SEMESTER}
-    AND c.CLASS_CODE = #{CLASS_CODE}
-    AND YEAR(e.REG_DTM) = #{YEAR}
-    AND c.PROFESSOR_ID = #{PROFESSOR_ID}
-    
-    UNION ALL
-    
-    SELECT 'F' AS 등급,
-        SUM(CASE 
-            WHEN e.MIDDLE_TEST * 0.4 &lt; 24 THEN 1 ELSE 0 END) AS 중간,
-        SUM(CASE 
-            WHEN e.FINAL_TEST * 0.4 &lt; 24 THEN 1 ELSE 0 END) AS 기말,
-        SUM(CASE 
-            WHEN e.REPORT * 0.2 &lt; 12 THEN 1 ELSE 0 END) AS 과제,
-        SUM(CASE 
-            WHEN e.SCORE &lt; 60 THEN 1 ELSE 0 END) AS 총합
-    FROM ENROLLMENT e
-    JOIN CLASS c ON e.CLASS_CODE = c.CLASS_CODE
-    JOIN PROFESSOR f ON c.PROFESSOR_ID = f.PROFESSOR_ID
-    WHERE c.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
-    AND c.SEMESTER = #{SEMESTER}
-    AND c.CLASS_CODE = #{CLASS_CODE}
-    AND YEAR(e.REG_DTM) = #{YEAR}
-    AND c.PROFESSOR_ID = #{PROFESSOR_ID}
-		
-	ORDER BY FIELD(등급, 'A', 'B', 'C', 'D', 'F')
+		SELECT 'A' AS 등급,
+	        SUM(CASE 
+	            WHEN e.MIDDLE_TEST * 0.4 >= 36 THEN 1 ELSE 0 END) AS 중간,
+	        SUM(CASE 
+	            WHEN e.FINAL_TEST * 0.4 >= 36 THEN 1 ELSE 0 END) AS 기말,
+	        SUM(CASE 
+	            WHEN e.REPORT * 0.2 >= 18 THEN 1 ELSE 0 END) AS 과제,
+	        SUM(CASE 
+	            WHEN e.SCORE >= 90 THEN 1 ELSE 0 END) AS 총합
+	    FROM ENROLLMENT e
+		    JOIN CLASS c ON e.CLASS_CODE = c.CLASS_CODE
+		    JOIN PROFESSOR f ON c.PROFESSOR_ID = f.PROFESSOR_ID
+	    WHERE c.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+		    AND c.SEMESTER = #{SEMESTER}
+		    AND c.CLASS_CODE = #{CLASS_CODE}
+		    AND YEAR(e.REG_DTM) = #{YEAR}
+		    AND c.PROFESSOR_ID = #{PROFESSOR_ID}
+	    
+	    UNION ALL
+	    
+	    SELECT 'B' AS 등급,
+	        SUM(CASE 
+	            WHEN e.MIDDLE_TEST * 0.4 >= 32 AND e.MIDDLE_TEST * 0.4 &lt; 36 THEN 1 ELSE 0 END) AS 중간,
+	        SUM(CASE 
+	            WHEN e.FINAL_TEST * 0.4 >= 32 AND e.FINAL_TEST * 0.4 &lt; 36 THEN 1 ELSE 0 END) AS 기말,
+	        SUM(CASE 
+	            WHEN e.REPORT * 0.2 >= 16 AND e.REPORT * 0.2 &lt; 18 THEN 1 ELSE 0 END) AS 과제,
+	        SUM(CASE 
+	            WHEN e.SCORE >= 80 AND e.SCORE &lt; 90 THEN 1 ELSE 0 END) AS 총합
+	    FROM ENROLLMENT e
+		    JOIN CLASS c ON e.CLASS_CODE = c.CLASS_CODE
+		    JOIN PROFESSOR f ON c.PROFESSOR_ID = f.PROFESSOR_ID
+	    WHERE c.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+		    AND c.SEMESTER = #{SEMESTER}
+		    AND c.CLASS_CODE = #{CLASS_CODE}
+		    AND YEAR(e.REG_DTM) = #{YEAR}
+		    AND c.PROFESSOR_ID = #{PROFESSOR_ID}
+	    
+	    UNION ALL
+	    
+	    SELECT 'C' AS 등급,
+	        SUM(CASE 
+	            WHEN e.MIDDLE_TEST * 0.4 >= 28 AND e.MIDDLE_TEST * 0.4 &lt; 32 THEN 1 ELSE 0 END) AS 중간,
+	        SUM(CASE 
+	            WHEN e.FINAL_TEST * 0.4 >= 28 AND e.FINAL_TEST * 0.4 &lt; 32 THEN 1 ELSE 0 END) AS 기말,
+	        SUM(CASE 
+	            WHEN e.REPORT * 0.2 >= 14 AND e.REPORT * 0.2 &lt; 16 THEN 1 ELSE 0 END) AS 과제,
+	        SUM(CASE 
+	            WHEN e.SCORE >= 70 AND e.SCORE &lt; 80 THEN 1 ELSE 0 END) AS 총합
+	    FROM ENROLLMENT e
+		    JOIN CLASS c ON e.CLASS_CODE = c.CLASS_CODE
+		    JOIN PROFESSOR f ON c.PROFESSOR_ID = f.PROFESSOR_ID
+	    WHERE c.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+		    AND c.SEMESTER = #{SEMESTER}
+		    AND c.CLASS_CODE = #{CLASS_CODE}
+		    AND YEAR(e.REG_DTM) = #{YEAR}
+		    AND c.PROFESSOR_ID = #{PROFESSOR_ID}
+	    
+	    UNION ALL
+	    
+	    SELECT 'D' AS 등급,
+	        SUM(CASE 
+	            WHEN e.MIDDLE_TEST * 0.4 >= 24 AND e.MIDDLE_TEST * 0.4 &lt; 28 THEN 1 ELSE 0 END) AS 중간,
+	        SUM(CASE 
+	            WHEN e.FINAL_TEST * 0.4 >= 24 AND e.FINAL_TEST * 0.4 &lt; 28 THEN 1 ELSE 0 END) AS 기말,
+	        SUM(CASE 
+	            WHEN e.REPORT * 0.2 >= 12 AND e.REPORT * 0.2 &lt; 14 THEN 1 ELSE 0 END) AS 과제,
+	        SUM(CASE 
+	            WHEN e.SCORE >= 60 AND e.SCORE &lt; 70 THEN 1 ELSE 0 END) AS 총합
+	    FROM ENROLLMENT e
+		    JOIN CLASS c ON e.CLASS_CODE = c.CLASS_CODE
+		    JOIN PROFESSOR f ON c.PROFESSOR_ID = f.PROFESSOR_ID
+	    WHERE c.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+		    AND c.SEMESTER = #{SEMESTER}
+		    AND c.CLASS_CODE = #{CLASS_CODE}
+		    AND YEAR(e.REG_DTM) = #{YEAR}
+		    AND c.PROFESSOR_ID = #{PROFESSOR_ID}
+	    
+	    UNION ALL
+	    
+	    SELECT 'F' AS 등급,
+	        SUM(CASE 
+	            WHEN e.MIDDLE_TEST * 0.4 &lt; 24 THEN 1 ELSE 0 END) AS 중간,
+	        SUM(CASE 
+	            WHEN e.FINAL_TEST * 0.4 &lt; 24 THEN 1 ELSE 0 END) AS 기말,
+	        SUM(CASE 
+	            WHEN e.REPORT * 0.2 &lt; 12 THEN 1 ELSE 0 END) AS 과제,
+	        SUM(CASE 
+	            WHEN e.SCORE &lt; 60 THEN 1 ELSE 0 END) AS 총합
+	    FROM ENROLLMENT e
+		    JOIN CLASS c ON e.CLASS_CODE = c.CLASS_CODE
+		    JOIN PROFESSOR f ON c.PROFESSOR_ID = f.PROFESSOR_ID
+	    WHERE c.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+		    AND c.SEMESTER = #{SEMESTER}
+		    AND c.CLASS_CODE = #{CLASS_CODE}
+		    AND YEAR(e.REG_DTM) = #{YEAR}
+		    AND c.PROFESSOR_ID = #{PROFESSOR_ID}
+			
+		ORDER BY FIELD(등급, 'A', 'B', 'C', 'D', 'F')
 	
 	</select>
 

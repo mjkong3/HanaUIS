@@ -7,36 +7,7 @@
         <Static id="M_NM" taborder="1" text="관리자 페이지에 오신것을 환영합니다" left="270" top="409" width="530" height="81" textAlign="center"/>
       </Layout>
     </Layouts>
-    <Script type="xscript5.1"><![CDATA[// this.frmWork_onload = function(obj:nexacro.Form, e:nexacro.LoadEventInfo)
-// {
-//     // 화면 초기화 함수 호출
-//     this.fnInitForm();
-// };
-// 
-// this.fnInitForm = function ()
-// {
-//   //현재 form이 소속된 부모 frame 반
-//   var objOwnerFrame = this.getOwnerFrame();
-//   
-//   //파라미터 정보 중 메뉴명 가져오기
-//   var sPageNm = objOwnerFrame.param.menunm;
-//   
-//   //파라미터 정보 중 메뉴경로 가져오기
-//   var sFormPath= objOwnerFrame.param.menupath;
-//   
-//   //화면 타이틀 설정
-//   this.staTitle.set_text(sPageNm);
-//   this.staTitle.set_fittocontents("width");
-//   
-// };
-// };
-
-this.ImageViewer00_onclick = function(obj:nexacro.ImageViewer,e:nexacro.ClickEventInfo)
-{
-	
-};
-
-this.Form_Work_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+    <Script type="xscript5.1"><![CDATA[this.Form_Work_onkeyup = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
 {
 	if(e.keycode==13){
 		this.btn_Search.click();

@@ -21,7 +21,6 @@ public class FindPwdServiceImpl implements FindPwdService {
 		Map<String, Object> params = new HashMap<>();
 	    params.put("id", id);
 	    params.put("name", name);
-		System.out.println("유저 일치하는지" + params);
 		return mapper.selectUser(params);
 	}
 	

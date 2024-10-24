@@ -382,13 +382,10 @@
         	var proNm = this.parent.proNm;
 
         	this.edt_ProId.set_value(proNm);
-        	trace("교수 = " + proNm);
 
          	this.ds_class.copyData(objParam1);
-        	console.log(this.ds_class.saveXML());
         	this.ds_dept.copyData(objParam2);
 
-        	trace("set컬럼 가능한지1" + this.ds_class.saveXML());
 
         	// 초기화용 ds 카피해두기
         	this.ds_reClass.clearData();
@@ -422,9 +419,7 @@
         	// gds 호출로 등록일, 등록자 넣기
         	var gdsApp = nexacro.getApplication();
         	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
-        	trace("set컬럼 가능?? " + this.ds_class.getRowCount());
         	this.ds_class.setColumn(0, "UPD_USR", adCode);
-        	trace("아이디 제대로 들어갔나? " + this.ds_class.getColumn(0, "UPD_USR"));
         };
 
         // 2. 수정버튼
@@ -443,9 +438,7 @@
         this.cmb_Dept_onitemchanged = function(obj,e)
         {
         	var deptCd = obj.value;
-        	trace("무슨 값 선택했어? " + deptCd);
         	this.ds_getDept.setColumn(0, "DEPARTMENT_CODE", deptCd)
-        	trace("뭔가요?" + this.ds_getDept.getColumn(0, "DEPARTMENT_CODE"));
         	this.fn_selectProId();
         };
 
@@ -484,11 +477,10 @@
         	// 교수 null 검사
         	var proId = this.ds_class.getColumn(0, "PROFESSOR_ID");
         	var proId2 = this.ds_class.getColumn(1, "PROFESSOR_ID");
-        	trace("교수들어가있나? " + proId);
         	if (proId == null || proId == '' || proId == 'undefined'){
         		alert("교수를 선택해주세요1");
         		return;
-        }
+        	}
         	this.fn_updateAdClsInfo();
 
         };
@@ -528,18 +520,17 @@
         	}
 
         	switch(svcID) {
-        	// 등록버튼
+        		// 등록버튼
         	case "updateAdClsInfo":
-        		trace("수정완료")
         		alert("수정이 완료되었습니다!");
         		this.close("success");
         		break;
 
-        		}
+        	}
         };
         this.btn_Close_onclick = function(obj,e)
         {
-        		if(this.confirm("닫으시겠습니까?")){
+        	if(this.confirm("닫으시겠습니까?")){
         		this.close();
         	}
         };

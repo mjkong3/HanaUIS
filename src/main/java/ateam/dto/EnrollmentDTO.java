@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class EnrollmentDTO {
 
-	// enrollment
 	private int enrollmentCode;
 	private int classCode;
 	private int score;

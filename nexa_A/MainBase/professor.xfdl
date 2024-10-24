@@ -191,9 +191,7 @@ this.professor_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 	// cmb 기본값 all로 설정
 	// value로 binding된 ds 사용
 	this.ds_search.setColumn(0,"SEARCH_TYPE","ALL");
-	trace("rowcount1 = " + this.ds_search.getRowCount());
-	trace("rowindex1 = " + this.ds_search.getColIndex("SEARCH_TYPE"))
-	
+
 	// dept grd 호출
 	this.onRowKey = false; // onrow 이벤트 트리거(off)
 	this.fn_searchDept(); // dept 검색 함수 호출
@@ -219,15 +217,13 @@ this.fn_searchDept = function() {
 // 2. 조회 - 학과클릭 + 조회버튼
 // 2-1) 조회 - 학과클릭
 this.ds_dept_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
-{	trace("이벤트 발동 되는지?");
-	trace("트리거 값은? : " + this.onRowKey);
+{	
 	if (this.onRowKey == true){
 		
 		// obj = 이벤트의 해당 데이터셋
 		// obj.rowposition vs e.row => 이벤트 자체가 행변경 이벤트이기 때문에 특정 행 정보 제공X
 		// 조회시 dept_code를 넘겨주기 위해 row변경시마다 조회용 ds에 현재 dept_code 넣기
 		this.ds_search.setColumn(0,"DEPARTMENT_CODE", obj.getColumn(obj.rowposition,"DEPARTMENT_CODE"));
-		trace(" 트리거 발동시 search에 넣나? : " + this.ds_search.getColumn(0,"DEPARTMENT_CODE"));
 		// 조회함수 호출
 		this.fn_searchList();   
 	} 
@@ -245,7 +241,6 @@ this.btn_Search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 this.fn_searchList = function ()
 {
     var deptCode = this.ds_search.getColumn(0, "DEPARTMENT_CODE");
-    trace("DEPARTMENT_CODE: " + deptCode);  // 전체학과 선택 시 값 확인
 	
     if (deptCode == '' || deptCode == 'undefined' || deptCode == null) {
         alert("학과를 선택해주세요.");
@@ -428,7 +423,6 @@ this.fnCallback = function (svcID, errCD, errMsg)
 		this.ds_dept.insertRow(0); // 맨 앞에 row 생성
 		this.ds_dept.setColumn(0, "DEPARTMENT_CODE", 0);
 		this.ds_dept.setColumn(0, "DEPARTMENT_NAME", "전체학과");
-		// trace("학과ds 내용확인 " + this.ds_dept.saveXML());
 		
 		// ds_dept에 row 추가 후 onrowpos이벤트 실행
 		this.ds_dept.set_rowposition(0); // 첫번째 행 수동 설정
@@ -446,8 +440,6 @@ this.fnCallback = function (svcID, errCD, errMsg)
 		var emailPart = email.split("@");
 		var ePart = emailPart[0];
 		var dPart = "@" + emailPart[1];
-		trace("주소 = " + ePart);
-		trace("도메인 = " + dPart);
 		
 		this.ds_pro.setColumn(0, "EMAIL_PART", ePart);
 		this.ds_pro.setColumn(0, "DOMAIN_PART", dPart);
@@ -457,8 +449,6 @@ this.fnCallback = function (svcID, errCD, errMsg)
 			param1: this.ds_pro,            
 			param2: this.ds_dept
 		};
-		// 받아온 값 확인하기
-		trace("트랜잭션 결과값은?" + this.ds_pro.saveXML());
 		// 팝업 창 경로 설정
 		var surl = "MainBase::select_Professor_Popup.xfdl";
 		
@@ -611,8 +601,6 @@ this.btn_excelexp_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
     var ds = this.grd_List.getBindDataset();
     var data = ds.saveXML(); // 데이터셋의 데이터를 XML 형식으로 변환합니다.
 
-    trace(data); // XML 데이터가 잘 생성되었는지 확인
-
     // 서버로 transaction 호출
     var url = "http://localhost:8082/HanaUIS/excelExport.jsp?type=pro"; // 다운로드 excel 요청
 
@@ -632,7 +620,6 @@ this.btn_excelexp_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link); // 링크를 제거합니다.
-                trace("엑셀 파일 다운로드 완료");
             } else {
                 trace("오류 발생: " + xhr.status);
             }

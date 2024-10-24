@@ -118,9 +118,6 @@
             objButton.set_text(sMenuNm);
             objButton.set_cssclass(sBtnCssClass);
 
-            //fittocontents
-            //objButton.set_fittocontents("width");
-
             //생성한 버튼 컴포넌트를 form의 자식 컴포넌트로 추가
             this.addChild(objButton.id,objButton);
 

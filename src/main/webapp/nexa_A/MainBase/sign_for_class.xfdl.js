@@ -268,17 +268,12 @@
 
         // 학생 조회
         this.ds_dept_onrowposchanged = function(obj, e) {
-            trace("이벤트 발동 확인");
-            trace("트리거 값 확인: " + this.onRowKey);
-        	trace(obj.rowposition);
 
             if (this.onRowKey) {
                 var classCode = obj.getColumn(obj.rowposition, "CLASS_CODE");
-                trace("선택된 CLASS_CODE: " + classCode); // CLASS_CODE 확인
 
                 // CLASS_CODE가 유효할 경우 조회 함수 호출
                 if (classCode) {
-                    //this.ds_dept.setColumn(0, "CLASS_CODE", classCode);
                     this.fn_searchList();
 
                     // 강의 이름 설정
@@ -309,7 +304,6 @@
         {
         	var classCode = this.ds_dept.getColumn(this.ds_dept.rowposition, "CLASS_CODE");
         	this.ds_search.setColumn(0, "CLASS_CODE", classCode);
-        	trace("받아온 CLASS_CODE: " + classCode);  // 전체학과 선택 시 값 확인
 
         	if (!classCode) {
         		alert("강의를 선택해주세요.");
@@ -371,7 +365,6 @@
          	}
          	if(svcID == "searchList"){
         		trace("searchList 호출완료")
-         		// trace(this.ds_list.saveXML());
          	}
         };
 
@@ -397,8 +390,7 @@
         			for (var i = 0; i < this.ds_list.rowcount; i++) { //프론트에 적용 ROW 부분
         				this.ds_list.setColumn(i,"CHECK","0");
         			}
-        			// 체크 해제된 경우의 trace 코드
-        			// trace("체크박스가 해제되었습니다.");
+
         		}
         		else {
         			chkVal = "1"; //체크 안 된 상태라면 체크 표시
@@ -406,8 +398,7 @@
         			for (var i = 0; i < this.ds_list.rowcount; i++) { //프론트에 적용 ROW 부분
         				this.ds_list.setColumn(i,"CHECK","1");
         			}
-        			// 체크된 경우의 trace 코드
-        			// trace("체크박스가 선택되었습니다.");
+
         		}
             } else {
                 // 정렬 기능 실행

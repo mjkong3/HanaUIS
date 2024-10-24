@@ -5,83 +5,21 @@
 	
 	<select id="SelectAdminClassroom" resultType="java.util.Map">
 		SELECT CLASSROOM_ID, CLASSROOM_NAME, MAX_PEOPLE
-		from CLASSROOM;
+		FROM CLASSROOM;
 	</select>
 	
 	<select id="SelectAdminclassyear" resultType="java.util.Map">
 		SELECT DISTINCT YEAR(CLASS_START) as YEAR, CONCAT(YEAR(CLASS_START), "년") AS YEARN
 		FROM CLASS
-		order by YEAR desc;
+		ORDER BY YEAR DESC;
 	</select>
 	
 	<select id="SelectAdminclasssem" resultType="java.util.Map">
 		SELECT DISTINCT	SEMESTER as SEMESTER, CONCAT(SEMESTER, "학기") as SEMESTERN
 		FROM CLASS
-		order by SEMESTER desc;
+		ORDER BY SEMESTER DESC;
 	</select>
 	
-	<select id="SelectAdminClasstime" parameterType="String" resultType="java.util.Map">
-		WITH TIME_TABLE AS (
-		    SELECT 1 AS TIME_NUMBER
-		    UNION ALL
-		    SELECT 2 AS TIME_NUMBER
-		    UNION ALL
-		    SELECT 3 AS TIME_NUMBER
-		    UNION ALL
-		    SELECT 4 AS TIME_NUMBER
-		    UNION ALL
-		    SELECT 5 AS TIME_NUMBER
-		)
-		SELECT 
-		    t.TIME_NUMBER AS 교시,
-		    MAX(CASE WHEN c.CLASS_WEEK = 1 THEN concat(a.CLASS_NAME, '&#13;&#10;', IFNULL(p.NAME, '')) ELSE '' END) AS 월요일,
-		    MAX(CASE WHEN c.CLASS_WEEK = 2 THEN concat(a.CLASS_NAME, '&#13;&#10;', IFNULL(p.NAME, '')) ELSE '' END) AS 화요일,
-		    MAX(CASE WHEN c.CLASS_WEEK = 3 THEN concat(a.CLASS_NAME, '&#13;&#10;', IFNULL(p.NAME, '')) ELSE '' END) AS 수요일,
-		    MAX(CASE WHEN c.CLASS_WEEK = 4 THEN concat(a.CLASS_NAME, '&#13;&#10;', IFNULL(p.NAME, '')) ELSE '' END) AS 목요일,
-		    MAX(CASE WHEN c.CLASS_WEEK = 5 THEN concat(a.CLASS_NAME, '&#13;&#10;', IFNULL(p.NAME, '')) ELSE '' END) AS 금요일
-
-		FROM TIME_TABLE t
-		LEFT JOIN CLASS_TIME c
-		    ON t.TIME_NUMBER = c.TIME_NUMBER
-		LEFT JOIN CLASS a
-		    ON a.CLASS_CODE = c.CLASS_CODE
-		    AND a.CLASSROOM_ID = #{param}
-		LEFT JOIN PROFESSOR p 
-			ON a.PROFESSOR_ID = p.PROFESSOR_ID
-		GROUP BY t.TIME_NUMBER
-		ORDER BY t.TIME_NUMBER ASC;
-	</select>
-	
-	<select id="SelectAdminClasstimeid" parameterType="String" resultType="java.util.Map">
-		WITH TIME_TABLE AS (
-		    SELECT 1 AS TIME_NUMBER
-		    UNION ALL
-		    SELECT 2 AS TIME_NUMBER
-		    UNION ALL
-		    SELECT 3 AS TIME_NUMBER
-		    UNION ALL
-		    SELECT 4 AS TIME_NUMBER
-		    UNION ALL
-		    SELECT 5 AS TIME_NUMBER
-		)
-		SELECT 
-		    t.TIME_NUMBER AS 교시,
-		        MAX(CASE WHEN c.CLASS_WEEK = 1 THEN concat(a.CLASS_CODE) ELSE '' END) AS 월요일,
-			    MAX(CASE WHEN c.CLASS_WEEK = 2 THEN concat(a.CLASS_CODE) ELSE '' END) AS 화요일,
-			    MAX(CASE WHEN c.CLASS_WEEK = 3 THEN concat(a.CLASS_CODE) ELSE '' END) AS 수요일,
-			    MAX(CASE WHEN c.CLASS_WEEK = 4 THEN concat(a.CLASS_CODE) ELSE '' END) AS 목요일,
-			    MAX(CASE WHEN c.CLASS_WEEK = 5 THEN concat(a.CLASS_CODE) ELSE '' END) AS 금요일
-		FROM TIME_TABLE t
-		LEFT JOIN CLASS_TIME c
-		    ON t.TIME_NUMBER = c.TIME_NUMBER
-		LEFT JOIN CLASS a
-		    ON a.CLASS_CODE = c.CLASS_CODE
-		    AND a.CLASSROOM_ID = #{param}
-		LEFT JOIN PROFESSOR p 
-			ON a.PROFESSOR_ID = p.PROFESSOR_ID
-		GROUP BY t.TIME_NUMBER
-		ORDER BY t.TIME_NUMBER ASC;
-	</select>
 	
 	<select id="SelectAdminClasscourse" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT c.CLASS_TIME_CODE as CLASS_TIME_CODE,
@@ -102,14 +40,14 @@
 		       a.UPD_DTM as REGDATE,
 		       0 AS 'CHECK'
 		FROM CLASS a
-		LEFT JOIN CLASSROOM b
-		    ON a.CLASSROOM_ID = b.CLASSROOM_ID
-		LEFT JOIN CLASS_TIME c
-		    ON a.CLASS_CODE = c.CLASS_CODE
-		LEFT JOIN PROFESSOR p
-			ON p.PROFESSOR_ID = a.PROFESSOR_ID
+			LEFT JOIN CLASSROOM b
+			    ON a.CLASSROOM_ID = b.CLASSROOM_ID
+			LEFT JOIN CLASS_TIME c
+			    ON a.CLASS_CODE = c.CLASS_CODE
+			LEFT JOIN PROFESSOR p
+				ON p.PROFESSOR_ID = a.PROFESSOR_ID
 		WHERE YEAR(a.CLASS_START)= #{YEAR}
-				and a.SEMESTER = #{SEMESTER};
+				AND a.SEMESTER = #{SEMESTER};
 	</select>
 
 	<select id="SelectAdminclasstime" parameterType="java.util.Map" resultType="Integer">
@@ -138,7 +76,7 @@
 			CRE_DTM,
 			CRE_USR
 			)
-				VALUES (
+			VALUES (
 				<if test="CLASS_TIME_CODE != null">
 					#{CLASS_TIME_CODE},
 				</if>
@@ -151,11 +89,11 @@
 	
 	<update id="updateAdminClasscourse2" parameterType="java.util.Map">
 		UPDATE CLASS_TIME
-		SET CLASS_CODE = #{CLASS_CODE},
-			CLASS_WEEK = #{CLASS_WEEK},
-			TIME_NUMBER = #{TIME_NUMBER},
-			UPD_DTM = NOW(),
-			UPD_USR = #{ADMIN_CODE}
+			SET CLASS_CODE = #{CLASS_CODE},
+				CLASS_WEEK = #{CLASS_WEEK},
+				TIME_NUMBER = #{TIME_NUMBER},
+				UPD_DTM = NOW(),
+				UPD_USR = #{ADMIN_CODE}
 		WHERE CLASS_TIME_CODE = #{CLASS_TIME_CODE};
 	</update>
 	
@@ -181,7 +119,7 @@
 	</update>
 	
 	<delete id="deleteAdminClassroom" parameterType="java.util.Map">
-		DELETE from CLASSROOM
+		DELETE FROM CLASSROOM
 		WHERE CLASSROOM_ID = #{CLASSROOM_ID};
 	</delete>
 	

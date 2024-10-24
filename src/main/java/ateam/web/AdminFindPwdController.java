@@ -36,14 +36,9 @@ public class AdminFindPwdController {
 		String tosID = (String) param.get("id");
 		param.put("id", tosID);
 		
-		System.out.println(param);
-		
 		String adEmail = service.selectAdmin(param);
 		
-		System.out.println(adEmail + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		
 		Map <String, Object> vali = new HashMap<>();
-		
 		
 		try {
 			if (adEmail != null) {
@@ -51,16 +46,13 @@ public class AdminFindPwdController {
 				// 이메일로 인증번호 발송
 				String verificationCode = mailService.joinEmail(adEmail);
 				session.setAttribute("verificationCode",verificationCode);
-				System.out.println(verificationCode);
-				
-				System.out.println(result);
-				
 				vali.put("usercheck", "Y");
+				
 			} else {
 				vali.put("usercheck", "N");
 			}
+			
 		} catch(Exception ee) {
-			System.out.println(ee);
 			result.setErrorCode(01);
 			result.setErrorMsg("catch 조회 오류");
 		}
@@ -74,28 +66,20 @@ public class AdminFindPwdController {
 	@RequestMapping(value = "/matchCode.do")
 	public NexacroResult matchCode(@ParamDataSet(name = "ds_vericheck", required = false) Map<String, Object> param, HttpSession session) {
 		NexacroResult result = new NexacroResult();
-		System.out.println(param);
 
 		String sessCode = (String) session.getAttribute("verificationCode");
 		String check = (String) param.get("OK");
-		
-		System.out.println(sessCode + "@@@@@@@@@@2" + check);
 		
 		Map <String, Object> code = new HashMap<>();
 		
 		try{
 			if (sessCode.equals(check)) {
 				session.removeAttribute("verificationCode"); // 인증코드 삭제
-
-				System.out.print("매치 성공!!!");
-				
 				code.put("codecheck", "Y");
-				}
-			else {
+			} else {
 				code.put("codecheck", "N");
 			}
 		} catch(Exception ee) {
-			System.out.println(ee);
 			result.setErrorCode(01);
 			result.setErrorMsg("catch 조회 오류");
 		}
@@ -109,18 +93,16 @@ public class AdminFindPwdController {
 	@RequestMapping(value = "/updatePwd.do")
 	public NexacroResult updatePwd(@ParamDataSet(name = "ds_check", required = false) Map<String, Object> param) {
 		NexacroResult result = new NexacroResult();
-		System.out.println(param);
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("id", param.get("id")); // 예: 3001
 		params.put("password", param.get("PASSWORD1"));  // 예: "ABCD1234!"
 		
-		System.out.println(params);
 		
 		try {
 			service.updateAdmin(params);
+			
 		} catch(Exception ee) {
-			System.out.println(ee);
 			result.setErrorCode(01);
 			result.setErrorMsg("catch 조회 오류");
 		}

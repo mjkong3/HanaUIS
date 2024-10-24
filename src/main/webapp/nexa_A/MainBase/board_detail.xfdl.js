@@ -19,7 +19,8 @@
             
             // Object(Dataset, ExcelExportObject) Initialize
             obj = new Dataset("ds_board", this);
-            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/><Column id=\"IMAGE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"BOARD_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            obj.set_useclientlayout("true");
+            obj._setContents("<ColumnInfo><Column id=\"TITLE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_USR\" type=\"STRING\" size=\"256\"/><Column id=\"CONTENT\" type=\"STRING\" size=\"256\"/><Column id=\"IMAGE\" type=\"STRING\" size=\"256\"/><Column id=\"CRE_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"BOARD_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"FILE_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_DTM\" type=\"STRING\" size=\"256\"/><Column id=\"UPD_USR\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -30,7 +31,7 @@
 
 
             obj = new Dataset("ds_copyCat", this);
-            obj._setContents("");
+            obj._setContents("<ColumnInfo><Column id=\"BOARD_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row/></Rows>");
             this.addChild(obj.name, obj);
 
 
@@ -101,6 +102,7 @@
             obj = new Grid("grd_file","219","416","496","104",null,null,null,null,null,null,this);
             obj.set_taborder("5");
             obj.set_binddataset("ds_file");
+            obj.set_autofittype("col");
             obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"447\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"32\"/></Rows><Band id=\"head\"><Cell text=\"파 일\"/></Band><Band id=\"body\"><Cell text=\"bind:FILE_NAME\"/></Band></Format></Formats>");
             this.addChild(obj.name, obj);
 
@@ -261,6 +263,7 @@
 
                 p.grd_file.set_taborder("5");
                 p.grd_file.set_binddataset("ds_file");
+                p.grd_file.set_autofittype("col");
                 p.grd_file.move("219","416","496","104",null,null);
 
                 p.btn_closeBoard.set_taborder("6");
@@ -460,13 +463,9 @@
         	if (this.ds_contentFile.getColumn(0, "IMAGE") == null || this.ds_contentFile.getColumn(0, "IMAGE") == "" || this.ds_contentFile.getColumn(0, "IMAGE") == "undefined") {
         	} else {
         		setTimeout(function(){
-        			trace(this.ds_contentFile.getColumn(0,"IMAGE") + "@@@@@@@@@@@@@@@@@@@@@");
         			this.edt_filename.set_value(this.ds_contentFile.getColumn(0, "IMAGE"));
         			this.showFirstImagePreview(this.ds_contentFile.getColumn(0,"IMAGE"))	;
         		}.bind(this), 500);
-
-        		trace("@@daslkfa;skdfajskdjfl;aksjdlk;fjal;sdjf");
-        		console.log(this.ds_contentFile.getColumn(0, "IMAGE"));
 
         		this.ImageViewer00.set_visible(true);
 
@@ -484,19 +483,10 @@
 
         	var BOARD_CODE = this.parent.BOARD_CODE;  // 부모창에서 넘어온 board_code 값 받기
         	var CRE_USR = this.parent.NAME;
-            trace("Received board_code: " + BOARD_CODE);  // board_code 값 확인 (콘솔에 출력)
-        	trace("Received CRE_USR: " + CRE_USR);  // CRE_USR 값 확인 (콘솔에 출력)
 
             // board_code를 전자정부 프레임워크로 넘길 로직 추가
             this.fnSendBoardCode(BOARD_CODE);
-        	trace(this.ds_board.getColumn(0, "CRE_DTM"));
 
-        	console.log(this.ds_board.saveXML());
-        	console.log(this.ds_file.saveXML());
-
-        	trace(this.ds_board.getColumn(0,"TITLE"));
-
-        	trace(this.ds_contentFile.saveXML());
         };
 
         // 전자정부 프레임워크로 board_code 전달하는 함수
@@ -531,7 +521,6 @@
             // 데이터셋에서 파일 URL 가져오기
             var fileUrl = "http://localhost:8082/HanaUIS/filedownload.jsp?fileName=" + encodeURIComponent(this.ds_file.getColumn(this.ds_file.rowposition, "FILE_NAME"));
 
-        	console.log(this.ds_file.getColumn(this.ds_file.rowposition, "FILE_NAME"));
 
             // 파일이 없을 경우
         	if (this.ds_file.getColumn(0, "FILE_NAME") == 0
@@ -585,14 +574,6 @@
             if (e.virtualfiles && e.virtualfiles.length > 0) {
                 this.addFileList(e.virtualfiles);  // 파일 추가 처리 함수 호출
 
-                // 파일 목록을 확인하기 위해 로그 출력
-                console.log("파일 개수: " + e.virtualfiles.length);
-                for (var i = 0; i < e.virtualfiles.length; i++) {
-                    console.log("파일명: " + e.virtualfiles[i].filename);
-                }
-
-                // ds_file 내용 확인
-                console.log(this.ds_file.saveXML());
             } else {
                 console.log("선택된 파일이 없습니다.");
             }
@@ -619,7 +600,6 @@
                     var nRow = this.ds_file.addRow();  // 새로운 행 추가
                     if (nRow >= 0) {
                         this.ds_file.setColumn(nRow, "FILE_NAME", filename);  // 파일 이름 추가
-        				trace("파일추가시작");
                         file.addEventHandler("onsuccess", this.FileList_onsuccess, this);  // 이벤트 핸들러 추가
                         file.addEventHandler("onerror", this.FileList_onerror, this);  // 에러 핸들러 추가
 
@@ -659,7 +639,6 @@
                     for (var j = 0; j < this.ds_file.getRowCount(); j++) {
                         if (this.ds_file.getColumn(j, "FILE_NAME") === filename) {
                             fileExists = true;
-                            console.log("파일이 이미 존재합니다: " + filename);
                             break;
                         }
                     }
@@ -703,22 +682,22 @@
         };
 
         // 파일 처리 진행, 오류, 완료 이벤트 함수
-        this.FileUpTransfer00_onprogress = function(obj,e)
-        {
-            this.fn_addlog(e.loaded+"/"+e.total);
-        };
-
-        this.FileUpTransfer00_onsuccess = function(obj,e)
-        {
-            this.fn_addlog(e.code);
-            this.fn_addlog(e.message);
-        };
-
-        this.FileUpTransfer00_onerror = function(obj,e)
-        {
-            this.fn_addlog(e.errormsg);
-            this.fn_addlog(e.statuscode);
-        };
+        // this.FileUpTransfer00_onprogress = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferProgressEventInfo)
+        // {
+        //     this.fn_addlog(e.loaded+"/"+e.total);
+        // };
+        //
+        // this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventinfo)
+        // {
+        //     this.fn_addlog(e.code);
+        //     this.fn_addlog(e.message);
+        // };
+        //
+        // this.FileUpTransfer00_onerror = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferErrorEventInfo)
+        // {
+        //     this.fn_addlog(e.errormsg);
+        //     this.fn_addlog(e.statuscode);
+        // };
 
         /************************************************************************
          * 							수정 버튼 이벤트
@@ -727,27 +706,9 @@
           // 공지사항 업데이트 기능
           this.fnUdateBoardData = function() {
 
-        	// 제목 및 공지사항이 비었을 때 처리
-        	if(this.txt_Title.value == ''
-        		 || this.txt_Title.value == 'undefined'
-        		 || this.txt_Title.value == null) {
-        			alert("제목을 입력해주세요.");
-        			return;
-        	}
-        		if(this.txt_Content.value == ''
-        		 || this.txt_Content.value == 'undefined'
-        		 || this.txt_Content.value == null) {
-        			alert("내용을 입력해주세요.");
-        			return;
-        	}
-
-        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
-        	this.ds_board.setColumn(0, "CRE_USR", adCode);
-        	trace("코드 제대로 들어갔나? " + this.ds_board.getColumn(0, "CRE_USR"));
-
             var strSvcId    = "updateBoard";
             var strSvcUrl   = "svc::updateBoard.do";
-            var inData      = "ds_board=ds_board ds_copyCat=ds_copyCat";
+            var inData      = "ds_board=ds_board";
             var outData     = "";  // 결과를 받을 데이터셋
             var strArg      = ""
             var callBackFnc = "fnCallbackUpdateFile";
@@ -759,8 +720,6 @@
         // 파일 저장 후 게시물 저장 호출될 콜백 함수
         this.fnCallbackUpdateFile = function(svcID, errorCode, errorMsg) {
             if (errorCode == 0) {  // 정상적으로 board가 저장되었을 때
-        		console.log("FILE 테이블 삭제 완료");
-        		console.log("BOARD 테이블 수정 완료");
 
         		this.fnUpdateFileData(); // 2. 게시글 저장 후 파일을 저장하는 함수를 호출
 
@@ -790,7 +749,7 @@
         this.fnCallbackUpdated = function(svcID, errorCode, errorMsg) {
         	if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
         		alert("게시글이 수정 되었습니다");
-        		this.close;
+        		this.close();
             } else {
                 alert("게시글 저장 중 오류 발생: " + errorMsg);
             }
@@ -800,6 +759,27 @@
 
         this.btn_updateBoard_onclick = function(obj,e)
         {
+        	this.ds_board.setColumn(0, "IMAGE", this.ds_contentFile.getColumn(0, "IMAGE"));
+        	var gdsApp = nexacro.getApplication();
+        	var adCode = gdsApp.gds_adminInfo.getColumn(0, "ADMIN_CODE");
+        	this.ds_board.setColumn(0, "CRE_USR", adCode);
+        	this.ds_board.setColumn(0, "UPD_USR", adCode);
+
+
+        		// 제목 및 공지사항이 비었을 때 처리
+        	if(this.txt_Title.value == ''
+        		 || this.txt_Title.value == 'undefined'
+        		 || this.txt_Title.value == null) {
+        			alert("제목을 입력해주세요.");
+        			return;
+        	}
+        		if(this.txt_Content.value == ''
+        		 || this.txt_Content.value == 'undefined'
+        		 || this.txt_Content.value == null) {
+        			alert("내용을 입력해주세요.");
+        			return;
+        	}
+
         	this.fnUdateBoardData();
         };
 
@@ -810,7 +790,7 @@
         this.fnDeleteBoardData = function() {
             var strSvcId    = "deleteBoard";
             var strSvcUrl   = "svc::deleteBoard.do";
-            var inData      = "ds_copyCat = ds_copyCat";  // 넘어가는 데이터셋
+            var inData      = "ds_copyCat=ds_copyCat";  // 넘어가는 데이터셋
             var outData     = "";  // 결과를 받을 데이터셋
             var strArg      = ""
             var callBackFnc = "fnCallbackDeleteBoard";
@@ -821,10 +801,11 @@
 
         this.btn_deleteBoard_onclick = function(obj,e)
         {
+        	this.ds_copyCat.setColumn(0, "BOARD_CODE", this.ds_board.getColumn(0, "BOARD_CODE"));
+
         	var confirmPopup = this.confirm("삭제하시겠습니까?");
 
         	if (confirmPopup) {
-        		trace("삭제진행")
         		this.fnDeleteBoardData();
         	}
         };
@@ -832,7 +813,7 @@
         this.fnCallbackDeleteBoard = function(svcID, errorCode, errorMsg) {
         	if (errorCode == 0) {  // 정상적으로 게시글이 저장되었을 때
         		alert("게시글이 삭제 되었습니다");
-        		this.close;
+        		this.close();
             } else {
                 alert("게시글 삭제 중 오류 발생: " + errorMsg);
             }
@@ -942,7 +923,6 @@
         	var name = e.virtualfiles[0].filename;
         	this.ds_contentFile.addRow();
         	this.ds_contentFile.setColumn(0, "IMAGE", e.virtualfiles[0].filename);
-        	trace(this.ds_contentFile.saveXML());
 
         	this.edt_filename.set_value(name);
 
@@ -956,9 +936,8 @@
         		//var imgName = this.ds_contentFile.getColumn(0, "IMAGE");
         		var imgName = e.virtualfiles[0].filename;
         		this.showImagePreview(imgName);
-        	}.bind(this), 2500); // 2500ms 뒤 실행
+        	}.bind(this), 5000); // 2500ms 뒤 실행
 
-        	trace(this.ds_contentFile.saveXML());
 
 
         	if (this.ds_contentFile.rowcount > 1) {
@@ -968,7 +947,6 @@
 
         // 이미지 미리보기 함수 -- onload 시
         this.showFirstImagePreview = function(fileName) {
-        	trace(fileName);
             var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
             var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName; // 업로드한 파일 경로
             this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
@@ -977,8 +955,6 @@
 
         // 이미지 미리보기 함수 -- 수정 시
         this.showImagePreview = function(fileName) {
-        	trace("이미지 미리보기 진입");
-        	trace(fileName + "@@@@@@@@@@22changed");
             var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
             var imagePath = "http://localhost:8082/HanaUIS/showFile.jsp?filename=" + encodedFileName +"&type=view"	; // 업로드한 파일 경로
             this.ImageViewer00.set_image("url('" + imagePath + "')"); // ImageViewer에 이미지 설정
@@ -990,7 +966,7 @@
 
         //파일 삭제 기능
         this.deleteFile = function(fileName) {
-        	trace("여기까지 왔나?");
+
             var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
             var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
 
@@ -1034,7 +1010,6 @@
 
         this.ImageViewer00_onload = function(obj,e)
         {
-        	trace('이미지 온로드 시작');
         	this.fnContImg(obj, e);
 
         	this.adjustTextareaHeight();
@@ -1044,7 +1019,6 @@
         this.fnContImg = function(obj, e) {
         	// 본문 textarea의 너비 (본문이 존재하는 경우에만 적용)
         	var textareaWidth = this.txt_Content.width;
-        	console.log("기능타냐 ");
 
         	obj.set_stretch("none");
 
@@ -1052,7 +1026,6 @@
         	var imgWidth = obj.imagewidth;
         	var imgHeight = obj.imageheight;
 
-        	console.log(imgHeight);
 
         	// 이미지가 본문 textarea보다 가로가 크지 않도록 제한
         	var newWidth = textareaWidth;
@@ -1069,7 +1042,6 @@
 
         	obj.set_top(contentY + 5);
 
-        	trace(this.ds_file.saveXML());
         	this.resetScroll();
         };
 
@@ -1083,7 +1055,7 @@
         		alert("본문에 들어간 파일이 없습니다.");
         	} else {
         		this.deleteFile(this.ds_contentFile.getColumn(0, "IMAGE"));
-
+        		this.ds_contentFile.clearData();
         		this.edt_filename.set_value("");
         		this.ImageViewer00.set_visible(false);
         		this.ImageViewer00.set_image(null);

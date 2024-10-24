@@ -40,19 +40,15 @@ public class AdScoreServiceImpl implements AdScoreService{
 	@Override
 	public void updateScore(List<Map<String, Object>> mapList) {
 		for (Map<String, Object> map : mapList) {  
-		System.out.println(map+"@@@@@@@@");
 		Map<String,Object> param = new HashMap<>();
 		int st_id = (int) map.get("STUDENT_ID");
-		System.out.println(st_id);
 		int cl_cd = (int) map.get("CLASS_CODE");
-		System.out.println(cl_cd);
 		int md_ts = (int) map.get("MIDDLE_TEST");
-		System.out.println(md_ts+"@@@@@@@@@");
 		int fn_ts = (int) map.get("FINAL_TEST");
-		System.out.println(fn_ts);
 		int rt_ts = (int) map.get("REPORT");
-		System.out.println(rt_ts);
+		
 		double score = (md_ts / 100.0 * 40) + (fn_ts / 100.0 * 40) + (rt_ts / 100.0 * 20);
+		
 		String grade = "";
 		if (score >= 90) {
 			grade = "A";

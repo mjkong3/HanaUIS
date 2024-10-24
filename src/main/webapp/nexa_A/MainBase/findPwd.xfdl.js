@@ -32,43 +32,37 @@
             this.addChild(obj.name, obj);
             
             // UI Components Initialize
-            obj = new Static("stt_findPwd","177","10","126","35",null,null,null,null,null,null,this);
+            obj = new Static("stt_id","50","85","100","30",null,null,null,null,null,null,this);
             obj.set_taborder("0");
-            obj.set_text("비밀번호 찾기");
-            obj.set_font("18px/normal \"Gulim\"");
-            this.addChild(obj.name, obj);
-
-            obj = new Static("stt_id","77","65","90","30",null,null,null,null,null,null,this);
-            obj.set_taborder("1");
-            obj.set_text("관리자 코드");
+            obj.set_text("아이디");
             obj.set_font("16px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_id","187","65","101","30",null,null,null,null,null,null,this);
-            obj.set_taborder("2");
+            obj = new Edit("edt_id","166","85","184","30",null,null,null,null,null,null,this);
+            obj.set_taborder("1");
             obj.set_inputtype("digit");
             obj.set_maxlength("4");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_name","77","115","90","30",null,null,null,null,null,null,this);
-            obj.set_taborder("3");
+            obj = new Static("stt_name","50","135","80","30",null,null,null,null,null,null,this);
+            obj.set_taborder("2");
             obj.set_text("이름");
             obj.set_font("16px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_name","187","115","101","30",null,null,null,null,null,null,this);
-            obj.set_taborder("4");
+            obj = new Edit("edt_name","166","135","184","30",null,null,null,null,null,null,this);
+            obj.set_taborder("3");
             obj.set_inputfilter("none,comma,digit,dot,symbol,sign");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_pwd1","77","220","110","30",null,null,null,null,null,null,this);
-            obj.set_taborder("5");
+            obj = new Static("stt_pwd1","50","240","100","30",null,null,null,null,null,null,this);
+            obj.set_taborder("4");
             obj.set_text("새 비밀번호");
             obj.set_font("16px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_pwd1","187","220","130","30",null,null,null,null,null,null,this);
-            obj.set_taborder("6");
+            obj = new Edit("edt_pwd1","166","240","184","30",null,null,null,null,null,null,this);
+            obj.set_taborder("5");
             obj.set_readonly("true");
             obj.set_password("true");
             obj.set_imeaction("search");
@@ -76,50 +70,56 @@
             obj.set_text("asdfj;");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_pwd2","77","270","110","30",null,null,null,null,null,null,this);
-            obj.set_taborder("7");
+            obj = new Static("stt_pwd2","50","290","100","30",null,null,null,null,null,null,this);
+            obj.set_taborder("6");
             obj.set_text("비밀번호 확인");
             obj.set_font("16px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_pwd2","187","270","130","30",null,null,null,null,null,null,this);
-            obj.set_taborder("8");
+            obj = new Edit("edt_pwd2","166","290","184","30",null,null,null,null,null,null,this);
+            obj.set_taborder("7");
             obj.set_readonly("true");
             obj.set_password("true");
             this.addChild(obj.name, obj);
 
-            obj = new Static("stt_code","77","165","90","30",null,null,null,null,null,null,this);
-            obj.set_taborder("9");
+            obj = new Static("stt_code","50","185","80","30",null,null,null,null,null,null,this);
+            obj.set_taborder("8");
             obj.set_text("인증 번호");
             obj.set_font("16px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
 
-            obj = new Edit("edt_code","187","165","101","30",null,null,null,null,null,null,this);
-            obj.set_taborder("10");
+            obj = new Edit("edt_code","166","185","184","30",null,null,null,null,null,null,this);
+            obj.set_taborder("9");
             obj.set_readonly("true");
             obj.set_inputfilter("none");
             obj.set_inputtype("digit");
             obj.set_maxlength("6");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_sendCode","330","115","100","30",null,null,null,null,null,null,this);
-            obj.set_taborder("11");
+            obj = new Button("btn_sendCode","356","135","94","30",null,null,null,null,null,null,this);
+            obj.set_taborder("10");
             obj.set_text("인증번호 발송");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_checkCode","330","165","100","30",null,null,null,null,null,null,this);
-            obj.set_taborder("12");
+            obj = new Button("btn_checkCode","356","185","94","30",null,null,null,null,null,null,this);
+            obj.set_taborder("11");
             obj.set_text("인증번호 확인");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_update","188","345","50","30",null,null,null,null,null,null,this);
-            obj.set_taborder("13");
-            obj.set_text("수정");
+            obj = new Button("btn_update","174","345","72","30",null,null,null,null,null,null,this);
+            obj.set_taborder("12");
+            obj.set_text("변경");
             this.addChild(obj.name, obj);
 
-            obj = new Button("btn_close","263","345","50","30",null,null,null,null,null,null,this);
-            obj.set_taborder("14");
+            obj = new Button("btn_close","249","345","72","30",null,null,null,null,null,null,this);
+            obj.set_taborder("13");
             obj.set_text("닫기");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("stt_board","158","10","185","49",null,null,null,null,null,null,this);
+            obj.set_taborder("14");
+            obj.set_text("비밀번호 찾기");
+            obj.set_font("30px/normal \"Gulim\"");
             this.addChild(obj.name, obj);
             // Layout Functions
             //-- Default Layout : this
@@ -220,7 +220,6 @@
 
         // 비밀번호 업데이트
         this.fnUpdatePwd = function() {
-        	console.log(this.ds_check.saveXML());
 
         	var strSvcId    = "updatePwd";
         	var strSvcUrl   = "svc::updatePwd.do";
@@ -251,11 +250,8 @@
         	this.ds_check.setColumn(0, "id", this.edt_id.value);
         	this.ds_check.setColumn(0, "name", this.edt_name.value);
 
-        	trace(this.ds_check.saveXML());
-
         	this.fnCheckUser();
 
-        	trace(this.ds_check.saveXML());
         	} else {
         		alert("일치하는 회원정보가 없습니다.");
         	}
@@ -266,7 +262,6 @@
         {
         	this.ds_vericheck.setColumn(0, "OK", this.edt_code.value);
 
-        	trace(this.ds_vericheck.saveXML());
 
         	this.fnMatchCode();
         };

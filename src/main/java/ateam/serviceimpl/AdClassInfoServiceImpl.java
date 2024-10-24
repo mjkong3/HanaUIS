@@ -18,25 +18,21 @@ public class AdClassInfoServiceImpl extends EgovAbstractServiceImpl implements A
 
 	@Override
 	public List<Map<String, Object>> selectAdClsList(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return mapper.selectAdClsList(param);
 	}
 
 	@Override
 	public void deleteAdClsInfo(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		mapper.deleteAdClsInfo(param);
 	}
 
 	@Override
 	public Map<String, Object> selectAdClsInfo(String clsCd) {
-		// TODO Auto-generated method stub
 		return mapper.selectAdClsInfo(clsCd);
 	}
 
 	@Override
 	public List<Map<String, Object>> selectProId(Map<String, Object>param) {
-		// TODO Auto-generated method stub
 		return mapper.selectProId(param);
 	}
 
@@ -48,7 +44,6 @@ public class AdClassInfoServiceImpl extends EgovAbstractServiceImpl implements A
 
 	@Override
 	public void updateAdClsInfo(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		mapper.updateAdClsInfo(param);
 	}
 	

@@ -101,8 +101,7 @@
             }
 
             if(strPopupID == "popupWork"){
-                //this.alert("Return Value: " + strReturn);
-        		//this.board_main_onload();
+
             }
         	this.board_main_onload();
         };
@@ -142,7 +141,6 @@
         // 버튼 이벤트
         this.btn_Search_onclick = function(obj,e)
         {
-        	trace(this.search_ds.saveXML());
         	this.fnSearch();
         };
 
@@ -176,8 +174,7 @@
         	popup.set_resizable(true);
         	popup.set_openalign("center middle");
         	popup.showModal(this.getOwnerFrame(), objParam, this, "fn_popupCallback", true);
-         	//popup.style.set_overlaycolor("#6666664C");
-         	//popup.form.style.set_border("1 solid #4c5a6f");
+
         }
 
         // 검색 필터 박스 값

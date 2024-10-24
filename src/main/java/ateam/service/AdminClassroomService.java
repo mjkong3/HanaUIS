@@ -7,11 +7,7 @@ public interface AdminClassroomService {
 
 	List<Map<String, Object>> SelectAdminClassroom();
 
-	List<Map<String, Object>> SelectAdminClasstime(String param);
-
 	List<Map<String, Object>> SelectAdminClasscourse(Map<String, Object> param);
-
-	List<Map<String, Object>> SelectAdminClasstimeid(String param);
 
 	void saveAdminClasscourse(List<Map<String, Object>> param);
 

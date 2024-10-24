@@ -487,40 +487,6 @@
         
         // User Script
         this.registerScript("add_Student_Popup.xfdl", function() {
-        // this.Popup_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
-        // {
-        // /*   this.insert_ds.setColumn(0,"DEPARTMENT_CODE",this.insert_ds.getColumn(0,1));*/
-        //
-        //     var objParam  = this.parent.param1;
-        //     console.log("DEPARTMENT_CODE: " + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
-        //     this.ds_de.copyData(objParam);
-        //     console.log("selected_DeptCode" + this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
-        //
-        //    var departmentCode = this.ds_de.getColumn(0, "DEPARTMENT_CODE");
-        //
-        //     if (departmentCode == "00") {
-        //         // 전체학과가 선택된 경우 콤보박스에서 전체학과를 선택
-        //         this.de.set_index(0);  // 콤보박스의 첫 번째 항목(전체학과)을 선택
-        //        console.log("Selected index: 0 (전체학과)");
-        //     } else {
-        //         // 일반 학과가 선택된 경우 해당 학과의 DEPARTMENT_CODE 설정
-        //         this.de.set_value(departmentCode);
-        //        console.log("Selected value: " + departmentCode);
-        //     }
-        //
-        //    this.save_ds.setColumn(0,"UNIV_YEAR","1");
-        //    this.save_ds.setColumn(0,"GENDER","M");
-        //    this.save_ds.setColumn(0,"STATUS","재학");
-        //    this.save_ds.setColumn(0, "DEPARTMENT_CODE", this.ds_de.getColumn(0, "DEPARTMENT_CODE"));
-        // };
-
-
-        // 이메일 중복 체크
-
-        // 그거 말고 더 찾아보기
-
-
-
         //처리콜백 함수
         this.fnCallback = function(svcID,errorCode,errorMsg)
         {
@@ -539,9 +505,7 @@
         			this.close();
         			break;
         		case "studCheckId":
-        			trace("전체값은? " + this.ds_vali.saveXML());
         			var chkId = this.ds_vali.getColumn(0, "CHECK_ID");
-        			trace("값은? " + chkId);
         			if (chkId == "Y"){
         				alert("사용가능한 교번입니다");
         				this.edt_Email.set_readonly(false);
@@ -552,7 +516,6 @@
         		// 이메일 중복체크
         		case "stuCheckEm":
         			var chkEm = this.ds_vali.getColumn(0, "CHECK_EM");
-        			trace("이메일값?" + chkEm);
         			if (chkEm == "Y") {
         				// 연락처 유효성 정규식
         				this.fn_valiPhChk();
@@ -581,16 +544,13 @@
         	var regdt = gdsApp.gds_adminInfo.getColumn(0, "REGDATE");
         	this.save_ds.setColumn(0, "ADMIN_CODE", adCode);
         	this.save_ds.setColumn(0, "REGDATE", regdt);
-        	trace("아이디 제대로 들어갔나? " + this.save_ds.getColumn(0, "ADMIN_CODE"));
-        	trace("일시 제대로 들어갔나? " + this.save_ds.getColumn(0, "REGDATE"));
-        	trace(selectedDepartmentCode);
+
 
             // 데이터셋에 다른 초기 값 설정 (예시)
             this.save_ds.setColumn(0, "UNIV_YEAR", "1");
             this.save_ds.setColumn(0, "GENDER", "M");
             this.save_ds.setColumn(0, "STATUS", "재학중");
             this.save_ds.setColumn(0, "DEPARTMENT_CODE", selectedDepartmentCode);  // 선택한 학과 코드 설정
-        	trace(selectedDepartmentCode);
 
         	this.cmb_dept.set_value(selectedDepartmentCode);
 
@@ -611,13 +571,11 @@
         	var ePart = this.save_ds.getColumn(0, "EMAIL_PART");
         	var dPart = this.save_ds.getColumn(0, "DOMAIN_PART");
         	this.save_ds.setColumn(0, "EMAIL", ePart + dPart);
-        	trace("이메일은? " + this.save_ds.getColumn(0, "EMAIL"));
 
         	// 주소 파트 합치기
         	var fAddr = this.ds_address.getColumn(0, "FULLADDR");
         	var rAddr = this.ds_address.getColumn(0, "REMAINADDR");
         	this.save_ds.setColumn(0, "ZIPCODE", this.ds_address.getColumn(0, "ZIPCODE"));
-        	trace("우편주소는?" + this.save_ds.getColumn(0, "ZIPCODE"));
         	this.save_ds.setColumn(0, "ADDRESS", fAddr + "/" + rAddr);
 
         	// id null 검사
@@ -744,20 +702,17 @@
         {
         	// 주소검색 결과 받아오기
             var receivedData = e.userdata;
-        	trace("받아온 값은? = " + receivedData);
             var dataObj = JSON.parse(receivedData);
 
             // 우편번호, 도로명 주소, 지번 주소, 참고 주소 ds에 넣기
             this.ds_address.setColumn(0, "ZIPCODE", dataObj.zonecode);
             this.ds_address.setColumn(0, "MAINADDR", dataObj.selectedAddress);
             this.ds_address.setColumn(0, "EXTRAADDR", dataObj.extraAddress);
-            trace(this.ds_address.saveXML());
 
         	// 도로명(지번)주소 + 참고주소 합치기
         	var mAddr = this.ds_address.getColumn(0, "MAINADDR");
         	var eAddr = this.ds_address.getColumn(0, "EXTRAADDR");
         	this.ds_address.setColumn(0, "FULLADDR", mAddr + "" + eAddr);
-        	trace(this.ds_address.getColumn(0, "FULLADDR"));
         };
 
 
@@ -767,7 +722,6 @@
         this.edt_id_onchanged = function(obj,e)
         {
         	var stuId = obj.value;
-        	//trace(this.save_ds.getRowType(0));
         	if(isNaN(stuId)){
         		alert("숫자만 입력 가능합니다");
         		obj.set_value("");
@@ -777,7 +731,6 @@
         		obj.set_value("");
         		obj.setFocus();
         	} else {
-        	trace("실행되었나?");
         	this.fn_dupIdChk(stuId);
         	}
         };
@@ -793,7 +746,6 @@
         		this.edt_Email.set_value("");
         		this.edt_Email.setFocus();
         	} else {
-        		trace("이메일값좀 보자1 " + email);
         		this.fn_dupEmChk();
         	}
         };
@@ -874,7 +826,6 @@
          	var filePath = this.FileUpload00.value;
          	var fileName = filePath.split("\\").pop();
 
-        	trace(filePath);
 
         	//this.FileUpTransfer00.upload('http://localhost:8082/HanaUIS/fileupload.jsp');
         };
@@ -887,7 +838,6 @@
 
         // 이미지 등록 시 확장자 확인
         this.gfnIsImageFile = function(fileTxt) {
-        trace("여기 오나?");
             var imageExt = ["png", "jpg", "jpeg"];
             var extNm = fileTxt.substr(fileTxt.lastIndexOf(".") + 1).toLowerCase(); // 확장자를 소문자로 변환
             return imageExt.includes(extNm);
@@ -904,7 +854,6 @@
          	}
         	else{
         		this.addFileList(e.virtualfiles);
-        		trace(this.dsList.getColumn(0, "FILE_SIZE"));
 
 
         		if(this.dsList.getColumn(0, "FILE_SIZE") < 500000){
@@ -942,9 +891,7 @@
 
         // 이미지 미리보기 이벤트
         this.aftereventFunction = function(){
-        	trace("이벤트 후에 실행되는 작업입니다.");
         	var filename = this.dsList.getColumn(0,"FILE_NAME");
-        	trace(filename);
         	this.showImagePreview(filename); // 이미지 미리보기 함수
 
         }
@@ -953,10 +900,8 @@
         this.addFileList = function(filelist) {
             for (var i = 0, len = filelist.length, vFile; i < len; i++) {
                 vFile = filelist[i];
-        		trace(vFile.filesize);
                 vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
                 vFile.addEventHandler("onerror", this.FileList_onerror, this);
-        		trace("여기는 오지");
 
         		vFile.open(null, 1);
             }
@@ -990,7 +935,6 @@
 
         // 파일 삭제 요청 함수
         this.deleteFile = function(fileName) {
-        	trace("여기까지 왔나?");
             var encodedFileName = encodeURIComponent(fileName); // 파일 이름 URL 인코딩
             var deleteUrl = "http://localhost:8082/HanaUIS/deleteFile.jsp?filename=" + encodedFileName; // 파일 삭제 요청 URL
 
@@ -1003,7 +947,7 @@
         	xhr.onreadystatechange = function () {
         		if (xhr.readyState === 4) {
         			if (xhr.status === 200) {
-        				trace("서버 응답: " + xhr.responseText);
+        				trace("서버 응답: ");
         			} else {
         				trace("오류 발생: " + xhr.status);
         			}

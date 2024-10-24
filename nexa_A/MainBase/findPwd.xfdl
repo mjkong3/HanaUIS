@@ -3,21 +3,21 @@
   <Form id="findPwd" width="500" height="420" titletext="New Form">
     <Layouts>
       <Layout height="420" width="500">
-        <Static id="stt_findPwd" taborder="0" text="비밀번호 찾기" left="177" top="10" width="126" height="35" font="18px/normal &quot;Gulim&quot;"/>
-        <Static id="stt_id" taborder="1" text="관리자 코드" left="77" top="65" width="90" height="30" font="16px/normal &quot;Gulim&quot;"/>
-        <Edit id="edt_id" taborder="2" left="187" top="65" width="101" height="30" inputtype="digit" maxlength="4"/>
-        <Static id="stt_name" taborder="3" text="이름" left="77" top="115" width="90" height="30" font="16px/normal &quot;Gulim&quot;"/>
-        <Edit id="edt_name" taborder="4" left="187" top="115" width="101" height="30" inputfilter="none,comma,digit,dot,symbol,sign"/>
-        <Static id="stt_pwd1" taborder="5" text="새 비밀번호" left="77" top="220" width="110" height="30" font="16px/normal &quot;Gulim&quot;"/>
-        <Edit id="edt_pwd1" taborder="6" left="187" top="220" width="130" height="30" readonly="true" password="true" imeaction="search" text="asdfj;" tooltiptext="문자, 숫자, 특수문자가 필요하며, 8자 이상이 필요합니다." onchanged="edt_pwd1_onchanged"/>
-        <Static id="stt_pwd2" taborder="7" text="비밀번호 확인" left="77" top="270" width="110" height="30" font="16px/normal &quot;Gulim&quot;"/>
-        <Edit id="edt_pwd2" taborder="8" left="187" top="270" width="130" height="30" readonly="true" password="true"/>
-        <Static id="stt_code" taborder="9" text="인증 번호" left="77" top="165" width="90" height="30" font="16px/normal &quot;Gulim&quot;"/>
-        <Edit id="edt_code" taborder="10" left="187" top="165" width="101" height="30" readonly="true" inputfilter="none" inputtype="digit" maxlength="6"/>
-        <Button id="btn_sendCode" taborder="11" text="인증번호 발송" left="330" top="115" width="100" height="30" onclick="btn_sendCode_onclick"/>
-        <Button id="btn_checkCode" taborder="12" text="인증번호 확인" left="330" top="165" width="100" height="30" onclick="btn_checkCode_onclick"/>
-        <Button id="btn_update" taborder="13" text="수정" left="188" top="345" width="50" height="30" onclick="btn_update_onclick"/>
-        <Button id="btn_close" taborder="14" text="닫기" left="263" top="345" width="50" height="30" onclick="btn_close_onclick"/>
+        <Static id="stt_id" taborder="0" text="아이디" left="50" top="85" width="100" height="30" font="16px/normal &quot;Gulim&quot;"/>
+        <Edit id="edt_id" taborder="1" left="166" top="85" width="184" height="30" inputtype="digit" maxlength="4"/>
+        <Static id="stt_name" taborder="2" text="이름" left="50" top="135" width="80" height="30" font="16px/normal &quot;Gulim&quot;"/>
+        <Edit id="edt_name" taborder="3" left="166" top="135" width="184" height="30" inputfilter="none,comma,digit,dot,symbol,sign"/>
+        <Static id="stt_pwd1" taborder="4" text="새 비밀번호" left="50" top="240" width="100" height="30" font="16px/normal &quot;Gulim&quot;"/>
+        <Edit id="edt_pwd1" taborder="5" left="166" top="240" width="184" height="30" readonly="true" password="true" imeaction="search" text="asdfj;" tooltiptext="문자, 숫자, 특수문자가 필요하며, 8자 이상이 필요합니다." onchanged="edt_pwd1_onchanged"/>
+        <Static id="stt_pwd2" taborder="6" text="비밀번호 확인" left="50" top="290" width="100" height="30" font="16px/normal &quot;Gulim&quot;"/>
+        <Edit id="edt_pwd2" taborder="7" left="166" top="290" width="184" height="30" readonly="true" password="true"/>
+        <Static id="stt_code" taborder="8" text="인증 번호" left="50" top="185" width="80" height="30" font="16px/normal &quot;Gulim&quot;"/>
+        <Edit id="edt_code" taborder="9" left="166" top="185" width="184" height="30" readonly="true" inputfilter="none" inputtype="digit" maxlength="6"/>
+        <Button id="btn_sendCode" taborder="10" text="인증번호 발송" left="356" top="135" width="94" height="30" onclick="btn_sendCode_onclick"/>
+        <Button id="btn_checkCode" taborder="11" text="인증번호 확인" left="356" top="185" width="94" height="30" onclick="btn_checkCode_onclick"/>
+        <Button id="btn_update" taborder="12" text="변경" left="174" top="345" width="72" height="30" onclick="btn_update_onclick"/>
+        <Button id="btn_close" taborder="13" text="닫기" left="249" top="345" width="72" height="30" onclick="btn_close_onclick"/>
+        <Static id="stt_board" taborder="14" text="비밀번호 찾기" left="158" top="10" width="185" height="49" font="30px/normal &quot;Gulim&quot;"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[/************************************************************************
@@ -100,7 +100,6 @@ this.fnMatchCode = function() {
 
 // 비밀번호 업데이트
 this.fnUpdatePwd = function() {
-	console.log(this.ds_check.saveXML());
 
 	var strSvcId    = "updatePwd";
 	var strSvcUrl   = "svc::updatePwd.do";
@@ -130,12 +129,9 @@ this.btn_sendCode_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo
 
 	this.ds_check.setColumn(0, "id", this.edt_id.value);
 	this.ds_check.setColumn(0, "name", this.edt_name.value);
-	
-	trace(this.ds_check.saveXML());
-	
+		
 	this.fnCheckUser();
 	
-	trace(this.ds_check.saveXML());
 	} else {
 		alert("일치하는 회원정보가 없습니다.");
 	}
@@ -146,7 +142,6 @@ this.btn_checkCode_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInf
 {
 	this.ds_vericheck.setColumn(0, "OK", this.edt_code.value);
 	
-	trace(this.ds_vericheck.saveXML());
 
 	this.fnMatchCode();
 };

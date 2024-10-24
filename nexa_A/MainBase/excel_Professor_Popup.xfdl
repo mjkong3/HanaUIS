@@ -6,7 +6,7 @@
         <Button id="btn_excel" taborder="0" text="엑셀등록" left="569" top="37" width="80" height="33" onclick="btn_excel_onclick"/>
         <FileDownload id="FileDownload00" taborder="1" text="샘플 다운로드" left="480" top="37" width="79" height="32" onclick="FileDownload00_onclick"/>
         <Static id="Static00" taborder="2" text="엑셀 내 중복 : 0" left="290" top="415" width="135" height="40"/>
-        <Static id="Static00_00" taborder="3" text="기존 학생 중복 : 0" left="510" top="415" width="135" height="40"/>
+        <Static id="Static00_00" taborder="3" text="기존 교수 중복 : 0" left="510" top="415" width="135" height="40"/>
         <Static id="Static01" taborder="4" left="240" top="430" width="45" height="11" background="#FFCEDA"/>
         <Static id="Static01_00" taborder="5" left="460" top="430" width="45" height="11" background="#B0E0E6"/>
         <Grid id="Grid00" taborder="6" left="30" top="75" width="789" height="335" binddataset="ds_test" autofittype="col">
@@ -101,19 +101,16 @@ this.FileDialog00_onclose = function(obj:nexacro.FileDialog, e:nexacro.FileDialo
 	
 	this.FileUpTransfer00.clearFileList();
     this.addFileList(e.virtualfiles);
-	trace(e.virtualfiles[0].filename);
 };
 
 // 파일 추가 처리 함수
 this.addFileList = function(filelist) {
     for (var i = 0, len = filelist.length, vFile; i < len; i++) {
         vFile = filelist[i];
-        trace(vFile.filesize);
         
         // 이벤트 핸들러 등록
         vFile.addEventHandler("onsuccess", this.FileList_onsuccess, this);
         vFile.addEventHandler("onerror", this.FileList_onerror, this);
-        trace("여기는 오지");
         
         // 파일 열기
         vFile.open(null, 1);
@@ -151,16 +148,11 @@ this.onUploadSuccess = function(obj, e) {
 
 	this.ds_test.clearData();
 	this.ds_test.copyData(this.ds_copy);
-	//this.Grid00.set_formats();
-	trace(this.ds_test.rowcount);
 	
     var responseXml = e.datasets[0]; // 서버에서 응답한 XML 데이터
 
-    trace("여기 오나? " + responseXml.rowcount); // 응답 로그
-	//this.ds_test.copyData(responseXml);
 	this.ds_test.appendData(responseXml);
 
-    trace("현재 row count: " + this.ds_test.rowcount); // 로드된 데이터의 row count
 	this.ds_test.addColumn("CHECK", "String", 256, 0);
 	
 	
@@ -175,8 +167,6 @@ this.FileDownload00_onclick = function (obj:nexacro.Button, e:nexacro.ClickEvent
     // 현재 그리드 데이터셋을 가져옵니다.
     var ds = this.Grid00.getBindDataset();
     var data = ds.saveXML(); // 데이터셋의 데이터를 XML 형식으로 변환합니다.
-
-    trace(data); // XML 데이터가 잘 생성되었는지 확인
 
     // 서버로 transaction 호출
     var url = "http://localhost:8082/HanaUIS/excelExport.jsp?type=exPro"; // 다운로드 excel 요청
@@ -197,7 +187,6 @@ this.FileDownload00_onclick = function (obj:nexacro.Button, e:nexacro.ClickEvent
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link); // 링크를 제거합니다.
-                trace("엑셀 파일 다운로드 완료");
             } else {
                 trace("오류 발생: " + xhr.status);
             }
@@ -233,7 +222,6 @@ this.btn_check_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 // 체크 트랜젝션
 this.checkstudentexcel = function()
 {
-	/*console.log(this.ds_test.saveXML());*/
    var strSvcId    = "checkProexcel";
    var strSvcUrl   = "svc::checkProexcel.do";
    var inData      = "ds_test=ds_test";
@@ -285,7 +273,6 @@ this.checkds = function() {
 			// 필터링된 결과의 CHECK 열 값을 2로 설정
 			for (var j = 0; j < this.ds_test.rowcount; j++) {
 				this.ds_test.setColumn(j, "CHECK", "2");
-				trace(this.ds_test.getColumn(j, "CHECK"));
 				count2++;
 			}
 			this.ds_test.filter("");

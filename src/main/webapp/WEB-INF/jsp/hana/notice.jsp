@@ -57,14 +57,14 @@
 				        <c:when test="${not empty student}">
 				            <!-- 학생용 검색 폼 -->
 				            <form action="<c:url value='/std/noticeSearch.do'/>" method="get">
-				                <input type="text" name="searchKeyword" placeholder="학생용 제목 검색" value="${param.searchKeyword}">
+				                <input type="text" name="searchKeyword" placeholder="제목 검색" value="${param.searchKeyword}">
 				                <button type="submit">검색</button>
 				            </form>
 				        </c:when>
 				        <c:when test="${not empty professor}">
 				            <!-- 교수용 검색 폼 -->
 				            <form action="<c:url value='/pfs/noticeSearch.do'/>" method="get">
-				                <input type="text" name="searchKeyword" placeholder="교수용 제목 검색" value="${param.searchKeyword}">
+				                <input type="text" name="searchKeyword" placeholder="제목 검색" value="${param.searchKeyword}">
 				                <button type="submit">검색</button>
 				            </form>
 				        </c:when>

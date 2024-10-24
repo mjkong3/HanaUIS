@@ -21,11 +21,11 @@
 			d.DEPARTMENT_NAME as DEPARTMENT_NAME,
 			0 AS 'Check'
       FROM STUDENT a
-      LEFT JOIN DEPARTMENT d
-      	on a.DEPARTMENT_CODE = d.DEPARTMENT_CODE
+	      LEFT JOIN DEPARTMENT d
+	      	on a.DEPARTMENT_CODE = d.DEPARTMENT_CODE
       WHERE 1=1
       <if test="DEPARTMENT_CODE != 00">
-      AND a.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
+    	  AND a.DEPARTMENT_CODE = #{DEPARTMENT_CODE}
       </if>
       
       <if test="SEARCH_WORD != null">
@@ -72,12 +72,12 @@
    </select>
    
    <select id="studCheckId" parameterType="java.util.Map" resultType="java.util.Map">
-      SELECT CASE WHEN COUNT(0) THEN 'N'
-		ELSE 'Y'
+      SELECT 
+      	CASE WHEN COUNT(0) THEN 'N' ELSE 'Y'
 		END as CHECK_ID
 		FROM STUDENT
 		WHERE 1=1
-		AND STUDENT_ID = #{STUDENT_ID}
+			AND STUDENT_ID = #{STUDENT_ID}
    
    </select>
    
@@ -123,7 +123,7 @@
    </insert>
    
    <update id="updateAdStudent" parameterType="java.util.Map">
-      update STUDENT set
+      UPDATE STUDENT set
                PASSWORD = SHA2(#{PASSWORD}, 256),
                NAME = #{NAME},
                UNIV_YEAR = #{UNIV_YEAR},
@@ -138,16 +138,15 @@
                UPD_DTM = NOW(),
                UPD_USR = #{ADMIN_CODE},
                ZIPCODE = #{ZIPCODE}
-               where STUDENT_ID = #{STUDENT_ID}
+       WHERE STUDENT_ID = #{STUDENT_ID}
    </update>
    
    <select id="stuCheckEm" parameterType="java.util.Map" resultType="hashMap">
-	   	SELECT CASE WHEN COUNT(0) THEN 'N'
-				ELSE 'Y'
+	   	SELECT CASE WHEN COUNT(0) THEN 'N' ELSE 'Y'
 				END as CHECK_EM
 			FROM STUDENT
 	  		WHERE EMAIL = #{EMAIL}
-	  		AND STUDENT_ID != #{STUDENT_ID}
+	  			AND STUDENT_ID != #{STUDENT_ID}
    </select>
    
    
@@ -168,8 +167,8 @@
                UPD_DTM as REGDATE,
                ZIPCODE
       FROM STUDENT
-      where 1=1
-      and STUDENT_ID = #{STUDENT_ID}
+      WHERE 1=1
+      AND STUDENT_ID = #{STUDENT_ID}
    </select>
    
    <delete id="deletAdStudent" parameterType="java.util.Map">

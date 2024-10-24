@@ -60,16 +60,12 @@
     <Script type="xscript5.1"><![CDATA[
 this.classroomadd_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
-// 	var objParam1 = this.parent.param1;
-// 	this.ds_classroom.copyData(objParam1);
 	this.fn_classroom();
 };
 
 this.ds_classroom_onrowposchanged = function(obj:nexacro.NormalDataset,e:nexacro.DSRowPosChangeEventInfo)
 {
-	trace("아이디 제대로 들어갔나? " + this.ds_classroom.getColumn(this.ds_classroom.rowposition, "ADMIN_CODE"));
-	trace("일시 제대로 들어갔나? " + this.ds_classroom.getColumn(this.ds_classroom.rowposition, "REGDATE"));
-			
+
 	this.edt_classcode.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_ID"));
 	this.edt_classname.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"CLASSROOM_NAME"));
 	this.edt_maxpeople.set_value(this.ds_classroom.getColumn(this.ds_classroom.rowposition,"MAX_PEOPLE"));
@@ -124,9 +120,6 @@ this.fnCallback = function(svcID,errorCode,errorMsg)
 	{
 		case "SelectAdminClassroom2":
 			this.ds_classroom.addRow();
-			//this.grd_classroom.set
-			//this.grd_classroom.setCellProperty("body", this.ds_classroom.rowcount-1, "displaytype", "imagecontrol");
-			trace(this.ds_classroom.saveXML());
 			
 			break;
 		case "saveAdminClassroom":

@@ -18,13 +18,11 @@ public class AdScoreChartServiceImpl extends EgovAbstractServiceImpl implements 
 
 	@Override
 	public List<Map<String, Object>> selectAdClass(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return mapper.selectAdClass(param);
 	}
 
 	@Override
 	public List<Map<String, Object>> selectAdScoreChart(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return mapper.selectAdScoreChart(param);
 	}
 	

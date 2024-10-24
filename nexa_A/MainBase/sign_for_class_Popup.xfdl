@@ -438,8 +438,7 @@ this.fnCallback = function(svcID, errorCode, errorMsg) {
 		break;
         
 	case "searchClassInfo":
-		// trace(this.ds_listPopup.saveXML());
-		// this.ds_listPopup.set_keystring("S:+NAME");
+		
 		break;
     }
 };
@@ -465,8 +464,7 @@ this.grd_List_onheadclick = function(obj:nexacro.Grid, e:nexacro.GridClickEventI
 				for (var i = 0; i < this.ds_listPopup.rowcount; i++) { // 프론트에 적용 ROW 부분
 					this.ds_listPopup.setColumn(i, "CHECK", "0");
 				}
-				// 체크 해제된 경우의 trace 코드
-				// trace("체크박스가 해제되었습니다.");
+				
 			} 
 			else {
 				chkVal = "1"; // 체크 안 된 상태라면 체크 표시
@@ -474,8 +472,7 @@ this.grd_List_onheadclick = function(obj:nexacro.Grid, e:nexacro.GridClickEventI
 				for (var i = 0; i < this.ds_listPopup.rowcount; i++) { // 프론트에 적용 ROW 부분
 					this.ds_listPopup.setColumn(i, "CHECK", "1");
 				}
-				// 체크된 경우의 trace 코드
-				// trace("체크박스가 선택되었습니다.");
+				
 			}
 		}
     } else {
@@ -501,7 +498,6 @@ this.grd_List_oncellclick = function(obj:nexacro.Grid, e:nexacro.GridClickEventI
             return 
         }
 		else {
-			// trace("강의 추가됨");
 		}
         // 데이터가 있을 때만 체크된 항목을 복사
         this.fn_copyCheckedRows();
@@ -599,7 +595,7 @@ this.totalGrade_fnCallback = function(svcID, errorCode, errorMsg) {
 	if (errorCode == 0) {
         var totalGrades = this.ds_totalGrade.getColumn(0, "TOTAL_GRADES");
         if (totalGrades !== undefined) {
-            trace("누적학점: " + totalGrades);
+            trace("누적학점: ");
         } else {
             trace("TOTAL_GRADES가 정의되지 않았습니다."); // 데이터가 정상적으로 받아졌는지 확인
         }
@@ -608,7 +604,7 @@ this.totalGrade_fnCallback = function(svcID, errorCode, errorMsg) {
     }
 };
 
-// 총합 학점 계산
+// 총합 학점 계산`
 this.fn_caculatingGrade = function () {
     var calculatingGrade1 = 0;
 	var calculatingGrade2 = 0; 
@@ -627,7 +623,6 @@ this.fn_caculatingGrade = function () {
     // caculatingGrade와 기존 총 성적을 더합니다.
     var totalGrades = calculatingGrade1 + calculatingGrade2;
     // ds_totalGrade의 TOTAL_GRADES 열에 총 성적을 설정합니다.
-	trace("ds_confirmed 학점 : " + calculatingGrade1 + " @ " + "ds_enroll 학점 : " + calculatingGrade2)
     this.ds_totalGrade.setColumn(0, "TOTAL_GRADES", totalGrades);
 };
 
@@ -655,11 +650,9 @@ this.fn_confirmedClasses = function() {
 // 신청한 강의리스트 콜백
 this.confirmed_fnCallback = function(svcID, errorCode, errorMsg) {
     if (errorCode == 0) {
-		// trace("xxxxxxxxxxxxxxxx테스트xxxxxxxxxxxxxxxxxx"+this.ds_confirmed.saveXML());
+		
         this.fn_filterConfirmedClasses();
-		// 		if(this.ds_confirmed.getRowCount() == 0){
-		// 			alert("없네?");
-		// 		}
+		
     } else {
         trace("Error: " + errorMsg);
     }
@@ -800,7 +793,6 @@ this.grd_confirmList_onheadclick = function(obj:nexacro.Grid, e:nexacro.GridClic
 
 // 수강신청하기
 this.btn_Add_onclick = function (){
-	trace("신청하는 강의목록 : " + this.ds_enroll.saveXML());
 	
 	if(this.edt_ProId_2.value == null){
 		alert("수강신청할 학생을 선택해주세요.");
@@ -838,7 +830,6 @@ this.enrollment_fnCallback = function (svcID, errorCode, errorMsg) {
 		for (var i = 0; i < this.ds_listPopup.getRowCount(); i++) {
 			this.ds_listPopup.setColumn(i, "CHECK", "0");
 		}
-		trace("수강신청이 완료되었습니다.");
     } else {
         trace("Error: " + errorMsg);
     }

@@ -19,27 +19,15 @@ public class AdminClassroomServiceImpl extends EgovAbstractServiceImpl implement
 
 	@Override
 	public List<Map<String, Object>> SelectAdminClassroom() {
-		// TODO Auto-generated method stub
 		return mapper.SelectAdminClassroom();
 	}
 
-	@Override
-	public List<Map<String, Object>> SelectAdminClasstime(String param) {
-		// TODO Auto-generated method stub
-		return mapper.SelectAdminClasstime(param);
-	}
 
 	@Override
 	public List<Map<String, Object>> SelectAdminClasscourse(Map<String, Object> param) {
-		// TODO Auto-generated method stub
 		return mapper.SelectAdminClasscourse(param);
 	}
 
-	@Override
-	public List<Map<String, Object>> SelectAdminClasstimeid(String param) {
-		// TODO Auto-generated method stub
-		return mapper.SelectAdminClasstimeid(param);
-	}
 
 	@Override
 	public void saveAdminClasscourse(List<Map<String, Object>> param) {		

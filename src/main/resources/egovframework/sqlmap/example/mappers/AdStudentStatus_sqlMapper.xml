@@ -4,11 +4,13 @@
 	
 	<select id="statusApprovedList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT 
-			SS.STATUS_CODE, SS.REG_DTM, SS.STUDENT_ID, S.NAME, SS.STATUS_TYPE,
-				(CASE WHEN APPROVED = 'N' THEN '미확인'
-				      WHEN APPROVED = 'Y' THEN '승인'
-			          WHEN APPROVED = 'C' THEN '거절'
-			  	END) AS APPROVED,
+			SS.STATUS_CODE, SS.REG_DTM, 
+			SS.STUDENT_ID, S.NAME, 
+			SS.STATUS_TYPE,
+			(CASE WHEN APPROVED = 'N' THEN '미확인'
+			      WHEN APPROVED = 'Y' THEN '승인'
+		          WHEN APPROVED = 'C' THEN '거절'
+		  	END) AS APPROVED,
 			0 AS 'CHECK'
 			
 		FROM STUDENT_STATUS SS
